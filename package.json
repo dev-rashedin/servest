@@ -1,12 +1,21 @@
 {
-  "name": "forge",
-  "version": "1.0.0",
-  "description": "",
+  "name": "easium",
+  "version": "0.1.0-beta",
+  "description": "The easiest way to scaffold backend projects — from Express to Django to Laravel.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "backend",
+    "scaffolding",
+    "cli",
+    "express",
+    "django",
+    "laravel",
+    "typescript",
+    "project-generator"
+  ],
   "author": "Rashedin Islam <https://www.rashedin.dev>",
   "license": "MIT"
 }
