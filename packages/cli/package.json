@@ -1,0 +1,32 @@
+{
+  "name": "servest",
+  "version": "0.0.1",
+  "description": "The fastest way to generate backend projects — from Express to Django to Laravel, with flexible architectures and modern tooling.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "servest": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts"
+  },
+  "keywords": [
+    "backend",
+    "generator",
+    "scaffold",
+    "cli",
+    "express",
+    "django",
+    "laravel",
+    "typescript",
+    "project-generator"
+  ],
+  "author": "Rashedin Islam <https://www.rashedin.dev>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "typescript": "^5.8.3"
+  }
+}
