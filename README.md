@@ -1,6 +1,6 @@
-# ⚒️ Easium – The ultimate backend project generator
+# ⚒️ Servest – The ultimate backend project generator
 
-## Effortlessly scaffold powerful, production-ready backend apps with your choice of language, architecture, and tools. From Express to Django, basic to modular, JS to Python — Forge is where backend projects begin.
+### Effortlessly scaffold powerful, production-ready backend applications with your choice of language, architecture, and tools. From Express to Django to Laravel, basic to modular, JavaScript to Python — Servest is where backend projects take flight.
 
 
 ---
