@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 
-import pc from 'picocolors';
 import { intro, outro, select, text } from '@clack/prompts';
+import { cyan, green } from './utils/console-colors';
+import path from 'path';
+import fs from 'fs-extra';
 
 async function main() {
-  intro(pc.cyan('Servest – Backend project generator'));
+  intro(cyan('Servest – Backend project generator'));
 
   const projectType = await select({
     message: 'Choose a backend framework:',
@@ -20,12 +22,16 @@ async function main() {
     placeholder: 'my-backend-app',
   });
 
-  // For now, just print out results
   console.log('\n🛠️  Generating project...');
   console.log('Framework:', projectType);
   console.log('Folder:', folderName);
 
-  outro(pc.green('Done!'));
+    const src = path.resolve(__dirname, '../templates/express-js-basic');
+    const dest = path.resolve(process.cwd(), folderName as string);
+
+    await fs.copy(src, dest);
+
+   outro(green(`Done! Project created in ./${folderName}`));
 }
 
 main().catch(console.error);
