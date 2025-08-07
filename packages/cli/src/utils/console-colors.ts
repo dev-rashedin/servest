@@ -4,6 +4,9 @@ const colors = {
   red: '\x1b[31m',
   green: '\x1b[32m',
   yellow: '\x1b[33m',
+  blue: '\x1b[34m',
+  magenta: '\x1b[35m',
+  cyan: '\x1b[36m',
   dimGray: '\x1b[2m',
 };
 
@@ -33,6 +36,18 @@ export function green(text: string) : string {
 
 export function bold (text: string) : string {
   return `${colors.bold}${text}${colors.reset}`;
+}
+
+export function blue(text: string) : string {
+  return `${colors.blue}${text}${colors.reset}`;
+}
+
+export function magenta(text: string) : string {
+  return `${colors.magenta}${text}${colors.reset}`;
+}
+
+export function cyan(text: string) : string {
+  return `${colors.cyan}${text}${colors.reset}`;
 }
 
 export function dimGray(text: string) : string {
