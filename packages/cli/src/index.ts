@@ -4,7 +4,7 @@ import { intro, outro, select, text } from '@clack/prompts';
 import { green } from './utils/console-colors';
 import path from 'node:path';
 import fs from 'node:fs/promises';
-import { fileURLToPath } from 'node:url';
+import mri from 'mri';
 
 const variantMap: Record<string, { value: string; label: string }[]> = {
   express: [
@@ -22,6 +22,18 @@ const variantMap: Record<string, { value: string; label: string }[]> = {
     { value: 'php-api', label: 'PHP – API Only' },
   ],
 };
+
+const argv = mri<{
+  template?: string;
+  help?: boolean;
+  overwrite?: boolean;
+}>(process.argv.slice(2), {
+  alias: { h: 'help', t: 'template' },
+  boolean: ['help', 'overwrite'],
+  string: ['template'],
+});
+
+const cwd = process.cwd();
 
 async function main() {
   intro(('Servest – Backend project generator'));
