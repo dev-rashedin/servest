@@ -1,18 +1,21 @@
 {
-  "name": "create-servest",
+  "name": "servest",
   "version": "0.0.1",
   "description": "The fastest way to generate backend projects — from Express to Django to Laravel, with flexible architectures and modern tooling.",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "create-servest": "./index.js"
+    "servest": "./index.js"
   },
   "scripts": {
     "dev": "tsdown --watch",
     "build": "tsdown",
     "typecheck": "tsc",
     "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
   },
   "keywords": [
     "backend",
@@ -31,7 +34,6 @@
     "@clack/prompts": "^0.11.0",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^24.2.0",
-    "esbuild": "^0.25.8",
     "fs-extra": "^11.3.1",
     "mri": "^1.2.0",
     "ts-node": "^10.9.2",

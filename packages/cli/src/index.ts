@@ -98,10 +98,7 @@ async function main() {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
 
-  const src = path.resolve(
-    __dirname,
-    `../../templates/${projectType}-${variant}`
-  );
+  const src = path.resolve(__dirname, `../templates/${projectType}-${variant}`);
   const dest = path.resolve(process.cwd(), folderName);
 
   if (fs.existsSync(dest)) {
