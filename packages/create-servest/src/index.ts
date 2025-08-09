@@ -100,7 +100,7 @@ async function main() {
 
   const src = path.resolve(
     __dirname,
-    `../../templates/${projectType}-${variant}`
+    `../templates/${projectType}-${variant}`
   );
   const dest = path.resolve(process.cwd(), folderName);
 

@@ -2,6 +2,8 @@
   "name": "servest",
   "version": "0.1.0-beta",
   "description": "The fastest way to generate backend projects — from Express to Django to Laravel, with flexible architectures and modern tooling.",
+  "author": "Rashedin Islam <https://www.rashedin.dev>",
+  "license": "MIT",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,6 +18,5 @@
     "typescript",
     "project-generator"
   ],
-  "author": "Rashedin Islam <https://www.rashedin.dev>",
-  "license": "MIT"
+  "packageManager": "pnpm@10.14.0"
 }
