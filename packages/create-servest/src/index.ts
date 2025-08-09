@@ -7,10 +7,12 @@ import mri from 'mri';
 
 const variantMap: Record<string, { value: string; label: string }[]> = {
   express: [
-    { value: 'js-basic', label: 'JavaScript – Basic' },
-    { value: 'ts-basic', label: 'TypeScript – Basic' },
-    { value: 'js-mvc', label: 'JavaScript – MVC' },
-    { value: 'ts-mvc', label: 'TypeScript – MVC' },
+    { value: 'basic-js', label: 'Basic - JavaScript' },
+    { value: 'basic-ts', label: 'Basic - TypeScript' },
+    { value: 'mvc-js', label: 'MVC-JavaScript' },
+    { value: 'mvc-ts', label: 'MVC - TypeScript' },
+    { value: 'modular-js', label: 'Modular-JavaScript' },
+    { value: 'modular-ts', label: 'Modular - TypeScript' },
   ],
   django: [
     { value: 'py-basic', label: 'Python – Basic' },
@@ -22,13 +24,17 @@ const variantMap: Record<string, { value: string; label: string }[]> = {
   ],
 };
 
+// Copy a directory recursively
 function copyRecursiveSync(src: string, dest: string) {
   const stat = fs.statSync(src);
+
   if (stat.isDirectory()) {
     fs.mkdirSync(dest, { recursive: true });
+
     for (const file of fs.readdirSync(src)) {
       const curSrc = path.join(src, file);
       const curDest = path.join(dest, file);
+
       copyRecursiveSync(curSrc, curDest);
     }
   } else {
@@ -58,7 +64,7 @@ async function main() {
       })),
     });
     if (isCancel(selected)) {
-      console.error(red('❌ Operation cancelled.'));
+      console.error(red('Operation cancelled.'));
       process.exit(1);
     }
     projectType = selected;
@@ -71,7 +77,7 @@ async function main() {
       options: variantMap[projectType],
     });
     if (isCancel(selected)) {
-      console.error(red('❌ Operation cancelled.'));
+      console.error(red('Operation cancelled.'));
       process.exit(1);
     }
     variant = selected;
@@ -84,14 +90,15 @@ async function main() {
       placeholder: 'my-backend-app',
     });
     if (isCancel(input)) {
-      console.error(red('❌ Operation cancelled.'));
+      console.error(red('Operation cancelled.'));
       process.exit(1);
     }
     folderName = input;
   }
 
+  // Validate folderName
   if (typeof folderName !== 'string' || folderName.trim() === '') {
-    console.error(red('❌ Invalid folder name'));
+    console.error(red('Invalid folder name'));
     process.exit(1);
   }
 
@@ -105,7 +112,7 @@ async function main() {
   const dest = path.resolve(process.cwd(), folderName);
 
   if (fs.existsSync(dest)) {
-    console.error(red(`❌ Folder "${folderName}" already exists.`));
+    console.error(red(`Folder "${folderName}" already exists.`));
     process.exit(1);
   }
 
@@ -117,7 +124,7 @@ async function main() {
     copyRecursiveSync(src, dest);
   } catch (err) {
     console.error(
-      red(`❌ Failed to copy template files: ${(err as Error).message}`)
+      red(`Failed to copy template files: ${(err as Error).message}`)
     );
     process.exit(1);
   }
