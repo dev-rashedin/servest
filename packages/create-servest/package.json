@@ -1,12 +1,12 @@
 {
-  "name": "servest",
+  "name": "create-servest",
   "version": "0.0.1",
   "description": "The fastest way to generate backend projects — from Express to Django to Laravel, with flexible architectures and modern tooling.",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "servest": "./index.js"
+    "create-servest": "./index.js"
   },
   "scripts": {
     "dev": "tsdown --watch",
