@@ -1,6 +1,8 @@
 const express = require('express');
+const cors = require('cors');
 const { notFoundHandler, globalErrorHandler } = require('express-error-toolkit');
 const { StatusCodes } = require('http-status-toolkit');
+
 const app = express();
 
 // cors and body parser
