@@ -11,9 +11,9 @@ const variantMap: Record<string, { value: string; label: string }[]> = {
   express: [
     { value: 'basic-js', label: 'Basic - JavaScript' },
     { value: 'basic-ts', label: 'Basic - TypeScript' },
-    { value: 'mvc-js', label: 'MVC-JavaScript' },
+    { value: 'mvc-js', label: 'MVC - JavaScript' },
     { value: 'mvc-ts', label: 'MVC - TypeScript' },
-    { value: 'modular-js', label: 'Modular-JavaScript' },
+    { value: 'modular-js', label: 'Modular - JavaScript' },
     { value: 'modular-ts', label: 'Modular - TypeScript' },
   ],
   django: [
@@ -82,6 +82,9 @@ function copyRecursiveSync(src: string, dest: string) {
     fs.mkdirSync(dest, { recursive: true });
 
     for (const file of fs.readdirSync(src)) {
+      // skip .gitkeep files
+      if (file === '.gitkeep') continue;
+
       const curSrc = path.join(src, file);
 
       // If the file is _gitignore, renaming it to .gitignore in destination
