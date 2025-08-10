@@ -1,11 +1,11 @@
-# express-mvc-js
+# express-modular-js
 
-A minimal Express backend starter using MVC architecture with CORS, dotenv, and built-in error handling via `express-error-toolkit` and `http-status-toolkit`.
+A minimal Express backend starter using a modular architecture with feature-based folders, CORS, dotenv, and built-in error handling via `express-error-toolkit` and `http-status-toolkit`.
 
 ## Features
 
 - Express setup with CORS and JSON/urlencoded body parsing  
-- MVC folder structure (`controllers`, `models`, `routes`, `services`, `middlewares`, `config`)  
+- Modular folder structure (`modules` for features, plus `config`, `middlewares`, and `utils`)  
 - Environment config via `.env` (see `.env.example`)  
 - 404 and global error handlers out of the box using `express-error-toolkit`  
 - Clean status codes using `http-status-toolkit`  
@@ -39,11 +39,8 @@ npm run dev
 src/
   app/
     config/         # Configuration files
-    controllers/    # Route handlers / business logic
     middlewares/    # Custom Express middlewares
-    models/         # Database models (empty by default)
-    routes/         # Express routes
-    services/       # Business logic and services
+    modules/          # Feature-based modules
     utils/          # Helper/util functions (optional)
   app.js            # Express app setup
   server.js         # Server bootstrap
@@ -54,6 +51,7 @@ package.json        # Project manifest
 
 ## Notes
 
-- The folder structure is set up to help you organize your code clearly.  
+- The folder structure encourages modular feature development inside `modules/`.  
 - The `express-error-toolkit` handles error middleware out of the box.  
-- Feel free to customize and expand according to your app’s needs.
+- You can add your features under `modules/` manually or via CLI commands.  
++ - Feel free to customize and expand according to your app’s needs.
