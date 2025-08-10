@@ -118,8 +118,7 @@ async function main() {
       })),
     });
     if (isCancel(selected)) {
-      console.error(red('Operation cancelled.'));
-      process.exit(1);
+     cancelOperation()
     }
     projectType = selected;
   }
@@ -131,8 +130,7 @@ async function main() {
       options: variantMap[projectType],
     });
     if (isCancel(selected)) {
-      console.error(red('Operation cancelled.'));
-      process.exit(1);
+      cancelOperation()
     }
     variant = selected;
   }
@@ -144,16 +142,14 @@ async function main() {
       placeholder: 'my-backend-app',
     });
     if (isCancel(input)) {
-      console.error(red('Operation cancelled.'));
-      process.exit(1);
+      cancelOperation()
     }
     folderName = input;
   }
 
   // Validate folderName
   if (typeof folderName !== 'string' || folderName.trim() === '') {
-    console.error(red('Invalid folder name'));
-    process.exit(1);
+   cancelOperation('Invalid folder name');
   }
 
   const __filename = fileURLToPath(import.meta.url);
@@ -172,10 +168,7 @@ async function main() {
   try {
     copyRecursiveSync(src, dest);
   } catch (err) {
-    console.error(
-      red(`Failed to copy template files: ${(err as Error).message}`)
-    );
-    process.exit(1);
+    cancelOperation(`Failed to copy template files: ${(err as Error).message}`);
   }
 
   outro(green(`🎉 Done! Project created at ./${folderName}`));
@@ -183,6 +176,6 @@ async function main() {
 
 // running the main function
 main().catch((err) => {
-  console.error(red('❌ Unexpected error:'), err);
+  console.error(red('Unexpected error:'), err);
   process.exit(1);
 });
