@@ -24,6 +24,27 @@ const variantMap: Record<string, { value: string; label: string }[]> = {
   ],
 };
 
+// check if a directory is empty or not
+function isEmptyDir(dir: string) {
+  if (!fs.existsSync(dir)) return true;
+  const files = fs.readdirSync(dir);
+  return files.length === 0 || (files.length === 1 && files[0] === '.git');
+}
+
+// Remove all files and folders inside the directory recursively, except the .git folder
+function emptyDir(dir: string) {
+  if (!fs.existsSync(dir)) return;
+
+  for (const file of fs.readdirSync(dir)) {
+    if (file === '.git') continue;
+
+    const fullPath = path.join(dir, file);
+    fs.rmSync(fullPath, { recursive: true, force: true });
+  }
+}
+
+
+
 // Copy a directory recursively
 function copyRecursiveSync(src: string, dest: string) {
   const stat = fs.statSync(src);
@@ -33,8 +54,10 @@ function copyRecursiveSync(src: string, dest: string) {
 
     for (const file of fs.readdirSync(src)) {
       const curSrc = path.join(src, file);
-      const curDest = path.join(dest, file);
 
+      // If the file is _gitignore, renaming it to .gitignore in destination
+      const fileName = file === '_gitignore' ? '.gitignore' : file;
+      const curDest = path.join(dest, fileName);
       copyRecursiveSync(curSrc, curDest);
     }
   } else {
