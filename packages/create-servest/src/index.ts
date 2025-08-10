@@ -4,7 +4,9 @@ import { fileURLToPath } from 'node:url';
 import { intro, outro, select, text, isCancel } from '@clack/prompts';
 import { green, red } from './utils/console-colors';
 import mri from 'mri';
+import { cancelOperation } from './utils';
 
+// Map of project types and their variants
 const variantMap: Record<string, { value: string; label: string }[]> = {
   express: [
     { value: 'basic-js', label: 'Basic - JavaScript' },
@@ -24,14 +26,14 @@ const variantMap: Record<string, { value: string; label: string }[]> = {
   ],
 };
 
-// check if a directory is empty or not
+// checking if a directory is empty or not
 function isEmptyDir(dir: string) {
   if (!fs.existsSync(dir)) return true;
   const files = fs.readdirSync(dir);
   return files.length === 0 || (files.length === 1 && files[0] === '.git');
 }
 
-// Remove all files and folders inside the directory recursively, except the .git folder
+// Removing all files and folders inside the directory recursively, except the .git folder
 function emptyDir(dir: string) {
   if (!fs.existsSync(dir)) return;
 
@@ -44,8 +46,35 @@ function emptyDir(dir: string) {
 }
 
 
+/**
+ * Checking if the target directory exists and is not empty.
+ * If it contains files (other than .git), asks the user what to do.
+ * Exits the process if the user cancels.
+ */
 
-// Copy a directory recursively
+async function checkDirectory(dir: string) {
+  if (fs.existsSync(dir) && !isEmptyDir(dir)) {
+    const result = await select({
+      message: `Target directory "${dir}" is not empty. How do you want to proceed?`,
+      options: [
+        { value: 'cancel', label: 'Cancel operation' },
+        { value: 'overwrite', label: 'Remove existing files and continue' },
+        { value: 'ignore', label: 'Ignore and continue' },
+      ],
+    });
+
+    if (isCancel(result) || result === 'cancel') {
+      cancelOperation()
+    }
+
+    if (result === 'overwrite') {
+      emptyDir(dir);
+    }
+  }
+}
+
+
+// Copying a directory recursively
 function copyRecursiveSync(src: string, dest: string) {
   const stat = fs.statSync(src);
 
@@ -65,6 +94,8 @@ function copyRecursiveSync(src: string, dest: string) {
   }
 }
 
+
+// the main function
 async function main() {
   intro('Servest – Backend project generator');
 
@@ -128,16 +159,11 @@ async function main() {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
 
-  const src = path.resolve(
-    __dirname,
-    `../templates/${projectType}-${variant}`
-  );
+  const src = path.resolve(__dirname, `../templates/${projectType}-${variant}`);
   const dest = path.resolve(process.cwd(), folderName);
 
-  if (fs.existsSync(dest)) {
-    console.error(red(`Folder "${folderName}" already exists.`));
-    process.exit(1);
-  }
+  // using the checkDirectory function to handle existing folders
+  await checkDirectory(dest);
 
   console.log(
     `\n🛠️  Generating project "${folderName}" using ${projectType} (${variant})...`
@@ -155,6 +181,7 @@ async function main() {
   outro(green(`🎉 Done! Project created at ./${folderName}`));
 }
 
+// running the main function
 main().catch((err) => {
   console.error(red('❌ Unexpected error:'), err);
   process.exit(1);
