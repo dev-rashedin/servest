@@ -2,16 +2,15 @@
   "name": "express-basic-ts",
   "version": "1.0.0",
   "main": "dist/server.js",
-  "type": "module",
+  "author": "",
+  "description": "",
   "scripts": {
     "build": "tsc",
-    "start:prod": "node ./dist/server.js",
-    "start:dev": "ts-node-dev --respawn --transpile-only server.ts"
+    "start:prod": "node dist/server.js",
+    "start:dev": "ts-node-dev --respawn --transpile-only src/server.ts"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",

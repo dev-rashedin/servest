@@ -36,11 +36,11 @@ npm run dev
 ```
 
 ## Scripts
- - npm run dev - Start server with auto-reload using ts-node-dev
+ - npm run start:dev - Start server with auto-reload using ts-node-dev
 
- - npm run build - Compile TypeScript to JavaScript
+ - npm run start:prod - Run the compiled server from the dist folder for production 
 
- - npm start - Run the compiled JavaScript server
+ - npm run build - Compile TypeScript to JavaScript in the dist folder 
 
 ### Usage
 The app listens on the port defined in .env (PORT), defaulting to 3000.

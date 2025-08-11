@@ -33,3 +33,11 @@ yarn install
 ```bash
 npm run dev
 ```
+
+
+### Usage
+The app listens on the port defined in .env (PORT), defaulting to 3000.
+Access the root route at / to check server status.
+
+License
+MIT

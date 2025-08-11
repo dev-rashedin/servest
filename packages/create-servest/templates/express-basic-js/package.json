@@ -2,14 +2,14 @@
   "name": "express-basic-js",
   "version": "1.0.0",
   "main": "server.js",
+  "author": "",
+  "description": "",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",

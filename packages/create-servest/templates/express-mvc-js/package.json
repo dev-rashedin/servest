@@ -1,15 +1,15 @@
 {
   "name": "express-mvc-js",
   "version": "1.0.0",
-  "main": "./src/server.js",
+  "main": "src/server.js",
+  "author": "",
+  "description": "",
   "scripts": {
-    "start": "node ./src/server.js",
-    "dev": "nodemon ./src/server.js"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",

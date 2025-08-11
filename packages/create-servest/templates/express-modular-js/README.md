@@ -54,4 +54,12 @@ package.json        # Project manifest
 - The folder structure encourages modular feature development inside `modules/`.  
 - The `express-error-toolkit` handles error middleware out of the box.  
 - You can add your features under `modules/` manually or via CLI commands.  
-+ - Feel free to customize and expand according to your app’s needs.
+- Feel free to customize and expand according to your app’s needs.
+
+
+### Usage
+The app listens on the port defined in .env (PORT), defaulting to 3000.
+Access the root route at / to check server status.
+
+License
+MIT
