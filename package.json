@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "build": "sh ./scripts/check-changes.sh || ([ $? -eq 100 ] && echo 'Skipping build as no relevant changes' && exit 0) && npm --prefix packages/web-frontend run build",
+    "build": "sh ../../scripts/check-changes.sh && next build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

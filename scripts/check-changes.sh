@@ -1,16 +1,15 @@
 #!/bin/sh
 
-# Use Vercel’s commit SHAs or fallback for local testing
-PREV_SHA=${VERCEL_GIT_PREVIOUS_SHA:-HEAD~1}
-CURR_SHA=${VERCEL_GIT_COMMIT_SHA:-HEAD}
+# Fail script on first error
+set -e
 
-echo "Comparing changes between $PREV_SHA and $CURR_SHA"
+TARGET_DIR="packages/create-servest"
 
-# Check if relevant folder changed
-if git diff --quiet $PREV_SHA $CURR_SHA -- packages/web-frontend; then
-  echo "No changes in packages/web-frontend, skipping build"
-  exit 100  # special code to indicate skip
+echo "Checking for changes in $TARGET_DIR..."
+
+if git diff --quiet "$VERCEL_GIT_PREVIOUS_SHA" "$VERCEL_GIT_COMMIT_SHA" -- "$TARGET_DIR"; then
+  echo "✅ No changes detected in $TARGET_DIR — skipping build."
+  exit 1  # Exit with non-zero status so Vercel cancels build
 else
-  echo "Changes detected in packages/web-frontend, running build"
-  exit 0
+  echo "📦 Changes detected in $TARGET_DIR — proceeding with build."
 fi
