@@ -1,5 +1,5 @@
 {
-  "name": "express-modular-js",
+  "name": "express-modular-cjs",
   "version": "1.0.0",
   "main": "src/server.js",
   "author": "",

@@ -1,4 +1,4 @@
-# express-modular-js
+# express-modular-cjs
 
 A minimal Express backend starter using a modular architecture with feature-based folders, CORS, dotenv, and built-in error handling via `express-error-toolkit` and `http-status-toolkit`.
 
@@ -8,7 +8,8 @@ A minimal Express backend starter using a modular architecture with feature-base
 - Modular folder structure (`modules` for features, plus `config`, `middlewares`, and `utils`)  
 - Environment config via `.env` (see `.env.example`)  
 - 404 and global error handlers out of the box using `express-error-toolkit`  
-- Clean status codes using `http-status-toolkit`  
+- Clean status codes using `http-status-toolkit`
+- Uses CommonJS (`require`/`module.exports`) module system by default  
 
 ## Getting Started
 
