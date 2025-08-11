@@ -11,9 +11,11 @@ const variantMap: Record<string, { value: string; label: string }[]> = {
   express: [
     { value: 'basic-js', label: 'Basic - JavaScript' },
     { value: 'basic-ts', label: 'Basic - TypeScript' },
-    { value: 'mvc-js', label: 'MVC - JavaScript' },
+    { value: 'mvc-cjs', label: 'MVC - CommonJS' },
+    { value: 'mvc-esm', label: 'MVC - ESM' },
     { value: 'mvc-ts', label: 'MVC - TypeScript' },
-    { value: 'modular-js', label: 'Modular - JavaScript' },
+    { value: 'modular-cjs', label: 'Modular - CommonJS' },
+    { value: 'modular-esm', label: 'Modular - ESM' },
     { value: 'modular-ts', label: 'Modular - TypeScript' },
   ],
   django: [
@@ -45,7 +47,6 @@ function emptyDir(dir: string) {
   }
 }
 
-
 /**
  * Checking if the target directory exists and is not empty.
  * If it contains files (other than .git), asks the user what to do.
@@ -64,7 +65,7 @@ async function checkDirectory(dir: string) {
     });
 
     if (isCancel(result) || result === 'cancel') {
-      cancelOperation()
+      cancelOperation();
     }
 
     if (result === 'overwrite') {
@@ -72,7 +73,6 @@ async function checkDirectory(dir: string) {
     }
   }
 }
-
 
 // Copying a directory recursively
 function copyRecursiveSync(src: string, dest: string) {
@@ -97,7 +97,6 @@ function copyRecursiveSync(src: string, dest: string) {
   }
 }
 
-
 // the main function
 async function main() {
   intro('Servest – Backend project generator');
@@ -121,7 +120,7 @@ async function main() {
       })),
     });
     if (isCancel(selected)) {
-     cancelOperation()
+      cancelOperation();
     }
     projectType = selected;
   }
@@ -133,7 +132,7 @@ async function main() {
       options: variantMap[projectType],
     });
     if (isCancel(selected)) {
-      cancelOperation()
+      cancelOperation();
     }
     variant = selected;
   }
@@ -145,14 +144,14 @@ async function main() {
       placeholder: 'my-backend-app',
     });
     if (isCancel(input)) {
-      cancelOperation()
+      cancelOperation();
     }
     folderName = input;
   }
 
   // Validate folderName
   if (typeof folderName !== 'string' || folderName.trim() === '') {
-   cancelOperation('Invalid folder name');
+    cancelOperation('Invalid folder name');
   }
 
   const __filename = fileURLToPath(import.meta.url);
