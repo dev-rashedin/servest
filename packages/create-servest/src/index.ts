@@ -19,12 +19,16 @@ const variantMap: Record<string, { value: string; label: string }[]> = {
     { value: 'modular-ts', label: 'Modular - TypeScript' },
   ],
   django: [
-    { value: 'py-basic', label: 'Python – Basic' },
-    { value: 'py-api', label: 'Python – API Only' },
+    { value: 'django-basic', label: 'Django Basic' },
+    { value: 'django-api', label: 'Django API Only' },
+    { value: 'django-channels', label: 'Django Channels (WebSocket)' },
+    { value: 'django-celery', label: 'Django Celery (Background Tasks)' },
   ],
   laravel: [
-    { value: 'php-basic', label: 'PHP – Basic' },
-    { value: 'php-api', label: 'PHP – API Only' },
+    { value: 'laravel-basic', label: 'Laravel Basic' },
+    { value: 'laravel-api', label: 'Laravel API Only' },
+    { value: 'laravel-breeze', label: 'Laravel Breeze (Simple Auth)' },
+    { value: 'laravel-jetstream', label: 'Laravel Jetstream (Advanced Auth)' },
   ],
 };
 
