@@ -36,11 +36,13 @@ npm run dev
 
 
 ### Usage
+
 The app listens on the port defined in .env (PORT), defaulting to 3000.
 Access the root route at / to check server status.
 
 
 ### Notes
+
 - The folder structure is set up to help you organize your code clearly.  
 - The `express-error-toolkit` handles error middleware out of the box.  
 - Feel free to customize and expand according to your app’s needs.
