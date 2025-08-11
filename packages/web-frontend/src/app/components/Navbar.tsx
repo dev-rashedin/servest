@@ -16,9 +16,18 @@ const Navbar = () => {
           <li>
             <Link href='/'>Home</Link>
           </li>
-          <li>Guide</li>
-          <li>GitHub</li>
-          <li></li>
+          <li>
+            <Link href='/docs'>Docs</Link>
+          </li>
+          <li>
+            <Link href='/guide'>Guide</Link>
+          </li>
+          <li>
+            <Link href='/blogs'>Blogs</Link>
+          </li>
+          <li>
+            <Link href='/github'>GitHub</Link>
+          </li>
         </ul>
       </div>
     </div>
