@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 import { notFoundHandler, globalErrorHandler } from 'express-error-toolkit';
 import { StatusCodes } from 'http-status-toolkit';
@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // home route
-app.get('/', (req, res) => {
+app.get('/', (_req: Request, res: Response) => {
   res.status(StatusCodes.OK).json({
     success: true,
     message: 'Server is running',

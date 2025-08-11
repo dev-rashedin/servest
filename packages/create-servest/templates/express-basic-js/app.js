@@ -20,7 +20,6 @@ app.get('/', (req, res) => {
 });
   
 // not found handler and global error handler
-
 app.use(notFoundHandler)
 app.use(globalErrorHandler)
   
