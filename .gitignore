@@ -1,11 +1,24 @@
+# Dependencies
 node_modules
+.pnpm-store
+
+# OS / Editor junk
 .DS_Store
 .idea
-.pnpm-store
-*.cpuprofile
-*.local
+.vscode/
+
+# Logs & profiling
 *.log
-/.vscode/
+*.local
+*.cpuprofile
+
+# Build outputs
 dist
 dist-ssr
+
+# Example: ignore all dist folders in packages
+packages/**/dist
+packages/**/dist-ssr
+
+# Misc
 explorations
