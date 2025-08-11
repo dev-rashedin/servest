@@ -1,0 +1,24 @@
+{
+  "name": "express-modular-esm",
+  "version": "1.0.0",
+  "main": "./src/server.js",
+  "type": "module",
+  "author": "",
+  "description": "",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "express-error-toolkit": "^1.2.0",
+    "http-status-toolkit": "^2.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
