@@ -42,15 +42,5 @@
   "bugs": {
     "url": "https://github.com/dev-rashedin/servest/issues"
   },
-  "homepage": "https://github.com/dev-rashedin/servest/tree/main/packages/create-servest#readme",
-  "devDependencies": {
-    "@clack/prompts": "^0.11.0",
-    "@types/fs-extra": "^11.0.4",
-    "@types/node": "^24.2.0",
-    "fs-extra": "^11.3.1",
-    "mri": "^1.2.0",
-    "ts-node": "^10.9.2",
-    "tsdown": "^0.13.4",
-    "typescript": "^5.9.2"
-  }
+  "homepage": "https://github.com/dev-rashedin/servest/tree/main/packages/create-servest#readme"
 }
