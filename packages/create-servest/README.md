@@ -4,7 +4,7 @@
 ## Scaffolding Your First Backend Project
 
 > **Compatibility Note:**
-> Servest requires [Node.js](https://nodejs.org/en/) version 20+. Some templates may require a higher Node.js version.
+> Servest requires [Node.js](https://nodejs.org/en/) version 18+. Some templates may require a higher Node.js version.
 
 With NPM:
 
@@ -32,7 +32,7 @@ bun create servest
 
 Then follow the prompts!
 
-You can also directly specify the project name, type, and variant via additional command line options. For example, to scaffold an Express Basic JS project:
+<!-- You can also directly specify the project name, type, and variant via additional command line options. For example, to scaffold an Express Basic JS project:
 
 ```bash
 # npm 7+, extra double-dash is needed:
@@ -46,7 +46,7 @@ pnpm create servest my-backend-app --type express --variant basic-js
 
 # Bun
 bun create servest my-backend-app --type express --variant basic-js
-```
+``` -->
 
 Currently supported frameworks and variants include:
 
@@ -63,27 +63,28 @@ Currently supported frameworks and variants include:
 ### Django
 - `django-basic` — Django Basic
 
-### Laravel
-- `laravel-basic` — Laravel Basic
-- `laravel-api` — Laravel API Only
-- `laravel-breeze` — Laravel Breeze (Simple Auth)
-- `laravel-jetstream` — Laravel Jetstream (Advanced Auth)
 
 You can use `.` for the project name to scaffold in the current directory.
 
 ## Community Templates
 
-Servest is a tool to quickly start a backend project from basic templates for popular frameworks. More community templates may be added over time.
+Servest lets you quickly start a backend project using ready-made templates. You’re not limited to the official templates—other community templates can also be used.
+
+To use a community template from GitHub:
 
 ```bash
+# Copy the template files to a new folder
 npx degit user/project my-project
 cd my-project
 
+# Install the project dependencies
 npm install
+
+# Start the development server
 npm run dev
 ```
 
-If the project uses `main` as the default branch, suffix the project repo with `#main`:
+> Tip: Some repositories use main instead of master as their default branch. In that case, add #main to the repo name:
 
 ```bash
 npx degit user/project#main my-project
