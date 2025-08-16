@@ -41,7 +41,6 @@
     "ts-jest": "^29.4.1",
     "ts-node": "^10.9.2",
     "tsdown": "^0.13.5",
-    "typescript": "^5.9.2",
-    "vitest": "^3.2.4"
+    "typescript": "^5.9.2"
   }
 }
