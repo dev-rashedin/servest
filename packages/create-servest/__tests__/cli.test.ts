@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Paths
-const CLI_RELATIVE = '../src/main.ts';
+const CLI_RELATIVE = '../src/index.ts';
 const CLI_ABS = path.resolve(__dirname, CLI_RELATIVE);
 const projectName = 'test-backend';
 const genPath = path.join(__dirname, projectName);
