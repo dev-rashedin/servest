@@ -1,28 +1,34 @@
 {
-  "name": "servest",
+  "name": "servest-monorepo",
   "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "homepage": "https://servest.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dev-rashedin/servest.git"
+  },
   "workspaces": [
     "packages/*"
   ],
-  "version": "0.1.0-beta",
-  "description": "The fastest way to generate backend projects — from Express to Django to Laravel, with flexible architectures and modern tooling.",
-  "author": "Rashedin Islam <https://www.rashedin.dev>",
-  "license": "MIT",
-  "scripts": {
-    "build": "pnpm -r run build",
-    "test": "pnpm -r run test",
-    "publish:servest": "pnpm --filter create-servest publish --access public"
-  },
   "keywords": [
     "backend",
-    "scaffolding",
     "cli",
+    "scaffolding",
     "express",
     "django",
     "laravel",
     "typescript",
     "project-generator"
   ],
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "build": "pnpm -r run build",
+    "test": "pnpm -r run test",
+    "publish:servest": "pnpm --filter create-servest publish --access public"
+  },
   "packageManager": "pnpm@10.14.0",
   "devDependencies": {
     "@types/node": "^24.2.1",

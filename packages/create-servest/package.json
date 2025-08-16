@@ -1,10 +1,10 @@
 {
-  "name": "servest",
-  "version": "0.0.1",
-  "author": "Rashedin Islam <https://www.rashedin.dev>",
-  "description": "The fastest way to generate backend projects — from Express to Django to Laravel, with flexible architectures and modern tooling.",
+  "name": "create-servest",
+  "version": "0.1.1",
   "type": "module",
   "license": "MIT",
+  "author": "Rashedin Islam <https://www.rashedin.dev>",
+  "description": "The fastest way to generate backend projects — from Express to Django to Laravel, with flexible architectures and modern tooling.",
   "engines": {
     "node": ">=18"
   },
