@@ -2,7 +2,7 @@
 
 All notable changes to **Servest** will be documented here.
 
-## [1.1.0] – 2025-08-16
+## [0.1.2] – 2025-08-16
 ### Added
 - Initial MVP release of **Servest**
 - Added 8 Express templates:
