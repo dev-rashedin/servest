@@ -1,5 +1,5 @@
 {
-  "name": "create-servest",
+  "name": "servest",
   "version": "0.0.1",
   "author": "Rashedin Islam <https://www.rashedin.dev>",
   "description": "The fastest way to generate backend projects — from Express to Django to Laravel, with flexible architectures and modern tooling.",
@@ -7,7 +7,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "create-servest": "index.js"
+    "servest": "bin/index.js",
+    "create-servest": "bin/index.js"
   },
   "scripts": {
     "dev": "tsdown --watch",

@@ -1,5 +1,9 @@
 {
   "name": "servest",
+  "private": true,
+  "workspaces" : [
+   "packages/*"
+  ],
   "version": "0.1.0-beta",
   "description": "The fastest way to generate backend projects — from Express to Django to Laravel, with flexible architectures and modern tooling.",
   "author": "Rashedin Islam <https://www.rashedin.dev>",
