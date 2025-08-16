@@ -1,17 +1,17 @@
 {
   "name": "servest",
   "private": true,
-  "workspaces" : [
-   "packages/*"
+  "workspaces": [
+    "packages/*"
   ],
   "version": "0.1.0-beta",
   "description": "The fastest way to generate backend projects — from Express to Django to Laravel, with flexible architectures and modern tooling.",
   "author": "Rashedin Islam <https://www.rashedin.dev>",
   "license": "MIT",
-  "main": "index.js",
   "scripts": {
-    "build": "next build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "pnpm -r run build",
+    "test": "pnpm -r run test",
+    "publish:servest": "pnpm --filter create-servest publish --access public"
   },
   "keywords": [
     "backend",
