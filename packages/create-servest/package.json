@@ -9,8 +9,8 @@
     "node": ">=18"
   },
   "bin": {
-    "servest": "bin/index.js",
-    "create-servest": "bin/index.js"
+    "servest": "index.js",
+    "create-servest": "index.js"
   },
   "scripts": {
     "dev": "tsdown --watch",
