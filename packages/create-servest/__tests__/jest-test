@@ -1,8 +1,6 @@
-// test/cli.spec.test.ts
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { beforeEach, afterEach, describe, expect, test, vi } from 'vitest';
 
 // ESM __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -21,18 +19,18 @@ const clearGenerated = () => {
 };
 
 // Mocks
-vi.mock('@clack/prompts', () => {
+jest.mock('@clack/prompts', () => {
   return {
-    intro: vi.fn(),
-    outro: vi.fn(),
-    select: vi.fn(),
-    text: vi.fn(),
+    intro: jest.fn(),
+    outro: jest.fn(),
+    select: jest.fn(),
+    text: jest.fn(),
     isCancel: (v: any) => v === 'cancel',
   };
 });
 
-vi.mock('../src/utils', () => ({
-  cancelOperation: vi.fn((msg?: string) => {
+jest.mock('../src/utils', () => ({
+  cancelOperation: jest.fn((msg?: string) => {
     throw new Error(msg || 'Operation cancelled');
   }),
 }));
@@ -40,7 +38,7 @@ vi.mock('../src/utils', () => ({
 beforeEach(() => {
   process.chdir(__dirname);
   clearGenerated();
-  vi.resetModules();
+  jest.resetModules();
 });
 
 afterEach(() => {

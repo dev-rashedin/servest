@@ -26,7 +26,10 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build": "pnpm -r run build",
-    "test": "pnpm -r run test",
+    "test": "pnpm test-unit && pnpm test-serve && pnpm test-build",
+    "test-unit": "jest --config=jest.config.ts --passWithNoTests",
+    "test-serve": "jest --config=jest.serve.config.ts --passWithNoTests",
+    "test-build": "VITE_TEST_BUILD=1 jest --config=jest.build.config.ts --passWithNoTests",
     "publish:servest": "pnpm --filter create-servest publish --access public"
   },
   "packageManager": "pnpm@10.14.0",
@@ -41,6 +44,7 @@
     "ts-jest": "^29.4.1",
     "ts-node": "^10.9.2",
     "tsdown": "^0.13.5",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
   }
 }
