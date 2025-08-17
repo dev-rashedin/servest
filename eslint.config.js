@@ -13,7 +13,6 @@ export default tseslint.config(
   {
     // Global ignores
     ignores: [
-      'packages/*/dist/**',
       '**/node_modules/**',
       '**/dist/**',
       '**/.next/**',
@@ -35,13 +34,20 @@ export default tseslint.config(
         sourceType: 'module',
         ecmaVersion: 2022,
         project: shouldTypeCheck
-          ? ['./packages/create-servest/tsconfig.json', './packages/servest-addons/tsconfig.json']
+          ? [
+              './packages/create-servest/tsconfig.json',
+              './packages/servest-addons/tsconfig.json',
+              './packages/servest-frontend/tsconfig.json',
+            ]
           : undefined,
       },
       globals: {
         ...globals.es2021,
         ...globals.node,
       },
+    },
+    settings: {
+      node: { version: '>=18.0.0' },
     },
     plugins: {
       n: pluginN,
@@ -57,16 +63,19 @@ export default tseslint.config(
       'no-debugger': 'error',
       'no-empty': ['warn', { allowEmptyCatch: true }],
       'prefer-const': ['warn', { destructuring: 'all' }],
+
       '@typescript-eslint/no-unused-vars': [
         'error',
-        {
-          argsIgnorePattern: '^_',
-          caughtErrorsIgnorePattern: '^_',
-          ignoreRestSiblings: true,
-        },
+        { argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_', ignoreRestSiblings: true },
       ],
-      '@typescript-eslint/no-explicit-any': 'off', // optional, allow templates
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': [
+        'error',
+        { allowArgumentsExplicitlyTypedAsAny: true },
+      ],
+      '@typescript-eslint/no-unsafe-function-type': 'off',
+      '@typescript-eslint/no-empty-function': ['error', { allow: ['arrowFunctions'] }],
+
       'import-x/no-duplicates': 'error',
       'import-x/order': [
         'error',
@@ -85,7 +94,7 @@ export default tseslint.config(
   },
   {
     name: 'backend-starter',
-    files: ['packages/**/*.?([cm])[jt]s?(x)'],
+    files: ['packages/create-servest/**/*.ts', 'packages/create-servest/**/*.tsx'],
     ignores: ['**/__tests__/**'],
     rules: {
       'no-restricted-globals': ['error', 'require', '__dirname', '__filename'],
@@ -102,21 +111,24 @@ export default tseslint.config(
   },
   {
     name: 'frontend',
-    files: ['packages/servest-frontend/**/*.ts', 'packages/servest-frontend**/*.tsx'],
+    files: ['packages/servest-frontend/**/*.ts', 'packages/servest-frontend/**/*.tsx'],
     rules: {
-      '@typescript-eslint/no-explicit-any': 'warn', // allow some flexibility
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
     },
   },
   {
     name: 'tests',
     files: ['**/__tests__/**/*.?([cm])[jt]s?(x)'],
     rules: {
+      // Relaxed rules for tests (like Vite)
       'n/no-unsupported-features/node-builtins': [
         'error',
-        {
-          ignores: ['fetch', 'import.meta.dirname'],
-        },
+        { ignores: ['fetch', 'import.meta.dirname'] },
       ],
+      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+      '@typescript-eslint/no-empty-function': 'off',
     },
   },
 );
