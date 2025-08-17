@@ -1,9 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { intro, outro, select, text, isCancel } from '@clack/prompts';
-import { green, red } from './utils/console-colors';
+import { intro, isCancel, outro, select, text } from '@clack/prompts';
 import mri from 'mri';
+import { green, red } from './utils/console-colors';
 import { cancelOperation } from './utils';
 
 // Map of project types and their variants

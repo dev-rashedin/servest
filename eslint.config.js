@@ -1,13 +1,10 @@
 // @ts-check
-import { createRequire } from 'node:module';
 import eslint from '@eslint/js';
 import pluginN from 'eslint-plugin-n';
 import pluginImportX from 'eslint-plugin-import-x';
 import pluginRegExp from 'eslint-plugin-regexp';
 import tseslint from 'typescript-eslint';
 import globals from 'globals';
-
-const require = createRequire(import.meta.url);
 
 // Flags type-checking only in IDE (optional)
 const shouldTypeCheck = typeof process.env.VSCODE_PID === 'string';
@@ -18,7 +15,10 @@ export default tseslint.config(
     ignores: [
       'packages/*/dist/**',
       '**/node_modules/**',
-      '**/playground-temp/**',
+      '**/dist/**',
+      '**/.next/**',
+      '**/coverage/**',
+      '**/.turbo/**',
       '**/*.snap',
       'packages/create-servest/templates/**',
     ],
@@ -34,7 +34,9 @@ export default tseslint.config(
       parserOptions: {
         sourceType: 'module',
         ecmaVersion: 2022,
-        project: shouldTypeCheck ? ['./packages/*/tsconfig.json'] : undefined,
+        project: shouldTypeCheck
+          ? ['./packages/create-servest/tsconfig.json', './packages/servest-addons/tsconfig.json']
+          : undefined,
       },
       globals: {
         ...globals.es2021,
@@ -82,18 +84,39 @@ export default tseslint.config(
     },
   },
   {
+    name: 'backend-starter',
+    files: ['packages/**/*.?([cm])[jt]s?(x)'],
+    ignores: ['**/__tests__/**'],
+    rules: {
+      'no-restricted-globals': ['error', 'require', '__dirname', '__filename'],
+    },
+  },
+  {
+    name: 'backend-utilities',
+    files: ['packages/servest-addons/**/*.ts', 'packages/servest-addons/**/*.tsx'],
+    ignores: ['**/__tests__/**'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+    },
+  },
+  {
     name: 'frontend',
-    files: ['packages/web-frontend/**/*.ts', 'packages/web-frontend/**/*.tsx'],
+    files: ['packages/servest-frontend/**/*.ts', 'packages/servest-frontend**/*.tsx'],
     rules: {
       '@typescript-eslint/no-explicit-any': 'warn', // allow some flexibility
     },
   },
   {
-    name: 'backend-starter',
-    files: ['packages/servest-addons/**/*.ts', 'packages/servest-addons/**/*.tsx'],
+    name: 'tests',
+    files: ['**/__tests__/**/*.?([cm])[jt]s?(x)'],
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
+      'n/no-unsupported-features/node-builtins': [
+        'error',
+        {
+          ignores: ['fetch', 'import.meta.dirname'],
+        },
+      ],
     },
   },
 );

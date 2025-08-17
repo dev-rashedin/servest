@@ -30,8 +30,8 @@
     "project-generator"
   ],
   "files": [
-    "bin",
     "dist",
+    "index.js",
     "templates/**"
   ],
   "repository": {
