@@ -1,36 +1,35 @@
-import Image from "next/image"
-import Link from "next/link"
-
+import Image from 'next/image';
+import Link from 'next/link';
 
 const Navbar = () => {
   return (
-    <div className='flex justify-between py-5'>
+    <div className="flex justify-between py-5">
       <div>
-        <Link href='/' className='flex-center gap-2'>
-          <Image src='/logo.svg' width={40} height={40} alt='logo' />
-          <h1 className='text-2xl font-bold'>Servest</h1>
+        <Link href="/" className="flex-center gap-2">
+          <Image src="/logo.svg" width={40} height={40} alt="logo" />
+          <h1 className="text-2xl font-bold">Servest</h1>
         </Link>
       </div>
       <div>
-        <ul className='flex gap-8'>
+        <ul className="flex gap-8">
           <li>
-            <Link href='/'>Home</Link>
+            <Link href="/">Home</Link>
           </li>
           <li>
-            <Link href='/docs'>Docs</Link>
+            <Link href="/docs">Docs</Link>
           </li>
           <li>
-            <Link href='/guide'>Guide</Link>
+            <Link href="/guide">Guide</Link>
           </li>
           <li>
-            <Link href='/blogs'>Blogs</Link>
+            <Link href="/blogs">Blogs</Link>
           </li>
           <li>
-            <Link href='/github'>GitHub</Link>
+            <Link href="/github">GitHub</Link>
           </li>
         </ul>
       </div>
     </div>
   );
-}
-export default Navbar
+};
+export default Navbar;

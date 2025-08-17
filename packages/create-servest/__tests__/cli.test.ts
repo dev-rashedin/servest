@@ -16,8 +16,7 @@ const genPath = path.join(__dirname, projectName);
 
 const origCwd = process.cwd();
 const clearGenerated = () => {
-  if (fs.existsSync(genPath))
-    fs.rmSync(genPath, { recursive: true, force: true });
+  if (fs.existsSync(genPath)) fs.rmSync(genPath, { recursive: true, force: true });
 };
 
 // Mocks
@@ -82,14 +81,7 @@ describe('create-servest CLI', () => {
       throw new Error('text should not be called in flags mode');
     });
 
-    await runCli([
-      '--type',
-      'express',
-      '--variant',
-      'basic-js',
-      '--name',
-      projectName,
-    ]);
+    await runCli(['--type', 'express', '--variant', 'basic-js', '--name', projectName]);
 
     expect(fs.existsSync(genPath)).toBe(true);
     const files = fs.readdirSync(genPath);

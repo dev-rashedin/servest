@@ -10,46 +10,46 @@ const colors = {
   dimGray: '\x1b[2m',
 };
 
-export function boldRed(text: string) : string {
+export function boldRed(text: string): string {
   return `${colors.bold}${colors.red}${text}${colors.reset}`;
 }
 
-export function red(text: string) : string {
+export function red(text: string): string {
   return `${colors.red}${text}${colors.reset}`;
 }
 
-export function boldYellow(text: string) : string {
+export function boldYellow(text: string): string {
   return `${colors.bold}${colors.yellow}${text}${colors.reset}`;
 }
 
-export function yellow(text: string) : string {
+export function yellow(text: string): string {
   return `${colors.yellow}${text}${colors.reset}`;
 }
 
-export function boldGreen(text: string) : string {
+export function boldGreen(text: string): string {
   return `${colors.bold}${colors.green}${text}${colors.reset}`;
 }
 
-export function green(text: string) : string {
+export function green(text: string): string {
   return `${colors.green}${text}${colors.reset}`;
 }
 
-export function bold (text: string) : string {
+export function bold(text: string): string {
   return `${colors.bold}${text}${colors.reset}`;
 }
 
-export function blue(text: string) : string {
+export function blue(text: string): string {
   return `${colors.blue}${text}${colors.reset}`;
 }
 
-export function magenta(text: string) : string {
+export function magenta(text: string): string {
   return `${colors.magenta}${text}${colors.reset}`;
 }
 
-export function cyan(text: string) : string {
+export function cyan(text: string): string {
   return `${colors.cyan}${text}${colors.reset}`;
 }
 
-export function dimGray(text: string) : string {
+export function dimGray(text: string): string {
   return `${colors.dimGray}${text}${colors.reset}`;
 }

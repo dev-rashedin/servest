@@ -167,9 +167,7 @@ async function main() {
   // using the checkDirectory function to handle existing folders
   await checkDirectory(dest);
 
-  console.log(
-    `\n🛠️  Generating project "${folderName}" using ${projectType} (${variant})...`
-  );
+  console.log(`\n🛠️  Generating project "${folderName}" using ${projectType} (${variant})...`);
 
   try {
     copyRecursiveSync(src, dest);

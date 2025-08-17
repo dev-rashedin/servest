@@ -1,0 +1,6 @@
+dist/
+node_modules/
+packages/*/CHANGELOG.md
+pnpm-lock.yaml
+*.log
+*.tsbuildinfo

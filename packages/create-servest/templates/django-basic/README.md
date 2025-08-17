@@ -3,6 +3,7 @@
 A minimal Django project template for quickly starting a new Python web application.
 
 ## 🚀 Features
+
 - Django pre-installed project structure
 - SQLite as the default database (no extra setup)
 - Ready to run development server
@@ -13,6 +14,7 @@ A minimal Django project template for quickly starting a new Python web applicat
 ## 📦 Getting Started
 
 ### 1️⃣ Create Virtual Environment (Recommended)
+
 ```bash
 python -m venv venv
 ```
@@ -31,6 +33,7 @@ Activate it:
 ---
 
 ### 2️⃣ Install Django
+
 ```bash
 pip install django
 ```
@@ -38,6 +41,7 @@ pip install django
 ---
 
 ### 3️⃣ Run Migrations
+
 ```bash
 python manage.py migrate
 ```
@@ -45,11 +49,13 @@ python manage.py migrate
 ---
 
 ### 4️⃣ Start Development Server
+
 ```bash
 python manage.py runserver
 ```
 
 Server will run at:
+
 ```
 http://127.0.0.1:8000
 ```
@@ -57,6 +63,7 @@ http://127.0.0.1:8000
 ---
 
 ## 📂 Project Structure
+
 ```
 .
 ├── .gitignore          # Ignores cache, venv, DB, etc.
@@ -72,6 +79,7 @@ http://127.0.0.1:8000
 ---
 
 ## 🛠 Next Steps
+
 - Create your first app:
   ```bash
   python manage.py startapp appname
@@ -82,5 +90,6 @@ http://127.0.0.1:8000
 ---
 
 ## 📚 Learn More
+
 - [Django Documentation](https://docs.djangoproject.com/en/stable/)
 - [Python Official Docs](https://docs.python.org/3/)

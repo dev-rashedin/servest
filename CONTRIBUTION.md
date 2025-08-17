@@ -7,7 +7,6 @@ Thank you for your interest in contributing! We welcome contributions from every
 This repository contains three packages:
 
 1. **create-servest** – CLI for generating backend starter projects with templates.
-
    - Supports Express, Django, and future variants like Laravel and Go.
    - Example: `npm create servest@latest -- --template express-mvc-ts`
 

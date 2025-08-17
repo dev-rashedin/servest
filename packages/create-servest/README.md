@@ -1,4 +1,3 @@
-
 # servest <a href="https://npmjs.com/package/servest"><img src="https://img.shields.io/npm/v/servest" alt="npm package"></a>
 
 ## Scaffolding Your First Backend Project
@@ -51,6 +50,7 @@ bun create servest my-backend-app --type express --variant basic-js
 Currently supported frameworks and variants include:
 
 ### Express
+
 - `basic-js` — Basic JavaScript
 - `basic-ts` — Basic TypeScript
 - `mvc-cjs` — MVC CommonJS
@@ -61,8 +61,8 @@ Currently supported frameworks and variants include:
 - `modular-ts` — Modular TypeScript
 
 ### Django
-- `django-basic` — Django Basic
 
+- `django-basic` — Django Basic
 
 You can use `.` for the project name to scaffold in the current directory.
 
