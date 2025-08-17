@@ -26,8 +26,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build": "pnpm -r run build",
-    "test": "pnpm test-unit",
-   "test-unit": "jest --config jest.config.ts --passWithNoTests",
+    "test": "vitest run",
     "publish:servest": "pnpm --filter create-servest publish --access public"
   },
   "packageManager": "pnpm@10.14.0",
