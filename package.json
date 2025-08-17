@@ -35,11 +35,13 @@
   },
   "devDependencies": {
     "@clack/prompts": "^0.11.0",
+    "@eslint/js": "^9.33.0",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^24.2.1",
     "@typescript-eslint/eslint-plugin": "^8.39.1",
     "@typescript-eslint/parser": "^8.39.1",
     "eslint": "^9.33.0",
+    "eslint-define-config": "^2.1.0",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^5.5.4",
@@ -51,16 +53,25 @@
     "ts-node": "^10.9.2",
     "tsdown": "^0.13.5",
     "typescript": "^5.9.2",
+    "typescript-eslint": "^8.39.1",
     "vitest": "^3.2.4"
   },
-  "lint-staged": {
-    "*.{ts,tsx,js,jsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ]
-  },
   "simple-git-hooks": {
-    "pre-commit": "lint-staged"
+    "pre-commit": "pnpm exec lint-staged --concurrent false"
+  },
+  "lint-staged": {
+    "*": [
+      "prettier --write --cache --ignore-unknown"
+    ],
+    "packages/*/{src,types}/**/*.{ts,tsx,js,jsx}": [
+      "eslint --cache --fix"
+    ],
+    "packages/**/*.d.ts": [
+      "eslint --cache --fix"
+    ],
+    "web-frontend/**/__tests__/**/*.{ts,tsx,js,jsx}": [
+      "eslint --cache --fix"
+    ]
   },
   "packageManager": "pnpm@10.14.0"
 }
