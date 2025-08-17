@@ -20,8 +20,7 @@ export default tseslint.config(
       '**/node_modules/**',
       '**/playground-temp/**',
       '**/*.snap',
-      // Ignore backend starter templates temporarily
-      'packages/servest-addons/**',
+      'packages/create-servest/templates/**',
     ],
   },
   eslint.configs.recommended,
