@@ -18,8 +18,3 @@ All notable changes to **Servest** will be documented here.
   - Django Basic
 - CLI scaffolding fully functional for creating backend projects
 - `checkDirectory` implemented to safely handle existing directories
-
-## [0.0.1] – 2025-07-24
-### Added
-- Reserved the `servest` package name on npm
-- Initialized CLI project with TypeScript setup
