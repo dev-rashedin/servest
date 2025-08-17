@@ -27,18 +27,18 @@
 Servest is a CLI tool and monorepo for generating **starter projects for any backend framework or language**. It consists of three main packages:
 
 - `create-servest`: CLI for generating project templates (currently 8 Express + 1 Django template, more coming).
-- `web-frontend`: Frontend for documentation and project showcase (like vite.dev).
+- `servest-frontend`: Frontend for documentation and project showcase (like vite.dev).
 - `servest`: CLI to add common backend features (like `npx add servest@latest eslint-prettier`).
 
 [Read the Docs to Learn More](https://servest.vercel.app).
 
 ## Packages
 
-| Package                 | Version (click for changelogs) |
-| ----------------------- | :---------------------------- |
-| [create-servest](packages/create-servest) | [![version](https://img.shields.io/npm/v/create-servest.svg?label=%20)](packages/create-servest/CHANGELOG.md) |
-| [web-frontend](packages/web-frontend)   | [![version](https://img.shields.io/npm/v/web-frontend.svg?label=%20)](packages/web-frontend/CHANGELOG.md) |
-| [servest](packages/servest)             | Coming Soon |
+| Package                                       | Version (click for changelogs)                                                                                    |
+| --------------------------------------------- | :---------------------------------------------------------------------------------------------------------------- |
+| [create-servest](packages/create-servest)     | [![version](https://img.shields.io/npm/v/create-servest.svg?label=%20)](packages/create-servest/CHANGELOG.md)     |
+| [servest-addons](packages/servest-addons)     | [![version](https://img.shields.io/npm/v/servest?label=%20)](packages/servest-addons/CHANGELOG.md)                |
+| [servest-frontend](packages/servest-frontend) | [![version](https://img.shields.io/npm/v/servest-frontend.svg?label=%20)](packages/servest-frontend/CHANGELOG.md) |
 
 ## Contribution
 
@@ -48,10 +48,10 @@ See [Contributing Guide](CONTRIBUTING.md).
 
 [MIT](LICENSE).
 
-## Sponsors
+<!-- ## Sponsors
 
 <p align="center">
   <a target="_blank" href="https://github.com/sponsors/dev-rashedin">
     <img alt="sponsors" src="https://sponsors.github.com/dev-rashedin.svg">
   </a>
-</p>
+</p> -->
