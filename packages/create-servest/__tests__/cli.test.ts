@@ -1,13 +1,15 @@
+// test/cli.spec.test.ts
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { beforeEach, afterEach, describe, expect, test, vi } from 'vitest';
 
 // ESM __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Paths
-const CLI_RELATIVE = '../src/main.ts';
+const CLI_RELATIVE = '../src/index.ts';
 const CLI_ABS = path.resolve(__dirname, CLI_RELATIVE);
 const projectName = 'test-backend';
 const genPath = path.join(__dirname, projectName);
@@ -19,18 +21,18 @@ const clearGenerated = () => {
 };
 
 // Mocks
-jest.mock('@clack/prompts', () => {
+vi.mock('@clack/prompts', () => {
   return {
-    intro: jest.fn(),
-    outro: jest.fn(),
-    select: jest.fn(),
-    text: jest.fn(),
+    intro: vi.fn(),
+    outro: vi.fn(),
+    select: vi.fn(),
+    text: vi.fn(),
     isCancel: (v: any) => v === 'cancel',
   };
 });
 
-jest.mock('../src/utils', () => ({
-  cancelOperation: jest.fn((msg?: string) => {
+vi.mock('../src/utils', () => ({
+  cancelOperation: vi.fn((msg?: string) => {
     throw new Error(msg || 'Operation cancelled');
   }),
 }));
@@ -38,7 +40,7 @@ jest.mock('../src/utils', () => ({
 beforeEach(() => {
   process.chdir(__dirname);
   clearGenerated();
-  jest.resetModules();
+  vi.resetModules();
 });
 
 afterEach(() => {
