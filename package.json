@@ -29,7 +29,6 @@
     "test": "vitest run",
     "publish:servest": "pnpm --filter create-servest publish --access public"
   },
-  "packageManager": "pnpm@10.14.0",
   "devDependencies": {
     "@clack/prompts": "^0.11.0",
     "@types/fs-extra": "^11.0.4",
@@ -49,5 +48,15 @@
     "tsdown": "^0.13.5",
     "typescript": "^5.9.2",
     "vitest": "^3.2.4"
-  }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "simple-git-hooks": {
+    "pre-commit": "lint-staged"
+  },
+  "packageManager": "pnpm@10.14.0"
 }
