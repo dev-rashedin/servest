@@ -1,0 +1,34 @@
+# These are supported funding model platforms
+# .github/FUNDING.yml for Servest
+
+# GitHub Sponsors usernames (up to 4). Leave blank if using fiscal host.
+github: [dev-rashedin]
+
+# Open Collective fiscal host
+open_collective: servest
+
+# Patreon username (optional)
+patreon: 
+
+# Ko-fi username (optional)
+ko_fi: 
+
+# Tidelift platform/package (optional)
+tidelift: 
+
+# Community Bridge project name (optional)
+community_bridge: 
+
+# Liberapay username (optional)
+liberapay: 
+
+# IssueHunt project name (optional)
+issuehunt: 
+
+# LFX Crowdfunding project name (optional)
+lfx_crowdfunding: 
+
+# Polar username (optional)
+polar: 
+
+# Custom URLs for other platforms (up to 4)
