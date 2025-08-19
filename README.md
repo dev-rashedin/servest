@@ -62,7 +62,7 @@ npx servest add eslint-prettier
 
 ## 🤝 Contribution
 
-We welcome contributions! Please check out the [Contribution Guide](CONTRIBUTION.md).
+We welcome contributions! Please check out the [Contributing Guide](CONTRIBUTING.md).
 
 ---
 
