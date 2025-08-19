@@ -26,11 +26,10 @@
 
 Servest is a **CLI tool and monorepo** for generating starter projects across **multiple backend frameworks and languages**.
 
-It consists of three main packages:
+It consists of two main packages:
 
 - **[`create-servest`](packages/create-servest):** CLI for generating project templates (currently 8 Express + 1 Django template, more coming).
 - **[`servest-addons`](packages/servest-addons):** CLI to add common backend features (e.g. `npx servest add eslint-prettier`).
-- **[`servest-frontend`](packages/servest-frontend):** Frontend for docs and project showcase (like vite.dev).
 
 📖 [Read the Docs](https://servest.vercel.app) to get started.
 
@@ -59,7 +58,7 @@ npx servest add eslint-prettier
 
 ## 🤝 Contribution
 
-We welcome contributions! Please check out the [Contributing Guide](CONTRIBUTING.md).
+We welcome contributions! Please check out the [Contributing Guide](CONTRIBUTION.md).
 
 ---
 

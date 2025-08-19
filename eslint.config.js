@@ -43,7 +43,7 @@ export default tseslint.config(
           ? [
               './packages/create-servest/tsconfig.json',
               './packages/servest-addons/tsconfig.json',
-              './packages/servest-frontend/tsconfig.json',
+              './app/tsconfig.json',
             ]
           : undefined,
       },
@@ -117,7 +117,7 @@ export default tseslint.config(
   },
   {
     name: 'frontend',
-    files: ['packages/servest-frontend/**/*.ts', 'packages/servest-frontend/**/*.tsx'],
+    files: ['app/**/*.ts', 'app/**/*.tsx'],
     rules: {
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/explicit-module-boundary-types': 'off',

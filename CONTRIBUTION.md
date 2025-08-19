@@ -4,15 +4,13 @@ Thank you for your interest in contributing! We welcome contributions from every
 
 ## Project Overview
 
-This repository contains three packages:
+This repository contains two main packages:
 
 1. **create-servest** – CLI for generating backend starter projects with templates.
    - Supports Express, Django, and future variants like Laravel and Go.
    - Example: `npm create servest@latest -- --template express-mvc-ts`
 
-2. **servest-frontend** – Frontend for project templates, inspired by vite.dev.
-
-3. **servest** – Package to add backend utilities in one line, similar to Shadcn.
+2. **servest** – Package to add backend utilities in one line, similar to Shadcn.
    - Example: `npx add servest@latest eslint-prettier`
 
 ## How to Contribute
