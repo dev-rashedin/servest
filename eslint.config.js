@@ -5,9 +5,11 @@ import pluginImportX from 'eslint-plugin-import-x';
 import pluginRegExp from 'eslint-plugin-regexp';
 import tseslint from 'typescript-eslint';
 import globals from 'globals';
+import { FlatCompat } from '@eslint/eslintrc';
 
 // Flags type-checking only in IDE (optional)
 const shouldTypeCheck = typeof process.env.VSCODE_PID === 'string';
+const compat = new FlatCompat({ baseDirectory: __dirname });
 
 export default tseslint.config(
   {
@@ -118,6 +120,8 @@ export default tseslint.config(
   {
     name: 'frontend',
     files: ['app/**/*.ts', 'app/**/*.tsx'],
+    ...compat.extends('next/core-web-vitals', 'next/typescript'),
+    plugins: {},
     rules: {
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
