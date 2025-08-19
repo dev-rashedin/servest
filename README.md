@@ -5,17 +5,13 @@
 </p>
 <br/>
 <p align="center">
-  - **servest**  
   <a href="https://npmjs.com/package/servest">
     <img src="https://img.shields.io/npm/v/servest.svg" alt="servest version">
   </a>
-
-- **create-servest**  
  <a href="https://npmjs.com/package/create-servest">
 <img src="https://img.shields.io/npm/v/create-servest.svg" alt="create-servest version">
 </a>
 <a href="https://nodejs.org/en/about/previous-releases"><img src="https://img.shields.io/node/v/create-servest.svg" alt="node compatibility"></a>
-<a href="https://github.com/dev-rashedin/servest/actions/workflows/ci.yml"><img src="https://github.com/dev-rashedin/servest/actions/workflows/ci.yml/badge.svg?branch=main" alt="build status"></a>
 <a href="https://pr.new/dev-rashedin/servest"><img src="https://developer.stackblitz.com/img/start_pr_dark_small.svg" alt="Start new PR in StackBlitz Codeflow"></a>
 <a href="https://github.com/dev-rashedin/servest/discussions"><img src="https://img.shields.io/badge/chat-discussions-blue?style=flat&logo=github" alt="discussion forum"></a>
 </p>

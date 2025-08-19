@@ -11,7 +11,8 @@
     "url": "git+https://github.com/dev-rashedin/servest.git"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "app"
   ],
   "keywords": [
     "backend",
