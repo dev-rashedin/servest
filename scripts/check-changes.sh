@@ -6,9 +6,9 @@ CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
 
 # Check if any of the changed files are in packages/web-frontend
 if echo "$CHANGED_FILES" | grep -q "^packages/servest-frontend/"; then
-  echo "✅ Changes detected in servest-frontend — building."
-  exit 1  # 1 tells Vercel: run the build
+  echo "✅ Changes detected — building."
+  exit 0
 else
-  echo "🚫 No changes in servest-frontend — skipping build."
-  exit 0  # 0 tells Vercel: skip the build
+  echo "🚫 No changes — skipping build."
+  exit 78
 fi

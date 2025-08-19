@@ -20,6 +20,12 @@ export default tseslint.config(
       '**/.turbo/**',
       '**/*.snap',
       'packages/create-servest/templates/**',
+      'eslint.config.js',
+
+      // editor & meta
+      '**/.vscode/**',
+      '**/.idea/**',
+      '**/.github/**',
     ],
   },
   eslint.configs.recommended,
