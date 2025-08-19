@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://servest.vercel.app" target="_blank" rel="noopener noreferrer">
-    <img width="180" src="https://raw.githubusercontent.com/dev-rashedin/servest/main/logo.svg" alt="Servest logo">
+      <img width="180" src="https://github.com/dev-rashedin/servest/blob/main/app/public/logo.svg" alt="Servest logo">
   </a>
 </p>
 <br/>
@@ -15,7 +15,7 @@
 
 # Servest ⚡
 
-> Next Generation Backend Project Starter
+> **Next Generation Backend Project Starter**
 
 - 💡 Instant Project Bootstrap
 - ⚡️ Lightning Fast CLI Commands
@@ -24,31 +24,50 @@
 - 🔩 Modular Architecture
 - 🔑 Fully Typed and Extendable
 
-Servest is a CLI tool and monorepo for generating **starter projects for any backend framework or language**. It consists of three main packages:
+Servest is a **CLI tool and monorepo** for generating starter projects across **multiple backend frameworks and languages**.
 
-- `create-servest`: CLI for generating project templates (currently 8 Express + 1 Django template, more coming).
-- `servest-frontend`: Frontend for documentation and project showcase (like vite.dev).
-- `servest`: CLI to add common backend features (like `npx add servest@latest eslint-prettier`).
+It consists of three main packages:
 
-[Read the Docs to Learn More](https://servest.vercel.app).
+- **[`create-servest`](packages/create-servest):** CLI for generating project templates (currently 8 Express + 1 Django template, more coming).
+- **[`servest-addons`](packages/servest-addons):** CLI to add common backend features (e.g. `npx servest add eslint-prettier`).
+- **[`servest-frontend`](packages/servest-frontend):** Frontend for docs and project showcase (like vite.dev).
 
-## Packages
+📖 [Read the Docs](https://servest.vercel.app) to get started.
 
-| Package                                       | Version (click for changelogs)                                                                                    |
-| --------------------------------------------- | :---------------------------------------------------------------------------------------------------------------- |
-| [create-servest](packages/create-servest)     | [![version](https://img.shields.io/npm/v/create-servest.svg?label=%20)](packages/create-servest/CHANGELOG.md)     |
-| [servest-addons](packages/servest-addons)     | [![version](https://img.shields.io/npm/v/servest?label=%20)](packages/servest-addons/CHANGELOG.md)                |
-| [servest-frontend](packages/servest-frontend) | [![version](https://img.shields.io/npm/v/servest-frontend.svg?label=%20)](packages/servest-frontend/CHANGELOG.md) |
+---
 
-## Contribution
+## 🚀 Quick Start
 
-See [Contributing Guide](CONTRIBUTING.md).
+```bash
+# Create a new project with a template
+npm create servest@latest -- --template express-mvc-ts
 
-## License
+# Add a backend addon
+npx servest add eslint-prettier
+```
+
+---
+
+## 📦 Packages
+
+| Package                                   | Version (click for changelogs)                                                                                |
+| ----------------------------------------- | :------------------------------------------------------------------------------------------------------------ |
+| [create-servest](packages/create-servest) | [![version](https://img.shields.io/npm/v/create-servest.svg?label=%20)](packages/create-servest/CHANGELOG.md) |
+| [servest-addons](packages/servest-addons) | [![version](https://img.shields.io/npm/v/servest?label=%20)](packages/servest-addons/CHANGELOG.md)            |
+
+---
+
+## 🤝 Contribution
+
+We welcome contributions! Please check out the [Contributing Guide](CONTRIBUTING.md).
+
+---
+
+## 📜 License
 
 [MIT](LICENSE).
 
-<!-- ## Sponsors
+<!-- ## 💖 Sponsors
 
 <p align="center">
   <a target="_blank" href="https://github.com/sponsors/dev-rashedin">
