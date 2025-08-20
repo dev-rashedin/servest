@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className={`${merriweather.className} ${montserrat.className} font-body antialiased`}>
         <div className="container mx-auto px-2 lg:px-4">
           <Navbar />
-          {children}
+          <div className="min-h-[calc(100vh-160px)] border border-green-500">{children}</div>
         </div>
         <Footer />
       </body>
