@@ -1,9 +1,14 @@
+// Node built-in modules
 import fs from 'node:fs';
 import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { spawnSync } from 'node:child_process';
-import { intro, isCancel, outro, select, text } from '@clack/prompts';
+
+// External dependencies
+import spawn from 'cross-spawn';
 import mri from 'mri';
+import { intro, isCancel, outro, select, text } from '@clack/prompts';
+
+// Local utilities
 import { blue, boldGreen, boldRed, boldYellow, green, red, yellow } from './utils/console-colors';
 import { cancelOperation } from './utils';
 
@@ -13,6 +18,8 @@ const frameworkColorMap: Record<string, (text: string) => string> = {
   django: boldGreen,
   laravel: boldRed,
 };
+
+console.log(spawn);
 
 // Map of project types and their variants
 const variantMap: Record<string, { value: string; label: string; customCommand?: string }[]> = {
@@ -157,31 +164,27 @@ async function main() {
 
   console.log('hello args', args);
 
-  // if (template && projectType && variant) {
-  //   // User provided --template and it matched a known template
-  //   console.log(green(`Using template: ${projectType}-${variant}`));
+  if (template && projectType && variant) {
+    // User provided --template and it matched a known template
+    console.log(green(`Using template: ${projectType}-${variant}`));
 
-  //   // Directly scaffold without prompting
-  //   const __filename = fileURLToPath(import.meta.url);
-  //   const __dirname = dirname(__filename);
+    // Directly scaffold without prompting
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
 
-  //   const src = path.resolve(__dirname, `../templates/${projectType}-${variant}`);
-  //   const dest = path.resolve(process.cwd(), folderName || projectType);
+    const src = path.resolve(__dirname, `../templates/${projectType}-${variant}`);
+    const dest = path.resolve(process.cwd(), folderName || projectType);
 
-  //   await checkDirectory(dest);
+    await checkDirectory(dest);
 
-  //   console.log(
-  //     `\n🛠️  Generating project "${folderName || projectType}" using ${projectType} (${variant})...`,
-  //   );
+    console.log(
+      `\n🛠️  Generating project "${folderName || projectType}" using ${projectType} (${variant})...`,
+    );
 
-  //   copyRecursiveSync(src, dest);
+    copyRecursiveSync(src, dest);
 
-  //   outro(green(`🎉 Done! Project created at ./${folderName || projectType}`));
-  //   process.exit(0);
-  // }
-
-  if (template) {
-    console.log(red(`Unknown template "${template}". Available templates are:`));
+    outro(green(`🎉 Done! Project created at ./${folderName || projectType}`));
+    process.exit(0);
   }
 
   // Validate or prompt for projectType
@@ -212,15 +215,6 @@ async function main() {
       cancelOperation();
     }
     variant = selected;
-  }
-
-  // If the variant has a custom command, execute it
-  if (variant.customCommand) {
-    console.log(`\nExecuting custom command: ${variant.customCommand}`);
-    const [command, ...args] = variant.customCommand.split(' ');
-    const spawnResult = spawnSync(command, args, { stdio: 'inherit' });
-
-    process.exit(spawnResult.status ?? 0);
   }
 
   // Validate or prompt for folderName
