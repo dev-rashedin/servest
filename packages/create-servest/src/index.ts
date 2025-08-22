@@ -1,34 +1,42 @@
 import fs from 'node:fs';
-import path from 'node:path';
+import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { intro, isCancel, outro, select, text } from '@clack/prompts';
 import mri from 'mri';
-import { green, red } from './utils/console-colors';
+import { blue, boldGreen, boldRed, boldYellow, green, red, yellow } from './utils/console-colors';
 import { cancelOperation } from './utils';
+
+// Map of the frameworks with colors
+const frameworkColorMap: Record<string, (text: string) => string> = {
+  express: boldYellow,
+  django: boldGreen,
+  laravel: boldRed,
+  // add more if needed
+};
 
 // Map of project types and their variants
 const variantMap: Record<string, { value: string; label: string }[]> = {
   express: [
-    { value: 'basic-js', label: 'Basic - JavaScript' },
-    { value: 'basic-ts', label: 'Basic - TypeScript' },
-    { value: 'mvc-cjs', label: 'MVC - CommonJS' },
-    { value: 'mvc-esm', label: 'MVC - ESM' },
-    { value: 'mvc-ts', label: 'MVC - TypeScript' },
-    { value: 'modular-cjs', label: 'Modular - CommonJS' },
-    { value: 'modular-esm', label: 'Modular - ESM' },
-    { value: 'modular-ts', label: 'Modular - TypeScript' },
+    { value: 'basic-js', label: yellow('Basic - JavaScript') },
+    { value: 'basic-ts', label: blue('Basic - TypeScript') },
+    { value: 'mvc-cjs', label: yellow('MVC - CommonJS') },
+    { value: 'mvc-esm', label: yellow('MVC - ESM') },
+    { value: 'mvc-ts', label: blue('MVC - TypeScript') },
+    { value: 'modular-cjs', label: yellow('Modular - CommonJS') },
+    { value: 'modular-esm', label: yellow('Modular - ESM') },
+    { value: 'modular-ts', label: blue('Modular - TypeScript') },
   ],
   django: [
-    { value: 'django-basic', label: 'Django Basic' },
-    { value: 'django-api', label: 'Django API Only' },
-    { value: 'django-channels', label: 'Django Channels (WebSocket)' },
-    { value: 'django-celery', label: 'Django Celery (Background Tasks)' },
+    { value: 'basic', label: green('Django Basic') },
+    { value: 'django-api', label: green('Django API Only') },
+    { value: 'django-channels', label: green('Django Channels (WebSocket)') },
+    { value: 'django-celery', label: green('Django Celery (Background Tasks)') },
   ],
   laravel: [
-    { value: 'laravel-basic', label: 'Laravel Basic' },
-    { value: 'laravel-api', label: 'Laravel API Only' },
-    { value: 'laravel-breeze', label: 'Laravel Breeze (Simple Auth)' },
-    { value: 'laravel-jetstream', label: 'Laravel Jetstream (Advanced Auth)' },
+    { value: 'laravel-basic', label: red('Laravel Basic') },
+    { value: 'laravel-api', label: red('Laravel API Only') },
+    { value: 'laravel-breeze', label: red('Laravel Breeze (Simple Auth)') },
+    { value: 'laravel-jetstream', label: red('Laravel Jetstream (Advanced Auth)') },
   ],
 };
 
@@ -118,10 +126,13 @@ async function main() {
   if (!projectType || !Object.keys(variantMap).includes(projectType)) {
     const selected = await select({
       message: 'Choose a backend framework:',
-      options: Object.entries(variantMap).map(([key, _]) => ({
-        label: key.charAt(0).toUpperCase() + key.slice(1),
-        value: key,
-      })),
+      options: Object.entries(variantMap).map(([key, _]) => {
+        const color = frameworkColorMap[key] || ((t: string) => t);
+        return {
+          label: color(key.charAt(0).toUpperCase() + key.slice(1)),
+          value: key,
+        };
+      }),
     });
     if (isCancel(selected)) {
       cancelOperation();
@@ -159,7 +170,7 @@ async function main() {
   }
 
   const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
+  const __dirname = dirname(__filename);
 
   const src = path.resolve(__dirname, `../templates/${projectType}-${variant}`);
   const dest = path.resolve(process.cwd(), folderName);

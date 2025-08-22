@@ -5,11 +5,10 @@ import pluginImportX from 'eslint-plugin-import-x';
 import pluginRegExp from 'eslint-plugin-regexp';
 import tseslint from 'typescript-eslint';
 import globals from 'globals';
-import { FlatCompat } from '@eslint/eslintrc';
+import { fileURLToPath } from 'node:url';
 
 // Flags type-checking only in IDE (optional)
 const shouldTypeCheck = typeof process.env.VSCODE_PID === 'string';
-const compat = new FlatCompat({ baseDirectory: __dirname });
 
 export default tseslint.config(
   {
@@ -22,9 +21,8 @@ export default tseslint.config(
       '**/.turbo/**',
       '**/*.snap',
       'packages/create-servest/templates/**',
+      'app/**',
       'eslint.config.js',
-
-      // editor & meta
       '**/.vscode/**',
       '**/.idea/**',
       '**/.github/**',
@@ -41,6 +39,7 @@ export default tseslint.config(
       parserOptions: {
         sourceType: 'module',
         ecmaVersion: 2022,
+        tsconfigRootDir: fileURLToPath(new URL('.', import.meta.url)),
         project: shouldTypeCheck
           ? [
               './packages/create-servest/tsconfig.json',
@@ -71,7 +70,6 @@ export default tseslint.config(
       'no-debugger': 'error',
       'no-empty': ['warn', { allowEmptyCatch: true }],
       'prefer-const': ['warn', { destructuring: 'all' }],
-
       '@typescript-eslint/no-unused-vars': [
         'error',
         { argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_', ignoreRestSiblings: true },
@@ -83,7 +81,6 @@ export default tseslint.config(
       ],
       '@typescript-eslint/no-unsafe-function-type': 'off',
       '@typescript-eslint/no-empty-function': ['error', { allow: ['arrowFunctions'] }],
-
       'import-x/no-duplicates': 'error',
       'import-x/order': [
         'error',
@@ -118,20 +115,9 @@ export default tseslint.config(
     },
   },
   {
-    name: 'frontend',
-    files: ['app/**/*.ts', 'app/**/*.tsx'],
-    ...compat.extends('next/core-web-vitals', 'next/typescript'),
-    plugins: {},
-    rules: {
-      '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
-    },
-  },
-  {
     name: 'tests',
     files: ['**/__tests__/**/*.?([cm])[jt]s?(x)'],
     rules: {
-      // Relaxed rules for tests (like Vite)
       'n/no-unsupported-features/node-builtins': [
         'error',
         { ignores: ['fetch', 'import.meta.dirname'] },
