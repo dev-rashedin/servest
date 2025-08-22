@@ -126,6 +126,11 @@ const FRAMEWORKS: Framework[] = [
   },
 ];
 
+// Flatten all template names for quick lookup
+const ALL_TEMPLATES = FRAMEWORKS.flatMap((f) => f.variants.map((v) => `${f.value}-${v.value}`));
+
+console.log(ALL_TEMPLATES);
+
 // checking if a directory is empty or not
 function isEmptyDir(dir: string) {
   if (!fs.existsSync(dir)) return true;
@@ -152,24 +157,18 @@ function emptyDir(dir: string) {
  */
 
 async function checkDirectory(dir: string) {
-  if (fs.existsSync(dir) && !isEmptyDir(dir)) {
-    const result = await select({
-      message: `Target directory "${dir}" is not empty. How do you want to proceed?`,
-      options: [
-        { value: 'cancel', label: 'Cancel operation' },
-        { value: 'overwrite', label: 'Remove existing files and continue' },
-        { value: 'ignore', label: 'Ignore and continue' },
-      ],
-    });
+  if (fs.existsSync(dir) && !isEmptyDir(dir)) return;
+  const result = await select({
+    message: `Target directory "${dir}" is not empty. How do you want to proceed?`,
+    options: [
+      { value: 'cancel', label: 'Cancel operation' },
+      { value: 'overwrite', label: 'Remove existing files and continue' },
+      { value: 'ignore', label: 'Ignore and continue' },
+    ],
+  });
 
-    if (isCancel(result) || result === 'cancel') {
-      cancelOperation();
-    }
-
-    if (result === 'overwrite') {
-      emptyDir(dir);
-    }
-  }
+  if (isCancel(result) || result === 'cancel') cancelOperation();
+  if (result === 'overwrite') emptyDir(dir);
 }
 
 // Copying a directory recursively
@@ -200,8 +199,8 @@ async function main() {
   intro('Servest – Backend project generator');
 
   const args = mri(process.argv.slice(2), {
-    alias: { t: 'type', v: 'variant', n: 'name', T: 'template', h: 'help' },
-    string: ['type', 'variant', 'name', 'template'],
+    alias: { t: 'template', h: 'help' },
+    string: ['template'],
     boolean: ['help'],
   });
 
@@ -211,10 +210,12 @@ async function main() {
     process.exit(0);
   }
 
+  const template = args.template;
   let projectType = args.type;
   let variant = args.variant;
   let folderName = args.name;
-  // const template = args.template;
+
+  console.log(template);
 
   // Set default folder name if not provided
   if (!folderName) {
