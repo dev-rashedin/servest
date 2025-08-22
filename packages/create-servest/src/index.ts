@@ -12,6 +12,28 @@ import { intro, isCancel, outro, select, text } from '@clack/prompts';
 import { blue, boldGreen, boldRed, boldYellow, green, red, yellow } from './utils/console-colors';
 import { cancelOperation } from './utils';
 
+// prettier-ignore
+const helpMessage = `\
+Usage: create-servest [OPTION]... [DIRECTORY]
+
+Create a new Servest backend project.
+With no arguments, start the CLI in interactive mode.
+
+Options:
+  -t, --template NAME        use a specific template
+  -h, --help                 show this help message
+
+Available templates:
+${yellow('express-basic-js   express-basic-ts   express-modular-esm')}
+${yellow('express-mvc-cjs    express-mvc-esm     express-mvc-ts')}
+${yellow('express-modular-cjs    express-modular-esm   express-modular-ts')}
+`;
+
+console.log(helpMessage);
+
+// ${green('django-basic        django-api        django-channels    django-celery')}
+// ${red('laravel-basic       laravel-api       laravel-breeze    laravel-jetstream')}
+
 interface Variant {
   value: string;
   name: string;
@@ -187,7 +209,7 @@ async function main() {
   let projectType = args.type;
   let variant = args.variant;
   let folderName = args.name;
-  const template = args.template;
+  // const template = args.template;
 
   // Set default folder name if not provided
   if (!folderName) {
@@ -206,7 +228,7 @@ async function main() {
     const framework = FRAMEWORKS.find((f) => f.value === projectType);
     if (!framework?.variants.some((v) => v.value === variant)) {
       console.log(red(`Invalid variant "${variant}" for ${projectType}`));
-      variant = undefined; // fallback to prompt
+      variant = undefined;
     }
   }
 
@@ -251,41 +273,6 @@ async function main() {
 
     if (isCancel(inputName)) cancelOperation();
     folderName = (inputName as string).trim();
-  }
-
-  if (template && projectType && variant) {
-    // User provided --template and it matched a known template
-    console.log(green(`Using template: ${projectType}-${variant}`));
-
-    // Directly scaffold without prompting
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = dirname(__filename);
-
-    const src = path.resolve(__dirname, `../templates/${projectType}-${variant}`);
-    const dest = path.resolve(process.cwd(), folderName || projectType);
-
-    await checkDirectory(dest);
-
-    console.log(
-      `\n🛠️  Generating project "${folderName || projectType}" using ${projectType} (${variant})...`,
-    );
-
-    copyRecursiveSync(src, dest);
-
-    outro(green(`🎉 Done! Project created at ./${folderName || projectType}`));
-    process.exit(0);
-  }
-
-  // Validate or prompt for folderName
-  if (!folderName) {
-    const input = await text({
-      message: 'Project folder name:',
-      placeholder: 'my-backend-app',
-    });
-    if (isCancel(input)) {
-      cancelOperation();
-    }
-    folderName = input;
   }
 
   // Validate folderName
