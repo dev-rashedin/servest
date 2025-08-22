@@ -12,161 +12,96 @@ import { intro, isCancel, outro, select, text } from '@clack/prompts';
 import { blue, boldGreen, boldRed, boldYellow, green, red, yellow } from './utils/console-colors';
 import { cancelOperation } from './utils';
 
-// Map of the frameworks with colors
-const frameworkColorMap: Record<string, (text: string) => string> = {
-  express: boldYellow,
-  django: boldGreen,
-  laravel: boldRed,
-};
-
 interface Variant {
   value: string;
-  display: string;
+  name: string;
   color: (text: string) => string;
   customCommand?: string;
 }
 
 interface Framework {
+  value: string;
   name: string;
-  display: string;
   color: (text: string) => string;
   variants: Variant[];
 }
 
-// Map of project types and their variants
-const variantMap: Record<string, { value: string; label: string; customCommand?: string }[]> = {
-  express: [
-    {
-      value: 'basic-js',
-      label: yellow('Basic - JavaScript'),
-      customCommand: 'npm create servest@latest -- --template express-basic-js',
-    },
-    {
-      value: 'basic-ts',
-      label: blue('Basic - TypeScript'),
-      customCommand: 'npm create servest@latest -- --template express-basic-ts',
-    },
-    {
-      value: 'mvc-cjs',
-      label: yellow('MVC - CommonJS'),
-      customCommand: 'npm create servest@latest -- --template express-mvc-cjs',
-    },
-    {
-      value: 'mvc-esm',
-      label: yellow('MVC - ESM'),
-      customCommand: 'npm create servest@latest -- --template express-mvc-esm',
-    },
-    {
-      value: 'mvc-ts',
-      label: blue('MVC - TypeScript'),
-      customCommand: 'npm create servest@latest -- --template express-mvc-ts',
-    },
-    {
-      value: 'modular-cjs',
-      label: yellow('Modular - CommonJS'),
-      customCommand: 'npm create servest@latest -- --template express-modular-cjs',
-    },
-    {
-      value: 'modular-esm',
-      label: yellow('Modular - ESM'),
-      customCommand: 'npm create servest@latest -- --template express-modular-esm',
-    },
-    {
-      value: 'modular-ts',
-      label: blue('Modular - TypeScript'),
-      customCommand: 'npm create servest@latest -- --template express-modular-ts',
-    },
-  ],
-  django: [
-    { value: 'basic', label: green('Django Basic') },
-    { value: 'api', label: green('Django API Only') },
-    { value: 'channels', label: green('Django Channels (WebSocket)') },
-    { value: 'celery', label: green('Django Celery (Background Tasks)') },
-  ],
-  laravel: [
-    { value: 'basic', label: red('Laravel Basic') },
-    { value: 'api', label: red('Laravel API Only') },
-    { value: 'breeze', label: red('Laravel Breeze (Simple Auth)') },
-    { value: 'jetstream', label: red('Laravel Jetstream (Advanced Auth)') },
-  ],
-};
-
 const FRAMEWORKS: Framework[] = [
   {
-    name: 'express',
-    display: 'Express',
+    value: 'express',
+    name: 'Express',
     color: boldYellow,
     variants: [
       {
         value: 'basic-js',
-        display: 'Basic - JavaScript',
+        name: 'Basic - JavaScript',
         color: yellow,
         customCommand: 'npm create servest@latest -- --template express-basic-js',
       },
       {
         value: 'basic-ts',
-        display: 'Basic - TypeScript',
+        name: 'Basic - TypeScript',
         color: blue,
         customCommand: 'npm create servest@latest -- --template express-basic-ts',
       },
       {
         value: 'mvc-cjs',
-        display: 'MVC - CommonJS',
+        name: 'MVC - CommonJS',
         color: yellow,
         customCommand: 'npm create servest@latest -- --template express-mvc-cjs',
       },
       {
         value: 'mvc-esm',
-        display: 'MVC - ESM',
+        name: 'MVC - ESM',
         color: yellow,
         customCommand: 'npm create servest@latest -- --template express-mvc-esm',
       },
       {
         value: 'mvc-ts',
-        display: 'MVC - TypeScript',
+        name: 'MVC - TypeScript',
         color: blue,
         customCommand: 'npm create servest@latest -- --template express-mvc-ts',
       },
       {
         value: 'modular-cjs',
-        display: 'Modular - CommonJS',
+        name: 'Modular - CommonJS',
         color: yellow,
         customCommand: 'npm create servest@latest -- --template express-modular-cjs',
       },
       {
         value: 'modular-esm',
-        display: 'Modular - ESM',
+        name: 'Modular - ESM',
         color: yellow,
         customCommand: 'npm create servest@latest -- --template express-modular-esm',
       },
       {
         value: 'modular-ts',
-        display: 'Modular - TypeScript',
+        name: 'Modular - TypeScript',
         color: blue,
         customCommand: 'npm create servest@latest -- --template express-modular-ts',
       },
     ],
   },
   {
-    name: 'django',
-    display: 'Django',
+    value: 'django',
+    name: 'Django',
     color: boldGreen,
     variants: [
-      { value: 'basic', display: 'Basic', color: green },
-      { value: 'api', display: 'API Only', color: green },
-      { value: 'channels', display: 'Channels (WebSocket)', color: green },
-      { value: 'celery', display: 'Celery (Background Tasks)', color: green },
+      { value: 'basic', name: 'Basic', color: green },
+      { value: 'api', name: 'API Only', color: green },
+      { value: 'channels', name: 'Channels (WebSocket)', color: green },
+      { value: 'celery', name: 'Celery (Background Tasks)', color: green },
     ],
   },
   {
-    name: 'laravel',
-    display: 'Laravel',
+    value: 'laravel',
+    name: 'Laravel',
     color: boldRed,
     variants: [
-      { value: 'basic', display: 'Basic', color: red },
-      { value: 'api', display: 'API Only', color: red },
-      { value: 'breeze', display: 'Breeze (Simple Auth)', color: red },
-      { value: 'jetstream', display: 'Jetstream (Advanced Auth)', color: red },
+      { value: 'basic', name: 'Basic', color: red },
+      { value: 'api', name: 'API Only', color: red },
+      { value: 'breeze', name: 'Breeze (Simple Auth)', color: red },
+      { value: 'jetstream', name: 'Jetstream (Advanced Auth)', color: red },
     ],
   },
 ];
@@ -261,18 +196,61 @@ async function main() {
   folderName = folderName?.trim();
 
   // Validate projectType
-  if (projectType && !FRAMEWORKS.some((f) => f.name === projectType)) {
+  if (projectType && !FRAMEWORKS.some((f) => f.value === projectType)) {
     console.log(red(`Invalid project type: ${projectType}`));
     projectType = undefined; // fallback to prompt
   }
 
   // Validate variant
   if (projectType && variant) {
-    const framework = FRAMEWORKS.find((f) => f.name === projectType);
+    const framework = FRAMEWORKS.find((f) => f.value === projectType);
     if (!framework?.variants.some((v) => v.value === variant)) {
       console.log(red(`Invalid variant "${variant}" for ${projectType}`));
       variant = undefined; // fallback to prompt
     }
+  }
+
+  // Prompt for projectType if not provided
+  if (!projectType) {
+    const selected = await select({
+      message: 'Select a project type:',
+      options: FRAMEWORKS.map((f) => ({
+        label: f.name,
+        value: f.value,
+      })),
+    });
+
+    if (isCancel(selected)) cancelOperation();
+    projectType = selected as string;
+  }
+
+  // Find the selected framework object
+  const framework = FRAMEWORKS.find((f) => f.value === projectType)!;
+
+  // Prompt for variant if not provided
+  if (!variant) {
+    const selectedVariant = await select({
+      message: `Select a variant for ${framework.name}:`,
+      options: framework.variants.map((v) => ({
+        label: v.name,
+        value: v.value,
+      })),
+    });
+
+    if (isCancel(selectedVariant)) cancelOperation();
+    variant = selectedVariant as string;
+  }
+
+  // Prompt for folder name if not provided
+  if (!folderName) {
+    const inputName = await text({
+      message: 'Project folder name:',
+      placeholder: `${projectType}-${variant}`,
+      initialValue: `${projectType}-${variant}`,
+    });
+
+    if (isCancel(inputName)) cancelOperation();
+    folderName = (inputName as string).trim();
   }
 
   if (template && projectType && variant) {
@@ -296,36 +274,6 @@ async function main() {
 
     outro(green(`🎉 Done! Project created at ./${folderName || projectType}`));
     process.exit(0);
-  }
-
-  // Validate or prompt for projectType
-  if (!projectType || !Object.keys(variantMap).includes(projectType)) {
-    const selected = await select({
-      message: 'Choose a backend framework:',
-      options: Object.entries(variantMap).map(([key, _]) => {
-        const color = frameworkColorMap[key] || ((t: string) => t);
-        return {
-          label: color(key.charAt(0).toUpperCase() + key.slice(1)),
-          value: key,
-        };
-      }),
-    });
-    if (isCancel(selected)) {
-      cancelOperation();
-    }
-    projectType = selected;
-  }
-
-  // Validate or prompt for variant
-  if (!variant || !variantMap[projectType].some((v) => v.value === variant)) {
-    const selected = await select({
-      message: 'Choose a variant:',
-      options: variantMap[projectType],
-    });
-    if (isCancel(selected)) {
-      cancelOperation();
-    }
-    variant = selected;
   }
 
   // Validate or prompt for folderName
