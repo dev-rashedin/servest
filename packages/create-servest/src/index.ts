@@ -4,7 +4,7 @@ import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 // External dependencies
-import spawn from 'cross-spawn';
+// import spawn from 'cross-spawn';
 import mri from 'mri';
 import { intro, isCancel, outro, select, text } from '@clack/prompts';
 
@@ -19,7 +19,19 @@ const frameworkColorMap: Record<string, (text: string) => string> = {
   laravel: boldRed,
 };
 
-console.log(spawn);
+interface Variant {
+  value: string;
+  display: string;
+  color: (text: string) => string;
+  customCommand?: string;
+}
+
+interface Framework {
+  name: string;
+  display: string;
+  color: (text: string) => string;
+  variants: Variant[];
+}
 
 // Map of project types and their variants
 const variantMap: Record<string, { value: string; label: string; customCommand?: string }[]> = {
@@ -79,6 +91,86 @@ const variantMap: Record<string, { value: string; label: string; customCommand?:
   ],
 };
 
+const FRAMEWORKS: Framework[] = [
+  {
+    name: 'express',
+    display: 'Express',
+    color: boldYellow,
+    variants: [
+      {
+        value: 'basic-js',
+        display: 'Basic - JavaScript',
+        color: yellow,
+        customCommand: 'npm create servest@latest -- --template express-basic-js',
+      },
+      {
+        value: 'basic-ts',
+        display: 'Basic - TypeScript',
+        color: blue,
+        customCommand: 'npm create servest@latest -- --template express-basic-ts',
+      },
+      {
+        value: 'mvc-cjs',
+        display: 'MVC - CommonJS',
+        color: yellow,
+        customCommand: 'npm create servest@latest -- --template express-mvc-cjs',
+      },
+      {
+        value: 'mvc-esm',
+        display: 'MVC - ESM',
+        color: yellow,
+        customCommand: 'npm create servest@latest -- --template express-mvc-esm',
+      },
+      {
+        value: 'mvc-ts',
+        display: 'MVC - TypeScript',
+        color: blue,
+        customCommand: 'npm create servest@latest -- --template express-mvc-ts',
+      },
+      {
+        value: 'modular-cjs',
+        display: 'Modular - CommonJS',
+        color: yellow,
+        customCommand: 'npm create servest@latest -- --template express-modular-cjs',
+      },
+      {
+        value: 'modular-esm',
+        display: 'Modular - ESM',
+        color: yellow,
+        customCommand: 'npm create servest@latest -- --template express-modular-esm',
+      },
+      {
+        value: 'modular-ts',
+        display: 'Modular - TypeScript',
+        color: blue,
+        customCommand: 'npm create servest@latest -- --template express-modular-ts',
+      },
+    ],
+  },
+  {
+    name: 'django',
+    display: 'Django',
+    color: boldGreen,
+    variants: [
+      { value: 'basic', display: 'Basic', color: green },
+      { value: 'api', display: 'API Only', color: green },
+      { value: 'channels', display: 'Channels (WebSocket)', color: green },
+      { value: 'celery', display: 'Celery (Background Tasks)', color: green },
+    ],
+  },
+  {
+    name: 'laravel',
+    display: 'Laravel',
+    color: boldRed,
+    variants: [
+      { value: 'basic', display: 'Basic', color: red },
+      { value: 'api', display: 'API Only', color: red },
+      { value: 'breeze', display: 'Breeze (Simple Auth)', color: red },
+      { value: 'jetstream', display: 'Jetstream (Advanced Auth)', color: red },
+    ],
+  },
+];
+
 // checking if a directory is empty or not
 function isEmptyDir(dir: string) {
   if (!fs.existsSync(dir)) return true;
@@ -128,6 +220,24 @@ async function checkDirectory(dir: string) {
 // Copying a directory recursively
 function copyRecursiveSync(src: string, dest: string) {
   const stat = fs.statSync(src);
+
+  console.log(FRAMEWORKS);
+
+  FRAMEWORKS.forEach((framework) => {
+    if (src.includes(framework.name)) {
+      const variant = framework.variants.find((v) => src.includes(v.value));
+      if (variant) {
+        console.log(
+          boldGreen('Using template:'),
+          framework.color(framework.display),
+          variant.color(variant.display),
+        );
+        if (variant.customCommand) {
+          console.log(boldGreen('To create this project directly, run:'), variant.customCommand);
+        }
+      }
+    }
+  });
 
   if (stat.isDirectory()) {
     fs.mkdirSync(dest, { recursive: true });
