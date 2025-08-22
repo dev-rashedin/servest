@@ -221,24 +221,6 @@ async function checkDirectory(dir: string) {
 function copyRecursiveSync(src: string, dest: string) {
   const stat = fs.statSync(src);
 
-  console.log(FRAMEWORKS);
-
-  FRAMEWORKS.forEach((framework) => {
-    if (src.includes(framework.name)) {
-      const variant = framework.variants.find((v) => src.includes(v.value));
-      if (variant) {
-        console.log(
-          boldGreen('Using template:'),
-          framework.color(framework.display),
-          variant.color(variant.display),
-        );
-        if (variant.customCommand) {
-          console.log(boldGreen('To create this project directly, run:'), variant.customCommand);
-        }
-      }
-    }
-  });
-
   if (stat.isDirectory()) {
     fs.mkdirSync(dest, { recursive: true });
 
@@ -272,7 +254,26 @@ async function main() {
   let folderName = args.name;
   const template = args.template;
 
-  console.log('hello args', args);
+  // Set default folder name if not provided
+  if (!folderName) {
+    folderName = projectType && variant ? `${projectType}-${variant}` : undefined;
+  }
+  folderName = folderName?.trim();
+
+  // Validate projectType
+  if (projectType && !FRAMEWORKS.some((f) => f.name === projectType)) {
+    console.log(red(`Invalid project type: ${projectType}`));
+    projectType = undefined; // fallback to prompt
+  }
+
+  // Validate variant
+  if (projectType && variant) {
+    const framework = FRAMEWORKS.find((f) => f.name === projectType);
+    if (!framework?.variants.some((v) => v.value === variant)) {
+      console.log(red(`Invalid variant "${variant}" for ${projectType}`));
+      variant = undefined; // fallback to prompt
+    }
+  }
 
   if (template && projectType && variant) {
     // User provided --template and it matched a known template
