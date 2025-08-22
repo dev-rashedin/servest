@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { spawnSync } from 'node:child_process';
 import { intro, isCancel, outro, select, text } from '@clack/prompts';
 import mri from 'mri';
 import { blue, boldGreen, boldRed, boldYellow, green, red, yellow } from './utils/console-colors';
@@ -11,32 +12,63 @@ const frameworkColorMap: Record<string, (text: string) => string> = {
   express: boldYellow,
   django: boldGreen,
   laravel: boldRed,
-  // add more if needed
 };
 
 // Map of project types and their variants
-const variantMap: Record<string, { value: string; label: string }[]> = {
+const variantMap: Record<string, { value: string; label: string; customCommand?: string }[]> = {
   express: [
-    { value: 'basic-js', label: yellow('Basic - JavaScript') },
-    { value: 'basic-ts', label: blue('Basic - TypeScript') },
-    { value: 'mvc-cjs', label: yellow('MVC - CommonJS') },
-    { value: 'mvc-esm', label: yellow('MVC - ESM') },
-    { value: 'mvc-ts', label: blue('MVC - TypeScript') },
-    { value: 'modular-cjs', label: yellow('Modular - CommonJS') },
-    { value: 'modular-esm', label: yellow('Modular - ESM') },
-    { value: 'modular-ts', label: blue('Modular - TypeScript') },
+    {
+      value: 'basic-js',
+      label: yellow('Basic - JavaScript'),
+      customCommand: 'npm create servest@latest -- --template express-basic-js',
+    },
+    {
+      value: 'basic-ts',
+      label: blue('Basic - TypeScript'),
+      customCommand: 'npm create servest@latest -- --template express-basic-ts',
+    },
+    {
+      value: 'mvc-cjs',
+      label: yellow('MVC - CommonJS'),
+      customCommand: 'npm create servest@latest -- --template express-mvc-cjs',
+    },
+    {
+      value: 'mvc-esm',
+      label: yellow('MVC - ESM'),
+      customCommand: 'npm create servest@latest -- --template express-mvc-esm',
+    },
+    {
+      value: 'mvc-ts',
+      label: blue('MVC - TypeScript'),
+      customCommand: 'npm create servest@latest -- --template express-mvc-ts',
+    },
+    {
+      value: 'modular-cjs',
+      label: yellow('Modular - CommonJS'),
+      customCommand: 'npm create servest@latest -- --template express-modular-cjs',
+    },
+    {
+      value: 'modular-esm',
+      label: yellow('Modular - ESM'),
+      customCommand: 'npm create servest@latest -- --template express-modular-esm',
+    },
+    {
+      value: 'modular-ts',
+      label: blue('Modular - TypeScript'),
+      customCommand: 'npm create servest@latest -- --template express-modular-ts',
+    },
   ],
   django: [
     { value: 'basic', label: green('Django Basic') },
-    { value: 'django-api', label: green('Django API Only') },
-    { value: 'django-channels', label: green('Django Channels (WebSocket)') },
-    { value: 'django-celery', label: green('Django Celery (Background Tasks)') },
+    { value: 'api', label: green('Django API Only') },
+    { value: 'channels', label: green('Django Channels (WebSocket)') },
+    { value: 'celery', label: green('Django Celery (Background Tasks)') },
   ],
   laravel: [
-    { value: 'laravel-basic', label: red('Laravel Basic') },
-    { value: 'laravel-api', label: red('Laravel API Only') },
-    { value: 'laravel-breeze', label: red('Laravel Breeze (Simple Auth)') },
-    { value: 'laravel-jetstream', label: red('Laravel Jetstream (Advanced Auth)') },
+    { value: 'basic', label: red('Laravel Basic') },
+    { value: 'api', label: red('Laravel API Only') },
+    { value: 'breeze', label: red('Laravel Breeze (Simple Auth)') },
+    { value: 'jetstream', label: red('Laravel Jetstream (Advanced Auth)') },
   ],
 };
 
@@ -150,6 +182,15 @@ async function main() {
       cancelOperation();
     }
     variant = selected;
+  }
+
+  // If the variant has a custom command, execute it
+  if (variant.customCommand) {
+    console.log(`\nExecuting custom command: ${variant.customCommand}`);
+    const [command, ...args] = variant.customCommand.split(' ');
+    const spawnResult = spawnSync(command, args, { stdio: 'inherit' });
+
+    process.exit(spawnResult.status ?? 0);
   }
 
   // Validate or prompt for folderName
