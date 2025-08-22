@@ -29,8 +29,6 @@ ${yellow('express-mvc-cjs    express-mvc-esm     express-mvc-ts')}
 ${yellow('express-modular-cjs    express-modular-esm   express-modular-ts')}
 `;
 
-console.log(helpMessage);
-
 // ${green('django-basic        django-api        django-channels    django-celery')}
 // ${red('laravel-basic       laravel-api       laravel-breeze    laravel-jetstream')}
 
@@ -202,9 +200,16 @@ async function main() {
   intro('Servest – Backend project generator');
 
   const args = mri(process.argv.slice(2), {
-    alias: { t: 'type', v: 'variant', n: 'name', T: 'template' },
+    alias: { t: 'type', v: 'variant', n: 'name', T: 'template', h: 'help' },
     string: ['type', 'variant', 'name', 'template'],
+    boolean: ['help'],
   });
+
+  // Show help if requested
+  if (args.h || args.help) {
+    console.log(helpMessage);
+    process.exit(0);
+  }
 
   let projectType = args.type;
   let variant = args.variant;
