@@ -126,10 +126,8 @@ const FRAMEWORKS: Framework[] = [
   },
 ];
 
-// Flatten all template names for quick lookup
+// Flattening all template names for quick lookup
 const ALL_TEMPLATES = FRAMEWORKS.flatMap((f) => f.variants.map((v) => `${f.value}-${v.value}`));
-
-console.log(ALL_TEMPLATES);
 
 // checking if a directory is empty or not
 function isEmptyDir(dir: string) {
@@ -204,37 +202,26 @@ async function main() {
     boolean: ['help'],
   });
 
-  // Show help if requested
+  // Showing help if requested
   if (args.h || args.help) {
     console.log(helpMessage);
     process.exit(0);
   }
 
-  const template = args.template;
+  let template = args.template;
   let projectType = args.type;
   let variant = args.variant;
   let folderName = args.name;
 
-  console.log(template);
-
-  // Set default folder name if not provided
-  if (!folderName) {
-    folderName = projectType && variant ? `${projectType}-${variant}` : undefined;
-  }
-  folderName = folderName?.trim();
-
-  // Validate projectType
-  if (projectType && !FRAMEWORKS.some((f) => f.value === projectType)) {
-    console.log(red(`Invalid project type: ${projectType}`));
-    projectType = undefined; // fallback to prompt
-  }
-
-  // Validate variant
-  if (projectType && variant) {
-    const framework = FRAMEWORKS.find((f) => f.value === projectType);
-    if (!framework?.variants.some((v) => v.value === variant)) {
-      console.log(red(`Invalid variant "${variant}" for ${projectType}`));
-      variant = undefined;
+  // If template is provided, validating and extract projectType and variant
+  if (template) {
+    if (!ALL_TEMPLATES.includes(template)) {
+      console.log(red(`Invalid template: ${template}`));
+      template = undefined;
+    } else {
+      // split template into type and variant
+      [projectType, variant] = template.split('-');
+      folderName = template;
     }
   }
 
@@ -294,6 +281,16 @@ async function main() {
 
   // using the checkDirectory function to handle existing folders
   await checkDirectory(dest);
+
+  // If the selected variant has a custom command, run it instead of copying files
+  const variantObj = framework.variants.find((v) => v.value === variant)!;
+  if (variantObj.customCommand) {
+    console.log(green(`Running custom command for template "${template}"...`));
+    const [cmd, ...args] = variantObj.customCommand.split(' ');
+    const child = await import('child_process');
+    const result = child.spawnSync(cmd, args, { stdio: 'inherit' });
+    process.exit(result.status ?? 0);
+  }
 
   console.log(`\n🛠️  Generating project "${folderName}" using ${projectType} (${variant})...`);
 
