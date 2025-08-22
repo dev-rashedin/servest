@@ -146,13 +146,43 @@ async function main() {
   intro('Servest – Backend project generator');
 
   const args = mri(process.argv.slice(2), {
-    alias: { t: 'type', v: 'variant', n: 'name' },
-    string: ['type', 'variant', 'name'],
+    alias: { t: 'type', v: 'variant', n: 'name', T: 'template' },
+    string: ['type', 'variant', 'name', 'template'],
   });
 
   let projectType = args.type;
   let variant = args.variant;
   let folderName = args.name;
+  const template = args.template;
+
+  console.log('hello args', args);
+
+  // if (template && projectType && variant) {
+  //   // User provided --template and it matched a known template
+  //   console.log(green(`Using template: ${projectType}-${variant}`));
+
+  //   // Directly scaffold without prompting
+  //   const __filename = fileURLToPath(import.meta.url);
+  //   const __dirname = dirname(__filename);
+
+  //   const src = path.resolve(__dirname, `../templates/${projectType}-${variant}`);
+  //   const dest = path.resolve(process.cwd(), folderName || projectType);
+
+  //   await checkDirectory(dest);
+
+  //   console.log(
+  //     `\n🛠️  Generating project "${folderName || projectType}" using ${projectType} (${variant})...`,
+  //   );
+
+  //   copyRecursiveSync(src, dest);
+
+  //   outro(green(`🎉 Done! Project created at ./${folderName || projectType}`));
+  //   process.exit(0);
+  // }
+
+  if (template) {
+    console.log(red(`Unknown template "${template}". Available templates are:`));
+  }
 
   // Validate or prompt for projectType
   if (!projectType || !Object.keys(variantMap).includes(projectType)) {
