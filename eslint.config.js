@@ -1,14 +1,19 @@
 // @ts-check
+import { FlatCompat } from '@eslint/eslintrc';
 import eslint from '@eslint/js';
 import pluginN from 'eslint-plugin-n';
 import pluginImportX from 'eslint-plugin-import-x';
 import pluginRegExp from 'eslint-plugin-regexp';
 import tseslint from 'typescript-eslint';
 import globals from 'globals';
+import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 // Flags type-checking only in IDE (optional)
 const shouldTypeCheck = typeof process.env.VSCODE_PID === 'string';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const compat = new FlatCompat({ baseDirectory: __dirname });
 
 export default tseslint.config(
   {
@@ -21,7 +26,6 @@ export default tseslint.config(
       '**/.turbo/**',
       '**/*.snap',
       'packages/create-servest/templates/**',
-      'app/**',
       'eslint.config.js',
       '**/.vscode/**',
       '**/.idea/**',
@@ -111,6 +115,16 @@ export default tseslint.config(
     ignores: ['**/__tests__/**'],
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+    },
+  },
+  {
+    name: 'frontend',
+    files: ['app/**/*.ts', 'app/**/*.tsx'],
+    extends: compat.extends('next/core-web-vitals', 'next/typescript'),
+    plugins: {},
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
     },
   },
