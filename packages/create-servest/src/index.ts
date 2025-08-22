@@ -12,6 +12,13 @@ import { intro, isCancel, outro, select, text } from '@clack/prompts';
 import { blue, boldGreen, boldRed, boldYellow, green, red, yellow } from './utils/console-colors';
 import { cancelOperation } from './utils';
 
+// const argv = mri(process.argv.slice(2), {
+//   alias: { h: 'help', t: 'template' },
+//   boolean: ['help', 'overwrite'],
+//   string: ['template'],
+// });
+// const cwd = process.cwd();
+
 // prettier-ignore
 const helpMessage = `\
 Usage: create-servest [OPTION]... [DIRECTORY]
@@ -31,6 +38,10 @@ ${yellow('express-modular-cjs    express-modular-esm   express-modular-ts')}
 
 // ${green('django-basic        django-api        django-channels    django-celery')}
 // ${red('laravel-basic       laravel-api       laravel-breeze    laravel-jetstream')}
+
+// interface ColorFunc {
+//   (str: string | number) : string;
+// }
 
 interface Variant {
   value: string;
@@ -213,16 +224,12 @@ async function main() {
   let variant = args.variant;
   let folderName = args.name;
 
+  // const targetDir = args._[0] ? String(args._[0]).trim() : undefined;
+
   // If template is provided, validating and extract projectType and variant
-  if (template) {
-    if (!ALL_TEMPLATES.includes(template)) {
-      console.log(red(`Invalid template: ${template}`));
-      template = undefined;
-    } else {
-      // split template into type and variant
-      [projectType, variant] = template.split('-');
-      folderName = template;
-    }
+  if (template && !ALL_TEMPLATES.includes(template)) {
+    console.log(red(`"${template}" is not a valid template.`));
+    template = undefined;
   }
 
   // Prompt for projectType if not provided
