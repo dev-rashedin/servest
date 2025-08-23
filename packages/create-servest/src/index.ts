@@ -1,87 +1,140 @@
 import fs from 'node:fs';
 import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { intro, isCancel, outro, select, text } from '@clack/prompts';
+import { intro, isCancel, outro, select } from '@clack/prompts';
 import mri from 'mri';
+import spawn from 'cross-spawn';
 import { blue, boldGreen, boldRed, boldYellow, green, red, yellow } from './utils/console-colors';
 import { cancelOperation } from './utils';
 
-// prettier-ignore
-const helpMessage = `\
-Usage: create-servest [OPTION]... [DIRECTORY]
+interface Variant {
+  value: string;
+  name: string;
+  color: (text: string) => string;
+  customCommand?: string;
+}
 
-Create a new Servest backend project.
-With no arguments, start the CLI in interactive mode.
+interface Framework {
+  value: string;
+  name: string;
+  color: (text: string) => string;
+  variants: Variant[];
+}
 
-Options:
-  -t, --template NAME        use a specific template
-  -h, --help                 show this help message
+const FRAMEWORKS: Framework[] = [
+  {
+    value: 'express',
+    name: 'Express',
+    color: boldYellow,
+    variants: [
+      {
+        value: 'basic-js',
+        name: 'Basic - JavaScript',
+        color: yellow,
+        customCommand: 'npm create servest@latest -- --template express-basic-js',
+      },
+      {
+        value: 'basic-ts',
+        name: 'Basic - TypeScript',
+        color: blue,
+        customCommand: 'npm create servest@latest -- --template express-basic-ts',
+      },
+      {
+        value: 'mvc-cjs',
+        name: 'MVC - CommonJS',
+        color: yellow,
+        customCommand: 'npm create servest@latest -- --template express-mvc-cjs',
+      },
+      {
+        value: 'mvc-esm',
+        name: 'MVC - ESM',
+        color: yellow,
+        customCommand: 'npm create servest@latest -- --template express-mvc-esm',
+      },
+      {
+        value: 'mvc-ts',
+        name: 'MVC - TypeScript',
+        color: blue,
+        customCommand: 'npm create servest@latest -- --template express-mvc-ts',
+      },
+      {
+        value: 'modular-cjs',
+        name: 'Modular - CommonJS',
+        color: yellow,
+        customCommand: 'npm create servest@latest -- --template express-modular-cjs',
+      },
+      {
+        value: 'modular-esm',
+        name: 'Modular - ESM',
+        color: yellow,
+        customCommand: 'npm create servest@latest -- --template express-modular-esm',
+      },
+      {
+        value: 'modular-ts',
+        name: 'Modular - TypeScript',
+        color: blue,
+        customCommand: 'npm create servest@latest -- --template express-modular-ts',
+      },
+    ],
+  },
+  {
+    value: 'django',
+    name: 'Django',
+    color: boldGreen,
+    variants: [
+      { value: 'basic', name: 'Basic', color: green },
+      { value: 'api', name: 'API Only', color: green },
+      { value: 'channels', name: 'Channels (WebSocket)', color: green },
+      { value: 'celery', name: 'Celery (Background Tasks)', color: green },
+    ],
+  },
+  {
+    value: 'laravel',
+    name: 'Laravel',
+    color: boldRed,
+    variants: [
+      { value: 'basic', name: 'Basic', color: red },
+      { value: 'api', name: 'API Only', color: red },
+      { value: 'breeze', name: 'Breeze (Simple Auth)', color: red },
+      { value: 'jetstream', name: 'Jetstream (Advanced Auth)', color: red },
+    ],
+  },
+];
 
-Available templates:
-${yellow('express-basic-js   express-basic-ts   express-modular-esm')}
-${yellow('express-mvc-cjs    express-mvc-esm     express-mvc-ts')}
-${yellow('express-modular-cjs    express-modular-esm   express-modular-ts')}
-`;
+// Flattening all template names for quick lookup
+const ALL_TEMPLATES = FRAMEWORKS.flatMap((f) => f.variants.map((v) => `${f.value}-${v.value}`));
 
-// Map of the frameworks with colors
-const frameworkColorMap: Record<string, (text: string) => string> = {
-  express: boldYellow,
-  django: boldGreen,
-  laravel: boldRed,
-  // add more if needed
-};
+// Detect package manager
+function detectPkgManager(): string {
+  const userAgent = process.env.npm_config_user_agent ?? '';
+  if (userAgent.startsWith('yarn')) return 'yarn';
+  if (userAgent.startsWith('pnpm')) return 'pnpm';
+  return 'npm';
+}
 
-// Map of project types and their variants
-const variantMap: Record<string, { value: string; label: string }[]> = {
-  express: [
-    { value: 'basic-js', label: yellow('Basic - JavaScript') },
-    { value: 'basic-ts', label: blue('Basic - TypeScript') },
-    { value: 'mvc-cjs', label: yellow('MVC - CommonJS') },
-    { value: 'mvc-esm', label: yellow('MVC - ESM') },
-    { value: 'mvc-ts', label: blue('MVC - TypeScript') },
-    { value: 'modular-cjs', label: yellow('Modular - CommonJS') },
-    { value: 'modular-esm', label: yellow('Modular - ESM') },
-    { value: 'modular-ts', label: blue('Modular - TypeScript') },
-  ],
-  django: [
-    { value: 'basic', label: green('Django Basic') },
-    { value: 'django-api', label: green('Django API Only') },
-    { value: 'django-channels', label: green('Django Channels (WebSocket)') },
-    { value: 'django-celery', label: green('Django Celery (Background Tasks)') },
-  ],
-  laravel: [
-    { value: 'laravel-basic', label: red('Laravel Basic') },
-    { value: 'laravel-api', label: red('Laravel API Only') },
-    { value: 'laravel-breeze', label: red('Laravel Breeze (Simple Auth)') },
-    { value: 'laravel-jetstream', label: red('Laravel Jetstream (Advanced Auth)') },
-  ],
-};
+// Replace TARGET_DIR in command
+function getFullCustomCommand(cmd: string, targetDir: string) {
+  return cmd.replace('TARGET_DIR', `"${targetDir}"`);
+}
 
-// checking if a directory is empty or not
+// Check if directory is empty
 function isEmptyDir(dir: string) {
   if (!fs.existsSync(dir)) return true;
   const files = fs.readdirSync(dir);
   return files.length === 0 || (files.length === 1 && files[0] === '.git');
 }
 
-// Removing all files and folders inside the directory recursively, except the .git folder
+// Remove all files in directory except .git
 function emptyDir(dir: string) {
   if (!fs.existsSync(dir)) return;
-
   for (const file of fs.readdirSync(dir)) {
     if (file === '.git') continue;
-
     const fullPath = path.join(dir, file);
     fs.rmSync(fullPath, { recursive: true, force: true });
   }
 }
 
-/**
- * Checking if the target directory exists and is not empty.
- * If it contains files (other than .git), asks the user what to do.
- * Exits the process if the user cancels.
- */
-
+// Check directory and prompt user if needed
 async function checkDirectory(dir: string) {
   if (fs.existsSync(dir) && !isEmptyDir(dir)) {
     const result = await select({
@@ -103,22 +156,15 @@ async function checkDirectory(dir: string) {
   }
 }
 
-// Copying a directory recursively
+// Copy template recursively
 function copyRecursiveSync(src: string, dest: string) {
   const stat = fs.statSync(src);
-
   if (stat.isDirectory()) {
     fs.mkdirSync(dest, { recursive: true });
-
     for (const file of fs.readdirSync(src)) {
-      // skip .gitkeep files
       if (file === '.gitkeep') continue;
-
       const curSrc = path.join(src, file);
-
-      // If the file is _gitignore, renaming it to .gitignore in destination
-      const fileName = file === '_gitignore' ? '.gitignore' : file;
-      const curDest = path.join(dest, fileName);
+      const curDest = path.join(dest, file === '_gitignore' ? '.gitignore' : file);
       copyRecursiveSync(curSrc, curDest);
     }
   } else {
@@ -126,7 +172,6 @@ function copyRecursiveSync(src: string, dest: string) {
   }
 }
 
-// the main function
 async function main() {
   intro('Servest – Backend project generator');
 
@@ -136,85 +181,82 @@ async function main() {
     boolean: ['help'],
   });
 
-  // Showing help if requested
   if (args.h || args.help) {
-    console.log(helpMessage);
+    console.log(`Usage: create-servest [OPTION]... [DIRECTORY]
+With no arguments, start the interactive mode.`);
     process.exit(0);
   }
 
-  let projectType = args.type;
-  let variant = args.variant;
-  let folderName = args.name;
+  const targetDir = args._[0] ?? 'my-backend-app';
+  let template = args.template;
 
-  // Validate or prompt for projectType
-  if (!projectType || !Object.keys(variantMap).includes(projectType)) {
-    const selected = await select({
+  // If template is invalid, prompt user
+  if (!template || !ALL_TEMPLATES.includes(template)) {
+    // Choose framework
+    const framework = await select({
       message: 'Choose a backend framework:',
-      options: Object.entries(variantMap).map(([key, _]) => {
-        const color = frameworkColorMap[key] || ((t: string) => t);
-        return {
-          label: color(key.charAt(0).toUpperCase() + key.slice(1)),
-          value: key,
-        };
-      }),
+      options: FRAMEWORKS.map((f) => ({ label: f.color(f.name), value: f.value })),
     });
-    if (isCancel(selected)) {
-      cancelOperation();
-    }
-    projectType = selected;
-  }
+    if (isCancel(framework)) cancelOperation();
 
-  // Validate or prompt for variant
-  if (!variant || !variantMap[projectType].some((v) => v.value === variant)) {
-    const selected = await select({
+    const fw = FRAMEWORKS.find((f) => f.value === framework)!;
+
+    // Choose variant
+    const variant = await select({
       message: 'Choose a variant:',
-      options: variantMap[projectType],
+      options: fw.variants.map((v) => ({ label: v.color(v.name), value: v.value })),
     });
-    if (isCancel(selected)) {
-      cancelOperation();
+    if (isCancel(variant)) cancelOperation();
+
+    if (typeof variant === 'string') {
+      template = `${fw.value}-${variant}`;
+    } else {
+      cancelOperation('Invalid variant selected');
     }
-    variant = selected;
   }
 
-  // Validate or prompt for folderName
-  if (!folderName) {
-    const input = await text({
-      message: 'Project folder name:',
-      placeholder: 'my-backend-app',
-    });
-    if (isCancel(input)) {
-      cancelOperation();
-    }
-    folderName = input;
-  }
+  const fwVariant = FRAMEWORKS.flatMap((f) => f.variants).find(
+    (v) => `${v.value}` === template.split('-')[1],
+  );
 
-  // Validate folderName
-  if (typeof folderName !== 'string' || folderName.trim() === '') {
-    cancelOperation('Invalid folder name');
+  const pkgManager = detectPkgManager();
+
+  // If variant has a custom command, run it and exit
+  if (fwVariant?.customCommand) {
+    const fullCmd = getFullCustomCommand(fwVariant.customCommand, targetDir);
+    const [command, ...args] = fullCmd.split(' ');
+    const { status } = spawn.sync(command, args, { stdio: 'inherit' });
+    process.exit(status ?? 0);
   }
 
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
+  const templateDir = path.resolve(__dirname, `../templates/${template}`);
+  const root = path.resolve(process.cwd(), targetDir);
 
-  const src = path.resolve(__dirname, `../templates/${projectType}-${variant}`);
-  const dest = path.resolve(process.cwd(), folderName);
+  await checkDirectory(root);
 
-  // using the checkDirectory function to handle existing folders
-  await checkDirectory(dest);
+  console.log(`\n🛠️  Generating project "${targetDir}" using template ${template}...`);
+  copyRecursiveSync(templateDir, root);
 
-  console.log(`\n🛠️  Generating project "${folderName}" using ${projectType} (${variant})...`);
-
-  try {
-    copyRecursiveSync(src, dest);
-  } catch (err) {
-    cancelOperation(`Failed to copy template files: ${(err as Error).message}`);
+  // Modify package.json if exists
+  const pkgPath = path.join(root, 'package.json');
+  if (fs.existsSync(pkgPath)) {
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
+    pkg.name = targetDir;
+    fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
   }
 
-  outro(green(`🎉 Done! Project created at ./${folderName}`));
+  let doneMessage = `🎉 Done! Project created at ./${targetDir}\n\n`;
+  if (root !== process.cwd()) {
+    doneMessage += `cd ${targetDir.includes(' ') ? `"${targetDir}"` : targetDir}\n`;
+  }
+  doneMessage +=
+    pkgManager === 'yarn' ? 'yarn\n' + 'yarn dev' : `${pkgManager} install\n${pkgManager} run dev`;
+  outro(doneMessage);
 }
 
-// running the main function
 main().catch((err) => {
-  console.error(red('Unexpected error:'), err);
+  console.error(err);
   process.exit(1);
 });
