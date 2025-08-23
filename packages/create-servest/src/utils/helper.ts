@@ -76,6 +76,14 @@ export function emptyDir(dir: string): void {
   }
 }
 
+export function detectPkgManager(): string {
+  const userAgent = process.env.npm_config_user_agent;
+  if (!userAgent) return 'npm';
+  if (userAgent.includes('pnpm')) return 'pnpm';
+  if (userAgent.includes('yarn')) return 'yarn';
+  return 'npm';
+}
+
 export function pkgFromUserAgent(userAgent: string | undefined): PkgInfo | undefined {
   if (!userAgent) return undefined;
   const pkgSpec = userAgent.split(' ')[0];

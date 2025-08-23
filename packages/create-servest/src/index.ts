@@ -1,6 +1,6 @@
 // Node built-in modules
 import fs from 'node:fs';
-import path from 'node:path';
+import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 // External dependencies
@@ -12,6 +12,7 @@ import spawn from 'cross-spawn';
 import { ALL_TEMPLATES, FRAMEWORKS, cancelOperation, helpMessage } from './utils';
 import {
   copyDir,
+  detectPkgManager,
   emptyDir,
   formatTargetDir,
   getFullCustomCommand,
@@ -24,7 +25,9 @@ import {
 import { green, red, yellow } from './utils/colors';
 
 const cwd = process.cwd();
-const defaultTargetDir = 'servest-backend-project';
+const defaultTargetDir = 'servest-project';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // CLI args
 const argv = mri<{
@@ -160,7 +163,7 @@ async function init() {
   }
 
   // 5️⃣ Running custom command if exists
-  const pkgManager = pkgInfo ? pkgInfo.name : 'npm';
+  const pkgManager = pkgInfo ? pkgInfo.name : detectPkgManager();
 
   const { customCommand } =
     FRAMEWORKS.flatMap((f) => f.variants).find((v) => v.name === template) ?? {};
@@ -184,24 +187,32 @@ async function init() {
   log.step(`Scaffolding project in ${root}...`);
 
   // 6️⃣ Copy template files
-  const templateDir = path.resolve(fileURLToPath(import.meta.url), '../templates', template);
+  const templateDir = path.resolve(__dirname, '../templates', template);
+
+  if (!fs.existsSync(templateDir)) {
+    return cancelOperation(
+      `Template directory "${templateDir}" does not exist! Check your template name.`,
+    );
+  }
+
   copyDir(templateDir, root);
   updatePackageName(path.join(root, 'package.json'), packageName);
 
   // 8️⃣ Displaying outro message
   const cdProjectName = path.relative(cwd, root);
-
   const cdCommand =
     root !== cwd ? `cd ${cdProjectName.includes(' ') ? `"${cdProjectName}"` : cdProjectName}` : '';
 
   const installCommands =
     pkgManager === 'yarn'
       ? ['yarn', 'yarn dev']
-      : [`${pkgManager} install`, `${pkgManager} run dev`];
+      : pkgManager === 'pnpm'
+        ? ['pnpm install', 'pnpm run dev']
+        : ['npm install', 'npm run dev'];
 
   const finalMessage = ['Done. Now run:', cdCommand, ...installCommands]
-    .filter(Boolean) // remove empty strings if cdCommand is ''
-    .map((line) => `  ${line}`) // indent each line
+    .filter(Boolean)
+    .map((line) => `  ${line}`)
     .join('\n');
 
   outro(green(finalMessage));
