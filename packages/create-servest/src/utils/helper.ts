@@ -42,6 +42,7 @@ export function copyDir(srcDir: string, destDir: string): void {
 }
 
 export function isEmpty(path: string): boolean {
+  if (!fs.existsSync(path)) return true;
   const files = fs.readdirSync(path);
   return files.length === 0 || (files.length === 1 && files[0] === '.git');
 }

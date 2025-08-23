@@ -20,7 +20,7 @@ import {
   pkgFromUserAgent,
   toValidPackageName,
 } from './utils/helper';
-import { green } from './utils/colors';
+import { green, red, yellow } from './utils/colors';
 
 const cwd = process.cwd();
 const defaultTargetDir = 'servest-backend-project';
@@ -71,16 +71,18 @@ async function init() {
 
   const root = path.join(cwd, targetDir);
 
-  // 2️⃣ Handle existing directory
+  // 2️⃣ Handling existing directory
   if (fs.existsSync(root) && !isEmpty(root)) {
     const overwrite = argOverwrite
       ? 'yes'
       : await select({
-          message: `Target directory "${targetDir}" is not empty. Choose:`,
+          message: `${
+            targetDir === '.' ? 'Current directory' : `Target directory "${targetDir}"`
+          } is not empty. Choose how to proceed:`,
           options: [
-            { value: 'no', label: 'Cancel' },
-            { value: 'yes', label: 'Remove existing files and continue' },
-            { value: 'ignore', label: 'Ignore and continue' },
+            { value: 'no', label: red('Cancel operation') },
+            { value: 'yes', label: yellow('Remove existing files and continue') },
+            { value: 'ignore', label: green('Ignore files and continue') },
           ],
         });
     if (isCancel(overwrite)) return cancelOperation();
@@ -94,17 +96,20 @@ async function init() {
         break;
     }
   }
+
   fs.mkdirSync(root, { recursive: true });
 
-  // 3️⃣ Package name validation
+  // 3️⃣ validating package name
   let packageName = path.basename(path.resolve(root));
   if (!isValidPackageName(packageName)) {
+    const suggestedName = toValidPackageName(packageName);
     const packageNameResult = await text({
       message: 'Package name:',
-      defaultValue: toValidPackageName(packageName),
-      placeholder: toValidPackageName(packageName),
+      defaultValue: suggestedName,
+      placeholder: suggestedName,
       validate(dir) {
-        if (!isValidPackageName(dir)) return 'Invalid package.json name';
+        if (!isValidPackageName(dir))
+          return 'Invalid package name: only lowercase letters, numbers, hyphens (-), and underscores (_) are allowed';
       },
     });
     if (isCancel(packageNameResult)) return cancelOperation();
@@ -120,35 +125,35 @@ async function init() {
   }
 
   if (!template) {
+    // Selecting a framework
     const framework = await select({
       message: hasInvalidArgTemplate
         ? `"${argTemplate}" isn't a valid template. Please choose from below: `
         : 'Select a framework:',
-      options: FRAMEWORKS.map((framework) => {
-        const frameworkColor = framework.color;
-        return {
-          label: frameworkColor(framework.name),
-          value: framework,
-        };
-      }),
+      options: FRAMEWORKS.map((f) => ({
+        label: f.color(f.name),
+        value: f,
+      })),
     });
     if (isCancel(framework)) return cancelOperation();
 
+    // Selecting a variant
     const variant = await select({
       message: 'Select a variant:',
-      options: framework.variants.map((variant) => {
-        const variantColor = variant.color;
-        const command = variant.customCommand
-          ? getFullCustomCommand(variant.customCommand, pkgInfo).replace(/ TARGET_DIR$/, '')
+      options: framework.variants.map((v) => {
+        const hint = v.customCommand
+          ? getFullCustomCommand(v.customCommand, pkgInfo)
+              .replace(/TARGET_DIR/g, targetDir)
+              .trim()
           : undefined;
         return {
-          label: variantColor(variant.name),
-          value: variant.name,
-          hint: command,
+          label: v.color(v.name),
+          value: v.name,
+          hint,
         };
       }),
     });
-    if (isCancel(framework)) return cancelOperation();
+    if (isCancel(variant)) return cancelOperation();
 
     template = variant as string;
   }
