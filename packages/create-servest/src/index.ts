@@ -6,6 +6,23 @@ import mri from 'mri';
 import { blue, boldGreen, boldRed, boldYellow, green, red, yellow } from './utils/console-colors';
 import { cancelOperation } from './utils';
 
+// prettier-ignore
+const helpMessage = `\
+Usage: create-servest [OPTION]... [DIRECTORY]
+
+Create a new Servest backend project.
+With no arguments, start the CLI in interactive mode.
+
+Options:
+  -t, --template NAME        use a specific template
+  -h, --help                 show this help message
+
+Available templates:
+${yellow('express-basic-js   express-basic-ts   express-modular-esm')}
+${yellow('express-mvc-cjs    express-mvc-esm     express-mvc-ts')}
+${yellow('express-modular-cjs    express-modular-esm   express-modular-ts')}
+`;
+
 // Map of the frameworks with colors
 const frameworkColorMap: Record<string, (text: string) => string> = {
   express: boldYellow,
@@ -114,9 +131,16 @@ async function main() {
   intro('Servest – Backend project generator');
 
   const args = mri(process.argv.slice(2), {
-    alias: { t: 'type', v: 'variant', n: 'name' },
-    string: ['type', 'variant', 'name'],
+    alias: { t: 'template', h: 'help' },
+    string: ['template'],
+    boolean: ['help'],
   });
+
+  // Showing help if requested
+  if (args.h || args.help) {
+    console.log(helpMessage);
+    process.exit(0);
+  }
 
   let projectType = args.type;
   let variant = args.variant;
