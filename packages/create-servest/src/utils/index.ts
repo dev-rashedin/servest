@@ -69,10 +69,10 @@ export const FRAMEWORKS: Framework[] = [
     value: 'django',
     color: boldGreen,
     variants: [
-      { name: 'Basic', value: 'basic', color: green },
-      { name: 'API Only', value: 'api', color: green },
-      { name: 'Channels (WebSocket)', value: 'channels', color: green },
-      { name: 'Celery (Background Tasks)', value: 'celery', color: green },
+      { name: 'Basic', value: 'django-basic', color: green },
+      { name: 'API Only', value: 'django-api', color: green },
+      { name: 'Channels (WebSocket)', value: 'django-channels', color: green },
+      { name: 'Celery (Background Tasks)', value: 'django-celery', color: green },
     ],
   },
   {
@@ -80,18 +80,16 @@ export const FRAMEWORKS: Framework[] = [
     name: 'Laravel',
     color: boldRed,
     variants: [
-      { name: 'Basic', value: 'basic', color: red },
-      { name: 'API Only', value: 'api', color: red },
-      { name: 'Breeze (Simple Auth)', value: 'breeze', color: red },
-      { name: 'Jetstream (Advanced Auth)', value: 'jetstream', color: red },
+      { name: 'Basic', value: 'laravel-basic', color: red },
+      { name: 'API Only', value: 'laravel-api', color: red },
+      { name: 'Breeze (Simple Auth)', value: 'laravel-breeze', color: red },
+      { name: 'Jetstream (Advanced Auth)', value: 'laravel-jetstream', color: red },
     ],
   },
 ];
 
 // Flattening all template names for quick lookup
-export const ALL_TEMPLATES = FRAMEWORKS.flatMap((f) =>
-  f.variants.map((v) => `${f.value}-${v.value}`),
-);
+export const ALL_TEMPLATES = FRAMEWORKS.flatMap((f) => f.variants.map((v) => v.value));
 
 // prettier-ignore
 export const helpMessage = `\

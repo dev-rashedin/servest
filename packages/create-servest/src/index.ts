@@ -29,16 +29,20 @@ const defaultTargetDir = 'servest-project';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// CLI args
-const argv = mri<{
+interface IArgv {
   template?: string;
   help?: boolean;
   h?: boolean;
   overwrite?: boolean;
-}>(process.argv.slice(2), {
-  alias: { h: 'help', t: 'template' },
+  addons?: string;
+  a?: string;
+}
+
+// CLI args
+const argv = mri<IArgv>(process.argv.slice(2), {
+  alias: { h: 'help', t: 'template', a: 'addons' },
   boolean: ['help', 'overwrite', 'h'],
-  string: ['template'],
+  string: ['template', 'addons'],
 });
 
 async function init() {
@@ -47,6 +51,7 @@ async function init() {
   const argTargetDir = argv._[0]?.toString() ? formatTargetDir(String(argv._[0])) : undefined;
   const argTemplate = argv.template;
   const argOverwrite = argv.overwrite;
+  const addonsArg = argv.a || argv.addons;
 
   const help = argv.help || argv.h;
   if (help) {
@@ -197,6 +202,19 @@ async function init() {
 
   copyDir(templateDir, root);
   updatePackageName(path.join(root, 'package.json'), packageName);
+
+  // 7️⃣ Running addons if specified
+  const addons = addonsArg ? addonsArg.split(/\s+/).filter(Boolean) : [];
+
+  if (addons.length > 0) {
+    log.info(`Running addons: ${addons.join(', ')}`);
+    const { status } = spawn.sync('npx', ['add', 'servest@latest', ...addons], {
+      stdio: 'inherit',
+    });
+    if (status !== 0) {
+      log.info(`${red('Error:')} Some addons failed! Try running them manually.`);
+    }
+  }
 
   // 8️⃣ Displaying outro message
   const cdProjectName = path.relative(cwd, root);
