@@ -33,12 +33,29 @@ export function toValidPackageName(projectName: string): string {
 }
 
 export function copyDir(srcDir: string, destDir: string): void {
-  fs.mkdirSync(destDir, { recursive: true });
-  for (const file of fs.readdirSync(srcDir)) {
-    const srcFile = path.resolve(srcDir, file);
-    const destFile = path.resolve(destDir, file);
-    copy(srcFile, destFile);
+  const stat = fs.statSync(srcDir);
+
+  if (stat.isDirectory()) {
+    fs.mkdirSync(destDir, { recursive: true });
+
+    for (const file of fs.readdirSync(srcDir)) {
+      // Skip .gitkeep files
+      if (file === '.gitkeep') continue;
+
+      const curSrc = path.join(srcDir, file);
+      const curDest = path.join(destDir, file === '_gitignore' ? '.gitignore' : file);
+
+      copyDir(curSrc, curDest);
+    }
+  } else {
+    fs.copyFileSync(srcDir, destDir);
   }
+}
+
+export function updatePackageName(pkgPath: string, packageName: string): void {
+  const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
+  pkg.name = packageName;
+  fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n', 'utf-8');
 }
 
 export function isEmpty(path: string): boolean {

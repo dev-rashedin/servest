@@ -11,7 +11,7 @@ import spawn from 'cross-spawn';
 // Local utilities
 import { ALL_TEMPLATES, FRAMEWORKS, cancelOperation, helpMessage } from './utils';
 import {
-  copy,
+  copyDir,
   emptyDir,
   formatTargetDir,
   getFullCustomCommand,
@@ -19,6 +19,7 @@ import {
   isValidPackageName,
   pkgFromUserAgent,
   toValidPackageName,
+  updatePackageName,
 } from './utils/helper';
 import { green, red, yellow } from './utils/colors';
 
@@ -158,7 +159,7 @@ async function init() {
     template = variant as string;
   }
 
-  // 5️⃣ Run custom command if exists
+  // 5️⃣ Running custom command if exists
   const pkgManager = pkgInfo ? pkgInfo.name : 'npm';
 
   const { customCommand } =
@@ -167,9 +168,13 @@ async function init() {
   if (customCommand) {
     const fullCustomCommand = getFullCustomCommand(customCommand, pkgInfo);
 
+    if (fullCustomCommand.includes('--template')) {
+      log.info(`Running custom command: ${fullCustomCommand}`);
+    }
+
     const [command, ...args] = fullCustomCommand.split(' ');
-    // we replace TARGET_DIR here because targetDir may include a space
-    const replacedArgs = args.map((arg) => arg.replace('TARGET_DIR', () => targetDir));
+    const replacedArgs = args.map((arg) => arg.replace('TARGET_DIR', targetDir));
+
     const { status } = spawn.sync(command, replacedArgs, {
       stdio: 'inherit',
     });
@@ -179,56 +184,27 @@ async function init() {
   log.step(`Scaffolding project in ${root}...`);
 
   // 6️⃣ Copy template files
-  const templateDir = path.resolve(
-    fileURLToPath(import.meta.url),
-    '../templates',
-    `template-${template}`,
-  );
+  const templateDir = path.resolve(fileURLToPath(import.meta.url), '../templates', template);
+  copyDir(templateDir, root);
+  updatePackageName(path.join(root, 'package.json'), packageName);
 
-  const write = (file: string, content?: string) => {
-    // Skip .gitkeep files entirely
-    if (file === '.gitkeep') return;
-
-    const finalName = file === '_gitignore' ? '.gitignore' : file;
-    const targetPath = path.join(root, finalName);
-
-    if (content) {
-      fs.writeFileSync(targetPath, content);
-    } else {
-      copy(path.join(templateDir, file), targetPath);
-    }
-  };
-
-  const files = fs.readdirSync(templateDir);
-  for (const file of files.filter((f) => f !== 'package.json')) {
-    write(file);
-  }
-
-  const pkg = JSON.parse(fs.readFileSync(path.join(templateDir, `package.json`), 'utf-8'));
-
-  pkg.name = packageName;
-
-  write('package.json', JSON.stringify(pkg, null, 2) + '\n');
-
-  let doneMessage = '';
+  // 8️⃣ Displaying outro message
   const cdProjectName = path.relative(cwd, root);
-  doneMessage += `Done. Now run:\n`;
-  if (root !== cwd) {
-    doneMessage += `\n  cd ${cdProjectName.includes(' ') ? `"${cdProjectName}"` : cdProjectName}`;
-  }
-  switch (pkgManager) {
-    case 'yarn':
-      doneMessage += '\n  yarn';
-      doneMessage += '\n  yarn dev';
-      break;
-    default:
-      doneMessage += `\n  ${pkgManager} install`;
-      doneMessage += `\n  ${pkgManager} run dev`;
-      break;
-  }
 
-  // 8️⃣ Outro message
-  outro(green(doneMessage));
+  const cdCommand =
+    root !== cwd ? `cd ${cdProjectName.includes(' ') ? `"${cdProjectName}"` : cdProjectName}` : '';
+
+  const installCommands =
+    pkgManager === 'yarn'
+      ? ['yarn', 'yarn dev']
+      : [`${pkgManager} install`, `${pkgManager} run dev`];
+
+  const finalMessage = ['Done. Now run:', cdCommand, ...installCommands]
+    .filter(Boolean) // remove empty strings if cdCommand is ''
+    .map((line) => `  ${line}`) // indent each line
+    .join('\n');
+
+  outro(green(finalMessage));
 }
 
 // ───── INIT ─────
