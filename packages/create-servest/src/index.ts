@@ -149,7 +149,7 @@ async function init() {
           : undefined;
         return {
           label: v.color(v.name),
-          value: v.name,
+          value: v.value,
           hint,
         };
       }),

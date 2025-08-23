@@ -18,69 +18,61 @@ interface Framework {
 
 export const FRAMEWORKS: Framework[] = [
   {
-    value: 'express',
     name: 'Express',
+    value: 'express',
     color: boldYellow,
     variants: [
       {
-        value: 'basic-js',
         name: 'Basic - JavaScript',
+        value: 'express-basic-js',
         color: yellow,
-        customCommand: 'npm create servest@latest -- --template express-basic-js',
       },
       {
-        value: 'basic-ts',
         name: 'Basic - TypeScript',
+        value: 'express-basic-ts',
         color: blue,
-        customCommand: 'npm create servest@latest -- --template express-basic-ts',
       },
       {
-        value: 'mvc-cjs',
         name: 'MVC - CommonJS',
+        value: 'express-mvc-cjs',
         color: yellow,
-        customCommand: 'npm create servest@latest -- --template express-mvc-cjs',
       },
       {
-        value: 'mvc-esm',
         name: 'MVC - ESM',
+        value: 'express-mvc-esm',
         color: yellow,
-        customCommand: 'npm create servest@latest -- --template express-mvc-esm',
       },
       {
-        value: 'mvc-ts',
         name: 'MVC - TypeScript',
+        value: 'express-mvc-ts',
         color: blue,
-        customCommand: 'npm create servest@latest -- --template express-mvc-ts',
       },
       {
-        value: 'modular-cjs',
         name: 'Modular - CommonJS',
+        value: 'express-modular-cjs',
         color: yellow,
-        customCommand: 'npm create servest@latest -- --template express-modular-cjs',
       },
       {
-        value: 'modular-esm',
         name: 'Modular - ESM',
+        value: 'express-modular-esm',
         color: yellow,
-        customCommand: 'npm create servest@latest -- --template express-modular-esm',
       },
       {
-        value: 'modular-ts',
         name: 'Modular - TypeScript',
+        value: 'express-modular-ts',
         color: blue,
-        customCommand: 'npm create servest@latest -- --template express-modular-ts',
       },
     ],
   },
   {
-    value: 'django',
     name: 'Django',
+    value: 'django',
     color: boldGreen,
     variants: [
-      { value: 'basic', name: 'Basic', color: green },
-      { value: 'api', name: 'API Only', color: green },
-      { value: 'channels', name: 'Channels (WebSocket)', color: green },
-      { value: 'celery', name: 'Celery (Background Tasks)', color: green },
+      { name: 'Basic', value: 'basic', color: green },
+      { name: 'API Only', value: 'api', color: green },
+      { name: 'Channels (WebSocket)', value: 'channels', color: green },
+      { name: 'Celery (Background Tasks)', value: 'celery', color: green },
     ],
   },
   {
@@ -88,10 +80,10 @@ export const FRAMEWORKS: Framework[] = [
     name: 'Laravel',
     color: boldRed,
     variants: [
-      { value: 'basic', name: 'Basic', color: red },
-      { value: 'api', name: 'API Only', color: red },
-      { value: 'breeze', name: 'Breeze (Simple Auth)', color: red },
-      { value: 'jetstream', name: 'Jetstream (Advanced Auth)', color: red },
+      { name: 'Basic', value: 'basic', color: red },
+      { name: 'API Only', value: 'api', color: red },
+      { name: 'Breeze (Simple Auth)', value: 'breeze', color: red },
+      { name: 'Jetstream (Advanced Auth)', value: 'jetstream', color: red },
     ],
   },
 ];
