@@ -1,9 +1,14 @@
+// Node built-in modules
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { intro, isCancel, log, outro, select, text } from '@clack/prompts';
+
+// External dependencies
 import mri from 'mri';
+import { intro, isCancel, log, outro, select, text } from '@clack/prompts';
 import spawn from 'cross-spawn';
+
+// Local utilities
 import { ALL_TEMPLATES, FRAMEWORKS, cancelOperation, helpMessage } from './utils';
 import {
   copy,
@@ -18,13 +23,13 @@ import {
 import { green } from './utils/colors';
 
 const cwd = process.cwd();
-const defaultTargetDir = 'servest-project';
+const defaultTargetDir = 'servest-backend-project';
 
 // CLI args
 const argv = mri<{
   template?: string;
   help?: boolean;
-  h: boolean;
+  h?: boolean;
   overwrite?: boolean;
 }>(process.argv.slice(2), {
   alias: { h: 'help', t: 'template' },
@@ -32,18 +37,10 @@ const argv = mri<{
   string: ['template'],
 });
 
-// const cwd = process.cwd();
-
-const renameFiles: Record<string, string | undefined> = {
-  _gitignore: '.gitignore',
-};
-
-// const defaultTargetDir = 'servest-backend-project';
-
 async function init() {
   intro('Create Servest project');
 
-  const argTargetDir = argv._[0] ? formatTargetDir(String(argv._[0])) : undefined;
+  const argTargetDir = argv._[0]?.toString() ? formatTargetDir(String(argv._[0])) : undefined;
   const argTemplate = argv.template;
   const argOverwrite = argv.overwrite;
 
@@ -55,7 +52,7 @@ async function init() {
 
   const pkgInfo = pkgFromUserAgent(process.env.npm_config_user_agent);
 
-  // 1️⃣ Target directory
+  // 1️⃣ Targeting directory
   let targetDir = argTargetDir;
   if (!targetDir) {
     const projectName = await text({
@@ -115,7 +112,7 @@ async function init() {
   }
 
   // 4️⃣ Determine template
-  let template = argTemplate;
+  let template = argv.template?.trim();
   let hasInvalidArgTemplate = false;
   if (template && !ALL_TEMPLATES.includes(template)) {
     template = undefined;
@@ -184,7 +181,12 @@ async function init() {
   );
 
   const write = (file: string, content?: string) => {
-    const targetPath = path.join(root, renameFiles[file] ?? file);
+    // Skip .gitkeep files entirely
+    if (file === '.gitkeep') return;
+
+    const finalName = file === '_gitignore' ? '.gitignore' : file;
+    const targetPath = path.join(root, finalName);
+
     if (content) {
       fs.writeFileSync(targetPath, content);
     } else {

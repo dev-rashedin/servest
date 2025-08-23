@@ -7,7 +7,7 @@ interface PkgInfo {
 }
 
 export function formatTargetDir(targetDir: string): string {
-  return targetDir.trim().replace(/\/+$/g, '');
+  return targetDir.trim().replace(/[/\\]+$/g, '');
 }
 
 export function copy(src: string, dest: string): void {
@@ -66,21 +66,6 @@ export function pkgFromUserAgent(userAgent: string | undefined): PkgInfo | undef
     name: pkgSpecArr[0],
     version: pkgSpecArr[1],
   };
-}
-
-export function setupReactSwc(root: string, isTs: boolean): void {
-  // renovate: datasource=npm depName=@vitejs/plugin-react-swc
-  const reactSwcPluginVersion = '3.11.0';
-
-  editFile(path.resolve(root, 'package.json'), (content) => {
-    return content.replace(
-      /"@vitejs\/plugin-react": ".+?"/,
-      `"@vitejs/plugin-react-swc": "^${reactSwcPluginVersion}"`,
-    );
-  });
-  editFile(path.resolve(root, `vite.config.${isTs ? 'ts' : 'js'}`), (content) => {
-    return content.replace('@vitejs/plugin-react', '@vitejs/plugin-react-swc');
-  });
 }
 
 export function editFile(file: string, callback: (content: string) => string): void {
