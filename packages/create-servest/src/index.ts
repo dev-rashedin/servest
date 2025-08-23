@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { intro, isCancel, log, outro, select, text } from '@clack/prompts';
 import mri from 'mri';
 import spawn from 'cross-spawn';
-import { ALL_TEMPLATES, FRAMEWORKS, cancelOperation } from './utils';
+import { ALL_TEMPLATES, FRAMEWORKS, cancelOperation, helpMessage } from './utils';
 
 const cwd = process.cwd();
 const defaultTargetDir = 'servest-project';
@@ -22,23 +22,6 @@ const argFramework = argv.framework as string | undefined;
 const argVariant = argv.variant as string | undefined;
 const argTemplate = argv.template as string | undefined;
 const argOverwrite = argv.overwrite as boolean | undefined;
-
-// Help message
-const helpMessage = `
-Usage: create-servest [OPTION]... [DIRECTORY]
-
-Create a new backend project.
-
-Options:
-  -f, --framework NAME    choose a framework
-  -v, --variant NAME      choose a variant
-  -t, --template NAME     use a specific template
-  -h, --help              show help
-  --overwrite             overwrite existing files
-
-Available frameworks:
-${FRAMEWORKS.map((f) => f.color(f.name)).join('\n')}
-`;
 
 async function init() {
   intro('Create Servest project');

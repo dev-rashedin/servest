@@ -3,7 +3,7 @@ import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { intro, isCancel, outro, select, text } from '@clack/prompts';
 import mri from 'mri';
-import { blue, boldGreen, boldRed, boldYellow, green, red, yellow } from './utils/console-colors';
+import { blue, boldGreen, boldRed, boldYellow, green, red, yellow } from './utils/colors';
 import { cancelOperation } from './utils';
 
 // prettier-ignore

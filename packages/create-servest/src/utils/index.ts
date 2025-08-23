@@ -1,4 +1,4 @@
-import { blue, boldGreen, boldRed, boldYellow, green, red, yellow } from './console-colors';
+import { blue, boldGreen, boldRed, boldYellow, green, red, yellow } from './colors';
 
 type CancelOperation = (message?: string) => void;
 
@@ -100,6 +100,30 @@ export const FRAMEWORKS: Framework[] = [
 export const ALL_TEMPLATES = FRAMEWORKS.flatMap((f) =>
   f.variants.map((v) => `${f.value}-${v.value}`),
 );
+
+// prettier-ignore
+export const helpMessage = `\
+Usage: create-servest [OPTION]... [DIRECTORY]
+
+Create a new Servest backend project.
+With no arguments, start the CLI in interactive mode.
+
+Options:
+  -t, --template NAME        use a specific template
+  -h, --help                 show this help message
+
+Available templates:
+${yellow('express-basic-js   express-basic-ts   express-modular-esm')}
+${yellow('express-mvc-cjs    express-mvc-esm     express-mvc-ts')}
+${yellow('express-modular-cjs    express-modular-esm   express-modular-ts')}
+`;
+
+// ${green('django-basic        django-api        django-channels    django-celery')}
+// ${red('laravel-basic       laravel-api       laravel-breeze    laravel-jetstream')}
+
+// interface ColorFunc {
+//   (str: string | number) : string;
+// }
 
 export const cancelOperation: CancelOperation = (message = 'Operation cancelled') => {
   console.error(red(message));

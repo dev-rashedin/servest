@@ -9,7 +9,7 @@ import mri from 'mri';
 import { intro, isCancel, outro, select, text } from '@clack/prompts';
 
 // Local utilities
-import { blue, boldGreen, boldRed, boldYellow, green, red, yellow } from './utils/console-colors';
+import { blue, boldGreen, boldRed, boldYellow, green, red, yellow } from './utils/colors';
 import { cancelOperation } from './utils';
 
 // const argv = mri(process.argv.slice(2), {
