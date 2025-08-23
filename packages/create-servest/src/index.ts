@@ -6,7 +6,7 @@ import mri from 'mri';
 import spawn from 'cross-spawn';
 import { ALL_TEMPLATES, FRAMEWORKS, cancelOperation, helpMessage } from './utils';
 import {
-  copyDir,
+  copy,
   emptyDir,
   formatTargetDir,
   getFullCustomCommand,
@@ -15,6 +15,7 @@ import {
   pkgFromUserAgent,
   toValidPackageName,
 } from './utils/helper';
+import { green } from './utils/colors';
 
 const cwd = process.cwd();
 const defaultTargetDir = 'servest-project';
@@ -33,9 +34,9 @@ const argv = mri<{
 
 // const cwd = process.cwd();
 
-// const renameFiles: Record<string, string | undefined> = {
-//   _gitignore: '.gitignore',
-// };
+const renameFiles: Record<string, string | undefined> = {
+  _gitignore: '.gitignore',
+};
 
 // const defaultTargetDir = 'servest-backend-project';
 
@@ -156,73 +157,72 @@ async function init() {
   }
 
   // 5️⃣ Run custom command if exists
-  const customVariant = FRAMEWORKS.flatMap((f) =>
-    f.variants.map((v) => ({ framework: f, variant: v })),
-  ).find(({ framework, variant }) => `${framework.value}-${variant.value}` === template)?.variant;
-  if (customVariant?.customCommand) {
-    const cmd = customVariant.customCommand.replace('TARGET_DIR', targetDir);
-    const [command, ...args] = cmd.split(' ');
-    const { status } = spawn.sync(command, args, { stdio: 'inherit' });
+  const pkgManager = pkgInfo ? pkgInfo.name : 'npm';
+
+  const { customCommand } =
+    FRAMEWORKS.flatMap((f) => f.variants).find((v) => v.name === template) ?? {};
+
+  if (customCommand) {
+    const fullCustomCommand = getFullCustomCommand(customCommand, pkgInfo);
+
+    const [command, ...args] = fullCustomCommand.split(' ');
+    // we replace TARGET_DIR here because targetDir may include a space
+    const replacedArgs = args.map((arg) => arg.replace('TARGET_DIR', () => targetDir));
+    const { status } = spawn.sync(command, replacedArgs, {
+      stdio: 'inherit',
+    });
     process.exit(status ?? 0);
   }
 
   log.step(`Scaffolding project in ${root}...`);
 
   // 6️⃣ Copy template files
-  const templateDir = path.resolve(fileURLToPath(import.meta.url), '../templates', template);
+  const templateDir = path.resolve(
+    fileURLToPath(import.meta.url),
+    '../templates',
+    `template-${template}`,
+  );
 
-  copyDir(templateDir, root);
+  const write = (file: string, content?: string) => {
+    const targetPath = path.join(root, renameFiles[file] ?? file);
+    if (content) {
+      fs.writeFileSync(targetPath, content);
+    } else {
+      copy(path.join(templateDir, file), targetPath);
+    }
+  };
 
-  // 7️⃣ Patch package.json
-  const pkgFile = path.join(root, 'package.json');
-  if (fs.existsSync(pkgFile)) {
-    const pkg = JSON.parse(fs.readFileSync(pkgFile, 'utf-8'));
-    pkg.name = packageName;
-    fs.writeFileSync(pkgFile, JSON.stringify(pkg, null, 2) + '\n', 'utf-8');
+  const files = fs.readdirSync(templateDir);
+  for (const file of files.filter((f) => f !== 'package.json')) {
+    write(file);
+  }
+
+  const pkg = JSON.parse(fs.readFileSync(path.join(templateDir, `package.json`), 'utf-8'));
+
+  pkg.name = packageName;
+
+  write('package.json', JSON.stringify(pkg, null, 2) + '\n');
+
+  let doneMessage = '';
+  const cdProjectName = path.relative(cwd, root);
+  doneMessage += `Done. Now run:\n`;
+  if (root !== cwd) {
+    doneMessage += `\n  cd ${cdProjectName.includes(' ') ? `"${cdProjectName}"` : cdProjectName}`;
+  }
+  switch (pkgManager) {
+    case 'yarn':
+      doneMessage += '\n  yarn';
+      doneMessage += '\n  yarn dev';
+      break;
+    default:
+      doneMessage += `\n  ${pkgManager} install`;
+      doneMessage += `\n  ${pkgManager} run dev`;
+      break;
   }
 
   // 8️⃣ Outro message
-  outro(
-    `Project created in ${root}\n\nNext steps:\n  cd ${targetDir}\n  npm install\n  npm run dev`,
-  );
+  outro(green(doneMessage));
 }
-
-// ───── HELPERS ─────
-
-// function toValidPackageName(projectName: string) {
-//   return projectName
-//     .trim()
-//     .toLowerCase()
-//     .replace(/\s+/g, '-')
-//     .replace(/^[._]/, '')
-//     .replace(/[^a-z\d\-~]+/g, '-');
-// }
-
-// function isEmpty(path: string) {
-//   const files = fs.readdirSync(path);
-//   return files.length === 0 || (files.length === 1 && files[0] === '.git');
-// }
-
-// function emptyDir(dir: string) {
-//   if (!fs.existsSync(dir)) return;
-//   for (const file of fs.readdirSync(dir)) {
-//     if (file === '.git') continue;
-//     fs.rmSync(path.resolve(dir, file), { recursive: true, force: true });
-//   }
-// }
-
-// function copyDir(srcDir: string, destDir: string) {
-//   fs.mkdirSync(destDir, { recursive: true });
-//   for (const file of fs.readdirSync(srcDir)) {
-//     const srcFile = path.join(srcDir, file);
-//     const destFile = path.join(destDir, file);
-//     if (fs.statSync(srcFile).isDirectory()) {
-//       copyDir(srcFile, destFile);
-//     } else {
-//       fs.copyFileSync(srcFile, destFile);
-//     }
-//   }
-// }
 
 // ───── INIT ─────
 init().catch((err) => {
