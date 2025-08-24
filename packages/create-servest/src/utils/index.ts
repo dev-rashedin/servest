@@ -1,7 +1,5 @@
 import { blue, boldGreen, boldRed, boldYellow, green, red, yellow } from './colors';
 
-type CancelOperation = (message?: string) => void;
-
 interface Variant {
   value: string;
   name: string;
@@ -114,8 +112,3 @@ ${yellow('express-modular-cjs    express-modular-esm   express-modular-ts')}
 // interface ColorFunc {
 //   (str: string | number) : string;
 // }
-
-export const cancelOperation: CancelOperation = (message = 'Operation cancelled') => {
-  console.error(red(message));
-  process.exit(1);
-};

@@ -1,10 +1,18 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { red } from './colors';
+
+type CancelOperation = (message?: string) => void;
 
 interface PkgInfo {
   name: string;
   version: string;
 }
+
+export const cancelOperation: CancelOperation = (message = 'Operation cancelled') => {
+  console.error(red(message));
+  process.exit(1);
+};
 
 export function formatTargetDir(targetDir: string): string {
   return targetDir.trim().replace(/[/\\]+$/g, '');

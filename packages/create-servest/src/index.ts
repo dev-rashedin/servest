@@ -9,8 +9,9 @@ import { intro, isCancel, log, outro, select, text } from '@clack/prompts';
 import spawn from 'cross-spawn';
 
 // Local utilities
-import { ALL_TEMPLATES, FRAMEWORKS, cancelOperation, helpMessage } from './utils';
+import { ALL_TEMPLATES, FRAMEWORKS, helpMessage } from './utils';
 import {
+  cancelOperation,
   copyDir,
   detectPkgManager,
   emptyDir,
