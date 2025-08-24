@@ -20,17 +20,15 @@ const clearGenerated = () => {
 };
 
 // Mocks
-vi.mock('@clack/prompts', () => {
-  return {
-    intro: vi.fn(),
-    outro: vi.fn(),
-    select: vi.fn(),
-    text: vi.fn(),
-    isCancel: (v: any) => v === 'cancel',
-  };
-});
+vi.mock('@clack/prompts', () => ({
+  intro: vi.fn(),
+  outro: vi.fn(),
+  select: vi.fn(),
+  text: vi.fn(),
+  isCancel: (v: any) => v === 'cancel',
+}));
 
-vi.mock('../src/utils', () => ({
+vi.mock('../src/helpers', () => ({
   cancelOperation: vi.fn((msg?: string) => {
     throw new Error(msg || 'Operation cancelled');
   }),
@@ -59,10 +57,9 @@ async function runCli(argv: string[] = []) {
 }
 
 describe('create-servest CLI', () => {
-  test('scaffolds via prompts (express / basic-js)', async () => {
+  test('scaffolds via prompts', async () => {
     const prompts: any = await import('@clack/prompts');
-    prompts.select.mockResolvedValueOnce('express'); // framework
-    prompts.select.mockResolvedValueOnce('basic-js'); // variant
+    prompts.select.mockResolvedValueOnce('express-basic-js'); // template
     prompts.text.mockResolvedValueOnce(projectName); // folder name
 
     await runCli();
@@ -72,7 +69,7 @@ describe('create-servest CLI', () => {
     expect(files.length).toBeGreaterThan(0);
   });
 
-  test('scaffolds non-interactively with flags', async () => {
+  test('scaffolds non-interactively with --template flag', async () => {
     const prompts: any = await import('@clack/prompts');
     prompts.select.mockImplementation(() => {
       throw new Error('select should not be called in flags mode');
@@ -81,7 +78,7 @@ describe('create-servest CLI', () => {
       throw new Error('text should not be called in flags mode');
     });
 
-    await runCli(['--type', 'express', '--variant', 'basic-js', '--name', projectName]);
+    await runCli(['--template', 'express-basic-js', '--name', projectName]);
 
     expect(fs.existsSync(genPath)).toBe(true);
     const files = fs.readdirSync(genPath);
@@ -94,11 +91,9 @@ describe('create-servest CLI', () => {
     fs.writeFileSync(path.join(genPath, 'keep.txt'), 'x');
 
     const prompts: any = await import('@clack/prompts');
-    prompts.select
-      .mockResolvedValueOnce('express') // framework
-      .mockResolvedValueOnce('basic-js') // variant
-      .mockResolvedValueOnce('overwrite'); // overwrite decision
-    prompts.text.mockResolvedValueOnce(projectName);
+    prompts.select.mockResolvedValueOnce('express-basic-js'); // template
+    prompts.text.mockResolvedValueOnce(projectName); // folder name
+    prompts.select.mockResolvedValueOnce('yes'); // overwrite decision
 
     await runCli();
 
