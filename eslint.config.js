@@ -26,6 +26,7 @@ export default tseslint.config(
       '**/.turbo/**',
       '**/*.snap',
       'packages/create-servest/templates/**',
+      'app/**',
       'eslint.config.js',
       '**/.vscode/**',
       '**/.idea/**',
@@ -115,16 +116,6 @@ export default tseslint.config(
     ignores: ['**/__tests__/**'],
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
-    },
-  },
-  {
-    name: 'frontend',
-    files: ['app/**/*.ts', 'app/**/*.tsx'],
-    extends: compat.extends('next/core-web-vitals', 'next/typescript'),
-    plugins: {},
-    rules: {
-      '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
     },
   },

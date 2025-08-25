@@ -207,13 +207,16 @@ async function init() {
   // 7️⃣ Running addons if specified
   const addons = addonsArg ? addonsArg.split(/\s+/).filter(Boolean) : [];
 
-  if (addons.length > 0) {
-    log.info(`Running addons: ${addons.join(', ')}`);
-    const { status } = spawn.sync('npx', ['add', 'servest@latest', ...addons], {
+  for (const addon of addons) {
+    log.info(`\nAdding ${addon}...`);
+    const { status } = spawn.sync('npx', ['add', 'servest@latest', addon], {
       stdio: 'inherit',
     });
+
     if (status !== 0) {
-      log.info(`${red('Error:')} Some addons failed! Try running them manually.`);
+      log.warn(`${red('Failed:')} ${addon}`);
+    } else {
+      log.success(`${addon} added successfully!`);
     }
   }
 
