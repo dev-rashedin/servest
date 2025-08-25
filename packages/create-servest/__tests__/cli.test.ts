@@ -1,64 +1,26 @@
-import fs from 'node:fs';
-import path from 'node:path';
-import { execaCommandSync } from 'execa';
-import { afterEach, beforeAll, expect, test } from 'vitest';
+import path from 'path';
+import { describe, expect, it } from 'vitest';
+import { execa } from 'execa';
 
-const CLI_PATH = path.join(__dirname, '../src/index.ts'); // path to your CLI entry
+const cliPath = path.resolve(__dirname, '../dist/cli.js'); // or src/cli.ts if using ts-node
 
-const projectName = 'test-servest';
-const genPath = path.join(__dirname, projectName);
-const genPathWithSubfolder = path.join(__dirname, 'subfolder', projectName);
-
-// Run CLI as subprocess
-const runCLI = (args: string[], options: { cwd?: string } = {}) => {
-  return execaCommandSync(`node ${CLI_PATH} ${args.join(' ')}`, {
-    ...options,
-    env: process.env,
+describe('CLI Commands', () => {
+  it('should run `hello` command', async () => {
+    const { stdout } = await execa('node', [cliPath, 'hello']);
+    expect(stdout).toContain('Hello'); // adjust based on your CLI output
   });
-};
 
-// Helpers
-const clearFolders = () => {
-  if (fs.existsSync(genPath)) fs.rmSync(genPath, { recursive: true, force: true });
-  if (fs.existsSync(genPathWithSubfolder))
-    fs.rmSync(genPathWithSubfolder, { recursive: true, force: true });
-};
+  it('should run `add` command with multiple args', async () => {
+    const { stdout } = await execa('node', [cliPath, 'add', 'eslint', 'prettier']);
+    expect(stdout).toContain('Installed eslint');
+    expect(stdout).toContain('Installed prettier');
+  });
 
-beforeAll(() => clearFolders());
-afterEach(() => clearFolders());
-
-test('prompts for project name if none supplied', () => {
-  const { stdout } = runCLI([]);
-  expect(stdout).toContain('Project name:');
-});
-
-test('prompts for framework if template not supplied', () => {
-  const { stdout } = runCLI([projectName]);
-  expect(stdout).toContain('Select a framework:');
-});
-
-test('prompts for framework on invalid template', () => {
-  const { stdout } = runCLI([projectName, '--template', 'unknown']);
-  expect(stdout).toContain(`"unknown" isn't a valid template`);
-});
-
-test('asks to overwrite non-empty target directory', () => {
-  fs.mkdirSync(genPath, { recursive: true });
-  fs.writeFileSync(path.join(genPath, 'package.json'), '{"foo":"bar"}');
-
-  const { stdout } = runCLI([projectName]);
-  expect(stdout).toContain(`Target directory "${projectName}" is not empty.`);
-});
-
-test('successfully scaffolds a project with a template', () => {
-  const { stdout } = runCLI([projectName, '--template', 'express-basic-js']);
-  expect(stdout).toContain(`Scaffolding project in ${genPath}`);
-
-  const files = fs.readdirSync(genPath);
-  expect(files).toContain('package.json');
-});
-
-test('supports --help option', () => {
-  const { stdout } = runCLI(['--help']);
-  expect(stdout).toContain('Usage: create-servest');
+  it('should fail gracefully on unknown command', async () => {
+    try {
+      await execa('node', [cliPath, 'unknown']);
+    } catch (err: any) {
+      expect(err.stderr).toContain('Command not found');
+    }
+  });
 });

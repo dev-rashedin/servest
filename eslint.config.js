@@ -1,19 +1,13 @@
 // @ts-check
-import { FlatCompat } from '@eslint/eslintrc';
 import eslint from '@eslint/js';
 import pluginN from 'eslint-plugin-n';
 import pluginImportX from 'eslint-plugin-import-x';
 import pluginRegExp from 'eslint-plugin-regexp';
 import tseslint from 'typescript-eslint';
 import globals from 'globals';
-import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-// Flags type-checking only in IDE (optional)
 const shouldTypeCheck = typeof process.env.VSCODE_PID === 'string';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const compat = new FlatCompat({ baseDirectory: __dirname });
 
 export default tseslint.config(
   {
@@ -130,6 +124,27 @@ export default tseslint.config(
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-empty-function': 'off',
+    },
+  },
+  {
+    name: 'disables/typechecking',
+    files: [
+      '**/*.js',
+      '**/*.mjs',
+      '**/*.cjs',
+      '**/*.d.ts',
+      '**/*.d.cts',
+      '**/__tests__/**',
+      'docs/**',
+      'playground/**',
+      'scripts/**',
+      'vitest.config.ts',
+      'vitest.config.e2e.ts',
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: false,
+      },
     },
   },
 );
