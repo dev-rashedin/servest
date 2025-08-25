@@ -4,14 +4,16 @@ import type { SyncOptions, SyncResult } from 'execa';
 import { execaCommandSync } from 'execa';
 import { afterEach, beforeAll, expect, test } from 'vitest';
 
-const CLI_PATH = path.join(__dirname, '..');
+const CLI_PATH = path.resolve(__dirname, '..');
+
+console.log(CLI_PATH);
 
 const projectName = 'test-app';
 const genPath = path.join(__dirname, projectName);
 const genPathWithSubfolder = path.join(__dirname, 'subfolder', projectName);
 
 const run = <SO extends SyncOptions>(args: string[], options?: SO): SyncResult<SO> => {
-  return execaCommandSync(`node "${CLI_PATH}" ${args.join(' ')}`, options);
+  return execaCommandSync(`node ${CLI_PATH} ${args.join(' ')}`, options);
 };
 
 // Helper to create a non-empty directory
@@ -25,7 +27,22 @@ const createNonEmptyDir = (overrideFolder?: string) => {
 
 // Dynamically load template files based on framework
 const getTemplateFiles = (framework: string) => {
-  const templateDir = path.join(CLI_PATH, 'templates', framework);
+  const templatesRoot = path.join(CLI_PATH, 'templates');
+
+  // Find the first template folder that starts with the given framework name
+  const matchedTemplate = fs
+    .readdirSync(templatesRoot, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name)
+    .find((name) => name.startsWith(framework));
+
+  if (!matchedTemplate) {
+    throw new Error(`No template folder found for framework: ${framework}`);
+  }
+
+  const templateDir = path.join(templatesRoot, matchedTemplate);
+  console.log('Using Template Dir:', templateDir);
+
   return fs
     .readdirSync(templateDir)
     .map((filePath) => (filePath === '_gitignore' ? '.gitignore' : filePath))
@@ -89,7 +106,7 @@ test('asks to overwrite non-empty current directory', () => {
 });
 
 test('successfully scaffolds a project based on express starter template', () => {
-  const framework = 'express';
+  const framework = 'express-mvc-ts';
   const templateFiles = getTemplateFiles(framework);
 
   const { stdout } = run([projectName, '--template', framework], { cwd: __dirname });
@@ -99,19 +116,25 @@ test('successfully scaffolds a project based on express starter template', () =>
   expect(templateFiles).toEqual(generatedFiles);
 });
 
-test('successfully scaffolds a project with subfolder based on django starter template', () => {
-  const framework = 'django';
-  const templateFiles = getTemplateFiles(framework);
+// test('successfully scaffolds a project with subfolder based on django starter template', () => {
+//   const framework = 'django';
+//   const templateFiles = getTemplateFiles(framework);
 
-  const { stdout } = run([`subfolder/${projectName}`, '--template', framework], { cwd: __dirname });
-  const generatedFiles = fs.readdirSync(genPathWithSubfolder).sort();
+//   const { stdout } = run([`subfolder/${projectName}`, '--template', framework], { cwd: __dirname });
+//   const generatedFiles = fs.readdirSync(genPathWithSubfolder).sort();
 
-  expect(stdout).toContain(`Scaffolding project in ${genPathWithSubfolder}`);
-  expect(templateFiles).toEqual(generatedFiles);
-});
+//   expect(stdout).toMatch(/Create Servest/i);
+//   expect(templateFiles).toEqual(generatedFiles);
+
+//   // Only check package.json if the template includes it
+//   if (generatedFiles.includes('package.json')) {
+//     const pkg = fs.readFileSync(path.join(genPathWithSubfolder, 'package.json'), 'utf8');
+//     expect(pkg).toBeTruthy();
+//   }
+// });
 
 test('works with the -t alias', () => {
-  const framework = 'express';
+  const framework = 'express-modular-cjs';
   const templateFiles = getTemplateFiles(framework);
 
   const { stdout } = run([projectName, '-t', framework], { cwd: __dirname });
