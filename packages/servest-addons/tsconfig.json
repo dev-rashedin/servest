@@ -1,8 +1,14 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "allowImportingTsExtensions": false
+    "isolatedModules": false,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "noEmit": true
   },
-  "include": ["src", "tsdown.config.ts"]
+  "include": ["src/**/*.ts", "tsdown.config.ts"],
+  "exclude": ["node_modules", "test/fixtures"]
 }
