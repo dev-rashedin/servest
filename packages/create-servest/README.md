@@ -1,29 +1,29 @@
-# servest <a href="https://npmjs.com/package/servest"><img src="https://img.shields.io/npm/v/servest" alt="npm package"></a>
+# servest <a href="https://npmjs.com/package/create-servest"><img src="https://img.shields.io/npm/v/create-servest" alt="npm package"></a>
 
 ## Scaffolding Your First Backend Project
 
 > **Compatibility Note:**
 > Servest requires [Node.js](https://nodejs.org/en/) version 18+. Some templates may require a higher Node.js version.
 
-With NPM:
+### Using NPM:
 
 ```bash
 npm create servest@latest
 ```
 
-With Yarn:
+### Using Yarn:
 
 ```bash
 yarn create servest
 ```
 
-With PNPM:
+### Using PNPM:
 
 ```bash
 pnpm create servest
 ```
 
-With Bun:
+### Using Bun:
 
 ```bash
 bun create servest
@@ -31,23 +31,29 @@ bun create servest
 
 Then follow the prompts!
 
-<!-- You can also directly specify the project name, type, and variant via additional command line options. For example, to scaffold an Express Basic JS project:
+---
+
+### Non-interactive scaffolding
+
+You can directly specify the project name and template via CLI options:
 
 ```bash
-# npm 7+, extra double-dash is needed:
-npm create servest@latest my-backend-app -- --type express --variant basic-js
+# Scaffold an Express MVC TypeScript project non-interactively
+npm create servest@latest my-backend-app -- --template express-mvc-ts
 
-# yarn
-yarn create servest my-backend-app --type express --variant basic-js
+# With addons
+npm create servest@latest my-backend-app -- --template express-mvc-ts -a eslint-prettier mongoose
+```
 
-# pnpm
-pnpm create servest my-backend-app --type express --variant basic-js
+> Tip: Use `.` as the project name to scaffold in the current directory:
 
-# Bun
-bun create servest my-backend-app --type express --variant basic-js
-``` -->
+```bash
+npm create servest@latest . -- --template express-basic-ts
+```
 
-Currently supported frameworks and variants include:
+---
+
+## Currently Supported Frameworks & Variants
 
 ### Express
 
@@ -64,7 +70,25 @@ Currently supported frameworks and variants include:
 
 - `django-basic` — Django Basic
 
-You can use `.` for the project name to scaffold in the current directory.
+---
+
+## Addons
+
+After scaffolding, you can automatically install additional utilities using the `-a` or `--addons` flag:
+
+```bash
+npm create servest@latest -- --template express-mvc-ts -a eslint-prettier mongoose
+```
+
+This will scaffold the `express-mvc-ts` template and run:
+
+```bash
+npx add servest@latest eslint-prettier mongoose
+```
+
+> Note: If any addon fails, the others will still be executed. You can rerun failed addons manually.
+
+---
 
 ## Community Templates
 
@@ -84,7 +108,7 @@ npm install
 npm run dev
 ```
 
-> Tip: Some repositories use main instead of master as their default branch. In that case, add #main to the repo name:
+> Tip: Some repositories use `main` instead of `master` as their default branch. In that case, add `#main` to the repo name:
 
 ```bash
 npx degit user/project#main my-project
