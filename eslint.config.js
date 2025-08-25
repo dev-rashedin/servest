@@ -26,7 +26,7 @@ export default tseslint.config(
       '**/.turbo/**',
       '**/*.snap',
       'packages/create-servest/templates/**',
-      'app/**',
+
       'eslint.config.js',
       '**/.vscode/**',
       '**/.idea/**',

@@ -1,9 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { JSX } from 'react';
 
-const Navbar = () => {
+const Navbar = (): JSX.Element => {
   return (
-    <div className="flex justify-between items-center h-20 sticky top-0">
+    <nav className="flex justify-between items-center h-20 sticky top-0">
       <div>
         <Link href="/" className="flex-center gap-2">
           <Image src="/logo.svg" width={40} height={40} alt="logo" />
@@ -29,7 +30,7 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-    </div>
+    </nav>
   );
 };
 export default Navbar;

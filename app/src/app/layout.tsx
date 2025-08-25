@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import React from 'react';
+import React, { JSX } from 'react';
 import { Merriweather, Montserrat } from 'next/font/google';
 import './globals.css';
 import Navbar from '../components/Navbar';
@@ -18,7 +18,7 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>): JSX.Element {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${merriweather.className} ${montserrat.className} font-body antialiased`}>
