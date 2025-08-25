@@ -90,8 +90,6 @@ importers:
         specifier: ^1.2.0
         version: 1.2.0
 
-  packages/create-servest/servest-project: {}
-
   packages/servest-addons: {}
 
 packages:
