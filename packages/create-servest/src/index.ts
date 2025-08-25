@@ -49,10 +49,13 @@ const argv = mri<IArgv>(process.argv.slice(2), {
 async function init() {
   intro('Create Servest project');
 
-  const argTargetDir = argv._[0]?.toString() ? formatTargetDir(String(argv._[0])) : undefined;
+  const argTargetDir = argv._[0] ? formatTargetDir(String(argv._[0])) : undefined;
   const argTemplate = argv.template;
   const argOverwrite = argv.overwrite;
   const addonsArg = argv.a || argv.addons;
+
+  console.log('argv:', argv);
+  console.log('argvTemplate', argTemplate);
 
   const help = argv.help || argv.h;
   if (help) {
@@ -169,10 +172,14 @@ async function init() {
   }
 
   // 5️⃣ Running custom command if exists
+  console.log(pkgInfo);
+
   const pkgManager = pkgInfo ? pkgInfo.name : detectPkgManager();
 
   const { customCommand } =
-    FRAMEWORKS.flatMap((f) => f.variants).find((v) => v.name === template) ?? {};
+    FRAMEWORKS.flatMap((f) => f.variants).find((v) => v.value === template) ?? {};
+
+  console.log(customCommand);
 
   if (customCommand) {
     const fullCustomCommand = getFullCustomCommand(customCommand, pkgInfo);
