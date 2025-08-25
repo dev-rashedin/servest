@@ -1,0 +1,18 @@
+# Build output
+dist/
+
+# Local node_modules (optional, usually root handles most)
+node_modules/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Logs
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE/editor files
+.vscode/
+.idea/

@@ -41,7 +41,6 @@
   },
   "homepage": "https://github.com/dev-rashedin/servest/tree/main/packages/create-servest#readme",
   "devDependencies": {
-    "@clack/prompts": "^0.11.0",
     "cross-spawn": "^7.0.6",
     "mri": "^1.2.0"
   }
