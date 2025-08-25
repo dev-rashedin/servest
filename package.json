@@ -32,8 +32,10 @@
     "lint:app": "eslint --cache app",
     "lint": "pnpm lint:packages && pnpm lint:app",
     "typecheck": "tsc -p tsconfig.base.json && pnpm -r --parallel run typecheck",
-    "build": "pnpm -r run build",
-    "test": "vitest run",
+    "test-unit": "vitest run",
+    "test-serve": "vitest run -c vitest.config.e2e.ts --clearScreen=false",
+    "test": "pnpm test-unit && pnpm test-serve",
+    "build": "pnpm -r --filter='./packages/*' run build",
     "publish:servest": "pnpm --filter create-servest publish --access public"
   },
   "devDependencies": {
