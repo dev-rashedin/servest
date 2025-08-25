@@ -2,6 +2,13 @@
 
 All notable changes to **create-servest** will be documented here.
 
+## [1.1.0] – 2025-08-25
+### Fixed
+- Bug where `--template` argument was ignored in some package managers (npm works consistently now)
+- Minor fixes and cleanup in scaffolding logic
+
+---
+
 ## [1.0.0] – 2025-08-25
 ### Added
 - Stable 1.0.0 release of **creative-servest** — production-ready

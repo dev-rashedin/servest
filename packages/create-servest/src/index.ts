@@ -54,9 +54,6 @@ async function init() {
   const argOverwrite = argv.overwrite;
   const addonsArg = argv.a || argv.addons;
 
-  console.log('argv:', argv);
-  console.log('argvTemplate', argTemplate);
-
   const help = argv.help || argv.h;
   if (help) {
     console.log(helpMessage);
@@ -172,14 +169,10 @@ async function init() {
   }
 
   // 5️⃣ Running custom command if exists
-  console.log(pkgInfo);
-
   const pkgManager = pkgInfo ? pkgInfo.name : detectPkgManager();
 
   const { customCommand } =
     FRAMEWORKS.flatMap((f) => f.variants).find((v) => v.value === template) ?? {};
-
-  console.log(customCommand);
 
   if (customCommand) {
     const fullCustomCommand = getFullCustomCommand(customCommand, pkgInfo);
@@ -249,6 +242,5 @@ async function init() {
 
 // ───── INIT ─────
 init().catch((err) => {
-  console.error(err);
-  process.exit(1);
+  cancelOperation(red(err));
 });
