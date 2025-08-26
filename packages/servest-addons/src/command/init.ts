@@ -2,14 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import { Command } from 'commander';
 
-interface ServestConfig {
-  framework: string;
-  language: 'ts' | 'js' | 'py' | 'php' | 'unknown';
-  architecture: 'mvc' | 'modular' | 'basic';
-  srcDir: boolean;
-  createdAt: string;
-}
-
 // detecting framework based on dependencies and files
 const detectFramework = (cwd: string): string => {
   // Node.js
@@ -45,7 +37,7 @@ const detectFramework = (cwd: string): string => {
 };
 
 // detecting language based on presence of tsconfig.json
-const detectLanguage = (cwd: string): 'ts' | 'js' | 'py' | 'php' | 'unknown' => {
+const detectLanguage = (cwd: string) => {
   // TypeScript
   if (fs.existsSync(path.join(cwd, 'tsconfig.json'))) return 'ts';
 
@@ -71,7 +63,7 @@ const detectLanguage = (cwd: string): 'ts' | 'js' | 'py' | 'php' | 'unknown' => 
 };
 
 // detecting architecture based on folder structure
-const detectArchitecture = (cwd: string, basePath?: string): 'mvc' | 'modular' | 'basic' => {
+const detectArchitecture = (cwd: string, basePath?: string) => {
   const checkPaths = [
     basePath, // user-specified
     path.join(cwd, 'src', 'app'),
@@ -126,27 +118,3 @@ export const init = new Command()
 
     writeConfig(cwd, config);
   });
-
-// export const init = new Command()
-//   .name('init')
-//   .description('Detect project structure and create servest.config.json')
-//   .action((opts) => {
-//     const cwd = process.cwd();
-//     const basePath = opts.path ? path.resolve(cwd, opts.path) : undefined;
-
-//         const framework = detectFramework(cwd);
-//         const language = detectLanguage(cwd);
-//         const architecture = detectArchitecture(cwd, basePath);
-//         const srcDir = detectSrcDir(cwd);
-
-//         const config: ServestConfig = {
-//           framework,
-//           language,
-//           architecture,
-//           srcDir,
-//           createdAt: new Date().toISOString(),
-//         };
-
-//         writeConfig(cwd, config);
-
-//   });
