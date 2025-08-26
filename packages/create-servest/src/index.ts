@@ -10,7 +10,7 @@ import spawn from 'cross-spawn';
 
 // Local utilities
 import { green, red, yellow } from '../../utils/colors';
-import { cancelOperation } from '../../utils/cancelOperation';
+import { cancelOperation } from '../../utils/cancel-operation';
 import { ALL_TEMPLATES, FRAMEWORKS, helpMessage } from './utils';
 import {
   copyDir,

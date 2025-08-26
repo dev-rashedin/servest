@@ -1,26 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import { Command } from 'commander';
-import { cancelOperation } from '../../../utils/cancelOperation';
-
-const filesOrFoldersArray = ['routes', 'models', 'controllers', 'services'];
-
-const existFileMessage = (filePath: string): void => {
-  return console.log(`⚠️  File ${filePath} already exists. Skipping...`);
-};
-
-const fileCreatedMessage = (feature: string, architecture: string): void => {
-  return console.log(`✅ Feature "${feature}" files created based on ${architecture} structure.`);
-};
-
-const createFileIfNotExists = (filePath: string, feature: string, architecture: string) => {
-  if (fs.existsSync(filePath)) {
-    existFileMessage(filePath);
-  } else {
-    fs.writeFileSync(filePath, '');
-    fileCreatedMessage(feature, architecture);
-  }
-};
+import { cancelOperation } from '../../../utils/cancel-operation';
+import { createFileIfNotExists, filesOrFoldersArray } from '../utils/add/create-file';
 
 // Utility to read servest.config.json
 const getServestConfig = (cwd: string): ServestConfig | null => {
