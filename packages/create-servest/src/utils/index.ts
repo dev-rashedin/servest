@@ -1,4 +1,4 @@
-import { blue, boldGreen, boldRed, boldYellow, green, red, yellow } from './colors';
+import { blue, boldGreen, boldRed, boldYellow, green, red, yellow } from '../../../utils/colors';
 
 interface Variant {
   value: string;

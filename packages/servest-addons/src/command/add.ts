@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { Command } from 'commander';
+import { cancelOperation } from '../../../utils/cancelOperation';
 
 const filesOrFoldersArray = ['route', 'interface', 'model', 'controller', 'service'];
 
@@ -52,15 +53,14 @@ export const add = new Command()
     const config = getServestConfig(cwd);
 
     if (!config) {
-      console.error('servest.config.json not found. Please run "npx servest@latest init" first.');
-      process.exit(1);
+      cancelOperation('servest.config.json not found. Please run "npx servest@latest init" first.');
     }
 
     if (feature.startsWith('f-')) {
       const featureName = feature.slice(2); // remove "f-"
-      createFilesForFeature(cwd, featureName, config);
+      createFilesForFeature(cwd, featureName, config!);
     } else {
-      console.log(`🔧 Add-on feature "${feature}" detected for framework ${config.framework}.`);
+      console.log(`🔧 Add-on feature "${feature}" detected for framework ${config!.framework}.`);
       // Here you can implement your logic for addons (mongoose, eslint, prettier, etc.)
       // This can include installing packages or creating starter files.
     }

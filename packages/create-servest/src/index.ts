@@ -9,9 +9,10 @@ import { intro, isCancel, log, outro, select, text } from '@clack/prompts';
 import spawn from 'cross-spawn';
 
 // Local utilities
+import { green, red, yellow } from '../../utils/colors';
+import { cancelOperation } from '../../utils/cancelOperation';
 import { ALL_TEMPLATES, FRAMEWORKS, helpMessage } from './utils';
 import {
-  cancelOperation,
   copyDir,
   detectPkgManager,
   emptyDir,
@@ -23,7 +24,6 @@ import {
   toValidPackageName,
   updatePackageName,
 } from './utils/helper';
-import { green, red, yellow } from './utils/colors';
 
 const cwd = process.cwd();
 const defaultTargetDir = 'servest-project';
