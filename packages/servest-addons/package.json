@@ -9,7 +9,7 @@
     "node": ">=18"
   },
   "bin": {
-    "servest-addons": "index.js",
+    "servest": "index.js",
     "add-servest": "index.js"
   },
   "scripts": {
