@@ -1,44 +1,7 @@
 import { Command } from 'commander';
 import { cancelOperation } from '../../../utils/cancel-operation';
 import { createFilesForFeature, getServestConfig } from '../utils/add/create-file';
-
-// Utility to create folders/files for f-commands
-// const createFilesForFeature = (cwd: string, feature: string, config: ServestConfig) => {
-//   const baseDir = config.srcDir ? path.join(cwd, 'src') : cwd;
-
-//   if (config.architecture === 'mvc') {
-//     filesOrFoldersArray.forEach((folder) => {
-//       const folderPath = path.join(baseDir, folder);
-//       if (!fs.existsSync(folderPath)) fs.mkdirSync(folderPath, { recursive: true });
-
-//       const fileExt = config.language === 'ts' ? 'ts' : 'js';
-//       const filePath = path.join(folderPath, `${feature}.${folder.slice(0, -1)}.${fileExt}`);
-
-//       // checking if file already exists, if not creating it
-//       createFileIfNotExists(filePath, feature, config.architecture);
-//     });
-//   } else if (config.architecture === 'modular') {
-//     const moduleDir = path.join(baseDir, 'modules', feature);
-
-//     // Create module directory if it doesn't exist
-//     if (!fs.existsSync(moduleDir)) fs.mkdirSync(moduleDir, { recursive: true });
-
-//     const fileExt = config.language === 'ts' ? 'ts' : 'js';
-//     filesOrFoldersArray.forEach((type) => {
-//       const filePath = path.join(moduleDir, `${feature}.${type}.${fileExt}`);
-
-//       // checking if file already exists, if not creating it
-//       createFileIfNotExists(filePath, feature, config.architecture);
-//     });
-//   } else {
-//     console.log(`⚠️  Basic architecture detected: creating a single file for ${feature}`);
-//     const fileExt = config.language === 'ts' ? 'ts' : 'js';
-//     const filePath = path.join(baseDir, `${feature}.${fileExt}`);
-
-//     // checking if file already exists, if not creating it
-//     createFileIfNotExists(filePath, feature, config.architecture);
-//   }
-// };
+import { checkNodeFramework } from '../utils';
 
 // Main add command
 export const add = new Command()
@@ -54,8 +17,11 @@ export const add = new Command()
     }
 
     if (feature.startsWith('f-')) {
+      checkNodeFramework(config!.framework, feature);
       const featureName = feature.slice(2);
       createFilesForFeature(cwd, featureName, config!);
+    } else if (feature === 'mongoose') {
+      checkNodeFramework(config!.framework, feature);
     } else {
       console.log(`🔧 Add-on feature "${feature}" detected for framework ${config!.framework}.`);
       // Here you can implement your logic for addons (mongoose, eslint, prettier, etc.)
