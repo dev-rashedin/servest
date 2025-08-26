@@ -5,6 +5,14 @@ import { cancelOperation } from '../../../utils/cancelOperation';
 
 const filesOrFoldersArray = ['routes', 'models', 'controllers', 'services'];
 
+const existFileMessage = (filePath: string): void => {
+  return console.log(`⚠️  File ${filePath} already exists. Skipping...`);
+};
+
+const fileCreatedMessage = (feature: string, architecture: string): void => {
+  return console.log(`✅ Feature "${feature}" files created based on ${architecture} structure.`);
+};
+
 // Utility to read servest.config.json
 const getServestConfig = (cwd: string): ServestConfig | null => {
   const configPath = path.join(cwd, 'servest.config.json');
@@ -14,50 +22,64 @@ const getServestConfig = (cwd: string): ServestConfig | null => {
 
 // Utility to create folders/files for f-commands
 const createFilesForFeature = (cwd: string, feature: string, config: ServestConfig) => {
-  const srcBase = config.srcDir ? path.join(cwd, 'src') : cwd;
-
-  // Determine the baseDir considering src/app
-  const appBaseDir = path.join(srcBase, 'app');
-  const baseDir = fs.existsSync(appBaseDir)
-    ? appBaseDir
-    : (() => {
-        fs.mkdirSync(appBaseDir, { recursive: true });
-        return appBaseDir;
-      })();
+  const baseDir = config.srcDir ? path.join(cwd, 'src') : cwd;
 
   if (config.architecture === 'mvc') {
-    // MVC folders
     filesOrFoldersArray.forEach((folder) => {
       const folderPath = path.join(baseDir, folder);
       if (!fs.existsSync(folderPath)) fs.mkdirSync(folderPath, { recursive: true });
 
       const fileExt = config.language === 'ts' ? 'ts' : 'js';
       const filePath = path.join(folderPath, `${feature}.${folder.slice(0, -1)}.${fileExt}`);
-      if (!fs.existsSync(filePath)) fs.writeFileSync(filePath, '');
+
+      // check if file already exists
+      if (fs.existsSync(filePath)) {
+        existFileMessage(filePath);
+      }
+
+      // Create the file only if it doesn't exist
+      if (!fs.existsSync(filePath)) {
+        fs.writeFileSync(filePath, '');
+        fileCreatedMessage(feature, config.architecture);
+      }
     });
   } else if (config.architecture === 'modular') {
-    // Modular path: src/app/modules/feature
-    const modulesDir = path.join(srcBase, 'modules');
-    if (!fs.existsSync(modulesDir)) fs.mkdirSync(modulesDir, { recursive: true });
+    const moduleDir = path.join(baseDir, 'modules', feature);
 
-    const moduleDir = path.join(modulesDir, feature);
+    // Create module directory if it doesn't exist
     if (!fs.existsSync(moduleDir)) fs.mkdirSync(moduleDir, { recursive: true });
 
     const fileExt = config.language === 'ts' ? 'ts' : 'js';
-
     filesOrFoldersArray.forEach((type) => {
       const filePath = path.join(moduleDir, `${feature}.${type}.${fileExt}`);
-      if (!fs.existsSync(filePath)) fs.writeFileSync(filePath, '');
+
+      // check if file already exists
+      if (fs.existsSync(filePath)) {
+        existFileMessage(filePath);
+      }
+
+      // Create the file only if it doesn't exist
+      if (!fs.existsSync(filePath)) {
+        fs.writeFileSync(filePath, '');
+        fileCreatedMessage(feature, config.architecture);
+      }
     });
   } else {
-    // Basic structure
     console.log(`⚠️  Basic architecture detected: creating a single file for ${feature}`);
     const fileExt = config.language === 'ts' ? 'ts' : 'js';
-    const filePath = path.join(srcBase, `${feature}.${fileExt}`);
-    if (!fs.existsSync(filePath)) fs.writeFileSync(filePath, '');
-  }
+    const filePath = path.join(baseDir, `${feature}.${fileExt}`);
 
-  console.log(`✅ Feature "${feature}" files created based on ${config.architecture} structure.`);
+    // check if file already exists
+    if (fs.existsSync(filePath)) {
+      existFileMessage(filePath);
+    }
+
+    // Create the file only if it doesn't exist
+    if (!fs.existsSync(filePath)) {
+      fs.writeFileSync(filePath, '');
+      fileCreatedMessage(feature, config.architecture);
+    }
+  }
 };
 
 // Main add command
