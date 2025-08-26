@@ -24,7 +24,7 @@ importers:
         specifier: ^11.0.4
         version: 11.0.4
       '@types/node':
-        specifier: ^24.2.1
+        specifier: ^24.3.0
         version: 24.3.0
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.40.0
@@ -101,6 +101,10 @@ importers:
       ora:
         specifier: ^8.2.0
         version: 8.2.0
+    devDependencies:
+      '@types/node':
+        specifier: ^24.3.0
+        version: 24.3.0
 
 packages:
 

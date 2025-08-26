@@ -4,27 +4,71 @@ import { Command } from 'commander';
 
 interface ServestConfig {
   framework: string;
-  language: 'ts' | 'js';
+  language: 'ts' | 'js' | 'py' | 'php' | 'unknown';
   architecture: 'mvc' | 'modular' | 'basic';
   srcDir: boolean;
   createdAt: string;
 }
 
+// detecting framework based on dependencies and files
 const detectFramework = (cwd: string): string => {
+  // Node.js
   const pkgPath = path.join(cwd, 'package.json');
-  if (!fs.existsSync(pkgPath)) return 'unknown';
+  if (fs.existsSync(pkgPath)) {
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
+    if (pkg.dependencies?.express) return 'express';
+    if (pkg.dependencies?.nestjs) return 'nestjs';
+    if (pkg.dependencies?.koa) return 'koa';
+    if (pkg.dependencies?.fastify) return 'fastify';
+  }
 
-  const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
-  if (pkg.dependencies?.express) return 'express';
-  if (pkg.dependencies?.django) return 'django';
-  if (pkg.dependencies?.laravel) return 'laravel';
+  // Python
+  if (fs.existsSync(path.join(cwd, 'manage.py'))) return 'django';
+  if (fs.existsSync(path.join(cwd, 'requirements.txt'))) {
+    const requirements = fs.readFileSync(path.join(cwd, 'requirements.txt'), 'utf-8');
+    if (requirements.includes('Flask')) return 'flask';
+    if (requirements.includes('fastapi')) return 'fastapi';
+  }
+  if (fs.existsSync(path.join(cwd, 'pyproject.toml'))) {
+    const pyProject = fs.readFileSync(path.join(cwd, 'pyproject.toml'), 'utf-8');
+    if (pyProject.includes('fastapi')) return 'fastapi';
+  }
+
+  // PHP
+  if (fs.existsSync(path.join(cwd, 'artisan'))) return 'laravel';
+  if (fs.existsSync(path.join(cwd, 'composer.json'))) {
+    const composer = JSON.parse(fs.readFileSync(path.join(cwd, 'composer.json'), 'utf-8'));
+    if (composer.require && composer.require['laravel/framework']) return 'laravel';
+  }
 
   return 'unknown';
 };
 
 // detecting language based on presence of tsconfig.json
-const detectLanguage = (cwd: string): 'ts' | 'js' =>
-  fs.existsSync(path.join(cwd, 'tsconfig.json')) ? 'ts' : 'js';
+const detectLanguage = (cwd: string): 'ts' | 'js' | 'py' | 'php' | 'unknown' => {
+  // TypeScript
+  if (fs.existsSync(path.join(cwd, 'tsconfig.json'))) return 'ts';
+
+  // JavaScript
+  if (fs.existsSync(path.join(cwd, 'package.json'))) return 'js';
+
+  // Python
+  if (
+    fs.existsSync(path.join(cwd, 'requirements.txt')) ||
+    fs.existsSync(path.join(cwd, 'pyproject.toml')) ||
+    fs.existsSync(path.join(cwd, 'manage.py'))
+  ) {
+    return 'py';
+  }
+
+  // PHP
+  if (fs.existsSync(path.join(cwd, 'composer.json')) || fs.existsSync(path.join(cwd, 'artisan'))) {
+    return 'php';
+  }
+
+  // Fallback
+  return 'unknown';
+};
 
 // detecting architecture based on folder structure
 const detectArchitecture = (cwd: string, basePath?: string): 'mvc' | 'modular' | 'basic' => {

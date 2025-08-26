@@ -11,8 +11,8 @@
     "url": "git+https://github.com/dev-rashedin/servest.git"
   },
   "workspaces": [
-    "packages/*",
-    "app"
+    "app/*",
+    "packages/*"
   ],
   "keywords": [
     "backend",
@@ -42,7 +42,7 @@
     "@eslint/js": "^9.33.0",
     "@types/cross-spawn": "^6.0.6",
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^24.2.1",
+    "@types/node": "^24.3.0",
     "@typescript-eslint/eslint-plugin": "^8.40.0",
     "@typescript-eslint/parser": "^8.40.0",
     "eslint": "^9.33.0",
