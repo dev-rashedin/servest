@@ -2,13 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { Command } from 'commander';
 
-interface ServestConfig {
-  framework: string;
-  language: 'ts' | 'js' | 'py' | 'php';
-  architecture: 'mvc' | 'modular' | 'basic';
-  srcDir: boolean;
-  createdAt: string;
-}
+const filesOrFoldersArray = ['route', 'interface', 'model', 'controller', 'service'];
 
 // Utility to read servest.config.json
 const getServestConfig = (cwd: string): ServestConfig | null => {
@@ -22,7 +16,7 @@ const createFilesForFeature = (cwd: string, feature: string, config: ServestConf
   const baseDir = config.srcDir ? path.join(cwd, 'src') : cwd;
 
   if (config.architecture === 'mvc') {
-    ['routes', 'controllers', 'services', 'models'].forEach((folder) => {
+    filesOrFoldersArray.forEach((folder) => {
       const folderPath = path.join(baseDir, folder);
       if (!fs.existsSync(folderPath)) fs.mkdirSync(folderPath, { recursive: true });
       const fileExt = config.language === 'ts' ? 'ts' : 'js';
@@ -33,7 +27,8 @@ const createFilesForFeature = (cwd: string, feature: string, config: ServestConf
     const moduleDir = path.join(baseDir, 'modules', feature);
     if (!fs.existsSync(moduleDir)) fs.mkdirSync(moduleDir, { recursive: true });
     const fileExt = config.language === 'ts' ? 'ts' : 'js';
-    ['interface', 'model', 'controller', 'service'].forEach((type) => {
+
+    filesOrFoldersArray.forEach((type) => {
       const filePath = path.join(moduleDir, `${feature}.${type}.${fileExt}`);
       if (!fs.existsSync(filePath)) fs.writeFileSync(filePath, '');
     });
@@ -57,9 +52,7 @@ export const add = new Command()
     const config = getServestConfig(cwd);
 
     if (!config) {
-      console.error(
-        '❌ servest.config.json not found. Please run "npx servest@latest init" first.',
-      );
+      console.error('servest.config.json not found. Please run "npx servest@latest init" first.');
       process.exit(1);
     }
 
