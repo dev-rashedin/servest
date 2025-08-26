@@ -13,6 +13,15 @@ const fileCreatedMessage = (feature: string, architecture: string): void => {
   return console.log(`✅ Feature "${feature}" files created based on ${architecture} structure.`);
 };
 
+const createFileIfNotExists = (filePath: string, feature: string, architecture: string) => {
+  if (fs.existsSync(filePath)) {
+    existFileMessage(filePath);
+  } else {
+    fs.writeFileSync(filePath, '');
+    fileCreatedMessage(feature, architecture);
+  }
+};
+
 // Utility to read servest.config.json
 const getServestConfig = (cwd: string): ServestConfig | null => {
   const configPath = path.join(cwd, 'servest.config.json');
@@ -32,16 +41,8 @@ const createFilesForFeature = (cwd: string, feature: string, config: ServestConf
       const fileExt = config.language === 'ts' ? 'ts' : 'js';
       const filePath = path.join(folderPath, `${feature}.${folder.slice(0, -1)}.${fileExt}`);
 
-      // check if file already exists
-      if (fs.existsSync(filePath)) {
-        existFileMessage(filePath);
-      }
-
-      // Create the file only if it doesn't exist
-      if (!fs.existsSync(filePath)) {
-        fs.writeFileSync(filePath, '');
-        fileCreatedMessage(feature, config.architecture);
-      }
+      // checking if file already exists, if not creating it
+      createFileIfNotExists(filePath, feature, config.architecture);
     });
   } else if (config.architecture === 'modular') {
     const moduleDir = path.join(baseDir, 'modules', feature);
@@ -53,32 +54,16 @@ const createFilesForFeature = (cwd: string, feature: string, config: ServestConf
     filesOrFoldersArray.forEach((type) => {
       const filePath = path.join(moduleDir, `${feature}.${type}.${fileExt}`);
 
-      // check if file already exists
-      if (fs.existsSync(filePath)) {
-        existFileMessage(filePath);
-      }
-
-      // Create the file only if it doesn't exist
-      if (!fs.existsSync(filePath)) {
-        fs.writeFileSync(filePath, '');
-        fileCreatedMessage(feature, config.architecture);
-      }
+      // checking if file already exists, if not creating it
+      createFileIfNotExists(filePath, feature, config.architecture);
     });
   } else {
     console.log(`⚠️  Basic architecture detected: creating a single file for ${feature}`);
     const fileExt = config.language === 'ts' ? 'ts' : 'js';
     const filePath = path.join(baseDir, `${feature}.${fileExt}`);
 
-    // check if file already exists
-    if (fs.existsSync(filePath)) {
-      existFileMessage(filePath);
-    }
-
-    // Create the file only if it doesn't exist
-    if (!fs.existsSync(filePath)) {
-      fs.writeFileSync(filePath, '');
-      fileCreatedMessage(feature, config.architecture);
-    }
+    // checking if file already exists, if not creating it
+    createFileIfNotExists(filePath, feature, config.architecture);
   }
 };
 
@@ -96,7 +81,7 @@ export const add = new Command()
     }
 
     if (feature.startsWith('f-')) {
-      const featureName = feature.slice(2); // remove "f-"
+      const featureName = feature.slice(2);
       createFilesForFeature(cwd, featureName, config!);
     } else {
       console.log(`🔧 Add-on feature "${feature}" detected for framework ${config!.framework}.`);
