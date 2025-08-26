@@ -13,7 +13,18 @@ export const getServestConfig = (cwd: string): ServestConfig | null => {
 
 // Utility to create folders/files for f-commands
 export const createFilesForFeature = (cwd: string, feature: string, config: ServestConfig) => {
-  const baseDir = config.srcDir ? path.join(cwd, 'src') : cwd;
+  const srcDir = path.join(cwd, 'src');
+  const appDir = path.join(srcDir, 'app');
+
+  let baseDir;
+
+  if (fs.existsSync(appDir)) {
+    baseDir = appDir;
+  } else if (fs.existsSync(srcDir)) {
+    baseDir = srcDir;
+  } else {
+    baseDir = cwd;
+  }
   let filesCreated = false;
   let filesExist = false;
 
@@ -43,7 +54,7 @@ export const createFilesForFeature = (cwd: string, feature: string, config: Serv
 
     const fileExt = config.language === 'ts' ? 'ts' : 'js';
     filesOrFoldersArray.forEach((type) => {
-      const filePath = path.join(moduleDir, `${feature}.${type}.${fileExt}`);
+      const filePath = path.join(moduleDir, `${feature}.${type.slice(0, -1)}.${fileExt}`);
       checkAndCreateFile(filePath);
     });
   } else {

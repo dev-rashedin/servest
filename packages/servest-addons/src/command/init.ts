@@ -6,6 +6,7 @@ import { Command } from 'commander';
 const detectFramework = (cwd: string): string => {
   // Node.js
   const pkgPath = path.join(cwd, 'package.json');
+
   if (fs.existsSync(pkgPath)) {
     const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
     if (pkg.dependencies?.express) return 'express';
@@ -64,19 +65,15 @@ const detectLanguage = (cwd: string) => {
 
 // detecting architecture based on folder structure
 const detectArchitecture = (cwd: string, basePath?: string) => {
-  const checkPaths = [
-    basePath, // user-specified
-    path.join(cwd, 'src', 'app'),
-    path.join(cwd, 'src'),
-    cwd,
-  ].filter(Boolean) as string[];
+  const checkPaths = [basePath, path.join(cwd, 'src', 'app'), path.join(cwd, 'src'), cwd].filter(
+    Boolean,
+  ) as string[];
 
   for (const p of checkPaths) {
     if (!fs.existsSync(p)) continue;
     const folders = fs.readdirSync(p);
     if (folders.includes('modules')) return 'modular';
-    if (['routes', 'controllers', 'services', 'models'].every((f) => folders.includes(f)))
-      return 'mvc';
+    if (['routes', 'controllers', 'models'].every((f) => folders.includes(f))) return 'mvc';
   }
 
   return 'basic';
