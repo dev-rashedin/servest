@@ -9,8 +9,8 @@
     "node": ">=18"
   },
   "bin": {
-    "servest-addons": "/dist/index.js",
-    "add-servest": "/dist/index.js"
+    "servest-addons": "/index.js",
+    "add-servest": "/index.js"
   },
   "scripts": {
     "dev": "tsdown --watch",

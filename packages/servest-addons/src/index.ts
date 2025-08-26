@@ -1,7 +1,6 @@
-#!/usr/bin/env node
-
 import { Command } from 'commander';
 import packageJson from '../package.json';
+import { add } from './command/add';
 import { init } from './command/init';
 
 // Handle graceful exit
@@ -15,7 +14,8 @@ async function main() {
     .version(packageJson.version || '1.0.0', '-v, --version', 'display the version number');
 
   // Register addon commands
-  program.addCommand(init);
+  program.addCommand(init).addCommand(add);
+
   program.parse();
 }
 
