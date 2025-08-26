@@ -3,7 +3,7 @@ import path from 'path';
 import { Command } from 'commander';
 import { cancelOperation } from '../../../utils/cancelOperation';
 
-const filesOrFoldersArray = ['route', 'interface', 'model', 'controller', 'service'];
+const filesOrFoldersArray = ['routes', 'models', 'controllers', 'services'];
 
 // Utility to read servest.config.json
 const getServestConfig = (cwd: string): ServestConfig | null => {
@@ -14,19 +14,35 @@ const getServestConfig = (cwd: string): ServestConfig | null => {
 
 // Utility to create folders/files for f-commands
 const createFilesForFeature = (cwd: string, feature: string, config: ServestConfig) => {
-  const baseDir = config.srcDir ? path.join(cwd, 'src') : cwd;
+  const srcBase = config.srcDir ? path.join(cwd, 'src') : cwd;
+
+  // Determine the baseDir considering src/app
+  const appBaseDir = path.join(srcBase, 'app');
+  const baseDir = fs.existsSync(appBaseDir)
+    ? appBaseDir
+    : (() => {
+        fs.mkdirSync(appBaseDir, { recursive: true });
+        return appBaseDir;
+      })();
 
   if (config.architecture === 'mvc') {
+    // MVC folders
     filesOrFoldersArray.forEach((folder) => {
       const folderPath = path.join(baseDir, folder);
       if (!fs.existsSync(folderPath)) fs.mkdirSync(folderPath, { recursive: true });
+
       const fileExt = config.language === 'ts' ? 'ts' : 'js';
       const filePath = path.join(folderPath, `${feature}.${folder.slice(0, -1)}.${fileExt}`);
       if (!fs.existsSync(filePath)) fs.writeFileSync(filePath, '');
     });
   } else if (config.architecture === 'modular') {
-    const moduleDir = path.join(baseDir, 'modules', feature);
+    // Modular path: src/app/modules/feature
+    const modulesDir = path.join(srcBase, 'modules');
+    if (!fs.existsSync(modulesDir)) fs.mkdirSync(modulesDir, { recursive: true });
+
+    const moduleDir = path.join(modulesDir, feature);
     if (!fs.existsSync(moduleDir)) fs.mkdirSync(moduleDir, { recursive: true });
+
     const fileExt = config.language === 'ts' ? 'ts' : 'js';
 
     filesOrFoldersArray.forEach((type) => {
@@ -34,9 +50,10 @@ const createFilesForFeature = (cwd: string, feature: string, config: ServestConf
       if (!fs.existsSync(filePath)) fs.writeFileSync(filePath, '');
     });
   } else {
+    // Basic structure
     console.log(`⚠️  Basic architecture detected: creating a single file for ${feature}`);
     const fileExt = config.language === 'ts' ? 'ts' : 'js';
-    const filePath = path.join(baseDir, `${feature}.${fileExt}`);
+    const filePath = path.join(srcBase, `${feature}.${fileExt}`);
     if (!fs.existsSync(filePath)) fs.writeFileSync(filePath, '');
   }
 
