@@ -6,6 +6,8 @@ export async function addMongoose({ projectRoot, language, packageManager }: Add
   const isTypeScript = language === 'ts' || language === 'typescript';
   console.log('isTypeScript:', isTypeScript);
 
+  console.log('packageManager:', packageManager);
+
   // Step 1: Install mongoose
   console.log('📦 Installing mongoose...');
   execSync(`${packageManager} install mongoose`, { stdio: 'inherit' });

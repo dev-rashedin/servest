@@ -13,5 +13,5 @@ declare interface ServestConfig {
 declare interface AddMongooseOptions {
   projectRoot: string;
   language: string;
-  packageManager: 'npm' | 'yarn' | 'pnpm';
+  packageManager: 'npm' | 'yarn' | 'pnpm' | 'bun';
 }

@@ -1,8 +1,11 @@
 import { Command } from 'commander';
 import { cancelOperation } from '../../../utils/cancelOperation';
+import { detectPkgManager } from '../../../utils/detectPkgManager';
 import { createFilesForFeature, getServestConfig } from '../utils/createFile';
 import { checkNodeFramework } from '../utils';
 import { addMongoose } from '../utils/addMongoose';
+
+const packageManager = detectPkgManager();
 
 // Main add command
 export const add = new Command()
@@ -23,7 +26,7 @@ export const add = new Command()
       createFilesForFeature(cwd, featureName, config!);
     } else if (feature === 'mongoose') {
       checkNodeFramework(config!.framework, feature);
-      addMongoose({ projectRoot: cwd, language: config!.language, packageManager: 'npm' });
+      addMongoose({ projectRoot: cwd, language: config!.language, packageManager });
     } else {
       console.log(`🔧 Add-on feature "${feature}" detected for framework ${config!.framework}.`);
       // Here you can implement your logic for addons (mongoose, eslint, prettier, etc.)
