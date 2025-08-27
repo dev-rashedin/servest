@@ -1,19 +1,22 @@
 import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
+import { getInstallCommand } from './index';
 
-export async function addMongoose({ projectRoot, language, packageManager }: AddMongooseOptions) {
+export async function addMongoose({ baseDir, language, packageManager }: AddMongooseOptions) {
+  const cwd = process.cwd();
   const isTypeScript = language === 'ts' || language === 'typescript';
-  console.log('isTypeScript:', isTypeScript);
 
-  console.log('packageManager:', packageManager);
+  console.log('projectRoot:', baseDir);
+
+  const cmd = getInstallCommand(packageManager, 'mongoose');
 
   // Step 1: Install mongoose
   console.log('📦 Installing mongoose...');
-  execSync(`${packageManager} install mongoose`, { stdio: 'inherit' });
+  execSync(cmd, { stdio: 'inherit' });
 
   // Step 2: Create config/connectDB file
-  const configDir = path.join(projectRoot, 'config');
+  const configDir = path.join(baseDir, 'config');
   if (!fs.existsSync(configDir)) {
     fs.mkdirSync(configDir, { recursive: true });
     console.log('📁 Created config/ directory');
@@ -60,7 +63,7 @@ module.exports = { connectDB };
 
   // Step 3: Inject connectDB into server.js/ts or app.js/ts
   const possibleFiles = ['src/server', 'src/app'].map((name) =>
-    path.join(projectRoot, `${name}.${isTypeScript ? 'ts' : 'js'}`),
+    path.join(cwd, `${name}.${isTypeScript ? 'ts' : 'js'}`),
   );
 
   const targetFile = possibleFiles.find((file) => fs.existsSync(file));

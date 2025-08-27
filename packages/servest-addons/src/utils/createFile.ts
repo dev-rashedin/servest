@@ -12,19 +12,7 @@ export const getServestConfig = (cwd: string): ServestConfig | null => {
 };
 
 // Utility to create folders/files for f-commands
-export const createFilesForFeature = (cwd: string, feature: string, config: ServestConfig) => {
-  const srcDir = path.join(cwd, 'src');
-  const appDir = path.join(srcDir, 'app');
-
-  let baseDir;
-
-  if (fs.existsSync(appDir)) {
-    baseDir = appDir;
-  } else if (fs.existsSync(srcDir)) {
-    baseDir = srcDir;
-  } else {
-    baseDir = cwd;
-  }
+export const createFilesForFeature = (baseDir: string, feature: string, config: ServestConfig) => {
   let filesCreated = false;
   let filesExist = false;
 

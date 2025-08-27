@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import { cancelOperation, detectPkgManager } from '../../../utils/sharedUtility';
 import { createFilesForFeature, getServestConfig } from '../utils/createFile';
-import { checkNodeFramework } from '../utils';
+import { checkNodeFramework, getBaseDir } from '../utils';
 import { addMongoose } from '../utils/addMongoose';
 
 const packageManager = detectPkgManager();
@@ -15,6 +15,8 @@ export const add = new Command()
     const cwd = process.cwd();
     const config = getServestConfig(cwd);
 
+    const baseDir = getBaseDir(cwd);
+
     if (!config) {
       cancelOperation('servest.config.json not found. Please run "npx servest@latest init" first.');
     }
@@ -22,10 +24,10 @@ export const add = new Command()
     if (feature.startsWith('f-')) {
       checkNodeFramework(config!.framework, feature);
       const featureName = feature.slice(2);
-      createFilesForFeature(cwd, featureName, config!);
+      createFilesForFeature(baseDir, featureName, config!);
     } else if (feature === 'mongoose') {
       checkNodeFramework(config!.framework, feature);
-      addMongoose({ projectRoot: cwd, language: config!.language, packageManager });
+      addMongoose({ baseDir, language: config!.language, packageManager });
     } else {
       console.log(`🔧 Add-on feature "${feature}" detected for framework ${config!.framework}.`);
       // Here you can implement your logic for addons (mongoose, eslint, prettier, etc.)
