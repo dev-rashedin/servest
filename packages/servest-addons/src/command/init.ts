@@ -2,23 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { Command } from 'commander';
 import spawn from 'cross-spawn';
-
-interface ServestConfig {
-  servestVersion: string;
-  framework: string;
-  language: string;
-  architecture: 'mvc' | 'modular' | 'basic';
-  srcDir: boolean;
-  environment: {
-    runtime: 'node' | 'bun' | 'unknown';
-    nodeVersion?: string;
-    bunVersion?: string;
-    pythonVersion?: string;
-    phpVersion?: string;
-  };
-  features: Record<string, any>;
-  createdAt: string;
-}
+import { yellow } from '../../../utils/colors';
 
 // --- Framework Detection ---
 const detectFramework = (cwd: string): string => {
@@ -55,7 +39,7 @@ const detectFramework = (cwd: string): string => {
 };
 
 // --- Language Detection ---
-const detectLanguage = (cwd: string): 'ts' | 'js' | 'py' | 'php' | 'unknown' => {
+const detectLanguage = (cwd: string): Languages => {
   if (fs.existsSync(path.join(cwd, 'tsconfig.json'))) return 'ts';
   if (fs.existsSync(path.join(cwd, 'package.json'))) return 'js';
   if (
@@ -70,27 +54,51 @@ const detectLanguage = (cwd: string): 'ts' | 'js' | 'py' | 'php' | 'unknown' => 
 };
 
 // --- Architecture Detection ---
-const detectArchitecture = (cwd: string, basePath?: string): 'mvc' | 'modular' | 'basic' => {
+const detectArchitecture = (cwd: string, basePath?: string): Architecture => {
   const checkPaths = [basePath, path.join(cwd, 'src', 'app'), path.join(cwd, 'src'), cwd].filter(
     Boolean,
   ) as string[];
+
   for (const p of checkPaths) {
     if (!fs.existsSync(p)) continue;
     const folders = fs.readdirSync(p);
+
+    // Node.js style
     if (folders.includes('modules')) return 'modular';
     if (['routes', 'controllers', 'models'].every((f) => folders.includes(f))) return 'mvc';
+
+    // Python / Django style
+    if (folders.some((f) => f.endsWith('.py') || f === 'apps')) return 'apps-based';
+
+    // PHP / Laravel style
+    if (folders.includes('app') && folders.includes('routes')) return 'laravel-mvc';
   }
+
   return 'basic';
 };
-
 // --- Detect src directory ---
 const detectSrcDir = (cwd: string): boolean => fs.existsSync(path.join(cwd, 'src'));
 
 // --- Detect runtime ---
-const detectRuntime = (): 'node' | 'bun' | 'unknown' => {
+const detectRuntime = (): Runtime => {
   if (process.env.BUN_INSTALL) return 'bun';
   if (process.version) return 'node';
+  if (
+    fs.existsSync(path.join(process.cwd(), 'manage.py')) ||
+    fs.existsSync(path.join(process.cwd(), 'pyproject.toml'))
+  )
+    return 'python';
+  if (
+    fs.existsSync(path.join(process.cwd(), 'artisan')) ||
+    fs.existsSync(path.join(process.cwd(), 'composer.json'))
+  )
+    return 'php';
   return 'unknown';
+};
+
+export const runCommand = (command: string, args: string[], cwd: string = process.cwd()) => {
+  const result = spawn.sync(command, args, { stdio: 'inherit', cwd });
+  if (result.status !== 0) process.exit(result.status ?? 1);
 };
 
 // --- Write Config ---
@@ -98,12 +106,6 @@ const writeConfig = (cwd: string, config: ServestConfig) => {
   const configPath = path.join(cwd, 'servest.config.json');
   fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
   console.log(`✅ servest.config.json created at ${configPath}`);
-};
-
-// --- Optional: spawn helper ---
-export const runCommand = (command: string, args: string[], cwd: string = process.cwd()) => {
-  const result = spawn.sync(command, args, { stdio: 'inherit', cwd });
-  if (result.status !== 0) process.exit(result.status ?? 1);
 };
 
 export const init = new Command()
@@ -115,7 +117,9 @@ export const init = new Command()
     const configPath = path.join(cwd, 'servest.config.json');
 
     if (fs.existsSync(configPath)) {
-      console.log(`⚠️  servest.config.json already exists at ${configPath}. Skipping creation.`);
+      console.log(
+        yellow(`⚠️ servest.config.json already exists at ${configPath}. Skipping creation.`),
+      );
       return;
     }
 

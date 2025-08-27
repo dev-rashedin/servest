@@ -1,12 +1,23 @@
-declare type Language = 'ts' | 'js' | 'py' | 'php' | 'unknown';
+declare type Languages = 'ts' | 'js' | 'py' | 'php' | 'unknown';
 
-declare type Architecture = 'mvc' | 'modular' | 'basic';
+declare type Architecture = 'mvc' | 'modular' | 'basic' | 'apps-based' | 'laravel-mvc';
+
+declare type Runtime = 'node' | 'bun' | 'python' | 'php' | 'unknown';
 
 declare interface ServestConfig {
+  servestVersion: string;
   framework: string;
-  language: Language;
-  architecture: 'mvc' | 'modular' | 'basic';
+  language: Languages;
+  architecture: Architecture;
   srcDir: boolean;
+  environment: {
+    runtime: Runtime;
+    nodeVersion?: string;
+    bunVersion?: string;
+    pythonVersion?: string;
+    phpVersion?: string;
+  };
+  features: Record<string, any>;
   createdAt: string;
 }
 
