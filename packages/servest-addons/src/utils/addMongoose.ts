@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
+import { cyan, green, yellow } from '../../../utils/colors';
 import { getInstallCommand, isESModule, isPackageInstalled } from './index';
 
 const tsConnectDBContent = `
@@ -18,9 +19,9 @@ export async function connectDB(): Promise<void> {
 `;
 
 const esmConnectDBContent = `
-  import mongoose from "mongoose";
+import mongoose from "mongoose";
 
- export async function connectDB() {
+export async function connectDB() {
   try {
     const conn = await mongoose.connect(MONGO_URI);
     console.log(\`MongoDB connected: \${conn.connection.host}\`);
@@ -51,16 +52,14 @@ export async function addMongoose({ baseDir, language, packageManager }: AddMong
   const cwd = process.cwd();
   const isTypeScript = language === 'ts' || language === 'typescript';
 
-  console.log('projectRoot:', baseDir);
-
   const cmd = getInstallCommand(packageManager, 'mongoose');
   const isESM = isESModule(cwd);
 
   // Step 1: Installing mongoose if not installed
   if (isPackageInstalled(cwd, 'mongoose')) {
-    console.log('Mongoose is already installed. Skipping installation.');
+    console.log(yellow('⚠️ mongoose already installed'));
   } else {
-    console.log('📦 Installing mongoose...');
+    console.log(cyan('⬇️ Installing mongoose...'));
     execSync(cmd, { stdio: 'inherit' });
   }
 
@@ -73,8 +72,6 @@ export async function addMongoose({ baseDir, language, packageManager }: AddMong
 
   const connectDBPath = path.join(configDir, `connectDB.${isTypeScript ? 'ts' : 'js'}`);
 
-  console.log('connectDBPath:', connectDBPath);
-
   if (!fs.existsSync(connectDBPath)) {
     const connectDBContent = isTypeScript
       ? tsConnectDBContent
@@ -83,9 +80,9 @@ export async function addMongoose({ baseDir, language, packageManager }: AddMong
         : cjsConnectDBContent;
 
     fs.writeFileSync(connectDBPath, connectDBContent, 'utf8');
-    console.log(`✅ Created ${connectDBPath}`);
+    console.log(`✅ Created connectDB file`);
   } else {
-    console.log(`ℹ️ Skipped: ${connectDBPath} already exists`);
+    console.log(`ℹ️ Skipped: connectDB already exists`);
   }
 
   // Step 3: Injecting connectDB into server.js/ts or app.js/ts
@@ -96,9 +93,6 @@ export async function addMongoose({ baseDir, language, packageManager }: AddMong
 
   const targetFile = possibleFiles.find((file) => fs.existsSync(file));
 
-  console.log('possibleFiles:', possibleFiles);
-  console.log('targetFile:', targetFile);
-
   if (targetFile) {
     let content = fs.readFileSync(targetFile, 'utf8');
 
@@ -108,35 +102,39 @@ export async function addMongoose({ baseDir, language, packageManager }: AddMong
           ? `import { connectDB } from "./config/connectDB";`
           : `const { connectDB } = require("./config/connectDB");`;
 
-      content = `${importLine}\n${content}`;
-    }
+      // Remove any old app.listen block
+      const listenStartIndex = content.indexOf('app.listen');
+      if (listenStartIndex !== -1) {
+        const listenEndIndex = content.indexOf('});', listenStartIndex);
+        if (listenEndIndex !== -1) {
+          content =
+            content.slice(0, listenStartIndex).trimEnd() + content.slice(listenEndIndex + 3);
+        } else {
+          content = content.slice(0, listenStartIndex).trimEnd();
+        }
+      }
 
-    // 2️⃣ Wrap app.listen in async IIFE to await connectDB
-    const listenRegex = /(app\.listen\([^)]*\);?)/;
-    if (listenRegex.test(content)) {
-      const asyncWrapper = `
-(async () => {
+      // Trim the remaining content but keep one line break at the end
+      const trimmedContent = content.trimEnd() + '\n\n';
+
+      // Combine import + content + async IIFE
+      const newContent = `${importLine}\n${trimmedContent}(async () => {
   try {
     await connectDB();
-    $1
+    app.listen(config.port, () => {
+      console.log(\`Server listening on port http://localhost:\${config.port}\`);
+    });
   } catch (err) {
     console.error('Failed to connect DB or start server:', err);
     process.exit(1);
   }
-})();
-`;
-      content = content.replace(listenRegex, asyncWrapper);
-    } else {
-      console.warn(
-        `⚠️ Could not find app.listen in ${path.basename(targetFile)} — remember to run connectDB manually`,
-      );
-    }
+})();`;
 
-    fs.writeFileSync(targetFile, content, 'utf8');
-    console.log(`🔗 Mongoose connectDB injected into ${path.basename(targetFile)}`);
+      fs.writeFileSync(targetFile, newContent, 'utf8');
+    }
   } else {
-    console.log('⚠️ No server.js/ts or app.js/ts found — created connectDB but did not inject.');
+    console.log(yellow('⚠️ Could not find src/server or src/app to inject connectDB call.'));
   }
 
-  console.log('🎉 Mongoose setup completed!');
+  console.log(green('🎉 Mongoose setup completed!'));
 }
