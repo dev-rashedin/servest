@@ -1,12 +1,29 @@
 import fs from 'fs';
 import path from 'path';
 import { Command } from 'commander';
+import spawn from 'cross-spawn';
 
-// detecting framework based on dependencies and files
+interface ServestConfig {
+  servestVersion: string;
+  framework: string;
+  language: string;
+  architecture: 'mvc' | 'modular' | 'basic';
+  srcDir: boolean;
+  environment: {
+    runtime: 'node' | 'bun' | 'unknown';
+    nodeVersion?: string;
+    bunVersion?: string;
+    pythonVersion?: string;
+    phpVersion?: string;
+  };
+  features: Record<string, any>;
+  createdAt: string;
+}
+
+// --- Framework Detection ---
 const detectFramework = (cwd: string): string => {
   // Node.js
   const pkgPath = path.join(cwd, 'package.json');
-
   if (fs.existsSync(pkgPath)) {
     const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
     if (pkg.dependencies?.express) return 'express';
@@ -37,54 +54,56 @@ const detectFramework = (cwd: string): string => {
   return 'unknown';
 };
 
-// detecting language based on presence of tsconfig.json
-const detectLanguage = (cwd: string) => {
-  // TypeScript
+// --- Language Detection ---
+const detectLanguage = (cwd: string): 'ts' | 'js' | 'py' | 'php' | 'unknown' => {
   if (fs.existsSync(path.join(cwd, 'tsconfig.json'))) return 'ts';
-
-  // JavaScript
   if (fs.existsSync(path.join(cwd, 'package.json'))) return 'js';
-
-  // Python
   if (
     fs.existsSync(path.join(cwd, 'requirements.txt')) ||
     fs.existsSync(path.join(cwd, 'pyproject.toml')) ||
     fs.existsSync(path.join(cwd, 'manage.py'))
-  ) {
+  )
     return 'py';
-  }
-
-  // PHP
-  if (fs.existsSync(path.join(cwd, 'composer.json')) || fs.existsSync(path.join(cwd, 'artisan'))) {
+  if (fs.existsSync(path.join(cwd, 'composer.json')) || fs.existsSync(path.join(cwd, 'artisan')))
     return 'php';
-  }
-
-  // Fallback
   return 'unknown';
 };
 
-// detecting architecture based on folder structure
-const detectArchitecture = (cwd: string, basePath?: string) => {
+// --- Architecture Detection ---
+const detectArchitecture = (cwd: string, basePath?: string): 'mvc' | 'modular' | 'basic' => {
   const checkPaths = [basePath, path.join(cwd, 'src', 'app'), path.join(cwd, 'src'), cwd].filter(
     Boolean,
   ) as string[];
-
   for (const p of checkPaths) {
     if (!fs.existsSync(p)) continue;
     const folders = fs.readdirSync(p);
     if (folders.includes('modules')) return 'modular';
     if (['routes', 'controllers', 'models'].every((f) => folders.includes(f))) return 'mvc';
   }
-
   return 'basic';
 };
 
+// --- Detect src directory ---
 const detectSrcDir = (cwd: string): boolean => fs.existsSync(path.join(cwd, 'src'));
 
+// --- Detect runtime ---
+const detectRuntime = (): 'node' | 'bun' | 'unknown' => {
+  if (process.env.BUN_INSTALL) return 'bun';
+  if (process.version) return 'node';
+  return 'unknown';
+};
+
+// --- Write Config ---
 const writeConfig = (cwd: string, config: ServestConfig) => {
   const configPath = path.join(cwd, 'servest.config.json');
   fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
   console.log(`✅ servest.config.json created at ${configPath}`);
+};
+
+// --- Optional: spawn helper ---
+export const runCommand = (command: string, args: string[], cwd: string = process.cwd()) => {
+  const result = spawn.sync(command, args, { stdio: 'inherit', cwd });
+  if (result.status !== 0) process.exit(result.status ?? 1);
 };
 
 export const init = new Command()
@@ -93,8 +112,8 @@ export const init = new Command()
   .option('--path <path>', 'Base folder for detection', process.cwd())
   .action((opts) => {
     const cwd = path.resolve(opts.path);
-
     const configPath = path.join(cwd, 'servest.config.json');
+
     if (fs.existsSync(configPath)) {
       console.log(`⚠️  servest.config.json already exists at ${configPath}. Skipping creation.`);
       return;
@@ -104,12 +123,20 @@ export const init = new Command()
     const language = detectLanguage(cwd);
     const architecture = detectArchitecture(cwd);
     const srcDir = detectSrcDir(cwd);
+    const runtime = detectRuntime();
 
     const config: ServestConfig = {
+      servestVersion: '1.0.0',
       framework,
       language,
       architecture,
       srcDir,
+      environment: {
+        runtime,
+        nodeVersion: runtime === 'node' ? process.version : undefined,
+        bunVersion: runtime === 'bun' ? process.env.BUN_VERSION : undefined,
+      },
+      features: {},
       createdAt: new Date().toISOString(),
     };
 
