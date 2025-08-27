@@ -45,3 +45,11 @@ export const isPackageInstalled = (cwd: string, pkg: string): boolean => {
     (pkgJson.devDependencies && pkgJson.devDependencies[pkg])
   );
 };
+
+export const isESModule = (cwd: string): boolean => {
+  const pkgJsonPath = path.join(cwd, 'package.json');
+  if (!fs.existsSync(pkgJsonPath)) return false;
+
+  const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf-8'));
+  return pkgJson.type === 'module';
+};
