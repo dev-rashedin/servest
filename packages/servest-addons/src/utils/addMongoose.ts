@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
-import { getInstallCommand } from './index';
+import { getInstallCommand, isPackageInstalled } from './index';
 
 export async function addMongoose({ baseDir, language, packageManager }: AddMongooseOptions) {
   const cwd = process.cwd();
@@ -11,9 +11,13 @@ export async function addMongoose({ baseDir, language, packageManager }: AddMong
 
   const cmd = getInstallCommand(packageManager, 'mongoose');
 
-  // Step 1: Install mongoose
-  console.log('📦 Installing mongoose...');
-  execSync(cmd, { stdio: 'inherit' });
+  // Step 1: Installing mongoose if not installed
+  if (isPackageInstalled(cwd, 'mongoose')) {
+    console.log('Mongoose is already installed. Skipping installation.');
+  } else {
+    console.log('📦 Installing mongoose...');
+    execSync(cmd, { stdio: 'inherit' });
+  }
 
   // Step 2: Create config/connectDB file
   const configDir = path.join(baseDir, 'config');

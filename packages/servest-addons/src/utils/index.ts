@@ -34,3 +34,14 @@ export const getBaseDir = (cwd: string): string => {
     return cwd;
   }
 };
+
+export const isPackageInstalled = (cwd: string, pkg: string): boolean => {
+  const pkgJsonPath = path.join(cwd, 'package.json');
+  if (!fs.existsSync(pkgJsonPath)) return false;
+
+  const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf-8'));
+  return (
+    (pkgJson.dependencies && pkgJson.dependencies[pkg]) ||
+    (pkgJson.devDependencies && pkgJson.devDependencies[pkg])
+  );
+};
