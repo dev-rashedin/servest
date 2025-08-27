@@ -2,17 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
 
-interface AddMongooseOptions {
-  projectRoot: string;
-  isTypeScript: boolean;
-  packageManager: 'npm' | 'yarn' | 'pnpm';
-}
+export async function addMongoose({ projectRoot, language, packageManager }: AddMongooseOptions) {
+  const isTypeScript = language === 'ts' || language === 'typescript';
+  console.log('isTypeScript:', isTypeScript);
 
-export async function addMongoose({
-  projectRoot,
-  isTypeScript,
-  packageManager,
-}: AddMongooseOptions) {
   // Step 1: Install mongoose
   console.log('📦 Installing mongoose...');
   execSync(`${packageManager} install mongoose`, { stdio: 'inherit' });
@@ -25,6 +18,8 @@ export async function addMongoose({
   }
 
   const connectDBPath = path.join(configDir, `connectDB.${isTypeScript ? 'ts' : 'js'}`);
+
+  console.log('connectDBPath:', connectDBPath);
 
   if (!fs.existsSync(connectDBPath)) {
     const connectDBContent = isTypeScript
@@ -62,11 +57,15 @@ module.exports = { connectDB };
   }
 
   // Step 3: Inject connectDB into server.js/ts or app.js/ts
-  const possibleFiles = ['server', 'app'].map((name) =>
+  const possibleFiles = ['src/server', 'src/app'].map((name) =>
     path.join(projectRoot, `${name}.${isTypeScript ? 'ts' : 'js'}`),
   );
 
   const targetFile = possibleFiles.find((file) => fs.existsSync(file));
+
+  console.log('possibleFiles:', possibleFiles);
+  console.log('targetFile:', targetFile);
+
   if (targetFile) {
     let content = fs.readFileSync(targetFile, 'utf8');
 

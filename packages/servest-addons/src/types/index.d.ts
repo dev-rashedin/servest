@@ -9,3 +9,9 @@ declare interface ServestConfig {
   srcDir: boolean;
   createdAt: string;
 }
+
+declare interface AddMongooseOptions {
+  projectRoot: string;
+  language: string;
+  packageManager: 'npm' | 'yarn' | 'pnpm';
+}
