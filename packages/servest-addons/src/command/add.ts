@@ -1,6 +1,5 @@
 import { Command } from 'commander';
-import { cancelOperation } from '../../../utils/cancelOperation';
-import { detectPkgManager } from '../../../utils/detectPkgManager';
+import { cancelOperation, detectPkgManager } from '../../../utils/sharedUtility';
 import { createFilesForFeature, getServestConfig } from '../utils/createFile';
 import { checkNodeFramework } from '../utils';
 import { addMongoose } from '../utils/addMongoose';

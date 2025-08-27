@@ -10,11 +10,10 @@ import spawn from 'cross-spawn';
 
 // Local utilities
 import { green, red, yellow } from '../../utils/colors';
-import { cancelOperation } from '../../utils/cancelOperation';
+import { cancelOperation, detectPkgManager } from '../../utils/sharedUtility';
 import { ALL_TEMPLATES, FRAMEWORKS, helpMessage } from './utils';
 import {
   copyDir,
-  detectPkgManager,
   emptyDir,
   formatTargetDir,
   getFullCustomCommand,

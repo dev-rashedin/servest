@@ -1,4 +1,4 @@
-import { cancelOperation } from '../../../utils/cancelOperation';
+import { cancelOperation } from '../../../utils/sharedUtility';
 
 export const checkNodeFramework = (framework: string, feature: string): void => {
   if (!['express', 'nest', 'fastify', 'koa'].includes(framework)) {
