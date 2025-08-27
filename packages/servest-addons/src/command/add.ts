@@ -1,6 +1,6 @@
 import { Command } from 'commander';
-import { cancelOperation } from '../../../utils/cancel-operation';
-import { createFilesForFeature, getServestConfig } from '../utils/create-file';
+import { cancelOperation } from '../../../utils/cancelOperation';
+import { createFilesForFeature, getServestConfig } from '../utils/createFile';
 import { checkNodeFramework } from '../utils';
 
 // Main add command
