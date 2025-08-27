@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { green, yellow } from '../../../../utils/colors';
+import { green, yellow } from '../../../utils/colors';
 
 export const filesOrFoldersArray = ['routes', 'models', 'controllers', 'services'];
 
