@@ -50,28 +50,50 @@ export default defineConfig([
 // ESM JavaScript config
 const esmEslintConfig = `
 import js from '@eslint/js';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
 import globals from 'globals';
 import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
-  js.configs.recommended,
   {
-    files: ['**/*.{js,mjs}'],
+    ignores: ['node_modules', 'dist', 'build', 'coverage'],
+  },
+  {
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+    extends: [js.configs.recommended],
     languageOptions: {
       globals: globals.node,
-      parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-      },
     },
     rules: {
       eqeqeq: 'error',
       'no-console': 'warn',
-      'no-unused-vars': ['warn', { args: 'after-used', varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
+      'no-unused-vars': 'warn',
       'no-unused-expressions': 'error',
       'prefer-const': ['error', { ignoreReadBeforeAssign: true }],
     },
-    ignores: ['node_modules/', 'dist/', 'build/'],
+  },
+  {
+    files: ['**/*.{ts,tsx,mts,cts}'],
+    plugins: {
+      '@typescript-eslint': tsPlugin,
+    },
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        project: './tsconfig.json',
+      },
+      globals: globals.node,
+    },
+    rules: {
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        { args: 'after-used', ignoreRestSiblings: true },
+      ],
+    },
   },
 ]);
 `;
@@ -135,11 +157,7 @@ export async function addESLint({ cwd, config, packageManager }: PropsOption) {
   }
 
   // Step 3: Creating ESLint config file
-  const configFileName = isTypeScript
-    ? 'eslint.config.ts'
-    : isESM
-      ? 'eslint.config.js'
-      : 'eslint.config.cjs';
+  const configFileName = isTypeScript || isESM ? 'eslint.config.mjs' : 'eslint.config.cjs';
 
   const configPath = path.join(cwd, configFileName);
 
