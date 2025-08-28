@@ -10,8 +10,7 @@ import {
 } from './index';
 
 // TypeScript ESLint config
-const tsEslintConfig = `
-import js from '@eslint/js';
+const tsEslintConfig = `import js from '@eslint/js';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import globals from 'globals';
@@ -61,8 +60,7 @@ export default defineConfig([
 `;
 
 // ESM JavaScript config
-const esmEslintConfig = `
-import js from '@eslint/js';
+const esmEslintConfig = `import js from '@eslint/js';
 import globals from 'globals';
 import { defineConfig } from 'eslint/config';
 
@@ -92,8 +90,7 @@ export default defineConfig([
 `;
 
 // CJS JavaScript config
-const cjsEslintConfig = `
-const js = require('@eslint/js');
+const cjsEslintConfig = `const js = require('@eslint/js');
 const globals = require('globals');
 const { defineConfig } = require('eslint/config');
 
