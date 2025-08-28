@@ -2,12 +2,24 @@ import fs from 'fs';
 import path from 'path';
 import { spawn } from 'child_process';
 import { cyan, green, red, yellow } from '../../../../utils/colors';
-import { getInstallCommand, isPackageInstalled } from '../index';
+import { getInstallCommandForDevDeps, isPackageInstalled } from '../index';
 
 interface PropsOption {
   cwd: string;
-  packageManager: 'npm' | 'yarn' | 'pnpm';
+  packageManager: PackageManager;
 }
+
+const prettierConfig = {
+  printWidth: 100,
+  tabWidth: 2,
+  useTabs: false,
+  semi: true,
+  singleQuote: true,
+  trailingComma: 'all',
+  bracketSpacing: true,
+  arrowParens: 'avoid',
+  endOfLine: 'lf',
+};
 
 export async function addPrettier({ cwd, packageManager }: PropsOption) {
   const eslintConfigPaths = [
@@ -20,7 +32,7 @@ export async function addPrettier({ cwd, packageManager }: PropsOption) {
 
   // Step 1: Install prettier & eslint-plugin-prettier
   const packages = ['prettier@3.0.0', 'eslint-plugin-prettier@5.2.1'];
-  const installCmd = getInstallCommand(packageManager, packages.join(' '));
+  const installCmd = getInstallCommandForDevDeps(packageManager, packages.join(' '));
 
   if (!isPackageInstalled(cwd, 'prettier')) {
     console.log(cyan('⬇️ Installing Prettier and eslint-plugin-prettier...'));
@@ -73,17 +85,6 @@ export async function addPrettier({ cwd, packageManager }: PropsOption) {
     // Step 3: Create standalone Prettier config
     const prettierConfigPath = path.join(cwd, '.prettierrc.json');
     if (!fs.existsSync(prettierConfigPath)) {
-      const prettierConfig = {
-        printWidth: 100,
-        tabWidth: 2,
-        useTabs: false,
-        semi: true,
-        singleQuote: true,
-        trailingComma: 'all',
-        bracketSpacing: true,
-        arrowParens: 'avoid',
-        endOfLine: 'lf',
-      };
       fs.writeFileSync(prettierConfigPath, JSON.stringify(prettierConfig, null, 2));
       console.log(green('✅ Prettier config created at .prettierrc.json'));
     } else {

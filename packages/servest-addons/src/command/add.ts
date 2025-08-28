@@ -4,6 +4,7 @@ import { createFilesForFeature, getServestConfig } from '../utils/createFile';
 import { checkNodeFramework, getBaseDir } from '../utils';
 import { addMongoose } from '../utils/add/addMongoose';
 import { addESLint } from '../utils/add/addESLint';
+import { addPrettier } from '../utils/add/addPrettier';
 
 const packageManager = detectPkgManager();
 
@@ -24,7 +25,7 @@ export const add = new Command()
     const featureMap: Record<string, () => Promise<void>> = {
       mongoose: async () => addMongoose({ cwd, baseDir, config: config!, packageManager }),
       eslint: async () => addESLint({ cwd, config: config!, packageManager }),
-      // prettier: async () => addPrettier({ baseDir, packageManager }),
+      prettier: async () => addPrettier({ cwd, packageManager }),
     };
 
     const commandRun = async () => {
