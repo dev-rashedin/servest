@@ -10,27 +10,39 @@ const packageManager = detectPkgManager();
 export const add = new Command()
   .name('add')
   .description('Add features or generate files/folders for your project')
-  .argument('<feature>', 'Feature name or f-command (e.g., mongoose, f-users)')
-  .action((feature: string) => {
+  .argument('<features...>', 'Feature names or f-commands (e.g., mongoose, f-users)')
+  .action((features: string[]) => {
     const cwd = process.cwd();
     const config = getServestConfig(cwd);
-
     const baseDir = getBaseDir(cwd);
 
     if (!config) {
       cancelOperation('servest.config.json not found. Please run "npx servest@latest init" first.');
     }
 
-    if (feature.startsWith('f-')) {
-      checkNodeFramework(config!.framework, feature);
-      const featureName = feature.slice(2);
-      createFilesForFeature(baseDir, featureName, config!);
-    } else if (feature === 'mongoose') {
-      checkNodeFramework(config!.framework, feature);
-      addMongoose({ baseDir, language: config!.language, packageManager });
-    } else {
-      console.log(`🔧 Add-on feature "${feature}" detected for framework ${config!.framework}.`);
-      // Here you can implement your logic for addons (mongoose, eslint, prettier, etc.)
-      // This can include installing packages or creating starter files.
+    for (const feature of features) {
+      switch (feature) {
+        case 'mongoose':
+          checkNodeFramework(config!.framework, feature);
+          addMongoose({ baseDir, language: config!.language, packageManager });
+          break;
+
+        case 'eslint':
+          // call addESLint function
+          break;
+
+        case 'prettier':
+          // call addPrettier function
+          break;
+
+        default:
+          if (feature.startsWith('f-')) {
+            checkNodeFramework(config!.framework, feature);
+            const featureName = feature.slice(2);
+            createFilesForFeature(baseDir, featureName, config!);
+          } else {
+            console.log(`🔧 Feature "${feature}" not recognized.`);
+          }
+      }
     }
   });
