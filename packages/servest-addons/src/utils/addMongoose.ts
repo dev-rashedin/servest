@@ -113,8 +113,8 @@ export async function addMongoose({ cwd, baseDir, config, packageManager }: Prop
     if (!content.includes('connectDB')) {
       const importLine =
         isESM || isTypeScript
-          ? `import { connectDB } from "./config/connectDB";`
-          : `const { connectDB } = require("./config/connectDB");`;
+          ? `import { connectDB } from "../src/app/config/connectDB";`
+          : `const { connectDB } = require("../src/app/config/connectDB");`;
 
       // Remove any old app.listen block
       const listenStartIndex = content.indexOf('app.listen');
