@@ -2,53 +2,15 @@ import fs from 'fs';
 import path from 'path';
 import spawn from 'cross-spawn';
 import { cyan, green, red, yellow } from '../../../utils/colors';
-import { checkNodeFramework, getInstallCommand, isESModule, isPackageInstalled } from './index';
+import {
+  checkNodeFramework,
+  getInstallCommandForDevDeps,
+  isESModule,
+  isPackageInstalled,
+} from './index';
 
 // TypeScript ESLint config
 const tsEslintConfig = `
-import js from '@eslint/js';
-import globals from 'globals';
-import tsPlugin from '@typescript-eslint/eslint-plugin';
-import tsParser from '@typescript-eslint/parser';
-import { defineConfig } from 'eslint/config';
-
-export default defineConfig([
-  // Base JS recommended config
-  js.configs.recommended,
-
-  // TypeScript recommended config
-  tsPlugin.configs.recommended,
-
-  // Project-specific rules & language options
-  {
-    files: ['**/*.{ts,tsx,js,mjs,cjs}'],
-    languageOptions: {
-      parser: tsParser,
-      globals: globals.node,
-      parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-        project: './tsconfig.json',
-      },
-    },
-    plugins: {
-      '@typescript-eslint': tsPlugin,
-    },
-    rules: {
-      eqeqeq: 'error',
-      'no-console': 'warn',
-      'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': ['warn', { args: 'after-used', ignoreRestSiblings: true }],
-      'no-unused-expressions': 'error',
-      'prefer-const': ['error', { ignoreReadBeforeAssign: true }],
-    },
-    ignores: ['node_modules/', 'dist/', 'build/'],
-  },
-]);
-`;
-
-// ESM JavaScript config
-const esmEslintConfig = `
 import js from '@eslint/js';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
@@ -98,6 +60,37 @@ export default defineConfig([
 ]);
 `;
 
+// ESM JavaScript config
+const esmEslintConfig = `
+import js from '@eslint/js';
+import globals from 'globals';
+import { defineConfig } from 'eslint/config';
+
+export default defineConfig([
+  {
+    ignores: ['node_modules', 'dist', 'build', 'coverage'],
+  },
+  {
+    files: ['**/*.{js,mjs,cjs}'],
+    extends: [js.configs.recommended],
+    languageOptions: {
+      globals: globals.node,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+    },
+    rules: {
+      eqeqeq: 'error',
+      'no-console': 'warn',
+      'no-unused-vars': 'warn',
+      'no-unused-expressions': 'error',
+      'prefer-const': ['error', { ignoreReadBeforeAssign: true }],
+    },
+  },
+]);
+`;
+
 // CJS JavaScript config
 const cjsEslintConfig = `
 const js = require('@eslint/js');
@@ -105,24 +98,26 @@ const globals = require('globals');
 const { defineConfig } = require('eslint/config');
 
 module.exports = defineConfig([
-  js.configs.recommended,
   {
-    files: ['**/*.{js,cjs}'],
+    ignores: ['node_modules', 'dist', 'build', 'coverage'],
+  },
+  {
+    files: ['**/*.{js,mjs,cjs}'],
+    extends: [js.configs.recommended],
     languageOptions: {
-      globals: globals.node,
       parserOptions: {
         ecmaVersion: 'latest',
-        sourceType: 'script',
+        sourceType: 'module',
       },
+      globals: globals.node,
     },
     rules: {
       eqeqeq: 'error',
       'no-console': 'warn',
-      'no-unused-vars': ['warn', { args: 'after-used', varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
+      'no-unused-vars': 'warn',
       'no-unused-expressions': 'error',
       'prefer-const': ['error', { ignoreReadBeforeAssign: true }],
     },
-    ignores: ['node_modules/', 'dist/', 'build/'],
   },
 ]);
 `;
@@ -140,7 +135,7 @@ export async function addESLint({ cwd, config, packageManager }: PropsOption) {
     packages.push('@typescript-eslint/eslint-plugin@8.41.0', '@typescript-eslint/parser@8.41.0');
   }
 
-  const installCmd = getInstallCommand(packageManager, packages.join(' '));
+  const installCmd = getInstallCommandForDevDeps(packageManager, packages.join(' '));
 
   // Step 2: Checking if eslint already installed
   if (isPackageInstalled(cwd, 'eslint')) {
@@ -176,7 +171,7 @@ export async function addESLint({ cwd, config, packageManager }: PropsOption) {
     const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
     pkg.scripts = pkg.scripts || {};
 
-    if (!pkg.scripts.lint && !pkg.scripts['lint:fix']) return;
+    if (pkg.scripts.lint && pkg.scripts['lint:fix']) return;
 
     if (!pkg.scripts.lint) {
       pkg.scripts.lint = 'eslint .';

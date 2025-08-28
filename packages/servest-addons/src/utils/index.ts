@@ -22,6 +22,21 @@ export const getInstallCommand = (pkgManager: string, pkg: string): string => {
   }
 };
 
+export const getInstallCommandForDevDeps = (packageManager: string, packages: string) => {
+  switch (packageManager) {
+    case 'npm':
+      return `npm install -D ${packages}`;
+    case 'yarn':
+      return `yarn add -D ${packages}`;
+    case 'pnpm':
+      return `pnpm add -D ${packages}`;
+    case 'bun':
+      return `bun add -d ${packages}`;
+    default:
+      throw new Error(`Unsupported package manager: ${packageManager}`);
+  }
+};
+
 export const getBaseDir = (cwd: string): string => {
   const srcDir = path.join(cwd, 'src');
   const appDir = path.join(srcDir, 'app');
