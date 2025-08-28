@@ -181,5 +181,21 @@ export async function addESLint({ cwd, baseDir, config, packageManager }: PropsO
     console.log(yellow(`⚠️ ESLint config already exists at ${configFileName}`));
   }
 
+  const pkgPath = path.join(cwd, 'package.json');
+  if (fs.existsSync(pkgPath)) {
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
+    pkg.scripts = pkg.scripts || {};
+
+    if (!pkg.scripts.lint) {
+      pkg.scripts.lint = 'eslint .';
+    }
+    if (!pkg.scripts['lint:fix']) {
+      pkg.scripts['lint:fix'] = 'eslint . --fix';
+    }
+
+    fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2), 'utf-8');
+    console.log(green(`Added lint scripts to package.json`));
+  }
+
   console.log(green('🎉 ESLint setup completed!'));
 }
