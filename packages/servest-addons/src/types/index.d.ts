@@ -23,7 +23,7 @@ declare interface ServestConfig {
   createdAt: string;
 }
 
-declare interface AddMongooseOptions {
+declare interface PropsOption {
   cwd: string;
   baseDir: string;
   config: ServestConfig;

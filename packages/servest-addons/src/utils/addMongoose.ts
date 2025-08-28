@@ -48,7 +48,7 @@ async function connectDB() {
 module.exports = { connectDB };
 `;
 
-export async function addMongoose({ cwd, baseDir, config, packageManager }: AddMongooseOptions) {
+export async function addMongoose({ cwd, baseDir, config, packageManager }: PropsOption) {
   const isTypeScript = config.language === 'ts';
   const cmd = getInstallCommand(packageManager, 'mongoose');
   const isESM = isESModule(cwd);

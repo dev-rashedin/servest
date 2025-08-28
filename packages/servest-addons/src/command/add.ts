@@ -3,6 +3,7 @@ import { cancelOperation, detectPkgManager } from '../../../utils/sharedUtility'
 import { createFilesForFeature, getServestConfig } from '../utils/createFile';
 import { checkNodeFramework, getBaseDir } from '../utils';
 import { addMongoose } from '../utils/addMongoose';
+import { addESLint } from '../utils/addESLint';
 
 const packageManager = detectPkgManager();
 
@@ -22,7 +23,7 @@ export const add = new Command()
 
     const featureMap: Record<string, () => Promise<void>> = {
       mongoose: async () => addMongoose({ cwd, baseDir, config: config!, packageManager }),
-      // eslint: async () => addESLint({ baseDir, packageManager }),
+      eslint: async () => addESLint({ cwd, baseDir, config: config!, packageManager }),
       // prettier: async () => addPrettier({ baseDir, packageManager }),
     };
 
