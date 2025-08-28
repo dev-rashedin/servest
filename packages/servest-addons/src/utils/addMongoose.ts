@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import spawn from 'cross-spawn';
 import { cyan, green, red, yellow } from '../../../utils/colors';
-import { getInstallCommand, isESModule, isPackageInstalled } from './index';
+import { checkNodeFramework, getInstallCommand, isESModule, isPackageInstalled } from './index';
 
 const tsConnectDBContent = `
 import mongoose from "mongoose";
@@ -48,11 +48,13 @@ async function connectDB() {
 module.exports = { connectDB };
 `;
 
-export async function addMongoose({ baseDir, language, packageManager }: AddMongooseOptions) {
-  const cwd = process.cwd();
-  const isTypeScript = language === 'ts' || language === 'typescript';
+export async function addMongoose({ cwd, baseDir, config, packageManager }: AddMongooseOptions) {
+  const isTypeScript = config.language === 'ts';
   const cmd = getInstallCommand(packageManager, 'mongoose');
   const isESM = isESModule(cwd);
+
+  // default framework checking
+  checkNodeFramework(config.framework, 'mongoose');
 
   // Step 1: Installing mongoose if not installed
   if (isPackageInstalled(cwd, 'mongoose')) {

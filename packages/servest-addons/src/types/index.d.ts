@@ -4,6 +4,8 @@ declare type Architecture = 'mvc' | 'modular' | 'basic' | 'apps-based' | 'larave
 
 declare type Runtime = 'node' | 'bun' | 'python' | 'php' | 'unknown';
 
+declare type PackageManager = 'npm' | 'yarn' | 'pnpm' | 'bun' | 'unknown';
+
 declare interface ServestConfig {
   servestVersion: string;
   framework: string;
@@ -22,7 +24,8 @@ declare interface ServestConfig {
 }
 
 declare interface AddMongooseOptions {
+  cwd: string;
   baseDir: string;
-  language: string;
-  packageManager: 'npm' | 'yarn' | 'pnpm' | 'bun';
+  config: ServestConfig;
+  packageManager: PackageManager;
 }

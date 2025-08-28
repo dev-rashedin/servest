@@ -23,8 +23,7 @@ export const add = new Command()
     for (const feature of features) {
       switch (feature) {
         case 'mongoose':
-          checkNodeFramework(config!.framework, feature);
-          addMongoose({ baseDir, language: config!.language, packageManager });
+          addMongoose({ cwd, baseDir, config: config!, packageManager });
           break;
 
         case 'eslint':
