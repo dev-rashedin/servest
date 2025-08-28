@@ -2,8 +2,8 @@ import { Command } from 'commander';
 import { cancelOperation, detectPkgManager } from '../../../utils/sharedUtility';
 import { createFilesForFeature, getServestConfig } from '../utils/createFile';
 import { checkNodeFramework, getBaseDir } from '../utils';
-import { addMongoose } from '../utils/addMongoose';
-import { addESLint } from '../utils/addESLint';
+import { addMongoose } from '../utils/add/addMongoose';
+import { addESLint } from '../utils/add/addESLint';
 
 const packageManager = detectPkgManager();
 

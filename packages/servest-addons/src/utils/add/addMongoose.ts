@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import spawn from 'cross-spawn';
-import { cyan, green, red, yellow } from '../../../utils/colors';
-import { checkNodeFramework, getInstallCommand, isESModule, isPackageInstalled } from './index';
+import { cyan, green, red, yellow } from '../../../../utils/colors';
+import { checkNodeFramework, getInstallCommand, isESModule, isPackageInstalled } from '../index';
 
 const tsConnectDBContent = `
 import mongoose from "mongoose";

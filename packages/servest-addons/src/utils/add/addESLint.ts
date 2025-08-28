@@ -1,13 +1,13 @@
 import fs from 'fs';
 import path from 'path';
 import spawn from 'cross-spawn';
-import { cyan, green, red, yellow } from '../../../utils/colors';
+import { cyan, green, red, yellow } from '../../../../utils/colors';
 import {
   checkNodeFramework,
   getInstallCommandForDevDeps,
   isESModule,
   isPackageInstalled,
-} from './index';
+} from '../index';
 
 // TypeScript ESLint config
 const tsEslintConfig = `import js from '@eslint/js';
