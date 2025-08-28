@@ -23,7 +23,7 @@ export const add = new Command()
 
     const featureMap: Record<string, () => Promise<void>> = {
       mongoose: async () => addMongoose({ cwd, baseDir, config: config!, packageManager }),
-      eslint: async () => addESLint({ cwd, baseDir, config: config!, packageManager }),
+      eslint: async () => addESLint({ cwd, config: config!, packageManager }),
       // prettier: async () => addPrettier({ baseDir, packageManager }),
     };
 

@@ -4,21 +4,19 @@ import spawn from 'cross-spawn';
 import { cyan, green, red, yellow } from '../../../utils/colors';
 import { checkNodeFramework, getInstallCommand, isESModule, isPackageInstalled } from './index';
 
+// TypeScript ESLint config
 const tsEslintConfig = `
 import js from '@eslint/js';
 import globals from 'globals';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
-import prettierRecommendedPkg from 'eslint-plugin-prettier/recommended';
 import { defineConfig } from 'eslint/config';
 
-const prettierRecommended = prettierRecommendedPkg?.config ?? prettierRecommendedPkg;
-
 export default defineConfig([
-  // Base JS recommended config (applies first)
+  // Base JS recommended config
   js.configs.recommended,
 
-  // TypeScript recommended config from @typescript-eslint
+  // TypeScript recommended config
   tsPlugin.configs.recommended,
 
   // Project-specific rules & language options
@@ -35,36 +33,25 @@ export default defineConfig([
     },
     plugins: {
       '@typescript-eslint': tsPlugin,
-      prettier: prettierRecommended.plugins?.prettier || [],
     },
     rules: {
-      // core / common rules (TypeScript-aware)
       eqeqeq: 'error',
       'no-console': 'warn',
-      // turn off base rule and use TS-aware rule
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': ['warn', { args: 'after-used', ignoreRestSiblings: true }],
       'no-unused-expressions': 'error',
       'prefer-const': ['error', { ignoreReadBeforeAssign: true }],
-
-      // Prettier integration
-      'prettier/prettier': 'error',
     },
     ignores: ['node_modules/', 'dist/', 'build/'],
   },
-
-  // Prettier recommended last to disable conflicting stylistic rules
-  prettierRecommended,
 ]);
 `;
 
+// ESM JavaScript config
 const esmEslintConfig = `
 import js from '@eslint/js';
 import globals from 'globals';
-import prettierRecommendedPkg from 'eslint-plugin-prettier/recommended';
 import { defineConfig } from 'eslint/config';
-
-const prettierRecommended = prettierRecommendedPkg?.config ?? prettierRecommendedPkg;
 
 export default defineConfig([
   js.configs.recommended,
@@ -77,30 +64,23 @@ export default defineConfig([
         sourceType: 'module',
       },
     },
-    plugins: {
-      prettier: prettierRecommended.plugins?.prettier || [],
-    },
     rules: {
       eqeqeq: 'error',
       'no-console': 'warn',
       'no-unused-vars': ['warn', { args: 'after-used', varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
       'no-unused-expressions': 'error',
       'prefer-const': ['error', { ignoreReadBeforeAssign: true }],
-      'prettier/prettier': 'error',
     },
     ignores: ['node_modules/', 'dist/', 'build/'],
   },
-  prettierRecommended,
 ]);
 `;
 
+// CJS JavaScript config
 const cjsEslintConfig = `
 const js = require('@eslint/js');
 const globals = require('globals');
-const prettierRecommendedPkg = require('eslint-plugin-prettier/recommended');
 const { defineConfig } = require('eslint/config');
-
-const prettierRecommended = (prettierRecommendedPkg && prettierRecommendedPkg.config) ? prettierRecommendedPkg.config : prettierRecommendedPkg;
 
 module.exports = defineConfig([
   js.configs.recommended,
@@ -113,24 +93,19 @@ module.exports = defineConfig([
         sourceType: 'script',
       },
     },
-    plugins: {
-      prettier: require('eslint-plugin-prettier'),
-    },
     rules: {
       eqeqeq: 'error',
       'no-console': 'warn',
       'no-unused-vars': ['warn', { args: 'after-used', varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
       'no-unused-expressions': 'error',
       'prefer-const': ['error', { ignoreReadBeforeAssign: true }],
-      'prettier/prettier': 'error',
     },
     ignores: ['node_modules/', 'dist/', 'build/'],
   },
-  prettierRecommended,
 ]);
 `;
 
-export async function addESLint({ cwd, baseDir, config, packageManager }: PropsOption) {
+export async function addESLint({ cwd, config, packageManager }: PropsOption) {
   const isTypeScript = config.language === 'ts';
   const isESM = isESModule(cwd);
 
@@ -138,11 +113,7 @@ export async function addESLint({ cwd, baseDir, config, packageManager }: PropsO
   checkNodeFramework(config.framework, 'eslint');
 
   // Step 1 : Installing dependencies
-  const packages = [
-    'eslint@9.34.0',
-    'eslint-config-prettier@9.1.0', // example
-    'eslint-plugin-prettier@5.2.1',
-  ];
+  const packages = ['eslint@9.34.0', 'globals@16.3.0', '@eslint/js@9.34.0'];
   if (isTypeScript) {
     packages.push('@typescript-eslint/eslint-plugin@8.41.0', '@typescript-eslint/parser@8.41.0');
   }
@@ -170,7 +141,7 @@ export async function addESLint({ cwd, baseDir, config, packageManager }: PropsO
       ? 'eslint.config.js'
       : 'eslint.config.cjs';
 
-  const configPath = path.join(baseDir, configFileName);
+  const configPath = path.join(cwd, configFileName);
 
   if (!fs.existsSync(configPath)) {
     const content = isTypeScript ? tsEslintConfig : isESM ? esmEslintConfig : cjsEslintConfig;
@@ -181,10 +152,13 @@ export async function addESLint({ cwd, baseDir, config, packageManager }: PropsO
     console.log(yellow(`⚠️ ESLint config already exists at ${configFileName}`));
   }
 
+  // Step 4: Adding lint scripts to package.json
   const pkgPath = path.join(cwd, 'package.json');
   if (fs.existsSync(pkgPath)) {
     const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
     pkg.scripts = pkg.scripts || {};
+
+    if (!pkg.scripts.lint && !pkg.scripts['lint:fix']) return;
 
     if (!pkg.scripts.lint) {
       pkg.scripts.lint = 'eslint .';
@@ -194,7 +168,7 @@ export async function addESLint({ cwd, baseDir, config, packageManager }: PropsO
     }
 
     fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2), 'utf-8');
-    console.log(green(`Added lint scripts to package.json`));
+    console.log(green(`✅ Added lint scripts to package.json`));
   }
 
   console.log(green('🎉 ESLint setup completed!'));

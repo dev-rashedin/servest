@@ -25,7 +25,10 @@ declare interface ServestConfig {
 
 declare interface PropsOption {
   cwd: string;
-  baseDir: string;
   config: ServestConfig;
   packageManager: PackageManager;
+}
+
+declare interface PropsOptionWithBaseDir extends PropsOption {
+  baseDir: string;
 }
