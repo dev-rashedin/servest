@@ -206,9 +206,15 @@ async function init() {
   // 7️⃣ Running addons if specified
   const addons = addonsArg ? addonsArg.split(/\s+/).filter(Boolean) : [];
 
+  if (addons.length > 0) {
+    spawn.sync('npx', ['servest@latest', 'init'], {
+      stdio: 'inherit',
+    });
+  }
+
   for (const addon of addons) {
     log.info(`\nAdding ${addon}...`);
-    const { status } = spawn.sync('npx', ['add', 'servest@latest', addon], {
+    const { status } = spawn.sync('npx', ['servest@latest', 'add', addon], {
       stdio: 'inherit',
     });
 

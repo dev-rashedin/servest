@@ -37,7 +37,7 @@ export const FRAMEWORKS: Framework[] = [
       },
       {
         name: 'MVC - ESM',
-        value: 'express-mvc-esm',
+        value: 'express-mvc-mjs',
         color: yellow,
       },
       {
@@ -52,7 +52,7 @@ export const FRAMEWORKS: Framework[] = [
       },
       {
         name: 'Modular - ESM',
-        value: 'express-modular-esm',
+        value: 'express-modular-mjs',
         color: yellow,
       },
       {
