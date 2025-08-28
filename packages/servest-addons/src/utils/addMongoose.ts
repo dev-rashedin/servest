@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { execSync } from 'child_process';
-import { cyan, green, yellow } from '../../../utils/colors';
+import spawn from 'cross-spawn';
+import { cyan, green, red, yellow } from '../../../utils/colors';
 import { getInstallCommand, isESModule, isPackageInstalled } from './index';
 
 const tsConnectDBContent = `
@@ -51,7 +51,6 @@ module.exports = { connectDB };
 export async function addMongoose({ baseDir, language, packageManager }: AddMongooseOptions) {
   const cwd = process.cwd();
   const isTypeScript = language === 'ts' || language === 'typescript';
-
   const cmd = getInstallCommand(packageManager, 'mongoose');
   const isESM = isESModule(cwd);
 
@@ -60,14 +59,27 @@ export async function addMongoose({ baseDir, language, packageManager }: AddMong
     console.log(yellow('⚠️ mongoose already installed'));
   } else {
     console.log(cyan('⬇️ Installing mongoose...'));
-    execSync(cmd, { stdio: 'inherit' });
+
+    await new Promise<void>((resolve, reject) => {
+      const child = spawn(cmd, { cwd, stdio: 'inherit', shell: true });
+
+      child.on('close', (code) => {
+        if (code === 0) {
+          resolve();
+        } else {
+          reject(new Error(red(`Installation failed with exit code ${code}`)));
+        }
+      });
+
+      child.on('error', reject);
+    });
   }
 
   // Step 2: Creating config/connectDB file
   const configDir = path.join(baseDir, 'config');
   if (!fs.existsSync(configDir)) {
     fs.mkdirSync(configDir, { recursive: true });
-    console.log('📁 Created config/ directory');
+    console.log(green('📁 Created config/ directory'));
   }
 
   const connectDBPath = path.join(configDir, `connectDB.${isTypeScript ? 'ts' : 'js'}`);
@@ -80,9 +92,9 @@ export async function addMongoose({ baseDir, language, packageManager }: AddMong
         : cjsConnectDBContent;
 
     fs.writeFileSync(connectDBPath, connectDBContent, 'utf8');
-    console.log(`✅ Created connectDB file`);
+    console.log(green(`✅ Created connectDB file`));
   } else {
-    console.log(`ℹ️ Skipped: connectDB already exists`);
+    console.log(yellow(`⚠️ connectDB already exists`));
   }
 
   // Step 3: Injecting connectDB into server.js/ts or app.js/ts
