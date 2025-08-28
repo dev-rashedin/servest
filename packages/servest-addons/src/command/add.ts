@@ -20,28 +20,32 @@ export const add = new Command()
       cancelOperation('servest.config.json not found. Please run "npx servest@latest init" first.');
     }
 
-    for (const feature of features) {
-      switch (feature) {
-        case 'mongoose':
-          addMongoose({ cwd, baseDir, config: config!, packageManager });
-          break;
+    const featureMap: Record<string, () => Promise<void>> = {
+      mongoose: async () => addMongoose({ cwd, baseDir, config: config!, packageManager }),
+      // eslint: async () => addESLint({ baseDir, packageManager }),
+      // prettier: async () => addPrettier({ baseDir, packageManager }),
+    };
 
-        case 'eslint':
-          // call addESLint function
-          break;
-
-        case 'prettier':
-          // call addPrettier function
-          break;
-
-        default:
+    const commandRun = async () => {
+      for (const feature of features) {
+        try {
           if (feature.startsWith('f-')) {
             checkNodeFramework(config!.framework, feature);
             const featureName = feature.slice(2);
-            createFilesForFeature(baseDir, featureName, config!);
+            await createFilesForFeature(baseDir, featureName, config!);
+          } else if (featureMap[feature]) {
+            await featureMap[feature]();
           } else {
             console.log(`🔧 Feature "${feature}" not recognized.`);
           }
+        } catch (err) {
+          console.error(`❌ Failed to process "${feature}":`, err);
+          // Continue with next feature
+        }
       }
-    }
+    };
+
+    commandRun().catch((err) => {
+      console.error('❌ An unexpected error occurred:', err);
+    });
   });
