@@ -8,6 +8,7 @@ import { addPrettier } from '../utils/add/addPrettier';
 import { addESLintPrettier } from '../utils/add/addESLintPrettier';
 import { addPrisma } from '../utils/add/addPrisma';
 import { red } from '../../../utils/colors';
+import { addDrizzle } from '../utils/add/addDrizzle';
 
 const packageManager = detectPkgManager();
 
@@ -31,6 +32,7 @@ export const add = new Command()
       prettier: async () => addPrettier({ cwd, packageManager }),
       'eslint-prettier': async () => addESLintPrettier({ cwd, config: config!, packageManager }),
       prisma: async () => addPrisma({ cwd, packageManager }),
+      drizzle: async () => addDrizzle({ cwd, packageManager, language: config!.language }),
     };
 
     const commandRun = async () => {
