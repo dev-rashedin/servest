@@ -117,5 +117,24 @@ export async function addPrettier({ cwd, packageManager }: PropsOption) {
     }
   }
 
+  // Step 4: Adding prettier scripts to package.json
+  const pkgPath = path.join(cwd, 'package.json');
+  if (fs.existsSync(pkgPath)) {
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
+    pkg.scripts = pkg.scripts || {};
+
+    if (pkg.scripts.prettier && pkg.scripts['prettier:fix']) return;
+
+    if (!pkg.scripts.prettier) {
+      pkg.scripts.prettier = 'prettier --ignore-path .gitignore --write "./src/**/*.+(js|ts|json)"';
+    }
+    if (!pkg.scripts['prettier:fix']) {
+      pkg.scripts['prettier:fix'] = 'npx prettier --write ./src/**/*.+(js|ts|json)';
+    }
+
+    fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2), 'utf-8');
+    console.log(green(`✅ Added lint scripts to package.json.`));
+  }
+
   console.log(green('🎉 Prettier setup completed!'));
 }

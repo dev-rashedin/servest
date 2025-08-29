@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { Command } from 'commander';
 import spawn from 'cross-spawn';
-import { yellow } from '../../../utils/colors';
+import { green, yellow } from '../../../utils/colors';
 
 // --- Framework Detection ---
 const detectFramework = (cwd: string): string => {
@@ -105,7 +105,7 @@ export const runCommand = (command: string, args: string[], cwd: string = proces
 const writeConfig = (cwd: string, config: ServestConfig) => {
   const configPath = path.join(cwd, 'servest.config.json');
   fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
-  console.log(`✅ servest.config.json created.`);
+  console.log(green(`✅ servest.config.json created.`));
 };
 
 export const init = new Command()

@@ -10,6 +10,10 @@ import { fileURLToPath } from 'node:url';
 const shouldTypeCheck = typeof process.env.VSCODE_PID === 'string';
 
 export default tseslint.config(
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
+  ...tseslint.configs.stylistic,
+  pluginRegExp.configs['flat/recommended'],
   {
     // Global ignores
     ignores: [
@@ -27,10 +31,6 @@ export default tseslint.config(
       '**/.github/**',
     ],
   },
-  eslint.configs.recommended,
-  ...tseslint.configs.recommended,
-  ...tseslint.configs.stylistic,
-  pluginRegExp.configs['flat/recommended'],
   {
     name: 'main',
     languageOptions: {
