@@ -7,6 +7,7 @@ import { addESLint } from '../utils/add/addESLint';
 import { addPrettier } from '../utils/add/addPrettier';
 import { addESLintPrettier } from '../utils/add/addESLintPrettier';
 import { addPrisma } from '../utils/add/addPrisma';
+import { red } from '../../../utils/colors';
 
 const packageManager = detectPkgManager();
 
@@ -42,16 +43,16 @@ export const add = new Command()
           } else if (featureMap[feature]) {
             await featureMap[feature]();
           } else {
-            console.log(`🔧 Feature "${feature}" not recognized.`);
+            console.log(red(`🚩 Feature "${feature}" not recognized.`));
           }
         } catch (err) {
-          console.error(`❌ Failed to process "${feature}":`, err);
+          console.error(red(`🚨 Failed to process "${feature}": ${err}`));
           // Continue with next feature
         }
       }
     };
 
     commandRun().catch((err) => {
-      console.error('❌ An unexpected error occurred:', err);
+      console.error(red(`🚨 An unexpected error occurred: ${err}`));
     });
   });
