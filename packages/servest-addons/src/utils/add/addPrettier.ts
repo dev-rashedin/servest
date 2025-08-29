@@ -25,17 +25,24 @@ export async function addPrettier({ cwd, packageManager }: PropsOption) {
   const eslintConfigPaths = [
     path.join(cwd, 'eslint.config.mjs'),
     path.join(cwd, 'eslint.config.cjs'),
-    path.join(cwd, '.eslintrc.js'),
   ];
 
   const eslintConfigPath = eslintConfigPaths.find((p) => fs.existsSync(p));
+  const prettierrcPath = path.join(cwd, '.prettierrc.json');
+  const prettierignorePath = path.join(cwd, '.prettierignore');
 
-  // Step 1: Install prettier & eslint-plugin-prettier
-  const packages = ['prettier@3.0.0', 'eslint-plugin-prettier@5.2.1'];
+  // Step 1: Installing prettier & eslint-plugin-prettier
+  const packages = ['prettier@3.6.2'];
+
+  if (eslintConfigPath) {
+    packages.push('eslint-plugin-prettier@5.5.4', 'eslint-config-prettier@10.1.8');
+  }
+
   const installCmd = getInstallCommandForDevDeps(packageManager, packages.join(' '));
 
   if (!isPackageInstalled(cwd, 'prettier')) {
-    console.log(cyan('⬇️ Installing Prettier and eslint-plugin-prettier...'));
+    console.log(cyan('⬇️ Installing Prettier and related plugins...'));
+
     await new Promise<void>((resolve, reject) => {
       const child = spawn(installCmd, { cwd, stdio: 'inherit', shell: true });
       child.on('close', (code) =>
@@ -44,11 +51,27 @@ export async function addPrettier({ cwd, packageManager }: PropsOption) {
       child.on('error', reject);
     });
   } else {
-    console.log(yellow('⚠️ Prettier already installed'));
+    console.log(yellow('👍 Prettier already installed'));
+  }
+
+  // Step 2: Creating Prettier config & prettierignore files if not already exist
+
+  if (!fs.existsSync(prettierrcPath)) {
+    fs.writeFileSync(prettierrcPath, JSON.stringify(prettierConfig, null, 2));
+    console.log(green('✅ Created .prettierrc.json.'));
+  } else {
+    console.log(yellow('👍 .prettierrc.json already exists.'));
+  }
+
+  if (!fs.existsSync(prettierignorePath)) {
+    fs.writeFileSync(prettierignorePath, `node_modules\nbuild\ndist\ncoverage\n`);
+    console.log(green('✅ Created .prettierignore.'));
+  } else {
+    console.log(yellow('⚠️ .prettierignore already exists.'));
   }
 
   if (eslintConfigPath) {
-    // Step 2: Inject Prettier into existing ESLint config
+    // Step 2: Injecting Prettier into existing ESLint config
     const content = fs.readFileSync(eslintConfigPath, 'utf-8');
 
     if (!content.includes('eslint-plugin-prettier')) {
@@ -77,18 +100,18 @@ export async function addPrettier({ cwd, packageManager }: PropsOption) {
       }
 
       fs.writeFileSync(eslintConfigPath, updatedContent, 'utf-8');
-      console.log(green('✅ Prettier injected into ESLint config'));
+      console.log(green('✅ Prettier injected into ESLint config.'));
     } else {
-      console.log(yellow('⚠️ Prettier already present in ESLint config'));
+      console.log(yellow('👍 Prettier already present in ESLint config.'));
     }
   } else {
     // Step 3: Create standalone Prettier config
     const prettierConfigPath = path.join(cwd, '.prettierrc.json');
     if (!fs.existsSync(prettierConfigPath)) {
       fs.writeFileSync(prettierConfigPath, JSON.stringify(prettierConfig, null, 2));
-      console.log(green('✅ Prettier config created at .prettierrc.json'));
+      console.log(green('✅ Prettier config created.'));
     } else {
-      console.log(yellow('⚠️ Prettier config already exists'));
+      console.log(yellow('👍 Prettier config already exists.'));
     }
   }
 

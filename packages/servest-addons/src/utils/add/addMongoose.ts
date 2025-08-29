@@ -63,7 +63,7 @@ export async function addMongoose({
 
   // Step 1: Installing mongoose if not installed
   if (isPackageInstalled(cwd, 'mongoose')) {
-    console.log(yellow('⚠️ mongoose already installed'));
+    console.log(yellow('👍 mongoose already installed.'));
   } else {
     console.log(cyan('⬇️ Installing mongoose...'));
 
@@ -86,7 +86,7 @@ export async function addMongoose({
   const configDir = path.join(baseDir, 'config');
   if (!fs.existsSync(configDir)) {
     fs.mkdirSync(configDir, { recursive: true });
-    console.log(green('📁 Created config/ directory'));
+    console.log(green('📁 Created config/ directory.'));
   }
 
   const connectDBPath = path.join(configDir, `connectDB.${isTypeScript ? 'ts' : 'js'}`);
@@ -99,9 +99,9 @@ export async function addMongoose({
         : cjsConnectDBContent;
 
     fs.writeFileSync(connectDBPath, connectDBContent, 'utf8');
-    console.log(green(`✅ Created connectDB file`));
+    console.log(green(`✅ Created connectDB file.`));
   } else {
-    console.log(yellow(`⚠️ connectDB already exists`));
+    console.log(yellow(`👍 connectDB already exists.`));
   }
 
   // Step 3: Injecting connectDB into server.js/ts or app.js/ts
@@ -152,7 +152,7 @@ export async function addMongoose({
       fs.writeFileSync(targetFile, newContent, 'utf8');
     }
   } else {
-    console.log(yellow('⚠️ Could not find src/server or src/app to inject connectDB call.'));
+    console.log(yellow('👍 Could not find src/server or src/app to inject connectDB call.'));
   }
 
   console.log(green('🎉 Mongoose setup completed!'));

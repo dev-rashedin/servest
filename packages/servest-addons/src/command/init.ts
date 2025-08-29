@@ -117,9 +117,7 @@ export const init = new Command()
     const configPath = path.join(cwd, 'servest.config.json');
 
     if (fs.existsSync(configPath)) {
-      console.log(
-        yellow(`⚠️ servest.config.json already exists at ${configPath}. Skipping creation.`),
-      );
+      console.log(yellow(`👍 servest.config.json already exists`));
       return;
     }
 

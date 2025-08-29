@@ -136,13 +136,13 @@ export async function addESLint({ cwd, config, packageManager }: PropsOption) {
 
   // Step 2: Checking if eslint already installed
   if (isPackageInstalled(cwd, 'eslint')) {
-    console.log(yellow('⚠️ ESLint already installed'));
+    console.log(yellow('👍 ESLint already installed.'));
   } else {
     console.log(cyan('⬇️ Installing ESLint and recommended plugins...'));
     await new Promise<void>((resolve, reject) => {
       const child = spawn(installCmd, { cwd, stdio: 'inherit', shell: true });
       child.on('close', (code) =>
-        code === 0 ? resolve() : reject(new Error(red(`Installation failed with code ${code}`))),
+        code === 0 ? resolve() : reject(new Error(red(`Installation failed.`))),
       );
       child.on('error', reject);
     });
@@ -157,9 +157,9 @@ export async function addESLint({ cwd, config, packageManager }: PropsOption) {
     const content = isTypeScript ? tsEslintConfig : isESM ? esmEslintConfig : cjsEslintConfig;
 
     fs.writeFileSync(configPath, content, 'utf-8');
-    console.log(green(`✅ ESLint config created at ${configFileName}`));
+    console.log(green(`✅ ESLint config created.}`));
   } else {
-    console.log(yellow(`⚠️ ESLint config already exists at ${configFileName}`));
+    console.log(yellow(`👍 ESLint config already exists.`));
   }
 
   // Step 4: Adding lint scripts to package.json
@@ -178,7 +178,7 @@ export async function addESLint({ cwd, config, packageManager }: PropsOption) {
     }
 
     fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2), 'utf-8');
-    console.log(green(`✅ Added lint scripts to package.json`));
+    console.log(green(`✅ Added lint scripts to package.json.`));
   }
 
   console.log(green('🎉 ESLint setup completed!'));

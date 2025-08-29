@@ -57,5 +57,5 @@ export const createFilesForFeature = (baseDir: string, feature: string, config: 
       green(`✅ Feature "${feature}" files created based on ${config.architecture} structure.`),
     );
   if (filesExist)
-    console.log(yellow(`⚠️  Some files for "${feature}" already existed. Skipped them.`));
+    console.log(yellow(`👍  Some files for "${feature}" already existed. Skipped them.`));
 };
