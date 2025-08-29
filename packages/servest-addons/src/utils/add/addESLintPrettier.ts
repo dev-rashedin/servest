@@ -10,21 +10,39 @@ import {
 } from '../index';
 
 // TypeScript ESLint config
-const tsEslintConfig = `import js from '@eslint/js';
-import tsPlugin from '@typescript-eslint/eslint-plugin';
-import tsParser from '@typescript-eslint/parser';
+const tsEslintConfig = `import eslint from '@eslint/js';
+import tseslint from 'typescript-eslint';
 import globals from 'globals';
 import { defineConfig } from 'eslint/config';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default defineConfig([
+  // Ignore patterns
   {
     ignores: ['node_modules', 'dist', 'build', 'coverage'],
   },
+
+  //  Base configs
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
+  ...tseslint.configs.stylistic,
+
+  //  Prettier plugin (runs Prettier as a rule)
+  eslintPluginPrettierRecommended,
+
+  //   Custom overrides
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
-    extends: [js.configs.recommended],
     languageOptions: {
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
       globals: globals.node,
+    },
+    settings: {
+      node: { version: '>=18.0.0' },
     },
     rules: {
       eqeqeq: 'error',
@@ -34,49 +52,43 @@ export default defineConfig([
       'prefer-const': ['error', { ignoreReadBeforeAssign: true }],
     },
   },
-  {
-    files: ['**/*.{ts,tsx,mts,cts}'],
-    plugins: {
-      '@typescript-eslint': tsPlugin,
-    },
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-        project: './tsconfig.json',
-      },
-      globals: globals.node,
-    },
-    rules: {
-      'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': [
-        'warn',
-        { args: 'after-used', ignoreRestSiblings: true },
-      ],
-    },
-  },
+
+  //  Disable conflicting formatting rules (always last)
+  eslintConfigPrettier,
 ]);
 `;
 
 // ESM JavaScript config
-const esmEslintConfig = `import js from '@eslint/js';
+const esmEslintConfig = `import eslint from '@eslint/js';
 import globals from 'globals';
 import { defineConfig } from 'eslint/config';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default defineConfig([
+  // Ignore patterns
   {
     ignores: ['node_modules', 'dist', 'build', 'coverage'],
   },
+
+  //  Base configs
+  eslint.configs.recommended,
+
+  //  Prettier plugin (runs Prettier as a rule)
+  eslintPluginPrettierRecommended,
+
+  //   Custom overrides
   {
-    files: ['**/*.{js,mjs,cjs}'],
-    extends: [js.configs.recommended],
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
     languageOptions: {
-      globals: globals.node,
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
+      globals: globals.node,
+    },
+    settings: {
+      node: { version: '>=18.0.0' },
     },
     rules: {
       eqeqeq: 'error',
@@ -86,27 +98,43 @@ export default defineConfig([
       'prefer-const': ['error', { ignoreReadBeforeAssign: true }],
     },
   },
+
+  //  Disable conflicting formatting rules (always last)
+  eslintConfigPrettier,
 ]);
 `;
 
 // CJS JavaScript config
-const cjsEslintConfig = `const js = require('@eslint/js');
+const cjsEslintConfig = `const eslint = require('@eslint/js');
 const globals = require('globals');
 const { defineConfig } = require('eslint/config');
+const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommended');
+const eslintConfigPrettier = require('eslint-config-prettier');
 
 module.exports = defineConfig([
+  // Ignore patterns
   {
     ignores: ['node_modules', 'dist', 'build', 'coverage'],
   },
+
+  // Base configs
+  eslint.configs.recommended,
+
+  // Prettier plugin (runs Prettier as a rule)
+  eslintPluginPrettierRecommended,
+
+  // Custom overrides
   {
-    files: ['**/*.{js,mjs,cjs}'],
-    extends: [js.configs.recommended],
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
     languageOptions: {
       parserOptions: {
         ecmaVersion: 'latest',
-        sourceType: 'module',
+        sourceType: 'script',
       },
       globals: globals.node,
+    },
+    settings: {
+      node: { version: '>=18.0.0' },
     },
     rules: {
       eqeqeq: 'error',
@@ -116,6 +144,9 @@ module.exports = defineConfig([
       'prefer-const': ['error', { ignoreReadBeforeAssign: true }],
     },
   },
+
+  // Disable conflicting formatting rules (always last)
+  eslintConfigPrettier,
 ]);
 `;
 
