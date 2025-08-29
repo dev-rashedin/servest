@@ -3,7 +3,7 @@ import path from 'path';
 import spawn from 'cross-spawn';
 import { cyan, green, red, yellow } from '../../../../utils/colors';
 import { getInstallCommandForDevDeps, isPackageInstalled } from '../index';
-import { prettierConfig, prettierIgnoreFile } from '../constants';
+import { prettierConfig, prettierIgnoreFile } from '../lintPrettierConstants';
 
 interface PropsOption {
   cwd: string;

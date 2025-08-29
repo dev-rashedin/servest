@@ -8,7 +8,7 @@ import {
   isESModule,
   isPackageInstalled,
 } from '../index';
-import { cjsEslintConfig, esmEslintConfig, tsEslintConfig } from '../constants';
+import { cjsEslintConfig, esmEslintConfig, tsEslintConfig } from '../lintPrettierConstants';
 
 export async function addESLint({ cwd, config, packageManager }: PropsOption) {
   const isTypeScript = config.language === 'ts';

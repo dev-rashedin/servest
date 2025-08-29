@@ -8,147 +8,11 @@ import {
   isESModule,
   isPackageInstalled,
 } from '../index';
-
-// TypeScript ESLint config
-const tsEslintConfig = `import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
-import globals from 'globals';
-import { defineConfig } from 'eslint/config';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-import eslintConfigPrettier from 'eslint-config-prettier';
-
-export default defineConfig([
-  // Ignore patterns
-  {
-    ignores: ['node_modules', 'dist', 'build', 'coverage'],
-  },
-
-  //  Base configs
-  eslint.configs.recommended,
-  ...tseslint.configs.recommended,
-  ...tseslint.configs.stylistic,
-
-  //  Prettier plugin (runs Prettier as a rule)
-  eslintPluginPrettierRecommended,
-
-  //   Custom overrides
-  {
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
-    languageOptions: {
-      parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-      },
-      globals: globals.node,
-    },
-    settings: {
-      node: { version: '>=18.0.0' },
-    },
-    rules: {
-      eqeqeq: 'error',
-      'no-console': 'warn',
-      'no-unused-vars': 'warn',
-      'no-unused-expressions': 'error',
-      'prefer-const': ['error', { ignoreReadBeforeAssign: true }],
-    },
-  },
-
-  //  Disable conflicting formatting rules (always last)
-  eslintConfigPrettier,
-]);
-`;
-
-// ESM JavaScript config
-const esmEslintConfig = `import eslint from '@eslint/js';
-import globals from 'globals';
-import { defineConfig } from 'eslint/config';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-import eslintConfigPrettier from 'eslint-config-prettier';
-
-export default defineConfig([
-  // Ignore patterns
-  {
-    ignores: ['node_modules', 'dist', 'build', 'coverage'],
-  },
-
-  //  Base configs
-  eslint.configs.recommended,
-
-  //  Prettier plugin (runs Prettier as a rule)
-  eslintPluginPrettierRecommended,
-
-  //   Custom overrides
-  {
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
-    languageOptions: {
-      parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-      },
-      globals: globals.node,
-    },
-    settings: {
-      node: { version: '>=18.0.0' },
-    },
-    rules: {
-      eqeqeq: 'error',
-      'no-console': 'warn',
-      'no-unused-vars': 'warn',
-      'no-unused-expressions': 'error',
-      'prefer-const': ['error', { ignoreReadBeforeAssign: true }],
-    },
-  },
-
-  //  Disable conflicting formatting rules (always last)
-  eslintConfigPrettier,
-]);
-`;
-
-// CJS JavaScript config
-const cjsEslintConfig = `const eslint = require('@eslint/js');
-const globals = require('globals');
-const { defineConfig } = require('eslint/config');
-const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommended');
-const eslintConfigPrettier = require('eslint-config-prettier');
-
-module.exports = defineConfig([
-  // Ignore patterns
-  {
-    ignores: ['node_modules', 'dist', 'build', 'coverage'],
-  },
-
-  // Base configs
-  eslint.configs.recommended,
-
-  // Prettier plugin (runs Prettier as a rule)
-  eslintPluginPrettierRecommended,
-
-  // Custom overrides
-  {
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
-    languageOptions: {
-      parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'script',
-      },
-      globals: globals.node,
-    },
-    settings: {
-      node: { version: '>=18.0.0' },
-    },
-    rules: {
-      eqeqeq: 'error',
-      'no-console': 'warn',
-      'no-unused-vars': 'warn',
-      'no-unused-expressions': 'error',
-      'prefer-const': ['error', { ignoreReadBeforeAssign: true }],
-    },
-  },
-
-  // Disable conflicting formatting rules (always last)
-  eslintConfigPrettier,
-]);
-`;
+import {
+  cjsEslintConfigWithPrettier,
+  esmEslintConfigWithPrettier,
+  tsEslintConfigWithPrettier,
+} from '../lintPrettierConstants';
 
 export async function addESLint({ cwd, config, packageManager }: PropsOption) {
   const isTypeScript = config.language === 'ts';
@@ -191,7 +55,11 @@ export async function addESLint({ cwd, config, packageManager }: PropsOption) {
   const configPath = path.join(cwd, configFileName);
 
   if (!fs.existsSync(configPath)) {
-    const content = isTypeScript ? tsEslintConfig : isESM ? esmEslintConfig : cjsEslintConfig;
+    const content = isTypeScript
+      ? tsEslintConfigWithPrettier
+      : isESM
+        ? esmEslintConfigWithPrettier
+        : cjsEslintConfigWithPrettier;
 
     fs.writeFileSync(configPath, content, 'utf-8');
     console.log(green(`✅ ESLint config created.}`));
