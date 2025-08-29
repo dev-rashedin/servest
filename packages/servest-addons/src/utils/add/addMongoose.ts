@@ -53,7 +53,7 @@ export async function addMongoose({
   baseDir,
   config,
   packageManager,
-}: PropsOptionWithBaseDir) {
+}: IIPropsOptionWithBaseDir) {
   const isTypeScript = config.language === 'ts';
   const cmd = getInstallCommand(packageManager, 'mongoose');
   const isESM = isESModule(cwd);

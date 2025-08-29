@@ -5,12 +5,7 @@ import { cyan, green, red, yellow } from '../../../../utils/colors';
 import { getInstallCommandForDevDeps, isPackageInstalled } from '../index';
 import { addPrettierConfig } from '../lintPrettierHelper';
 
-interface PropsOption {
-  cwd: string;
-  packageManager: PackageManager;
-}
-
-export async function addPrettier({ cwd, packageManager }: PropsOption) {
+export async function addPrettier({ cwd, packageManager }: ICwdAndPkgManager) {
   // Step 1: Installing prettier
   const packages = ['prettier@3.6.2'];
 

@@ -5,12 +5,7 @@ import { cyan, green, red, yellow } from '../../../../utils/colors';
 import { getInstallCommandForDevDeps, isPackageInstalled } from '../index';
 import { addPrismaFiles } from '../prismaHelper';
 
-interface PropsOption {
-  cwd: string;
-  packageManager: PackageManager;
-}
-
-export async function addPrisma({ cwd, packageManager }: PropsOption) {
+export async function addPrisma({ cwd, packageManager }: ICwdAndPkgManager) {
   // Step 1: Installing Prisma & dev dependencies
   const packages = ['prisma@5.14.0', '@prisma/client@5.14.0'];
 

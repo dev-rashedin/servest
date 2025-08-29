@@ -5,7 +5,7 @@ import { cyan, green, red, yellow } from '../../../../utils/colors';
 import { checkNodeFramework, getInstallCommandForDevDeps, isPackageInstalled } from '../index';
 import { addESLintConfig } from '../lintPrettierHelper';
 
-export async function addESLint({ cwd, config, packageManager }: PropsOption) {
+export async function addESLint({ cwd, config, packageManager }: IPropsOption) {
   const isTypeScript = config.language === 'ts';
 
   // default framework checking

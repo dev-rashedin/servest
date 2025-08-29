@@ -39,7 +39,7 @@ const detectFramework = (cwd: string): string => {
 };
 
 // --- Language Detection ---
-const detectLanguage = (cwd: string): Languages => {
+const detectLanguage = (cwd: string): TLanguages => {
   if (fs.existsSync(path.join(cwd, 'tsconfig.json'))) return 'ts';
   if (fs.existsSync(path.join(cwd, 'package.json'))) return 'js';
   if (
@@ -54,7 +54,7 @@ const detectLanguage = (cwd: string): Languages => {
 };
 
 // --- Architecture Detection ---
-const detectArchitecture = (cwd: string, basePath?: string): Architecture => {
+const detectArchitecture = (cwd: string, basePath?: string): TArchitecture => {
   const checkPaths = [basePath, path.join(cwd, 'src', 'app'), path.join(cwd, 'src'), cwd].filter(
     Boolean,
   ) as string[];
@@ -80,7 +80,7 @@ const detectArchitecture = (cwd: string, basePath?: string): Architecture => {
 const detectSrcDir = (cwd: string): boolean => fs.existsSync(path.join(cwd, 'src'));
 
 // --- Detect runtime ---
-const detectRuntime = (): Runtime => {
+const detectRuntime = (): TRuntime => {
   if (process.env.BUN_INSTALL) return 'bun';
   if (process.version) return 'node';
   if (
@@ -102,7 +102,7 @@ export const runCommand = (command: string, args: string[], cwd: string = proces
 };
 
 // --- Write Config ---
-const writeConfig = (cwd: string, config: ServestConfig) => {
+const writeConfig = (cwd: string, config: IServestConfig) => {
   const configPath = path.join(cwd, 'servest.config.json');
   fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
   console.log(green(`✅ servest.config.json created.`));
@@ -127,7 +127,7 @@ export const init = new Command()
     const srcDir = detectSrcDir(cwd);
     const runtime = detectRuntime();
 
-    const config: ServestConfig = {
+    const config: IServestConfig = {
       servestVersion: '1.0.0',
       framework,
       language,

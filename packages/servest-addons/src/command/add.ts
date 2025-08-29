@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import { cancelOperation, detectPkgManager } from '../../../utils/sharedUtility';
-import { createFilesForFeature, getServestConfig } from '../utils/createFile';
+import { createFilesForFeature, getIServestConfig } from '../utils/createFile';
 import { checkNodeFramework, getBaseDir } from '../utils';
 import { addMongoose } from '../utils/add/addMongoose';
 import { addESLint } from '../utils/add/addESLint';
@@ -16,7 +16,7 @@ export const add = new Command()
   .argument('<features...>', 'Feature names or f-commands (e.g., mongoose, f-users)')
   .action((features: string[]) => {
     const cwd = process.cwd();
-    const config = getServestConfig(cwd);
+    const config = getIServestConfig(cwd);
     const baseDir = getBaseDir(cwd);
 
     if (!config) {

@@ -5,14 +5,14 @@ import { green, yellow } from '../../../utils/colors';
 export const filesOrFoldersArray = ['routes', 'models', 'controllers', 'services'];
 
 // Utility to read servest.config.json
-export const getServestConfig = (cwd: string): ServestConfig | null => {
+export const getIServestConfig = (cwd: string): IServestConfig | null => {
   const configPath = path.join(cwd, 'servest.config.json');
   if (!fs.existsSync(configPath)) return null;
   return JSON.parse(fs.readFileSync(configPath, 'utf-8'));
 };
 
 // Utility to create folders/files for f-commands
-export const createFilesForFeature = (baseDir: string, feature: string, config: ServestConfig) => {
+export const createFilesForFeature = (baseDir: string, feature: string, config: IServestConfig) => {
   let filesCreated = false;
   let filesExist = false;
 

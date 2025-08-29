@@ -1,12 +1,12 @@
-declare type Languages = 'ts' | 'js' | 'py' | 'php' | 'unknown';
+declare type TLanguages = 'ts' | 'js' | 'py' | 'php' | 'unknown';
 
-declare type Architecture = 'mvc' | 'modular' | 'basic' | 'apps-based' | 'laravel-mvc';
+declare type TArchitecture = 'mvc' | 'modular' | 'basic' | 'apps-based' | 'laravel-mvc';
 
-declare type Runtime = 'node' | 'bun' | 'python' | 'php' | 'unknown';
+declare type TRuntime = 'node' | 'bun' | 'python' | 'php' | 'unknown';
 
-declare type PackageManager = 'npm' | 'yarn' | 'pnpm' | 'bun' | 'unknown';
+declare type TPackageManager = 'npm' | 'yarn' | 'pnpm' | 'bun' | 'unknown';
 
-declare interface ServestConfig {
+declare interface IServestConfig {
   servestVersion: string;
   framework: string;
   language: Languages;
@@ -23,12 +23,17 @@ declare interface ServestConfig {
   createdAt: string;
 }
 
-declare interface PropsOption {
+declare interface IPropsOption {
   cwd: string;
-  config: ServestConfig;
-  packageManager: PackageManager;
+  config: IServestConfig;
+  packageManager: TPackageManager;
 }
 
-declare interface PropsOptionWithBaseDir extends PropsOption {
+declare interface IIPropsOptionWithBaseDir extends IPropsOption {
   baseDir: string;
+}
+
+declare interface ICwdAndPkgManager {
+  cwd: string;
+  packageManager: TPackageManager;
 }
