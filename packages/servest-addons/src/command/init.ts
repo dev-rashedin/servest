@@ -105,7 +105,7 @@ export const runCommand = (command: string, args: string[], cwd: string = proces
 const writeConfig = (cwd: string, config: ServestConfig) => {
   const configPath = path.join(cwd, 'servest.config.json');
   fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
-  console.log(`✅ servest.config.json created at ${configPath}`);
+  console.log(`✅ servest.config.json created.`);
 };
 
 export const init = new Command()
@@ -117,7 +117,7 @@ export const init = new Command()
     const configPath = path.join(cwd, 'servest.config.json');
 
     if (fs.existsSync(configPath)) {
-      console.log(yellow(`👍 servest.config.json already exists`));
+      console.log(yellow(`👍 servest.config.json already exists.`));
       return;
     }
 
