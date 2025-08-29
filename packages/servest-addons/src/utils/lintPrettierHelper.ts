@@ -33,7 +33,7 @@ export const addESLintConfig = (cwd: string, isTypeScript: boolean, type: string
     }
 
     fs.writeFileSync(configPath, content as string, 'utf-8');
-    console.log(green(`✅ ESLint config created.}`));
+    console.log(green(`✅ ESLint config created.`));
   } else {
     console.log(yellow(`👍 ESLint config already exists.`));
   }
@@ -51,7 +51,7 @@ export const addPrettierConfig = (cwd: string) => {
   }
 
   if (!fs.existsSync(prettierignorePath)) {
-    fs.writeFileSync(prettierignorePath, JSON.stringify(prettierIgnoreFile, null, 2));
+    fs.writeFileSync(prettierignorePath, prettierIgnoreFile, 'utf-8');
     console.log(green('✅ Created .prettierignore.'));
   } else {
     console.log(yellow('⚠️ .prettierignore already exists.'));

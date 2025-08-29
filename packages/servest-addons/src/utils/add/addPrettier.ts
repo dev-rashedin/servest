@@ -11,13 +11,13 @@ interface PropsOption {
 }
 
 export async function addPrettier({ cwd, packageManager }: PropsOption) {
-  // Step 1: Installing prettier & eslint-plugin-prettier
+  // Step 1: Installing prettier
   const packages = ['prettier@3.6.2'];
 
   const installCmd = getInstallCommandForDevDeps(packageManager, packages.join(' '));
 
   if (!isPackageInstalled(cwd, 'prettier')) {
-    console.log(cyan('⬇️ Installing Prettier and related plugins...'));
+    console.log(cyan('⬇️ Installing prettier...'));
 
     await new Promise<void>((resolve, reject) => {
       const child = spawn(installCmd, { cwd, stdio: 'inherit', shell: true });
@@ -42,10 +42,11 @@ export async function addPrettier({ cwd, packageManager }: PropsOption) {
     if (pkg.scripts.prettier && pkg.scripts['prettier:fix']) return;
 
     if (!pkg.scripts.prettier) {
-      pkg.scripts.prettier = 'prettier --ignore-path .gitignore --write "./src/**/*.+(js|ts|json)"';
+      pkg.scripts.prettier = 'prettier --ignore-path .gitignore --check "./src/**/*.+(js|ts|json)"';
     }
     if (!pkg.scripts['prettier:fix']) {
-      pkg.scripts['prettier:fix'] = 'npx prettier --write ./src/**/*.+(js|ts|json)';
+      pkg.scripts['prettier:fix'] =
+        'prettier --ignore-path .gitignore --write "./src/**/*.+(js|ts|json)"';
     }
 
     fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2), 'utf-8');

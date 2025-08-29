@@ -5,6 +5,7 @@ import { checkNodeFramework, getBaseDir } from '../utils';
 import { addMongoose } from '../utils/add/addMongoose';
 import { addESLint } from '../utils/add/addESLint';
 import { addPrettier } from '../utils/add/addPrettier';
+import { addESLintPrettier } from '../utils/add/addESLintPrettier';
 
 const packageManager = detectPkgManager();
 
@@ -26,6 +27,7 @@ export const add = new Command()
       mongoose: async () => addMongoose({ cwd, baseDir, config: config!, packageManager }),
       eslint: async () => addESLint({ cwd, config: config!, packageManager }),
       prettier: async () => addPrettier({ cwd, packageManager }),
+      'eslint-prettier': async () => addESLintPrettier({ cwd, config: config!, packageManager }),
     };
 
     const commandRun = async () => {

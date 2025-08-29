@@ -5,7 +5,7 @@ import { cyan, green, red, yellow } from '../../../../utils/colors';
 import { checkNodeFramework, getInstallCommandForDevDeps, isPackageInstalled } from '../index';
 import { addESLintConfig, addPrettierConfig } from '../lintPrettierHelper';
 
-export async function addESLint({ cwd, config, packageManager }: PropsOption) {
+export async function addESLintPrettier({ cwd, config, packageManager }: PropsOption) {
   const isTypeScript = config.language === 'ts';
 
   // default framework checking
@@ -59,19 +59,12 @@ export async function addESLint({ cwd, config, packageManager }: PropsOption) {
     )
       return;
 
-    if (!pkg.scripts.lint) {
-      pkg.scripts.lint = 'eslint .';
-    }
-    if (!pkg.scripts['lint:fix']) {
-      pkg.scripts['lint:fix'] = 'eslint . --fix';
-    }
-
-    if (!pkg.scripts.prettier) {
+    if (!pkg.scripts.lint) pkg.scripts.lint = 'eslint .';
+    if (!pkg.scripts['lint:fix']) pkg.scripts['lint:fix'] = 'eslint . --fix';
+    if (!pkg.scripts.prettier)
       pkg.scripts.prettier = 'prettier --ignore-path .gitignore --write "./src/**/*.+(js|ts|json)"';
-    }
-    if (!pkg.scripts['prettier:fix']) {
-      pkg.scripts['prettier:fix'] = 'npx prettier --write ./src/**/*.+(js|ts|json)';
-    }
+    if (!pkg.scripts['prettier:fix'])
+      pkg.scripts['prettier:fix'] = 'prettier --write "./src/**/*.+(js|ts|json)"';
 
     fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2), 'utf-8');
     console.log(green(`✅ Added lint & prettier scripts to package.json.`));
