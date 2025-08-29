@@ -3,33 +3,12 @@ import path from 'path';
 import spawn from 'cross-spawn';
 import { cyan, green, red, yellow } from '../../../../utils/colors';
 import { getInstallCommandForDevDeps, isPackageInstalled } from '../index';
+import { prettierConfig, prettierIgnoreFile } from '../constants';
 
 interface PropsOption {
   cwd: string;
   packageManager: PackageManager;
 }
-
-const prettierConfig = {
-  printWidth: 100,
-  tabWidth: 2,
-  useTabs: false,
-  semi: true,
-  singleQuote: true,
-  trailingComma: 'all',
-  bracketSpacing: true,
-  arrowParens: 'avoid',
-  endOfLine: 'lf',
-};
-
-const prettierIgnoreFile = `dist/
-node_modules/
-pnpm-lock.yaml
-yarn.lock
-package-lock.json
-coverage/
-build/
-*.log
-*.tsbuildinfo`;
 
 export async function addPrettier({ cwd, packageManager }: PropsOption) {
   const prettierrcPath = path.join(cwd, '.prettierrc.json');
