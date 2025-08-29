@@ -2,17 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import spawn from 'cross-spawn';
 import { cyan, green, red, yellow } from '../../../../utils/colors';
-import {
-  checkNodeFramework,
-  getInstallCommandForDevDeps,
-  isESModule,
-  isPackageInstalled,
-} from '../index';
-import { cjsEslintConfig, esmEslintConfig, tsEslintConfig } from '../lintPrettierConstants';
+import { checkNodeFramework, getInstallCommandForDevDeps, isPackageInstalled } from '../index';
+import { addESLintConfig } from '../lintPrettierHelper';
 
 export async function addESLint({ cwd, config, packageManager }: PropsOption) {
   const isTypeScript = config.language === 'ts';
-  const isESM = isESModule(cwd);
 
   // default framework checking
   checkNodeFramework(config.framework, 'eslint');
@@ -40,18 +34,7 @@ export async function addESLint({ cwd, config, packageManager }: PropsOption) {
   }
 
   // Step 3: Creating ESLint config file
-  const configFileName = isTypeScript || isESM ? 'eslint.config.mjs' : 'eslint.config.cjs';
-
-  const configPath = path.join(cwd, configFileName);
-
-  if (!fs.existsSync(configPath)) {
-    const content = isTypeScript ? tsEslintConfig : isESM ? esmEslintConfig : cjsEslintConfig;
-
-    fs.writeFileSync(configPath, content, 'utf-8');
-    console.log(green(`✅ ESLint config created.}`));
-  } else {
-    console.log(yellow(`👍 ESLint config already exists.`));
-  }
+  addESLintConfig(cwd, isTypeScript);
 
   // Step 4: Adding lint scripts to package.json
   const pkgPath = path.join(cwd, 'package.json');

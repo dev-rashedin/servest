@@ -36,10 +36,10 @@ export async function addESLint({ cwd, config, packageManager }: PropsOption) {
   const installCmd = getInstallCommandForDevDeps(packageManager, packages.join(' '));
 
   // Step 2: Checking if eslint already installed
-  if (isPackageInstalled(cwd, 'eslint')) {
-    console.log(yellow('👍 ESLint already installed.'));
+  if (isPackageInstalled(cwd, 'eslint') && isPackageInstalled(cwd, 'prettier')) {
+    console.log(yellow('👍 ESLint & Prettier already installed.'));
   } else {
-    console.log(cyan('⬇️ Installing ESLint and recommended plugins...'));
+    console.log(cyan('⬇️ Installing ESLint, Prettier and recommended plugins...'));
     await new Promise<void>((resolve, reject) => {
       const child = spawn(installCmd, { cwd, stdio: 'inherit', shell: true });
       child.on('close', (code) =>
@@ -67,7 +67,7 @@ export async function addESLint({ cwd, config, packageManager }: PropsOption) {
     console.log(yellow(`👍 ESLint config already exists.`));
   }
 
-  // Step 4: Adding lint scripts to package.json
+  // Step 5: Adding lint scripts to package.json
   const pkgPath = path.join(cwd, 'package.json');
   if (fs.existsSync(pkgPath)) {
     const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
