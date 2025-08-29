@@ -34,7 +34,7 @@ export async function addESLint({ cwd, config, packageManager }: PropsOption) {
   }
 
   // Step 3: Creating ESLint config file
-  addESLintConfig(cwd, isTypeScript);
+  addESLintConfig(cwd, isTypeScript, 'eslint');
 
   // Step 4: Adding lint scripts to package.json
   const pkgPath = path.join(cwd, 'package.json');

@@ -2,21 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import spawn from 'cross-spawn';
 import { cyan, green, red, yellow } from '../../../../utils/colors';
-import {
-  checkNodeFramework,
-  getInstallCommandForDevDeps,
-  isESModule,
-  isPackageInstalled,
-} from '../index';
-import {
-  cjsEslintConfigWithPrettier,
-  esmEslintConfigWithPrettier,
-  tsEslintConfigWithPrettier,
-} from '../lintPrettierConstants';
+import { checkNodeFramework, getInstallCommandForDevDeps, isPackageInstalled } from '../index';
+import { addESLintConfig, addPrettierConfig } from '../lintPrettierHelper';
 
 export async function addESLint({ cwd, config, packageManager }: PropsOption) {
   const isTypeScript = config.language === 'ts';
-  const isESM = isESModule(cwd);
 
   // default framework checking
   checkNodeFramework(config.framework, 'eslint');
@@ -50,22 +40,10 @@ export async function addESLint({ cwd, config, packageManager }: PropsOption) {
   }
 
   // Step 3: Creating ESLint config file
-  const configFileName = isTypeScript || isESM ? 'eslint.config.mjs' : 'eslint.config.cjs';
+  addESLintConfig(cwd, isTypeScript, 'eslint-prettier');
 
-  const configPath = path.join(cwd, configFileName);
-
-  if (!fs.existsSync(configPath)) {
-    const content = isTypeScript
-      ? tsEslintConfigWithPrettier
-      : isESM
-        ? esmEslintConfigWithPrettier
-        : cjsEslintConfigWithPrettier;
-
-    fs.writeFileSync(configPath, content, 'utf-8');
-    console.log(green(`✅ ESLint config created.}`));
-  } else {
-    console.log(yellow(`👍 ESLint config already exists.`));
-  }
+  // Step 4: Creating Prettier config & prettierignore files if not already exist
+  addPrettierConfig(cwd);
 
   // Step 5: Adding lint scripts to package.json
   const pkgPath = path.join(cwd, 'package.json');
@@ -73,7 +51,13 @@ export async function addESLint({ cwd, config, packageManager }: PropsOption) {
     const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
     pkg.scripts = pkg.scripts || {};
 
-    if (pkg.scripts.lint && pkg.scripts['lint:fix']) return;
+    if (
+      pkg.scripts.lint &&
+      pkg.scripts['lint:fix'] &&
+      pkg.scripts.prettier &&
+      pkg.scripts['prettier:fix']
+    )
+      return;
 
     if (!pkg.scripts.lint) {
       pkg.scripts.lint = 'eslint .';
@@ -82,8 +66,15 @@ export async function addESLint({ cwd, config, packageManager }: PropsOption) {
       pkg.scripts['lint:fix'] = 'eslint . --fix';
     }
 
+    if (!pkg.scripts.prettier) {
+      pkg.scripts.prettier = 'prettier --ignore-path .gitignore --write "./src/**/*.+(js|ts|json)"';
+    }
+    if (!pkg.scripts['prettier:fix']) {
+      pkg.scripts['prettier:fix'] = 'npx prettier --write ./src/**/*.+(js|ts|json)';
+    }
+
     fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2), 'utf-8');
-    console.log(green(`✅ Added lint scripts to package.json.`));
+    console.log(green(`✅ Added lint & prettier scripts to package.json.`));
   }
 
   console.log(green('🎉 ESLint setup completed!'));

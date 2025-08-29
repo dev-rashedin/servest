@@ -3,7 +3,7 @@ import path from 'path';
 import spawn from 'cross-spawn';
 import { cyan, green, red, yellow } from '../../../../utils/colors';
 import { getInstallCommandForDevDeps, isPackageInstalled } from '../index';
-import { prettierConfig, prettierIgnoreFile } from '../lintPrettierConstants';
+import { addPrettierConfig } from '../lintPrettierHelper';
 
 interface PropsOption {
   cwd: string;
@@ -11,9 +11,6 @@ interface PropsOption {
 }
 
 export async function addPrettier({ cwd, packageManager }: PropsOption) {
-  const prettierrcPath = path.join(cwd, '.prettierrc.json');
-  const prettierignorePath = path.join(cwd, '.prettierignore');
-
   // Step 1: Installing prettier & eslint-plugin-prettier
   const packages = ['prettier@3.6.2'];
 
@@ -34,20 +31,7 @@ export async function addPrettier({ cwd, packageManager }: PropsOption) {
   }
 
   // Step 2: Creating Prettier config & prettierignore files if not already exist
-
-  if (!fs.existsSync(prettierrcPath)) {
-    fs.writeFileSync(prettierrcPath, JSON.stringify(prettierConfig, null, 2));
-    console.log(green('✅ Created .prettierrc.json.'));
-  } else {
-    console.log(yellow('👍 .prettierrc.json already exists.'));
-  }
-
-  if (!fs.existsSync(prettierignorePath)) {
-    fs.writeFileSync(prettierignorePath, JSON.stringify(prettierIgnoreFile, null, 2));
-    console.log(green('✅ Created .prettierignore.'));
-  } else {
-    console.log(yellow('⚠️ .prettierignore already exists.'));
-  }
+  addPrettierConfig(cwd);
 
   // Step 3: Adding prettier scripts to package.json
   const pkgPath = path.join(cwd, 'package.json');
