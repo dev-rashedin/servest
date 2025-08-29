@@ -136,7 +136,7 @@ export async function addESLint({ cwd, config, packageManager }: PropsOption) {
   // Step 1 : Installing dependencies
   const packages = ['eslint@9.34.0', 'globals@16.3.0', '@eslint/js@9.34.0'];
   if (isTypeScript) {
-    packages.push('@typescript-eslint/eslint-plugin@8.41.0', '@typescript-eslint/parser@8.41.0');
+    packages.push('typescript-eslint@8.41.0');
   }
 
   const installCmd = getInstallCommandForDevDeps(packageManager, packages.join(' '));

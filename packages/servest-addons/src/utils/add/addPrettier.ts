@@ -32,21 +32,11 @@ build/
 *.tsbuildinfo`;
 
 export async function addPrettier({ cwd, packageManager }: PropsOption) {
-  const eslintConfigPaths = [
-    path.join(cwd, 'eslint.config.mjs'),
-    path.join(cwd, 'eslint.config.cjs'),
-  ];
-
-  const eslintConfigPath = eslintConfigPaths.find((p) => fs.existsSync(p));
   const prettierrcPath = path.join(cwd, '.prettierrc.json');
   const prettierignorePath = path.join(cwd, '.prettierignore');
 
   // Step 1: Installing prettier & eslint-plugin-prettier
   const packages = ['prettier@3.6.2'];
-
-  if (eslintConfigPath) {
-    packages.push('eslint-plugin-prettier@5.5.4', 'eslint-config-prettier@10.1.8');
-  }
 
   const installCmd = getInstallCommandForDevDeps(packageManager, packages.join(' '));
 
@@ -80,44 +70,7 @@ export async function addPrettier({ cwd, packageManager }: PropsOption) {
     console.log(yellow('⚠️ .prettierignore already exists.'));
   }
 
-  if (eslintConfigPath) {
-    // Step 3: Injecting Prettier into existing ESLint config
-    const content = fs.readFileSync(eslintConfigPath, 'utf-8');
-
-    if (!content.includes('eslint-plugin-prettier')) {
-      let updatedContent = content;
-
-      if (eslintConfigPath.endsWith('.mjs')) {
-        // For flat config .mjs
-        const insertIndex = content.lastIndexOf(']);');
-        const prettierPlugin = `,
-  {
-    plugins: { prettier: require('eslint-plugin-prettier') },
-    rules: { 'prettier/prettier': 'error' },
-  }`;
-        updatedContent =
-          content.slice(0, insertIndex) + prettierPlugin + content.slice(insertIndex);
-      } else if (eslintConfigPath.endsWith('.cjs') || eslintConfigPath.endsWith('.js')) {
-        // For legacy CJS
-        const insertIndex = content.lastIndexOf('];');
-        const prettierPlugin = `,
-  {
-    plugins: ['prettier'],
-    extends: ['plugin:prettier/recommended'],
-    rules: { 'prettier/prettier': 'error' },
-  }`;
-        updatedContent =
-          content.slice(0, insertIndex) + prettierPlugin + content.slice(insertIndex);
-      }
-
-      fs.writeFileSync(eslintConfigPath, updatedContent, 'utf-8');
-      console.log(green('✅ Prettier injected into ESLint config.'));
-    } else {
-      console.log(yellow('👍 Prettier already present in ESLint config.'));
-    }
-  }
-
-  // Step 4: Adding prettier scripts to package.json
+  // Step 3: Adding prettier scripts to package.json
   const pkgPath = path.join(cwd, 'package.json');
   if (fs.existsSync(pkgPath)) {
     const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
