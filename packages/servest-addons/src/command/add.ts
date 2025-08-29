@@ -6,6 +6,7 @@ import { addMongoose } from '../utils/add/addMongoose';
 import { addESLint } from '../utils/add/addESLint';
 import { addPrettier } from '../utils/add/addPrettier';
 import { addESLintPrettier } from '../utils/add/addESLintPrettier';
+import { addPrisma } from '../utils/add/addPrisma';
 
 const packageManager = detectPkgManager();
 
@@ -28,6 +29,7 @@ export const add = new Command()
       eslint: async () => addESLint({ cwd, config: config!, packageManager }),
       prettier: async () => addPrettier({ cwd, packageManager }),
       'eslint-prettier': async () => addESLintPrettier({ cwd, config: config!, packageManager }),
+      prisma: async () => addPrisma({ cwd, packageManager }),
     };
 
     const commandRun = async () => {

@@ -3,12 +3,10 @@ import path from 'path';
 import spawn from 'cross-spawn';
 import { cyan, green, red, yellow } from '../../../../utils/colors';
 import { getInstallCommandForDevDeps, isPackageInstalled } from '../index';
-import { addPrismaFiles } from '../prismaHelper';
 
 export async function addPrisma({ cwd, packageManager }: ICwdAndPkgManager) {
   // Step 1: Installing Prisma & dev dependencies
-  const packages = ['prisma@5.14.0', '@prisma/client@5.14.0'];
-
+  const packages = ['prisma@6.15.0', '@prisma/client@6.15.0'];
   const installCmd = getInstallCommandForDevDeps(packageManager, packages.join(' '));
 
   if (!isPackageInstalled(cwd, 'prisma')) {
@@ -25,10 +23,40 @@ export async function addPrisma({ cwd, packageManager }: ICwdAndPkgManager) {
     console.log(yellow('👍 Prisma already installed'));
   }
 
-  // Step 2: Generate initial Prisma setup (schema, .env)
-  addPrismaFiles(cwd);
+  // Step 2: Create Prisma schema & .env files if they don't exist
+  const prismaDir = path.join(cwd, 'prisma');
+  if (!fs.existsSync(prismaDir)) {
+    fs.mkdirSync(prismaDir);
+  }
 
-  // Step 3: Adding scripts to package.json
+  const schemaPath = path.join(prismaDir, 'schema.prisma');
+  if (!fs.existsSync(schemaPath)) {
+    const schemaContent = `
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+`;
+    fs.writeFileSync(schemaPath, schemaContent.trim(), 'utf-8');
+    console.log(green('✅ Created prisma/schema.prisma'));
+  } else {
+    console.log(yellow('⚠️ prisma/schema.prisma already exists'));
+  }
+
+  const envPath = path.join(cwd, '.env');
+  if (!fs.existsSync(envPath)) {
+    const envContent = 'DATABASE_URL="postgresql://user:password@localhost:5432/dbname"';
+    fs.writeFileSync(envPath, envContent, 'utf-8');
+    console.log(green('✅ Created .env for Prisma'));
+  } else {
+    console.log(yellow('⚠️ .env already exists'));
+  }
+
+  // Step 3: Add scripts to package.json
   const pkgPath = path.join(cwd, 'package.json');
   if (fs.existsSync(pkgPath)) {
     const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
