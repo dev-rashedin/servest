@@ -2,15 +2,21 @@ import fs from 'fs';
 import path from 'path';
 import { spawn } from 'child_process';
 import { cyan, green, red, yellow } from '../../../../utils/colors';
-import { getInstallCommandForDevDeps, isPackageInstalled } from '../index';
+import { checkNodeFramework, getInstallCommandForDevDeps, isPackageInstalled } from '../index';
+import { detectPkgManager } from '../../../../utils/sharedUtility';
 
-export async function addLintStage(cwd: string, packageManager: string) {
+export async function addLintStage({ cwd, config, packageManager }: IPropsOption) {
+  // default framework checking
+  checkNodeFramework(config.framework, 'lint-staged');
+
+  const pkgManager = detectPkgManager(cwd);
+
   const devDeps = ['lint-staged', 'simple-git-hooks'];
   const installCmd = getInstallCommandForDevDeps(packageManager, devDeps.join(' '));
   const pkgPath = path.join(cwd, 'package.json');
 
   if (!fs.existsSync(pkgPath)) {
-    console.log(red('❌ package.json not found.'));
+    console.log(red('🚨 package.json not found.'));
     return;
   }
 
@@ -42,12 +48,12 @@ export async function addLintStage(cwd: string, packageManager: string) {
 
   // Add simple-git-hooks config
   pkg['simple-git-hooks'] = pkg['simple-git-hooks'] || {
-    'pre-commit': 'npx lint-staged',
+    'pre-commit': `${pkgManager} exec lint-staged -- --concurrent false`,
   };
 
   // Add lint-staged config
   pkg['lint-staged'] = pkg['lint-staged'] || {
-    '*.{js,ts,tsx,json,css,md}': ['prettier --write', 'eslint --fix'],
+    '*': ['prettier --write --cache --ignore-unknown'],
   };
 
   fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2));
