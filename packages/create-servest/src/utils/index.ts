@@ -1,19 +1,5 @@
 import { boldGreen, boldRed, boldYellow, cyan, green, red, yellow } from '../../../utils/colors';
 
-interface Variant {
-  value: string;
-  name: string;
-  color: (text: string) => string;
-  customCommand?: string;
-}
-
-interface Framework {
-  value: string;
-  name: string;
-  color: (text: string) => string;
-  variants: Variant[];
-}
-
 export const FRAMEWORKS: Framework[] = [
   {
     name: 'Express',

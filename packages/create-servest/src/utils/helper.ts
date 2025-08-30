@@ -1,11 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-interface PkgInfo {
-  name: string;
-  version: string;
-}
-
 export function formatTargetDir(targetDir: string): string {
   return targetDir.trim().replace(/[/\\]+$/g, '');
 }
