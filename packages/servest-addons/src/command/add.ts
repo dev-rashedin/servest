@@ -32,7 +32,7 @@ export const add = new Command()
       prettier: async () => addPrettier({ cwd, packageManager }),
       'eslint-prettier': async () => addESLintPrettier({ cwd, config: config!, packageManager }),
       prisma: async () => addPrisma({ cwd, packageManager }),
-      drizzle: async () => addDrizzle({ cwd, packageManager, language: config!.language }),
+      drizzle: async () => addDrizzle({ cwd, config: config!, packageManager }),
     };
 
     const commandRun = async () => {

@@ -2,9 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import spawn from 'cross-spawn';
 import { cyan, green, red, yellow } from '../../../../utils/colors';
-import { getInstallCommand, isPackageInstalled } from '../index';
+import { checkNodeFramework, getInstallCommand, isPackageInstalled } from '../index';
 
-const dbContent = `import { drizzle } from 'drizzle-orm/sqlite-js';
+const dbContent = `import { drizzle } from 'drizzle-orm/libsql';
 import sqlite3 from 'sqlite3';
 
 const db = new sqlite3.Database('./dev.db');
@@ -18,12 +18,11 @@ export const users = sqliteTable('users', {
   name: text('name'),
 });`;
 
-export async function addDrizzle({
-  cwd,
-  packageManager,
-  language,
-}: ICwdAndPkgManager & { language: string }) {
-  const isTypeScript = language === 'ts';
+export async function addDrizzle({ cwd, config, packageManager }: IPropsOption) {
+  // default framework checking
+  checkNodeFramework(config.framework, 'mongoose');
+
+  const isTypeScript = config.language === 'ts';
   const schemaFileName = isTypeScript ? 'schema.ts' : 'schema.js';
   const clientFileName = isTypeScript ? 'client.ts' : 'client.js';
 
