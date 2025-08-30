@@ -77,7 +77,7 @@
     "packages/**/*.d.ts": [
       "eslint --cache --fix"
     ],
-    "web-frontend/**/__tests__/**/*.{ts,tsx,js,jsx}": [
+    "app/**/*.{ts,tsx,js,jsx}": [
       "eslint --cache --fix"
     ]
   },
