@@ -10,9 +10,9 @@ export const cancelOperation: CancelOperation = (message = 'Operation cancelled'
   process.exit(1);
 };
 
-export function detectPkgManager(cwd: string = process.cwd()): PackageManager {
+export const detectPkgManager = (cwd: string = process.cwd()): PackageManager => {
   if (fs.existsSync(path.join(cwd, 'pnpm-lock.yaml'))) return 'pnpm';
   if (fs.existsSync(path.join(cwd, 'yarn.lock'))) return 'yarn';
   if (fs.existsSync(path.join(cwd, 'bun.lockb'))) return 'bun';
   return 'npm';
-}
+};

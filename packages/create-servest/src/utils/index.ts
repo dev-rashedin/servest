@@ -1,4 +1,4 @@
-import { blue, boldGreen, boldRed, boldYellow, green, red, yellow } from '../../../utils/colors';
+import { boldGreen, boldRed, boldYellow, cyan, green, red, yellow } from '../../../utils/colors';
 
 interface Variant {
   value: string;
@@ -28,7 +28,7 @@ export const FRAMEWORKS: Framework[] = [
       {
         name: 'Basic - TypeScript',
         value: 'express-basic-ts',
-        color: blue,
+        color: cyan,
       },
       {
         name: 'MVC - CommonJS',
@@ -43,7 +43,7 @@ export const FRAMEWORKS: Framework[] = [
       {
         name: 'MVC - TypeScript',
         value: 'express-mvc-ts',
-        color: blue,
+        color: cyan,
       },
       {
         name: 'Modular - CommonJS',
@@ -58,7 +58,7 @@ export const FRAMEWORKS: Framework[] = [
       {
         name: 'Modular - TypeScript',
         value: 'express-modular-ts',
-        color: blue,
+        color: cyan,
       },
     ],
   },

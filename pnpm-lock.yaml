@@ -4,9 +4,16 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  global: link:C:/Users/HP/AppData/Local/pnpm/global/5/node_modules/global
+
 importers:
 
   .:
+    dependencies:
+      global:
+        specifier: link:C:/Users/HP/AppData/Local/pnpm/global/5/node_modules/global
+        version: link:C:/Users/HP/AppData/Local/pnpm/global/5/node_modules/global
     devDependencies:
       '@clack/prompts':
         specifier: ^0.11.0

@@ -82,5 +82,8 @@
       "eslint --cache --fix"
     ]
   },
-  "packageManager": "pnpm@10.14.0"
+  "packageManager": "pnpm@10.14.0",
+  "dependencies": {
+    "global": "link:C:/Users/HP/AppData/Local/pnpm/global/5/node_modules/global"
+  }
 }

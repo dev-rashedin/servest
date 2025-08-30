@@ -168,7 +168,7 @@ async function init() {
   }
 
   // 5️⃣ Running custom command if exists
-  const pkgManager = pkgInfo ? pkgInfo.name : detectPkgManager();
+  const pkgManager = detectPkgManager();
 
   const { customCommand } =
     FRAMEWORKS.flatMap((f) => f.variants).find((v) => v.value === template) ?? {};
@@ -232,7 +232,7 @@ async function init() {
 
   const installCommands =
     pkgManager === 'yarn'
-      ? ['yarn', 'yarn dev']
+      ? ['yarn', 'yarn dev or yarn dev:start']
       : pkgManager === 'pnpm'
         ? ['pnpm install', 'pnpm run dev']
         : ['npm install', 'npm run dev'];

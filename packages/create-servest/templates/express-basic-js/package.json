@@ -6,7 +6,7 @@
   "description": "",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start:dev": "nodemon server.js"
   },
   "keywords": [],
   "license": "ISC",

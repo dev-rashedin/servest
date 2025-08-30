@@ -1,3 +1,6 @@
 packages:
-  - 'app/*'
-  - 'packages/*'
+  - app/*
+  - packages/*
+
+overrides:
+  global: link:C:/Users/HP/AppData/Local/pnpm/global/5/node_modules/global
