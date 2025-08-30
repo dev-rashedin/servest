@@ -113,3 +113,13 @@ npm run dev
 ```bash
 npx degit user/project#main my-project
 ```
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request if you find bugs or want to add features.
+
+---
+
+## License
+
+MIT License

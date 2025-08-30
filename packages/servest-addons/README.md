@@ -6,9 +6,9 @@
 
 ## Why Servest?
 
-Backend and full-stack development often involves repetitive setup tasks like configuring ESLint, Prettier, Prisma, Drizzle, or MongoDB. **Servest Addons** removes this overhead by providing a single command to add these utilities to your project, saving time and ensuring consistency.
+Backend and full-stack development often involves repetitive setup tasks like adding custom files (e.g: auth.route, products.controller, ratings.model etc), configuring ESLint, Prettier, Prisma, Drizzle, or MongoDB. **Servest** removes this overhead by providing a single command to add these utilities to your project, saving time and ensuring consistency.
 
-Whether you're starting a new project or working on an existing one, Servest Addons makes it easy to standardize your setup.
+Whether you're starting a new project or working on an existing one, Servest makes it easy to standardize your setup.
 
 ---
 
@@ -19,29 +19,44 @@ Whether you're starting a new project or working on an existing one, Servest Add
 Use the **[create-servest](https://www.npmjs.com/package/create-servest)** package to quickly scaffold a new backend project:
 
 ```bash
-npx create-servest@latest my-backend-app
+npx create-servest@latest my-backend-app  -- --template templateName
 cd my-backend-app
 ```
+
+> For available templates visit [create-servest#readme](https://github.com/dev-rashedin/servest/tree/main/packages/create-servest#readme)
 
 ### 2. Add Utilities to Your Project
 
 Once your project is ready (or even if you already have an existing project), you can add utilities using **servest**:
 
 ```bash
+npx servest add <f-fileName>
+```
+
+```bash
 npx servest add <feature>
+```
+
+```bash
+// for example
+npx servest@latest add f-auth
+// it will create all necessary files according to your template structure (mvc or modular), if the necessary folder does not exist, it will create them as well
+
+npx servest@latest add mongoose
 ```
 
 Available features:
 
-| Feature           | Description                                                                |
-| ----------------- | -------------------------------------------------------------------------- |
-| `mongoose`        | Adds pre-configured Mongoose setup for MongoDB.                            |
-| `eslint`          | Sets up ESLint with recommended rules.                                     |
-| `prettier`        | Sets up Prettier formatting.                                               |
-| `eslint-prettier` | Integrates ESLint + Prettier for a complete linting & formatting workflow. |
-| `prisma`          | Adds Prisma ORM with a starter schema and migration commands.              |
-| `drizzle`         | Adds Drizzle ORM with SQLite support.                                      |
-| `lint-staged`     | Adds lint-staged + simple-git-hooks for pre-commit checks.                 |
+| Feature           | Description                                                                  |
+| ----------------- | ---------------------------------------------------------------------------- |
+| `f-fileName`      | Create related files and folder for your project structure (mvc or modular). |
+| `mongoose`        | Adds pre-configured Mongoose setup for MongoDB.                              |
+| `eslint`          | Sets up ESLint with recommended rules.                                       |
+| `prettier`        | Sets up Prettier formatting.                                                 |
+| `eslint-prettier` | Integrates ESLint + Prettier for a complete linting & formatting workflow.   |
+| `prisma`          | Adds Prisma ORM with a starter schema and migration commands.                |
+| `drizzle`         | Adds Drizzle ORM with SQLite support.                                        |
+| `lint-staged`     | Adds lint-staged + simple-git-hooks for pre-commit checks.                   |
 
 You can run multiple features in one go:
 
