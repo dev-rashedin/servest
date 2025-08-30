@@ -29,15 +29,6 @@ const defaultTargetDir = 'servest-project';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-interface IArgv {
-  template?: string;
-  help?: boolean;
-  h?: boolean;
-  overwrite?: boolean;
-  addons?: string;
-  a?: string;
-}
-
 // CLI args
 const argv = mri<IArgv>(process.argv.slice(2), {
   alias: { h: 'help', t: 'template', a: 'addons' },
@@ -224,7 +215,7 @@ async function init() {
     if (status !== 0) {
       log.warn(`${red('Failed:')} ${addon}`);
     } else {
-      log.success(`${addon} added successfully!`);
+      log.success(green(`${addon} added successfully!`));
     }
   }
 
