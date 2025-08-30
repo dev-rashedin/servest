@@ -56,7 +56,7 @@ npx servest add eslint-prettier
 | Package                                   | Version (click for changelogs)                                                                                |
 | ----------------------------------------- | :------------------------------------------------------------------------------------------------------------ |
 | [create-servest](packages/create-servest) | [![version](https://img.shields.io/npm/v/create-servest.svg?label=%20)](packages/create-servest/CHANGELOG.md) |
-| [servest-addons](packages/servest-addons) | [![version](https://img.shields.io/npm/v/servest?label=%20)](packages/servest-addons/CHANGELOG.md)            |
+| [servest](packages/servest-addons)        | [![version](https://img.shields.io/npm/v/servest?label=%20)](packages/servest-addons/CHANGELOG.md)            |
 
 ---
 

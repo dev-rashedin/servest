@@ -1,13 +1,10 @@
-# Servest Addons
+# Servest <a href="https://npmjs.com/package/servest"><img src="https://img.shields.io/npm/v/servest" alt="npm package"></a>
 
-[![npm version](https://img.shields.io/npm/v/servest-addons)](https://www.npmjs.com/package/servest-addons)
-[![License](https://img.shields.io/npm/l/servest-addons)](LICENSE)
-
-**Servest Addons** is a collection of utilities and integrations designed to enhance your Node.js backend and full-stack projects. Inspired by [shadcn](https://github.com/shadcn), it aims to simplify and accelerate the development workflow by providing pre-configured tools, folder structures, and scripts.
+**Servest** is a collection of utilities and integrations designed to enhance your Node.js backend and full-stack projects. Inspired by [shadcn](https://github.com/shadcn), it aims to simplify and accelerate the development workflow by providing pre-configured tools, folder structures, and scripts.
 
 ---
 
-## Why Servest Addons?
+## Why Servest?
 
 Backend and full-stack development often involves repetitive setup tasks like configuring ESLint, Prettier, Prisma, Drizzle, or MongoDB. **Servest Addons** removes this overhead by providing a single command to add these utilities to your project, saving time and ensuring consistency.
 
@@ -28,10 +25,10 @@ cd my-backend-app
 
 ### 2. Add Utilities to Your Project
 
-Once your project is ready (or even if you already have an existing project), you can add utilities using **servest-addons**:
+Once your project is ready (or even if you already have an existing project), you can add utilities using **servest**:
 
 ```bash
-npx servest-addons add <feature>
+npx servest add <feature>
 ```
 
 Available features:
@@ -49,7 +46,7 @@ Available features:
 You can run multiple features in one go:
 
 ```bash
-npx servest-addons add eslint prettier prisma
+npx servest add eslint prettier prisma
 ```
 
 ---
@@ -67,12 +64,12 @@ npx servest-addons add eslint prettier prisma
 
 ## Getting Started
 
-Install **servest-addons** globally (optional) or use `npx`:
+Install **servest** globally (optional) or use `npx`:
 
 ```bash
-npm install -g servest-addons
+npm install -g servest
 # or
-npx servest-addons add <feature>
+npx servest add <feature>
 ```
 
 ---
