@@ -7,7 +7,7 @@
   "description": "",
   "scripts": {
     "start": "node ./src/server.js",
-    "dev": "nodemon ./src/server.js"
+    "start:dev": "nodemon ./src/server.js"
   },
   "keywords": [],
   "license": "ISC",

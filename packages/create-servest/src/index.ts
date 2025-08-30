@@ -232,10 +232,10 @@ async function init() {
 
   const installCommands =
     pkgManager === 'yarn'
-      ? ['yarn', 'yarn dev or yarn dev:start']
+      ? ['yarn', 'yarn dev:start']
       : pkgManager === 'pnpm'
-        ? ['pnpm install', 'pnpm run dev']
-        : ['npm install', 'npm run dev'];
+        ? ['pnpm install', 'pnpm run dev:start']
+        : ['npm install', 'npm run dev:start'];
 
   const finalMessage = ['Done. Now run:', cdCommand, ...installCommands]
     .filter(Boolean)
