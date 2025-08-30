@@ -6,7 +6,7 @@
 
 ## Why Servest?
 
-Backend and full-stack development often involves repetitive setup tasks like adding custom files (e.g: auth.route, products.controller, ratings.model etc), configuring ESLint, Prettier, Prisma, Drizzle, or MongoDB. **Servest** removes this overhead by providing a single command to add these utilities to your project, saving time and ensuring consistency.
+Backend development often involves repetitive setup tasks like adding custom files (e.g: auth.route, products.controller, ratings.model etc), configuring ESLint, Prettier, Prisma, Drizzle, or MongoDB. **Servest** removes this overhead by providing a single command to add these utilities to your project, saving time and ensuring consistency.
 
 Whether you're starting a new project or working on an existing one, Servest makes it easy to standardize your setup.
 
@@ -25,16 +25,22 @@ cd my-backend-app
 
 > For available templates visit [create-servest#readme](https://github.com/dev-rashedin/servest/tree/main/packages/create-servest#readme)
 
-### 2. Add Utilities to Your Project
+### 2. Initiate Servest to Your Project
+
+```bash
+npx servest@latest init
+```
+
+### 3. Add Utilities to Your Project
 
 Once your project is ready (or even if you already have an existing project), you can add utilities using **servest**:
 
 ```bash
-npx servest add <f-fileName>
+npx servest@latest add <f-fileName>
 ```
 
 ```bash
-npx servest add <feature>
+npx servest@latest add <feature>
 ```
 
 ```bash
@@ -61,14 +67,14 @@ Available features:
 You can run multiple features in one go:
 
 ```bash
-npx servest add eslint prettier prisma
+npx servest@latest add eslint prettier prisma
 ```
 
 ---
 
 ## Utilities and Developer Experience
 
-**Servest Addons** comes with:
+**Servest** comes with:
 
 - Pre-configured **MVC** and **modular architecture** folder structures.
 - Automatic installation of dependencies for ESLint, Prettier, Prisma, Drizzle, and Mongoose.
@@ -84,7 +90,7 @@ Install **servest** globally (optional) or use `npx`:
 ```bash
 npm install -g servest
 # or
-npx servest add <feature>
+npx servest@latest add <feature>
 ```
 
 ---

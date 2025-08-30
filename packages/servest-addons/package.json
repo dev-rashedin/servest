@@ -4,7 +4,7 @@
   "type": "module",
   "license": "MIT",
   "author": "Rashedin Islam <https://www.rashedin.dev>",
-  "description": "Add optional backend features to any project — ESLint, Prettier, Mongoose, and more, inspired by Shadcn-style CLI utilities",
+  "description": "Add optional backend files and features to any project — ESLint, Prettier, Mongoose, and more.",
   "engines": {
     "node": ">=18"
   },
@@ -38,7 +38,7 @@
   "bugs": {
     "url": "https://github.com/dev-rashedin/servest/issues"
   },
-  "homepage": "https://github.com/dev-rashedin/servest/tree/main/packages/servest-addons#readme",
+  "homepage": "https://github.com/dev-rashedin/servest/tree/main/packages/servest#readme",
   "dependencies": {
     "commander": "^14.0.0",
     "kleur": "^4.1.5",
