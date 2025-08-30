@@ -26,13 +26,19 @@ export const add = new Command()
       cancelOperation('servest.config.json not found. Please run "npx servest@latest init" first.');
     }
 
+    const propsObject = {
+      cwd,
+      config: config!,
+      packageManager,
+    };
+
     const featureMap: Record<string, () => Promise<void>> = {
       mongoose: async () => addMongoose({ cwd, baseDir, config: config!, packageManager }),
-      eslint: async () => addESLint({ cwd, config: config!, packageManager }),
+      eslint: async () => addESLint(propsObject),
       prettier: async () => addPrettier({ cwd, packageManager }),
       'eslint-prettier': async () => addESLintPrettier({ cwd, config: config!, packageManager }),
       prisma: async () => addPrisma({ cwd, packageManager }),
-      drizzle: async () => addDrizzle({ cwd, config: config!, packageManager }),
+      drizzle: async () => addDrizzle(propsObject),
     };
 
     const commandRun = async () => {

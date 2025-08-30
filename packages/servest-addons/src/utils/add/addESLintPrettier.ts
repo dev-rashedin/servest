@@ -6,10 +6,10 @@ import { checkNodeFramework, getInstallCommandForDevDeps, isPackageInstalled } f
 import { addESLintConfig, addPrettierConfig } from '../lintPrettierHelper';
 
 export async function addESLintPrettier({ cwd, config, packageManager }: IPropsOption) {
-  const isTypeScript = config.language === 'ts';
-
   // default framework checking
   checkNodeFramework(config.framework, 'eslint');
+
+  const isTypeScript = config.language === 'ts';
 
   // Step 1 : Installing dependencies
   const packages = [
