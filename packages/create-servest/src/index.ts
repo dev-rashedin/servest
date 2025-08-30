@@ -189,19 +189,22 @@ async function init() {
     process.exit(status ?? 0);
   }
 
-  log.step(`Scaffolding project in ${root}...`);
+  log.step(green(`🎉 Scaffolding project in ${root}...`));
 
   // 6️⃣ Copy template files
   const templateDir = path.resolve(__dirname, '../templates', template);
 
   if (!fs.existsSync(templateDir)) {
     return cancelOperation(
-      `Template directory "${templateDir}" does not exist! Check your template name.`,
+      `🚨 Template directory "${templateDir}" does not exist! Check your template name.`,
     );
   }
 
   copyDir(templateDir, root);
-  updatePackageName(path.join(root, 'package.json'), packageName);
+
+  if (template.includes('express')) {
+    updatePackageName(path.join(root, 'package.json'), packageName);
+  }
 
   // 7️⃣ Running addons if specified
   const addons = addonsArg ? addonsArg.split(/\s+/).filter(Boolean) : [];
@@ -237,11 +240,14 @@ async function init() {
         ? ['pnpm install', 'pnpm run dev:start']
         : ['npm install', 'npm run dev:start'];
 
-  const finalMessage = ['Done. Now run:', cdCommand, ...installCommands]
-    .filter(Boolean)
-    .map((line) => `  ${line}`)
-    .join('\n');
+  let finalMessage = `'Done. Now run:', ${cdCommand}`;
 
+  if (template.includes('express')) {
+    finalMessage = ['Done. Now run:', cdCommand, ...installCommands]
+      .filter(Boolean)
+      .map((line) => `  ${line}`)
+      .join('\n');
+  }
   outro(green(finalMessage));
 }
 
