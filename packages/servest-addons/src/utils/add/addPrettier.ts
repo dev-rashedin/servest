@@ -2,10 +2,13 @@ import fs from 'fs';
 import path from 'path';
 import spawn from 'cross-spawn';
 import { cyan, green, red, yellow } from '../../../../utils/colors';
-import { getInstallCommandForDevDeps, isPackageInstalled } from '../index';
+import { checkNodeFramework, getInstallCommandForDevDeps, isPackageInstalled } from '../index';
 import { addPrettierConfig } from '../lintPrettierHelper';
 
-export async function addPrettier({ cwd, packageManager }: ICwdAndPkgManager) {
+export async function addPrettier({ cwd, config, packageManager }: IPropsOption) {
+  // default framework checking
+  checkNodeFramework(config.framework, 'prettier');
+
   // Step 1: Installing prettier
   const packages = ['prettier@3.6.2'];
 

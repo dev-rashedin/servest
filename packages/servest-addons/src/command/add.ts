@@ -35,9 +35,9 @@ export const add = new Command()
     const featureMap: Record<string, () => Promise<void>> = {
       mongoose: async () => addMongoose({ cwd, baseDir, config: config!, packageManager }),
       eslint: async () => addESLint(propsObject),
-      prettier: async () => addPrettier({ cwd, packageManager }),
+      prettier: async () => addPrettier(propsObject),
       'eslint-prettier': async () => addESLintPrettier({ cwd, config: config!, packageManager }),
-      prisma: async () => addPrisma({ cwd, packageManager }),
+      prisma: async () => addPrisma(propsObject),
       drizzle: async () => addDrizzle(propsObject),
     };
 

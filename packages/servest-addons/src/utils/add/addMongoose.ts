@@ -54,12 +54,12 @@ export async function addMongoose({
   config,
   packageManager,
 }: IIPropsOptionWithBaseDir) {
+  // default framework checking
+  checkNodeFramework(config.framework, 'mongoose');
+
   const isTypeScript = config.language === 'ts';
   const cmd = getInstallCommand(packageManager, 'mongoose');
   const isESM = isESModule(cwd);
-
-  // default framework checking
-  checkNodeFramework(config.framework, 'mongoose');
 
   // Step 1: Installing mongoose if not installed
   if (isPackageInstalled(cwd, 'mongoose')) {

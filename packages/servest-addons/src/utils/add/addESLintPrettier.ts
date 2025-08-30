@@ -7,7 +7,7 @@ import { addESLintConfig, addPrettierConfig } from '../lintPrettierHelper';
 
 export async function addESLintPrettier({ cwd, config, packageManager }: IPropsOption) {
   // default framework checking
-  checkNodeFramework(config.framework, 'eslint');
+  checkNodeFramework(config.framework, 'eslint-prettier');
 
   const isTypeScript = config.language === 'ts';
 

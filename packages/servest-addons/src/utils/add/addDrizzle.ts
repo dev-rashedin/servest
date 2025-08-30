@@ -20,7 +20,7 @@ export const users = sqliteTable('users', {
 
 export async function addDrizzle({ cwd, config, packageManager }: IPropsOption) {
   // default framework checking
-  checkNodeFramework(config.framework, 'mongoose');
+  checkNodeFramework(config.framework, 'drizzle');
 
   const isTypeScript = config.language === 'ts';
   const schemaFileName = isTypeScript ? 'schema.ts' : 'schema.js';

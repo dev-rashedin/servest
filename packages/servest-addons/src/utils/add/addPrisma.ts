@@ -2,7 +2,12 @@ import fs from 'fs';
 import path from 'path';
 import spawn from 'cross-spawn';
 import { cyan, green, red, yellow } from '../../../../utils/colors';
-import { getInstallCommand, getInstallCommandForDevDeps, isPackageInstalled } from '../index';
+import {
+  checkNodeFramework,
+  getInstallCommand,
+  getInstallCommandForDevDeps,
+  isPackageInstalled,
+} from '../index';
 
 const schemaContent = `
 generator client {
@@ -15,7 +20,10 @@ datasource db {
 }
 `;
 
-export async function addPrisma({ cwd, packageManager }: ICwdAndPkgManager) {
+export async function addPrisma({ cwd, config, packageManager }: IPropsOption) {
+  // default framework checking
+  checkNodeFramework(config.framework, 'mongoose');
+
   // Step 1: Installing Prisma & dev dependencies
   const devPackages = ['prisma@6.15.0'];
   const runtimePackages = ['@prisma/client@6.15.0'];
