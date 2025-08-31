@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
-import { cancelOperation } from '../../../utils/sharedUtility';
+import { cancelOperation, nodeFrameWorks } from '../../../utils/sharedUtility';
 
 export const checkNodeFramework = (framework: string, feature: string): void => {
-  if (!['express', 'nest', 'fastify', 'koa'].includes(framework)) {
+  if (!nodeFrameWorks.includes(framework)) {
     cancelOperation(
       `Cannot add "${feature}": detected framework is ${framework}. Only Node.js frameworks are supported for this feature.`,
     );
