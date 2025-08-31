@@ -10,7 +10,7 @@ import spawn from 'cross-spawn';
 
 // Local utilities
 import { green, red, yellow } from '../../utils/colors';
-import { cancelOperation, detectPkgManager } from '../../utils/sharedUtility';
+import { cancelOperation, detectPkgManager, getIServestConfig } from '../../utils/sharedUtility';
 import { ALL_TEMPLATES, FRAMEWORKS, helpMessage } from './utils';
 import {
   copyDir,
@@ -203,6 +203,8 @@ async function init() {
   const addons = addonsArg ? addonsArg.split(/\s+/).filter(Boolean) : [];
 
   if (addons.length > 0) {
+    spawn.sync(pkgManager, ['install'], { cwd: root, stdio: 'inherit' });
+
     const { status } = spawn.sync('npx', ['servest@latest', 'init'], {
       stdio: 'inherit',
     });
@@ -210,7 +212,7 @@ async function init() {
     if (status !== 0) {
       log.warn(red(`🚨 Failed to initialize servest. Run 'npx servest@latest init' manually.`));
       process.exit(status ?? 1);
-    } else {
+    } else if (getIServestConfig(cwd)) {
       for (const addon of addons) {
         log.info(`\nAdding ${addon}...`);
         const { status } = spawn.sync('npx', ['servest@latest', 'add', addon], {
