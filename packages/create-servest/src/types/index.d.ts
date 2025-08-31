@@ -1,4 +1,4 @@
-declare interface IArgv {
+export declare interface IArgv {
   template?: string;
   help?: boolean;
   h?: boolean;
