@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import { red } from './colors';
-import { IServestConfig } from './../servest-addons/src/types/index.d';
 
 type CancelOperation = (message?: string) => void;
 type PackageManager = 'npm' | 'pnpm' | 'yarn' | 'bun';
@@ -18,10 +17,4 @@ export const detectPkgManager = (cwd: string = process.cwd()): PackageManager =>
   if (fs.existsSync(path.join(cwd, 'yarn.lock'))) return 'yarn';
   if (fs.existsSync(path.join(cwd, 'bun.lockb'))) return 'bun';
   return 'npm';
-};
-
-export const getIServestConfig = (cwd: string): IServestConfig | null => {
-  const configPath = path.join(cwd, 'servest.config.json');
-  if (!fs.existsSync(configPath)) return null;
-  return JSON.parse(fs.readFileSync(configPath, 'utf-8'));
 };

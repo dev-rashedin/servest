@@ -10,7 +10,8 @@ import spawn from 'cross-spawn';
 
 // Local utilities
 import { green, red, yellow } from '../../utils/colors';
-import { cancelOperation, detectPkgManager, getIServestConfig } from '../../utils/sharedUtility';
+import { cancelOperation, detectPkgManager } from '../../utils/sharedUtility';
+import { getIServestConfig } from '../../servest-addons/src/utils/createFile';
 import { ALL_TEMPLATES, FRAMEWORKS, helpMessage } from './utils';
 import {
   copyDir,
