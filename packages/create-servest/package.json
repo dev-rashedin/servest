@@ -1,6 +1,6 @@
 {
   "name": "create-servest",
-  "version": "1.2.0-beta.0",
+  "version": "1.2.0-beta.1",
   "type": "module",
   "license": "MIT",
   "author": "Rashedin Islam <https://www.rashedin.dev>",
@@ -12,7 +12,7 @@
     "servest": "index.js",
     "create-servest": "index.js"
   },
-  "types": "./src/types/index.d.ts",
+  "types": "./types/index.d.ts",
   "scripts": {
     "dev": "tsdown --watch",
     "build": "tsdown",

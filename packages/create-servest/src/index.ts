@@ -204,30 +204,65 @@ async function init() {
   const addons = addonsArg ? addonsArg.split(/\s+/).filter(Boolean) : [];
 
   if (addons.length > 0) {
-    spawn.sync(pkgManager, ['install'], { cwd: root, stdio: 'inherit' });
+    // Installing dependencies
+    const installResult = spawn.sync(pkgManager, ['install'], { cwd: root, stdio: 'inherit' });
+    if (installResult.status !== 0) {
+      log.warn(red(`🚨 'npm install' failed. Please run '${pkgManager} install' manually.`));
+      process.exit(installResult.status ?? 1);
+    }
 
-    const { status } = spawn.sync('npx', ['servest@latest', 'init'], {
-      stdio: 'inherit',
-    });
-
-    if (status !== 0) {
+    // Initializing servest
+    const initResult = spawn.sync('npx', ['servest@latest', 'init'], { stdio: 'inherit' });
+    if (initResult.status !== 0) {
       log.warn(red(`🚨 Failed to initialize servest. Run 'npx servest@latest init' manually.`));
-      process.exit(status ?? 1);
-    } else if (getIServestConfig(cwd)) {
+      process.exit(initResult.status ?? 1);
+    }
+
+    //  Checking if config exists
+    const servestConfig = getIServestConfig(cwd);
+    if (servestConfig) {
       for (const addon of addons) {
         log.info(`\nAdding ${addon}...`);
-        const { status } = spawn.sync('npx', ['servest@latest', 'add', addon], {
+        const addonResult = spawn.sync('npx', ['servest@latest', 'add', addon], {
           stdio: 'inherit',
         });
 
-        if (status !== 0) {
+        if (addonResult.status !== 0) {
           log.warn(`${red('Failed:')} ${addon}`);
         } else {
           log.success(green(`${addon} added successfully!`));
         }
       }
+    } else {
+      log.warn(yellow(`⚠️ servest.config.json not found. Skipping addon installation.`));
     }
   }
+
+  // if (addons.length > 0) {
+  //   spawn.sync(pkgManager, ['install'], { cwd: root, stdio: 'inherit' });
+
+  //   const { status } = spawn.sync('npx', ['servest@latest', 'init'], {
+  //     stdio: 'inherit',
+  //   });
+
+  //   if (status !== 0) {
+  //     log.warn(red(`🚨 Failed to initialize servest. Run 'npx servest@latest init' manually.`));
+  //     process.exit(status ?? 1);
+  //   } else if (getIServestConfig(cwd)) {
+  //     for (const addon of addons) {
+  //       log.info(`\nAdding ${addon}...`);
+  //       const { status } = spawn.sync('npx', ['servest@latest', 'add', addon], {
+  //         stdio: 'inherit',
+  //       });
+
+  //       if (status !== 0) {
+  //         log.warn(`${red('Failed:')} ${addon}`);
+  //       } else {
+  //         log.success(green(`${addon} added successfully!`));
+  //       }
+  //     }
+  //   }
+  // }
 
   // 8️⃣ Displaying outro message
   const cdProjectName = path.relative(cwd, root);
