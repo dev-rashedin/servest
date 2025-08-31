@@ -9,21 +9,21 @@ declare global {
     a?: string;
   }
 
-  interface Variant {
+  interface IVariant {
     value: string;
     name: string;
     color: (text: string) => string;
     customCommand?: string;
   }
 
-  interface Framework {
+  interface IFramework {
     value: string;
     name: string;
     color: (text: string) => string;
     variants: Variant[];
   }
 
-  interface PkgInfo {
+  interface IPkgInfo {
     name: string;
     version: string;
   }

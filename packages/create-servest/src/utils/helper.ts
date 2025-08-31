@@ -79,7 +79,7 @@ export function emptyDir(dir: string): void {
 //   return 'npm';
 // }
 
-export function pkgFromUserAgent(userAgent: string | undefined): PkgInfo | undefined {
+export function pkgFromUserAgent(userAgent: string | undefined): IPkgInfo | undefined {
   if (!userAgent) return undefined;
   const pkgSpec = userAgent.split(' ')[0];
   const pkgSpecArr = pkgSpec.split('/');
@@ -94,7 +94,7 @@ export function editFile(file: string, callback: (content: string) => string): v
   fs.writeFileSync(file, callback(content), 'utf-8');
 }
 
-export function getFullCustomCommand(customCommand: string, pkgInfo?: PkgInfo): string {
+export function getFullCustomCommand(customCommand: string, pkgInfo?: IPkgInfo): string {
   const pkgManager = pkgInfo ? pkgInfo.name : 'npm';
   const isYarn1 = pkgManager === 'yarn' && pkgInfo?.version.startsWith('1.');
 
