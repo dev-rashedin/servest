@@ -197,21 +197,6 @@ async function init() {
 
   if (template.includes('express')) {
     updatePackageName(path.join(root, 'package.json'), packageName);
-
-    const pkgPath = path.join(cwd, 'package.json');
-    if (fs.existsSync(pkgPath)) {
-      const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
-      pkg.scripts = pkg.scripts || {};
-
-      if (pkg.scripts.preinstall) return;
-
-      if (!pkg.scripts.preinstall) {
-        pkg.scripts.preinstall = `"npx only-allow ${pkgManager}"`;
-      }
-
-      fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2), 'utf-8');
-      console.log(green(`✅ Added lint scripts to package.json.`));
-    }
   }
 
   // 7️⃣ Running addons if specified
