@@ -161,6 +161,8 @@ async function init() {
   // 5️⃣ Running custom command if exists
   const pkgManager = detectPkgManager();
 
+  console.log(pkgManager);
+
   const { customCommand } =
     FRAMEWORKS.flatMap((f) => f.variants).find((v) => v.value === template) ?? {};
 

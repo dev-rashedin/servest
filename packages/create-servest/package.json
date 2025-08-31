@@ -1,10 +1,10 @@
 {
   "name": "create-servest",
-  "version": "1.1.0",
+  "version": "1.2.0-beta.0",
   "type": "module",
   "license": "MIT",
   "author": "Rashedin Islam <https://www.rashedin.dev>",
-  "description": "The fastest way to generate backend projects for multiple frameworks, inspired by Vite’s simplicity and speed, with flexible architectures and modern tooling",
+  "description": "The fastest way to generate backend projects for multiple frameworks, with flexible architectures and modern tooling",
   "engines": {
     "node": ">=18"
   },
