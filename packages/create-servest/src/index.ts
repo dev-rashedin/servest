@@ -170,7 +170,7 @@ async function init() {
     const fullCustomCommand = getFullCustomCommand(customCommand, pkgInfo);
 
     if (fullCustomCommand.includes('--template')) {
-      log.info(`Running custom command: ${fullCustomCommand}`);
+      log.info(`ℹ️ Running custom command: ${fullCustomCommand}`);
     }
 
     const [command, ...args] = fullCustomCommand.split(' ');
@@ -182,7 +182,7 @@ async function init() {
     process.exit(status ?? 0);
   }
 
-  log.step(green(`🎉 Scaffolding project in ${root}...`));
+  log.step(green(`ℹ️ Scaffolding project in ${root}...`));
 
   // 6️⃣ Copy template files
   const templateDir = path.resolve(__dirname, '../templates', template);
@@ -197,6 +197,21 @@ async function init() {
 
   if (template.includes('express')) {
     updatePackageName(path.join(root, 'package.json'), packageName);
+
+    const pkgPath = path.join(cwd, 'package.json');
+    if (fs.existsSync(pkgPath)) {
+      const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
+      pkg.scripts = pkg.scripts || {};
+
+      if (pkg.scripts.preinstall) return;
+
+      if (!pkg.scripts.preinstall) {
+        pkg.scripts.preinstall = `"npx only-allow ${pkgManager}"`;
+      }
+
+      fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2), 'utf-8');
+      console.log(green(`✅ Added lint scripts to package.json.`));
+    }
   }
 
   // 7️⃣ Running addons if specified
@@ -238,7 +253,7 @@ async function init() {
         ? ['pnpm install', 'pnpm run dev:start']
         : ['npm install', 'npm run dev:start'];
 
-  let finalMessage = `'Done. Now run:', ${cdCommand}`;
+  let finalMessage = `'🎉 Done. Now run:', ${cdCommand}`;
 
   if (template.includes('express')) {
     finalMessage = ['Done. Now run:', cdCommand, ...installCommands]
