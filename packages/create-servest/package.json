@@ -12,7 +12,7 @@
     "servest": "index.js",
     "create-servest": "index.js"
   },
-  "types": "./types/index.d.ts",
+  "types": "./src/types/index.d.ts",
   "scripts": {
     "dev": "tsdown --watch",
     "build": "tsdown",
