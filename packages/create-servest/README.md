@@ -2,6 +2,8 @@
 
 ## Scaffolding Your First Backend Project
 
+> This project draws inspiration from create-vite, adapting the concept for backend development.
+
 > **Compatibility Note:**
 > Servest requires [Node.js](https://nodejs.org/en/) version 18+. Some templates may require a higher Node.js version.
 

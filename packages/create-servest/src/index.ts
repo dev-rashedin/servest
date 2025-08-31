@@ -161,6 +161,8 @@ async function init() {
   // 5️⃣ Running custom command if exists
   const pkgManager = detectPkgManager();
 
+  console.log(pkgManager);
+
   const { customCommand } =
     FRAMEWORKS.flatMap((f) => f.variants).find((v) => v.value === template) ?? {};
 
@@ -201,21 +203,26 @@ async function init() {
   const addons = addonsArg ? addonsArg.split(/\s+/).filter(Boolean) : [];
 
   if (addons.length > 0) {
-    spawn.sync('npx', ['servest@latest', 'init'], {
-      stdio: 'inherit',
-    });
-  }
-
-  for (const addon of addons) {
-    log.info(`\nAdding ${addon}...`);
-    const { status } = spawn.sync('npx', ['servest@latest', 'add', addon], {
+    const { status } = spawn.sync('npx', ['servest@latest', 'init'], {
       stdio: 'inherit',
     });
 
     if (status !== 0) {
-      log.warn(`${red('Failed:')} ${addon}`);
+      log.warn(red(`🚨 Failed to initialize servest. Run 'npx servest@latest init' manually.`));
+      process.exit(status ?? 1);
     } else {
-      log.success(green(`${addon} added successfully!`));
+      for (const addon of addons) {
+        log.info(`\nAdding ${addon}...`);
+        const { status } = spawn.sync('npx', ['servest@latest', 'add', addon], {
+          stdio: 'inherit',
+        });
+
+        if (status !== 0) {
+          log.warn(`${red('Failed:')} ${addon}`);
+        } else {
+          log.success(green(`${addon} added successfully!`));
+        }
+      }
     }
   }
 
