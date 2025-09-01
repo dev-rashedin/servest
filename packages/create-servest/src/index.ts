@@ -203,12 +203,16 @@ async function init() {
   // 7️⃣ Running addons if specified
   const addons = addonsArg ? addonsArg.split(/\s+/).filter(Boolean) : [];
 
+  let inStallCommand = false;
+
   if (addons.length > 0) {
     // Installing dependencies
     const installResult = spawn.sync(pkgManager, ['install'], { cwd: root, stdio: 'inherit' });
     if (installResult.status !== 0) {
       log.warn(red(`🚨 'npm install' failed. Please run '${pkgManager} install' manually.`));
       process.exit(installResult.status ?? 1);
+    } else {
+      inStallCommand = true;
     }
 
     // Initializing servest
@@ -254,10 +258,16 @@ async function init() {
 
   const installCommands =
     pkgManager === 'yarn'
-      ? ['yarn', 'yarn start:dev']
+      ? inStallCommand
+        ? ['yarn start:dev']
+        : ['yarn', 'yarn start:dev']
       : pkgManager === 'pnpm'
-        ? ['pnpm install', 'pnpm run start:dev']
-        : ['npm install', 'npm run start:dev'];
+        ? inStallCommand
+          ? ['pnpm run start:dev']
+          : ['pnpm install', 'pnpm run start:dev']
+        : inStallCommand
+          ? ['npm run start:dev']
+          : ['npm install', 'npm run start:dev'];
 
   let finalMessage = `'🎉 Done. Now run:', ${cdCommand}`;
 
