@@ -212,18 +212,27 @@ async function init() {
     }
 
     // Initializing servest
-    const initResult = spawn.sync('npx', ['servest@latest', 'init'], { stdio: 'inherit' });
+    const initResult = spawn.sync('npx', ['servest@latest', 'init'], {
+      cwd: root,
+      stdio: 'inherit',
+    });
     if (initResult.status !== 0) {
-      log.warn(red(`🚨 Failed to initialize servest. Run 'npx servest@latest init' manually.`));
+      log.warn(
+        red(
+          `🚨 Failed to initialize servest. Run 'npx servest@latest init' manually inside ${root}.`,
+        ),
+      );
       process.exit(initResult.status ?? 1);
     }
 
     //  Checking if config exists
-    const servestConfig = getIServestConfig(cwd);
+    const servestConfig = getIServestConfig(root);
+
     if (servestConfig) {
       for (const addon of addons) {
         log.info(`\nAdding ${addon}...`);
         const addonResult = spawn.sync('npx', ['servest@latest', 'add', addon], {
+          cwd: root,
           stdio: 'inherit',
         });
 
