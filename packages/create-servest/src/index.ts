@@ -207,8 +207,6 @@ async function init() {
   // Include any extra positional arguments after the project name
   addons = addons.concat(argv._.slice(1));
 
-  console.log('addons', addons);
-
   let inStallCommand = false;
 
   if (addons.length > 0) {
