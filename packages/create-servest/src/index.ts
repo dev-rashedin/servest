@@ -203,6 +203,8 @@ async function init() {
   // 7️⃣ Running addons if specified
   const addons = addonsArg ? addonsArg.split(/\s+/).filter(Boolean) : [];
 
+  console.log('addons', addons);
+
   let inStallCommand = false;
 
   if (addons.length > 0) {
@@ -213,6 +215,7 @@ async function init() {
       process.exit(installResult.status ?? 1);
     } else {
       inStallCommand = true;
+      log.success(green(`✅ Dependencies installed successfully!`));
     }
 
     // Initializing servest
@@ -233,18 +236,18 @@ async function init() {
     const servestConfig = getIServestConfig(root);
 
     if (servestConfig) {
-      for (const addon of addons) {
-        log.info(`\nAdding ${addon}...`);
-        const addonResult = spawn.sync('npx', ['servest@latest', 'add', addon], {
-          cwd: root,
-          stdio: 'inherit',
-        });
+      // Run all addons in a single command
+      const { status } = spawn.sync('npx', ['servest@latest', 'add', ...addons], {
+        cwd: root,
+        stdio: 'inherit',
+        shell: true,
+      });
 
-        if (addonResult.status !== 0) {
-          log.warn(`${red('Failed:')} ${addon}`);
-        } else {
-          log.success(green(`${addon} added successfully!`));
-        }
+      if (status !== 0) {
+        log.warn(red(`🚨 Failed to add addons: ${addons.join(', ')}`));
+        process.exit(status ?? 1);
+      } else {
+        log.success(green(`✅ Addons added successfully!`));
       }
     } else {
       log.warn(yellow(`⚠️ servest.config.json not found. Skipping addon installation.`));
