@@ -1,6 +1,6 @@
 # create-servest <a href="https://npmjs.com/package/create-servest"><img src="https://img.shields.io/npm/v/create-servest" alt="npm package"></a>
 
-`create-servest` is a scaffolding tool for quickly setting up modern backend projects. Inspired by [create-vite](https://vitejs.dev/), it allows you to bootstrap projects with or without addons in a streamlined way.
+`create-servest` is a scaffolding tool for quickly setting up modern backend projects. Inspired by [create-vite](https://www.npmjs.com/package/create-vite), it allows you to bootstrap projects with or without addons in a streamlined way.
 
 ## Features
 
@@ -89,6 +89,16 @@ This will scaffold the express-mvc-ts project and install the required npm packa
 
 > Note: If any addon fails, the remaining ones will still be applied. You can re-run the failed addons manually later.
 
+> To learn more about servest addons, visit the [npm package](https://www.npmjs.com/package/servest) or check the [GitHub repository](https://github.com/dev-rashedin/servest/blob/main/packages/servest-addons/README.md)
+
+---
+
+## Options
+
+- `-t, --template` – Select a template (e.g., `express-basic-js`, `express-mvc-ts`)
+- `-a, --addons` – Space-separated list of addons (optional)
+- `-h, --help` – Show help message
+
 ---
 
 ## Community Templates
@@ -120,6 +130,10 @@ npx degit user/project#main my-project
 Contributions are welcome! Please open an issue or submit a pull request if you find bugs or want to add features.
 
 ---
+
+## Inspiration
+
+This project was heavily inspired by [create-vite](https://www.npmjs.com/package/create-vite) for project scaffolding and [shadcn](https://ui.shadcn.com) for addons, for addons, adopting a similar philosophy for backend scaffolding and utility generation..
 
 ## License
 
