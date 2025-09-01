@@ -1,11 +1,14 @@
 # create-servest <a href="https://npmjs.com/package/create-servest"><img src="https://img.shields.io/npm/v/create-servest" alt="npm package"></a>
 
-## Scaffolding Your First Backend Project
+`create-servest` is a scaffolding tool for quickly setting up modern backend projects. Inspired by [create-vite](https://vitejs.dev/), it allows you to bootstrap projects with or without addons in a streamlined way.
 
-> This project draws inspiration from [create-vite](https://www.npmjs.com/package/create-vite), adapting the concept for backend development.
+## Features
 
-> **Compatibility Note:**
-> Servest requires [Node.js](https://nodejs.org/en/) version 18+. Some templates may require a higher Node.js version.
+- Quickly scaffold a backend project
+- Optional addons for extended functionality
+- Works seamlessly with the `servest` package to integrate additional features
+
+## Installation
 
 ### Using NPM:
 
@@ -41,10 +44,10 @@ You can directly specify the project name and template via CLI options:
 
 ```bash
 # Scaffold an Express MVC TypeScript project non-interactively
-npm create servest@latest my-backend-app -- --template express-mvc-ts
+npm create servest@latest servest-project -- --template express-mvc-ts
 
 # With addons
-npm create servest@latest my-backend-app -- --template express-mvc-ts -a eslint-prettier mongoose
+npm create servest@latest servest-project -- --template express-mvc-ts -a f-auth f-articles mongoose eslint-prettier
 ```
 
 > Tip: Use `.` as the project name to scaffold in the current directory:
@@ -76,19 +79,15 @@ npm create servest@latest . -- --template express-basic-ts
 
 ## Addons
 
-After scaffolding, you can automatically install additional utilities using the `-a` or `--addons` flag:
+You can automatically include additional utilities during scaffolding using the `-a` or `--addons` flag:
 
 ```bash
-npm create servest@latest -- --template express-mvc-ts -a eslint-prettier mongoose
+npm create servest@latest -- --template express-mvc-ts -a f-auth mongoose eslint-prettier lint-staged
 ```
 
-This will scaffold the `express-mvc-ts` template and run:
+This will scaffold the express-mvc-ts project and install the required npm packages to enhance your development workflow.
 
-```bash
-npx add servest@latest eslint-prettier mongoose
-```
-
-> Note: If any addon fails, the others will still be executed. You can rerun failed addons manually.
+> Note: If any addon fails, the remaining ones will still be applied. You can re-run the failed addons manually later.
 
 ---
 
