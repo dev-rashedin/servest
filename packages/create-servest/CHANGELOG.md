@@ -3,11 +3,26 @@
 All notable changes to **create-servest** will be documented here.
 
 ## [1.2.0] – 2025-09-01
+
+### Added
+- Support for multiple addons in a single `-a` or `--addons` command.
+- Automatic package installation before running `servest init` when addons are specified.
+- Improved CLI messages for successful dependency installation and addon execution.
+- Non-interactive scaffolding support for templates and addons.
+
+### Changed
+- `servest.config.json` now correctly created inside the newly scaffolded project folder.
+- Updated final outro message logic to hide redundant install commands if dependencies were already installed.
+- Addons command now uses space-separated input instead of comma-separated input to allow multiple features.
+
 ### Fixed
-- Fixed django-basic template registration issue
-- Minor fixes and cleanup in scaffolding logic
+- Fixed django-basic template registration issue.
+- Fixed issue where only the first addon was executed.
+- Minor fixes and cleanup in scaffolding logic.
+
 
 ---
+
 
 ## [1.1.0] – 2025-08-25
 ### Fixed
