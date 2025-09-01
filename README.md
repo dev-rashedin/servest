@@ -46,7 +46,10 @@ It consists of two main packages:
 npm create servest@latest -- --template express-mvc-ts
 
 # Add a backend addon
-npx servest add eslint-prettier
+npx servest add mongoose eslint-prettier lint-staged
+
+## Or combine them both
+npm create servest@latest -- --template express-mvc-ts -addons mongoose eslint-prettier
 ```
 
 ---

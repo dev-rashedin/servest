@@ -22,9 +22,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${merriweather.className} ${montserrat.className} font-body antialiased`}>
-        <div className="container mx-auto px-2 lg:px-4">
+        <div className="">
           <Navbar />
-          <div className="min-h-[calc(100vh-160px)]">{children}</div>
+
+          <div className="min-h-[calc(100vh-160px)] boundary">{children}</div>
         </div>
         <Footer />
       </body>

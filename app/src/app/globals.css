@@ -31,4 +31,11 @@ body {
   .flex-center {
     @apply flex items-center justify-center;
   }
+  .flex-between {
+    @apply flex items-center justify-between;
+  }
+
+  .boundary {
+    @apply container mx-auto px-2 lg:px-4;
+  }
 }
