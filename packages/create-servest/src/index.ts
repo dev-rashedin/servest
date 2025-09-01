@@ -201,7 +201,11 @@ async function init() {
   }
 
   // 7️⃣ Running addons if specified
-  const addons = addonsArg ? addonsArg.split(/\s+/).filter(Boolean) : [];
+  // Start with the -a/-addons value (if any)
+  let addons: string[] = addonsArg ? addonsArg.split(/\s+/).filter(Boolean) : [];
+
+  // Include any extra positional arguments after the project name
+  addons = addons.concat(argv._.slice(1));
 
   console.log('addons', addons);
 
