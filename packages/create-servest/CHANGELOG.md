@@ -2,6 +2,13 @@
 
 All notable changes to **create-servest** will be documented here.
 
+## [1.2.0] – 2025-09-01
+### Fixed
+- Fixed django-basic template registration issue
+- Minor fixes and cleanup in scaffolding logic
+
+---
+
 ## [1.1.0] – 2025-08-25
 ### Fixed
 - Bug where `--template` argument was ignored in some package managers (npm works consistently now)
