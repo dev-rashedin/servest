@@ -34,13 +34,7 @@ const Navbar = (): JSX.Element => {
               target="_blank"
               className="group relative inline-flex items-center justify-center"
             >
-              <FaGithub className="text-xl xl:text-2xl z-10" />
-
-              {/* Circle effect */}
-              <span
-                className="absolute w-10 h-10 rounded-full scale-0 group-hover:scale-90 
-               border-2 border-yellow-sunshine transition-transform duration-300"
-              />
+              <FaGithub className="text-2xl z-10" />
             </Link>
             <ThemeSwitcher />
           </div>

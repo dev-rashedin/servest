@@ -1,0 +1,14 @@
+:root {
+  --background: 0 0% 100%;
+  --text-color: 0 0% 3.9%;
+}
+
+.dark {
+  --background: 0 0% 10%;
+  --text-color: 0 0% 90%;
+}
+
+.layout {
+  background-color: hsl(var(--background));
+  color: hsl(var(--text-color));
+}

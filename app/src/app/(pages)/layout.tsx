@@ -1,13 +1,7 @@
 import type { Metadata } from 'next';
 import React, { JSX } from 'react';
-import { Merriweather, Montserrat } from 'next/font/google';
-import './globals.css';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import styles from './layout.module.css';
 import { ThemeProvider } from '@/components/providers/theme-provider';
-
-const merriweather = Merriweather({ subsets: ['latin'], weight: ['400', '700'] });
-const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '700'] });
 
 export const metadata: Metadata = {
   title: 'Servest – The Ultimate Backend Starter & Addon Toolkit',
@@ -21,12 +15,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>): JSX.Element {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${merriweather.className} ${montserrat.className} font-body antialiased`}
-    >
-      <body className="bg-black-top-glow ">
+    <html lang="en" suppressHydrationWarning>
+      <body className={styles.layout}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -34,11 +24,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="">
-            <Navbar />
-
             <div className="min-h-[calc(100vh-192px)] boundary py-8">{children}</div>
           </div>
-          <Footer />
         </ThemeProvider>
       </body>
     </html>

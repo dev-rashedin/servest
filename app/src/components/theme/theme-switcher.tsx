@@ -2,23 +2,31 @@
 
 import { useTheme } from 'next-themes';
 import { MoonIcon, SunIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null; // Prevent hydration mismatch
 
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
 
   return (
     <Button
-      variant="outline"
+      variant="theme"
       size="icon"
       onClick={toggleTheme}
-      className="rounded-full bg-transparent dark:bg-transparent"
+      className="rounded-full bg-transparent"
       aria-label="Toggle theme"
     >
-      <SunIcon className="h-8 w-8 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-      <MoonIcon className="absolute h-8 w-8 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      {theme === 'dark' ? (
+        <MoonIcon className="h-10 w-10 transition-all" />
+      ) : (
+        <SunIcon className="h-10 w-10 transition-all" />
+      )}
     </Button>
   );
 }

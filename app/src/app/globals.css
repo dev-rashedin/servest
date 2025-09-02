@@ -18,6 +18,9 @@
   .boundary {
     @apply container mx-auto px-2 lg:px-4;
   }
+  .p {
+    @apply text-sm  leading-loose;
+  }
 }
 
 @layer base {
@@ -27,6 +30,7 @@
     --radial-bg: radial-gradient(circle at 50% 50%, hsl(0, 0%, 99%) 10%, hsl(0, 0%, 96%) 100%);
     --navbar-bg: 252 252% 252%;
     --footer-bg: 255 255% 255%;
+    --text-color: 0 0% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
@@ -56,11 +60,12 @@
     --foreground: 0 0% 90%;
     --radial-bg: radial-gradient(
       circle at 50% 50%,
-      hsl(221, 61%, 12%) 10%,
+      hsl(221, 63%, 12%) 10%,
       hsl(221, 100%, 4%) 100%
     );
     --navbar-bg: 0 0% 15%;
     --footer-bg: 0 0% 9%;
+    --text-color: 0 0% 90%;
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3.9%;
@@ -96,5 +101,6 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    color: hsl(var(--text-color));
   }
 }
