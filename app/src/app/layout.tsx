@@ -5,6 +5,7 @@ import './globals.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ThemeProvider } from '@/components/providers/theme-provider';
+import { Spotlight } from '@/components/ui/spotlight-new';
 
 const merriweather = Merriweather({ subsets: ['latin'], weight: ['400', '700'] });
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '700'] });
@@ -33,6 +34,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" fill="white" />
           <div className="">
             <Navbar />
 

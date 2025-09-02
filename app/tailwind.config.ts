@@ -16,21 +16,6 @@ const config: Config = {
         body: ['Merriweather', 'serif'],
         heading: ['Montserrat', 'sans-serif'],
       },
-      backgroundImage: {
-        'radial-green':
-          'radial-gradient(circle 500px at 50% 300px, rgba(16,185,129,0.35), transparent)',
-        'blue-radial-glow':
-          'radial-gradient(circle 600px at 50% 50%, rgba(59,130,246,0.3), transparent)',
-        'black-top-glow': `radial-gradient(ellipse 80% 60% at 50% 0%, rgba(120, 180, 255, 0.25), transparent 70%), #000000`,
-        'moonlight-silver': `
-          radial-gradient(circle at 50% 50%, 
-            rgba(203, 213, 225, 0.12) 0%, 
-            rgba(203, 213, 225, 0.07) 25%, 
-            rgba(203, 213, 225, 0.03) 35%, 
-            transparent 50%
-          )
-        `,
-      },
       colors: {
         'yellow-sunshine': '#FACC15',
         'yellow-dusk': '#FFAF45',
@@ -88,6 +73,21 @@ const config: Config = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+      },
+      animation: {
+        spotlight: 'spotlight 2s ease .75s 1 forwards',
+      },
+      keyframes: {
+        spotlight: {
+          '0%': {
+            opacity: '0',
+            transform: 'translate(-72%, -62%) scale(0.5)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translate(-50%,-40%) scale(1)',
+          },
+        },
       },
     },
   },
