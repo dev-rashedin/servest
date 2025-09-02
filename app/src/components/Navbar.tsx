@@ -4,6 +4,7 @@ import { JSX } from 'react';
 import { FaGithub } from 'react-icons/fa';
 import { ThemeSwitcher } from './theme/theme-switcher';
 import NavLink from './ui/navlink';
+import MobileMenu from './ui/mobile-menu';
 
 const Navbar = (): JSX.Element => {
   return (
@@ -22,8 +23,11 @@ const Navbar = (): JSX.Element => {
 
         <section className="flex-center gap-20">
           {/* nav links */}
-          <NavLink />
+          <div className="hidden md:flex items-center gap-8">
+            <NavLink />
+          </div>
 
+          <MobileMenu />
           {/* nav links */}
           <div className="flex-center gap-4">
             <Link
