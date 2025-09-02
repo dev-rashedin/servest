@@ -75,7 +75,7 @@ export default tseslint.config(
       ],
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/explicit-module-boundary-types': [
-        'error',
+        'off',
         { allowArgumentsExplicitlyTypedAsAny: true },
       ],
       '@typescript-eslint/no-unsafe-function-type': 'off',

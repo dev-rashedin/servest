@@ -1,8 +1,7 @@
 'use client';
 import { useTheme } from 'next-themes';
-import { JSX } from 'react';
 
-export function ThemeSwitcher(): JSX.Element {
+export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
 
   return (
