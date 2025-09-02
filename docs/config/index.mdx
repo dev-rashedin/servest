@@ -1,1 +1,60 @@
-## Config documentation
+## Config
+
+Servest projects use a `servest.config.json` file to store settings.
+This config is generated automatically when you initialize a project:
+
+```bash
+npx servest@latest init
+```
+
+All addons and later commands depend on this file.
+
+### Example
+
+```json
+{
+  "servestVersion": "1.0.0",
+  "framework": "express",
+  "language": "ts",
+  "architecture": "mvc",
+  "srcDir": true,
+  "environment": {
+    "runtime": "node",
+    "nodeVersion": "v22.18.0"
+  },
+  "features": {},
+  "createdAt": "2025-09-01T07:23:37.385Z"
+}
+```
+
+## Sections
+
+### Project Options
+
+Defines the main project setup:
+
+- `framework` – backend framework (e.g. `express`, `django`)
+- `language` – `js` or `ts`
+- `architecture` – `basic`, `mvc`, `modular`
+- `srcDir` – whether to use a `/src` directory
+
+### Environment Options
+
+Specifies runtime environment:
+
+- `runtime` – default: `node`
+- `nodeVersion` – Node.js version used
+
+### Features
+
+Tracks enabled addons:
+
+- Added when you run `npx servest@latest add <feature>`
+- Keeps addon state consistent across commands
+
+### Meta
+
+Additional metadata:
+
+- `servestVersion` – version of Servest used
+- `createdAt` – timestamp when config was created
