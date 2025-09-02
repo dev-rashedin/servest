@@ -14,8 +14,7 @@ const Navbar = (): JSX.Element => {
         <div>
           <Link href="/" className="flex-center gap-2">
             <Image src="/logo.svg" width={40} height={40} alt="logo" />
-            {/* <h1 className="font-extrabold text-xl md:text-2xl font-heading">Servest</h1> */}
-            <span className="font-heading font-extrabold text-xl lg:text-2xl tracking-tight bg-gradient-to-r from-yellow-sunshine to-yellow-dusk text-transparent bg-clip-text relative">
+            <span className="font-heading font-extrabold text-2xl tracking-tight bg-gradient-to-r from-yellow-sunshine to-yellow-dusk text-transparent bg-clip-text relative">
               Servest
             </span>
           </Link>

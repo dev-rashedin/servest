@@ -23,12 +23,12 @@ export default function MobileMenu() {
             isOpen ? 'rotate-180 scale-110' : 'rotate-0 scale-100'
           }`}
         >
-          {isOpen ? <IoCloseCircleOutline size={26} /> : <RiMenu3Fill size={24} />}
+          {isOpen ? <IoCloseCircleOutline size={27} /> : <RiMenu3Fill size={24} />}
         </span>
       </button>
 
       <div
-        className={`md:hidden bg-black text-white w-60 px-4 pt-2 pb-4 space-y-2 flex flex-col absolute top-16 right-0
+        className={`md:hidden bg-black text-white w-72 px-4 pt-2 pb-4 space-y-4 flex flex-col absolute top-16 right-0
         transform transition-all duration-300 ease-in-out
         ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}
         `}
@@ -39,7 +39,7 @@ export default function MobileMenu() {
             <Link
               key={to}
               href={to}
-              className={`block font-body font-medium tracking-wide px-2 py-1 rounded transition-colors duration-300
+              className={`block font-medium tracking-wide px-2 py-1 rounded transition-colors duration-300 border-b pb-2 ml-2
                 ${isActive ? 'text-yellow-sunshine' : 'text-white'}
                 hover:text-yellow-dusk
               `}
@@ -53,7 +53,7 @@ export default function MobileMenu() {
           href="https://github.com/dev-rashedin/servest"
           target="_blank"
           rel="noreferrer"
-          className="flex items-center gap-2 text-white hover:text-yellow-dusk transition-colors duration-300"
+          className="flex items-center gap-2 text-white hover:text-yellow-dusk transition-colors duration-300 ml-3 mt-3"
         >
           <FiGithub size={20} /> GitHub
         </a>

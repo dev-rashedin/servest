@@ -6,7 +6,7 @@ const Footer = (): JSX.Element => {
       <h3 className="font-bold text-[rgb(var(--muted-foreground))] opacity-80">
         Released under the MIT License
       </h3>
-      <h3 className="max-w-xl mx-auto border-2 border-red-500 text-sm leading-loose tracking-wider text-[rgb(var(--muted-foreground))] opacity-80">
+      <h3 className="max-w-sm mx-auto text-sm text-center leading-loose tracking-wider text-[rgb(var(--muted-foreground))] opacity-80">
         Copyright @ 2025-present Rashedin Islam & Servest Contributors
       </h3>
     </footer>
