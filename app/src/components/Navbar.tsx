@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { JSX } from 'react';
+import { FaGithub } from 'react-icons/fa';
 import { navItems } from '@/lib/constant';
 
 const Navbar = (): JSX.Element => {
@@ -11,11 +12,12 @@ const Navbar = (): JSX.Element => {
         <div>
           <Link href="/" className="flex-center gap-2">
             <Image src="/logo.svg" width={40} height={40} alt="logo" />
-            <h1 className="text-2xl font-bold font-heading">Servest</h1>
+            <h1 className="text-xl md:text-2xl font-bold font-heading">Servest</h1>
           </Link>
         </div>
-        {/* ul links */}
-        <div>
+
+        <section className="flex-center gap-20">
+          {/* nav links */}
           <ul className="flex gap-8">
             {navItems.map((item) => (
               <li key={item.href}>
@@ -23,7 +25,24 @@ const Navbar = (): JSX.Element => {
               </li>
             ))}
           </ul>
-        </div>
+
+          {/* nav links */}
+          <div>
+            <Link
+              href="https://github.com/dev-rashedin/servest"
+              target="_blank"
+              className="group relative inline-flex items-center justify-center"
+            >
+              <FaGithub className="text-xl xl:text-2xl text-white z-10" />
+
+              {/* Circle effect */}
+              <span
+                className="absolute w-10 h-10 rounded-full scale-0 group-hover:scale-90 
+               border-2 border-yellow-sunshine transition-transform duration-300"
+              />
+            </Link>
+          </div>
+        </section>
       </main>
     </nav>
   );

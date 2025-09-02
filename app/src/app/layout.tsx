@@ -25,7 +25,7 @@ export default function RootLayout({
         <div className="">
           <Navbar />
 
-          <div className="min-h-[calc(100vh-160px)] boundary">{children}</div>
+          <div className="min-h-[calc(100vh-160px)] boundary py-8">{children}</div>
         </div>
         <Footer />
       </body>
