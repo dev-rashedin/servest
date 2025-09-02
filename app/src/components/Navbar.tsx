@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { JSX } from 'react';
 import { FaGithub } from 'react-icons/fa';
 import { ThemeSwitcher } from './theme/theme-switcher';
-import { navItems } from '@/lib/constant';
+import NavLink from './ui/navlink';
 
 const Navbar = (): JSX.Element => {
   return (
@@ -22,19 +22,7 @@ const Navbar = (): JSX.Element => {
 
         <section className="flex-center gap-20">
           {/* nav links */}
-          <ul className="flex gap-8">
-            {navItems.map(({ label, to }) => (
-              <li key={to}>
-                <Link
-                  href={to}
-                  className="group px-[2px] relative rounded-full hover:text-yellow-sunshine cursor-pointer tracking-wide flex gap-2 items-center xl:text-lg"
-                >
-                  {label}
-                  <span className="absolute bottom-0 h-[2px] bg-yellow-dusk w-0 left-1/2  group-hover:w-full group-hover:left-0 transition-transformation duration-300 ease-in-out"></span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <NavLink />
 
           {/* nav links */}
           <div className="flex-center gap-4">
