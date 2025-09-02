@@ -19,6 +19,17 @@ const config: Config = {
       backgroundImage: {
         'radial-green':
           'radial-gradient(circle 500px at 50% 300px, rgba(16,185,129,0.35), transparent)',
+        'blue-radial-glow':
+          'radial-gradient(circle 600px at 50% 50%, rgba(59,130,246,0.3), transparent)',
+        'black-top-glow': `radial-gradient(ellipse 80% 60% at 50% 0%, rgba(120, 180, 255, 0.25), transparent 70%), #000000`,
+        'moonlight-silver': `
+          radial-gradient(circle at 50% 50%, 
+            rgba(203, 213, 225, 0.12) 0%, 
+            rgba(203, 213, 225, 0.07) 25%, 
+            rgba(203, 213, 225, 0.03) 35%, 
+            transparent 50%
+          )
+        `,
       },
       colors: {
         'yellow-sunshine': '#FACC15',

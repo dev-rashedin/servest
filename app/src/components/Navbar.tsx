@@ -7,7 +7,7 @@ import { navItems } from '@/lib/constant';
 
 const Navbar = (): JSX.Element => {
   return (
-    <nav className="flex justify-between items-center h-20 pt-2 sticky top-0 border-b bg-gray-950 border-gray-800 shadow-3xl">
+    <nav className="flex justify-between items-center h-20 pt-2 sticky top-0 border-b bg-[rgb(var(--navbar-bg))] border-border shadow-3xl">
       <main className="boundary flex-between">
         {/* logo */}
         <div>
@@ -28,13 +28,13 @@ const Navbar = (): JSX.Element => {
           </ul>
 
           {/* nav links */}
-          <div>
+          <div className="flex-center gap-4">
             <Link
               href="https://github.com/dev-rashedin/servest"
               target="_blank"
               className="group relative inline-flex items-center justify-center"
             >
-              <FaGithub className="text-xl xl:text-2xl text-white z-10" />
+              <FaGithub className="text-xl xl:text-2xl z-10" />
 
               {/* Circle effect */}
               <span

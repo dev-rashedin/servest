@@ -21,8 +21,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>): JSX.Element {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${merriweather.className} ${montserrat.className} font-body antialiased`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${merriweather.className} ${montserrat.className} font-body antialiased`}
+    >
+      <body className="bg-black-top-glow ">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
