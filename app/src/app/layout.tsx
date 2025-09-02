@@ -25,16 +25,16 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${merriweather.className} ${montserrat.className} font-body antialiased`}
+      className={`${merriweather.className} ${montserrat.className} font-body text-body antialiased`}
     >
-      <body>
+      <body className="relative">
+        <Spotlight className="absolute -top-40 left-0 md:-top-20 md:left-60" fill="white" />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" fill="white" />
           <div className="">
             <Navbar />
 

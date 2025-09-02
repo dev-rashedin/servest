@@ -16,6 +16,9 @@ const config: Config = {
         body: ['Merriweather', 'serif'],
         heading: ['Montserrat', 'sans-serif'],
       },
+      fontSize: {
+        body: ['0.9rem', { lineHeight: '1.6' }],
+      },
       colors: {
         'yellow-sunshine': '#FACC15',
         'yellow-dusk': '#FFAF45',
