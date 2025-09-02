@@ -57,13 +57,9 @@
   .dark {
     --background: 0 0% 10%;
     --foreground: 0 0% 90%;
-    --radial-bg: radial-gradient(
-      circle at 50% 50%,
-      hsl(221, 63%, 12%) 10%,
-      hsl(221, 100%, 4%) 100%
-    );
-    --navbar-bg: 0 0% 15%;
-    --footer-bg: 0 0% 9%;
+    --radial-bg: radial-gradient(circle at 50% 50%, hsl(221, 63%, 9%) 10%, hsl(221, 100%, 3%) 100%);
+    --navbar-bg: 0 0% 10%;
+    --footer-bg: 0 0% 1%;
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3.9%;

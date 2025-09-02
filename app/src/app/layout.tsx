@@ -26,7 +26,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${merriweather.className} ${montserrat.className} font-body antialiased`}
     >
-      <body className="bg-black-top-glow ">
+      <body>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
