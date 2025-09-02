@@ -29,7 +29,7 @@ const Navbar = (): JSX.Element => {
 
           <MobileMenu />
           {/* nav links */}
-          <div className="flex-center gap-4">
+          <div className="hidden md:flex-center gap-4">
             <Link
               href="https://github.com/dev-rashedin/servest"
               target="_blank"
