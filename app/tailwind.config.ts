@@ -8,6 +8,7 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './docs/**/*.{md,mdx}',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {

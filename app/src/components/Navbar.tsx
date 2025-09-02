@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { JSX } from 'react';
 import { FaGithub } from 'react-icons/fa';
+import { ThemeSwitcher } from './theme/theme-switcher';
 import { navItems } from '@/lib/constant';
 
 const Navbar = (): JSX.Element => {
@@ -41,6 +42,7 @@ const Navbar = (): JSX.Element => {
                border-2 border-yellow-sunshine transition-transform duration-300"
               />
             </Link>
+            <ThemeSwitcher />
           </div>
         </section>
       </main>
