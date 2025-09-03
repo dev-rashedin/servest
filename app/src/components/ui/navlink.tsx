@@ -17,7 +17,7 @@ export default function NavLink() {
               href={to}
               className={`
                 group px-[2px] relative rounded-full cursor-pointer tracking-wide flex gap-2 items-center xl:text-lg
-                ${isActive ? 'text-yellow-sunshine' : 'text-white'}
+                ${isActive ? 'text-brand' : ''}
               `}
             >
               {label}

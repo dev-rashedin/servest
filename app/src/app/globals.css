@@ -14,12 +14,17 @@
   .flex-between {
     @apply flex items-center justify-between;
   }
-
   .boundary {
     @apply container mx-auto px-2 lg:px-4;
   }
+  .wall {
+    @apply max-w-5xl mx-auto;
+  }
   .p {
     @apply text-sm  leading-loose;
+  }
+  .primary-gradient {
+    @apply bg-gradient-to-r from-yellow-sunshine to-yellow-dusk;
   }
 }
 
@@ -30,6 +35,7 @@
     --radial-bg: radial-gradient(circle at 50% 50%, hsl(0, 0%, 99%) 10%, hsl(0, 0%, 96%) 100%);
     --navbar-bg: 252 252% 252%;
     --footer-bg: 255 255% 255%;
+    --brand: 34, 100%, 64%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
@@ -39,7 +45,7 @@
     --secondary: 0 0% 96.1%;
     --secondary-foreground: 0 0% 9%;
     --muted: 0 0% 96.1%;
-    --muted-foreground: 0 10% 45%;
+    --muted-foreground: 0 0% 10%;
     --accent: 0 0% 96.1%;
     --accent-foreground: 0 0% 9%;
     --destructive: 0 84.2% 60.2%;
@@ -60,6 +66,7 @@
     --radial-bg: radial-gradient(circle at 50% 50%, hsl(221, 63%, 6%) 10%, hsl(221, 100%, 3%) 100%);
     --navbar-bg: 0 0% 10%;
     --footer-bg: 0 0% 1%;
+    --brand: 48, 96%, 53%;
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3.9%;
@@ -69,7 +76,7 @@
     --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 14.9%;
-    --muted-foreground: 30, 2%, 78%;
+    --muted-foreground: 30, 2%, 85%;
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
