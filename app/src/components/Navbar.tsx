@@ -1,12 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { JSX } from 'react';
-import { FaGithub } from 'react-icons/fa';
 import { ThemeSwitcher } from './theme/theme-switcher';
 import NavLink from './ui/navlink';
 import MobileMenu from './ui/mobile-menu';
+import { FaGithub } from '@/data/icons';
 
-const Navbar = (): JSX.Element => {
+const Navbar = () => {
   return (
     <nav className="flex justify-between items-center h-20 pt-2 sticky top-0 border-b bg-[rgb(var(--navbar-bg))] border-border shadow-3xl">
       <main className="boundary flex-between">

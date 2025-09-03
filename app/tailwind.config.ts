@@ -17,7 +17,7 @@ const config: Config = {
         heading: ['Montserrat', 'sans-serif'],
       },
       fontSize: {
-        body: ['0.9rem', { lineHeight: '1.6' }],
+        body: ['0.9rem', { lineHeight: '1.7', letterSpacing: '0.015em' }],
       },
       colors: {
         'yellow-sunshine': '#FACC15',

@@ -1,9 +1,8 @@
 'use client';
 
 import { useTheme } from 'next-themes';
-import { MoonIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { IoSunnyOutline } from 'react-icons/io5';
+import { FiMoon, IoSunnyOutline } from '@/data/icons';
 import { Button } from '@/components/ui/button';
 
 export function ThemeSwitcher() {
@@ -23,11 +22,7 @@ export function ThemeSwitcher() {
       className="rounded-full bg-transparent"
       aria-label="Toggle theme"
     >
-      {theme === 'dark' ? (
-        <MoonIcon className="h-10 w-10 transition-all" />
-      ) : (
-        <IoSunnyOutline className="h-10 w-10 transition-all" />
-      )}
+      {theme === 'dark' ? <FiMoon /> : <IoSunnyOutline />}
     </Button>
   );
 }
