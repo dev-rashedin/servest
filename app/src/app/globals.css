@@ -23,12 +23,6 @@
   .p {
     @apply text-sm  leading-loose;
   }
-  .primary-gradient {
-    @apply bg-gradient-to-r from-yellow-sunshine to-yellow-dusk;
-  }
-  .prose-in-dark {
-    @apply prose prose-lg prose-invert;
-  }
 }
 
 @layer base {
