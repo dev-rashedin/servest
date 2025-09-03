@@ -5,15 +5,14 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-lg font-semibold transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-6 [&_svg]:shrink-0 hover:brightness-105 hover:-translate-y-0.5 transition-transform duration-300',
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-lg font-semibold transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-6 [&_svg]:shrink-0 drop-shadow-2xl',
   {
     variants: {
       variant: {
         default:
-          'bg-gradient-to-r from-yellow-sunshine to-yellow-dusk text-primary-foreground shadow-xl',
+          'primary-gradient bg-blend-darken text-primary-foreground bg-opacity-5 hover:shadow-glow',
         destructive: 'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
-        outline:
-          'bg-background border border-yellow-sunshine shadow-sm hover:bg-accent hover:text-accent-foreground px-4 py-2',
+        outline: 'bg-background border border-yellow-sunshine hover:shadow-glow2',
         secondary: 'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',

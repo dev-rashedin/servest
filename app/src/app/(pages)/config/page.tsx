@@ -13,5 +13,5 @@ export default async function ConfigPage(): Promise<JSX.Element> {
     options: { parseFrontmatter: true },
   });
 
-  return <div className="prose prose-lg dark:prose-invert mx-auto">{content}</div>;
+  return <div className="prose prose-lg dark:prose-invert wall">{content}</div>;
 }

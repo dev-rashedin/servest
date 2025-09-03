@@ -10,9 +10,9 @@ const Navbar = () => {
     <nav className="flex justify-between items-center h-20 pt-2 sticky top-0 border-b bg-[rgb(var(--navbar-bg))] border-border shadow-3xl">
       <main className="boundary flex-between">
         {/* logo */}
-        <Link href="/" className="flex-center gap-2">
+        <Link href="/" className="flex-center gap-2 group group-hover:brightness-110">
           <Image src="/logo.svg" width={40} height={40} alt="logo" />
-          <span className="font-heading font-extrabold text-2xl tracking-tight bg-gradient-to-r from-yellow-sunshine to-yellow-dusk text-transparent bg-clip-text relative">
+          <span className="font-heading font-extrabold text-2xl tracking-tight text-brand">
             Servest
           </span>
         </Link>

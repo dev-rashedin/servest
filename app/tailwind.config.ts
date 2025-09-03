@@ -23,7 +23,7 @@ const config: Config = {
         'yellow-sunshine': '#FACC15',
         'yellow-dusk': '#FFAF45',
         'deep-ocean': '#000055',
-        'faded-pearl': '#ffffcc',
+        brand: 'hsl(var(--brand))',
         'white-pearl': '#f9f9f9',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
@@ -67,10 +67,9 @@ const config: Config = {
         },
       },
       boxShadow: {
-        glow: '0 0 20px rgba(255, 204, 112, 0.7), 0 0 40px rgba(200, 80, 192, 0.5), 0 0 60px rgba(65, 88, 208, 0.3)',
-        glow2: '0 0 3px #ffdb4d, 0 0 6px #FFAF45, 0 0 9px #FF8225',
-        glow3:
-          '0 0 30px rgba(0, 38, 77, 0.7), 0 0 60px rgba(0, 73, 141, 0.5), 0 0 90px rgba(0, 82, 162, 0.3)',
+        glow: '0 0 5px #4d4d00, 0 0 10px #666600, 0 0 15px #808000',
+        glow2: '0 0 1px #ffdb4d, 0 0 3px #FFAF45, 0 0 5px #FF8225',
+        glow3: '0 0 3px #ffffcc, 0 0 6px #ffffe6, 0 0 9px #ffffff',
       },
       borderRadius: {
         lg: 'var(--radius)',

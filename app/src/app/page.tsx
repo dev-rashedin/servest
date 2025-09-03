@@ -6,7 +6,7 @@ export default function HomePage() {
   return (
     <section className="min-h-[70vh] max-w-3xl  mx-auto flex flex-col items-center justify-center text-center ">
       <h1
-        className="text-5xl lg:text-7xl font-heading font-bold mb-6 tracking-wide"
+        className="text-5xl lg:text-7xl font-heading font-bold mb-6 tracking-wide hover:glow"
         style={{ lineHeight: '1.2' }}
       >
         The Ultimate Backend Builder
@@ -24,7 +24,8 @@ export default function HomePage() {
         </Button>
         <Button variant="outline" size="lg">
           <Link href="/https://github.com/dev-rashedin-servest" className="flex-center gap-2">
-            <FaGithub style={{ width: '18px', height: '18px' }} /> GitHub
+            <FaGithub style={{ height: '1.2em', width: '1.2em' }} />
+            GitHub
           </Link>
         </Button>
       </div>
