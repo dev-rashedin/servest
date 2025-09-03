@@ -3,9 +3,10 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FiGithub } from 'react-icons/fi';
 import { RiMenu3Fill } from 'react-icons/ri';
 import { IoCloseCircleOutline } from 'react-icons/io5';
+import { ThemeSwitcher } from '../theme/theme-switcher';
+import Socials from './socials';
 import { navItems } from '@/lib/constant';
 
 export default function MobileMenu() {
@@ -15,7 +16,7 @@ export default function MobileMenu() {
   return (
     <div className="relative">
       <button
-        className="md:hidden flex items-center justify-center p-2 text-white hover:text-yellow-sunshine"
+        className="md:hidden flex items-center justify-center p-2 "
         onClick={() => setIsOpen(!isOpen)}
       >
         <span
@@ -28,8 +29,8 @@ export default function MobileMenu() {
       </button>
 
       <div
-        className={`md:hidden bg-black text-white w-72 px-4 pt-2 pb-4 space-y-4 flex flex-col absolute top-16 right-0
-        transform transition-all duration-300 ease-in-out
+        className={`md:hidden bg-[rgb(var(--footer-bg))] w-80 px-4  py-8 space-y-4 flex flex-col absolute top-16 right-0
+        transform transition-all duration-300 ease-in-out pl-4
         ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}
         `}
       >
@@ -39,8 +40,8 @@ export default function MobileMenu() {
             <Link
               key={to}
               href={to}
-              className={`block font-medium tracking-wide px-2 py-1 rounded transition-colors duration-300 border-b pb-2 ml-2
-                ${isActive ? 'text-yellow-sunshine' : 'text-white'}
+              className={`block font-medium tracking-wide px-2 py-1 rounded transition-colors duration-300 border-b pb-2 
+                ${isActive ? 'text-yellow-sunshine' : ''}
                 hover:text-yellow-dusk
               `}
             >
@@ -49,14 +50,14 @@ export default function MobileMenu() {
           );
         })}
 
-        <a
-          href="https://github.com/dev-rashedin/servest"
-          target="_blank"
-          rel="noreferrer"
-          className="flex items-center gap-2 text-white hover:text-yellow-dusk transition-colors duration-300 ml-3 mt-3"
-        >
-          <FiGithub size={20} /> GitHub
-        </a>
+        <div className="w-full mx-auto border rounded-lg flex-between py-1 px-4 justify-end">
+          <span className="text-xs text-muted-foreground opacity-75">Theme</span>
+          <ThemeSwitcher />
+        </div>
+
+        <div className="pt-4">
+          <Socials screenType="small" />
+        </div>
       </div>
     </div>
   );
