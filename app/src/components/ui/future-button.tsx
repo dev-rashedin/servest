@@ -1,6 +1,6 @@
 import { twMerge } from 'tailwind-merge';
 import { type VariantProps, cva } from 'class-variance-authority';
-import { Frame } from '@/components/nurui/frame';
+import { Frame } from './frame';
 
 // 🎨 Theme colors — no CSS variables, pure hex/rgba
 const COLORS = {

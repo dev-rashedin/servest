@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { type Paths, setupSvgRenderer } from '@left4code/svg-renderer';

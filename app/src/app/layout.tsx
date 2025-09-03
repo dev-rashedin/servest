@@ -37,7 +37,6 @@ export default function RootLayout({
         >
           <div className="">
             <Navbar />
-
             <div className="min-h-[calc(100vh-192px)] boundary py-8">{children}</div>
           </div>
           <Footer />

@@ -96,6 +96,9 @@ importers:
 
   app:
     dependencies:
+      '@left4code/svg-renderer':
+        specifier: ^1.0.4
+        version: 1.0.4
       '@radix-ui/react-slot':
         specifier: ^1.2.3
         version: 1.2.3(@types/react@19.1.12)(react@19.1.0)
@@ -605,6 +608,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
+
+  '@left4code/svg-renderer@1.0.4':
+    resolution: {integrity: sha512-QpGS3fz9NDtb/TtD8UYnPeQlG2HvRxGTBSsSfCCcHfHxOSC/cJWwK2hOyD3xFFVmcW+DqUdzH8gi3i1B5XWpDw==}
 
   '@mdx-js/mdx@3.1.1':
     resolution: {integrity: sha512-f6ZO2ifpwAQIpzGWaBQT2TXxPv6z3RBzQKpVftEWN78Vl/YweF1uwussDx8ECAXVtr3Rs89fKyG9YlzUs9DyGQ==}
@@ -4013,6 +4019,8 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@left4code/svg-renderer@1.0.4': {}
 
   '@mdx-js/mdx@3.1.1':
     dependencies:
