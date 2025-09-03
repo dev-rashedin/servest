@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ThemeSwitcher } from './theme/theme-switcher';
 import NavLink from './ui/navlink';
 import MobileMenu from './ui/mobile-menu';
-import { FaGithub } from '@/data/icons';
+import Socials from './ui/socials';
 
 const Navbar = () => {
   return (
@@ -24,15 +24,9 @@ const Navbar = () => {
           </div>
 
           <MobileMenu />
-          {/* nav links */}
+          {/* socials and theme */}
           <div className="hidden md:flex-center gap-4">
-            <Link
-              href="https://github.com/dev-rashedin/servest"
-              target="_blank"
-              className="group relative inline-flex items-center justify-center"
-            >
-              <FaGithub className="text-2xl z-10" />
-            </Link>
+            <Socials />
             <ThemeSwitcher />
           </div>
         </section>
