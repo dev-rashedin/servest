@@ -15,7 +15,7 @@
     @apply flex items-center justify-between;
   }
   .boundary {
-    @apply container mx-auto px-2 lg:px-4;
+    @apply container mx-auto px-4 md:px-8 lg:px-12 xl:px-20;
   }
   .wall {
     @apply max-w-5xl mx-auto;
@@ -25,6 +25,9 @@
   }
   .primary-gradient {
     @apply bg-gradient-to-r from-yellow-sunshine to-yellow-dusk;
+  }
+  .prose-in-dark {
+    @apply prose prose-lg prose-invert;
   }
 }
 

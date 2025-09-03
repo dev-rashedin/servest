@@ -10,7 +10,7 @@ export function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
-  if (!mounted) return null; // Prevent hydration mismatch
+  if (!mounted) return null;
 
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
 

@@ -19,6 +19,20 @@ const config: Config = {
       fontSize: {
         body: ['0.9rem', { lineHeight: '1.7', letterSpacing: '0.015em' }],
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            color: 'hsl(var(--foreground))',
+            a: { color: 'hsl(var(--brand))' },
+            strong: { color: 'hsl(var(--foreground))' },
+            h1: { color: 'hsl(var(--foreground))' },
+            h2: { color: 'hsl(var(--foreground))' },
+            h3: { color: 'hsl(var(--foreground))' },
+            code: { color: 'hsl(var(--foreground))' },
+            blockquote: { color: 'hsl(var(--foreground))' },
+          },
+        },
+      },
       colors: {
         'yellow-sunshine': '#FACC15',
         'yellow-dusk': '#FFAF45',
