@@ -29,12 +29,7 @@ export default function RootLayout({
     >
       <body className="relative">
         <Spotlight className="absolute -top-40 left-0 md:-top-20 md:left-60" fill="white" />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <div className="">
             <Navbar />
             <div className="min-h-[calc(100vh-192px)] boundary py-8">{children}</div>

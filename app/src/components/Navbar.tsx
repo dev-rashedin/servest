@@ -17,7 +17,7 @@ const Navbar = () => {
           </span>
         </Link>
 
-        <section className="flex-center gap-20">
+        <section className="flex-center gap-10 lg:gap-20">
           {/* nav links */}
           <div className="hidden md:flex items-center gap-8">
             <NavLink />
