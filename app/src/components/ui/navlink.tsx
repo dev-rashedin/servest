@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import FutureButton from './future-button';
 import { navItems } from '@/lib/constant';
 
 export default function NavLink() {
@@ -13,20 +12,18 @@ export default function NavLink() {
       {navItems.map(({ label, to }) => {
         const isActive = pathname === to;
         return (
-          <FutureButton key={to}>
-            <li key={to}>
-              <Link
-                href={to}
-                className={`
+          <li key={to}>
+            <Link
+              href={to}
+              className={`
                 group px-[2px] relative rounded-full cursor-pointer tracking-wide flex gap-2 items-center xl:text-lg
                 ${isActive ? 'text-yellow-sunshine' : 'text-white'}
               `}
-              >
-                {label}
-                <span className="absolute bottom-0 h-[2px] bg-yellow-dusk w-0 left-1/2 group-hover:w-full group-hover:left-0 transition-transformation duration-300 ease-in-out"></span>
-              </Link>
-            </li>
-          </FutureButton>
+            >
+              {label}
+              <span className="absolute bottom-0 h-[2px] bg-yellow-dusk w-0 left-1/2 group-hover:w-full group-hover:left-0 transition-transformation duration-300 ease-in-out"></span>
+            </Link>
+          </li>
         );
       })}
     </ul>
