@@ -1,0 +1,95 @@
+{
+  "name": "Noctis",
+  "type": "dark",
+  "colors": {
+    "editor.background": "#052529",
+    "editor.foreground": "#e6e6e6",
+    "editorCursor.foreground": "#e6e6e6",
+    "editorLineNumber.foreground": "#dcdcdc",
+    "editor.selectionBackground": "#264f4f"
+  },
+  "tokenColors": [
+    {
+      "scope": ["comment"],
+      "settings": {
+        "foreground": "#6a9955",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "scope": ["keyword"],
+      "settings": {
+        "foreground": "#c792ea",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": ["string"],
+      "settings": {
+        "foreground": "#e5c07b"
+      }
+    },
+    {
+      "scope": ["number"],
+      "settings": {
+        "foreground": "#f78c6c"
+      }
+    },
+    {
+      "scope": ["entity.name.function", "support.function"],
+      "settings": {
+        "foreground": "#98c379",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": ["entity.name.type", "support.type"],
+      "settings": {
+        "foreground": "#b5cea8"
+      }
+    },
+    {
+      "scope": ["entity.name.class"],
+      "settings": {
+        "foreground": "#ffcb8b",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": ["variable", "identifier"],
+      "settings": {
+        "foreground": "#dcdcdc"
+      }
+    },
+    {
+      "scope": ["keyword.operator"],
+      "settings": {
+        "foreground": "#56b6c2"
+      }
+    },
+    {
+      "scope": ["punctuation"],
+      "settings": {
+        "foreground": "#dcdcdc"
+      }
+    },
+    {
+      "scope": ["constant", "support.constant", "character", "builtin"],
+      "settings": {
+        "foreground": "#e5c07b"
+      }
+    },
+    {
+      "scope": ["entity.other.attribute-name"],
+      "settings": {
+        "foreground": "#a3be8c"
+      }
+    },
+    {
+      "scope": ["entity.name.tag"],
+      "settings": {
+        "foreground": "#d19a66"
+      }
+    }
+  ]
+}

@@ -28,6 +28,13 @@
   .p {
     @apply text-sm  leading-loose;
   }
+
+  .prose pre {
+    @apply rounded-lg overflow-x-auto; /* remove bg, Shiki handles it */
+  }
+  .prose code {
+    @apply font-mono text-sm;
+  }
 }
 
 @layer base {

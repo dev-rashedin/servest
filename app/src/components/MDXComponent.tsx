@@ -1,27 +1,17 @@
-import { Highlight } from 'prism-react-renderer';
-import MyTheme from './theme/my-theme';
+'use client';
 
-const MDXComponent = {
-  code: ({ className, children }: { className?: string; children: React.ReactNode }) => {
-    const language = className?.replace('language-', '') || 'ts';
-    const code = String(children).trim();
+import CodeBlock from './CodeBlock';
 
-    return (
-      <Highlight code={code} language={language} theme={MyTheme}>
-        {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <pre className={className} style={style}>
-            {tokens.map((line, i) => (
-              <div key={i} {...getLineProps({ line })}>
-                {line.map((token, key) => (
-                  <span key={key} {...getTokenProps({ token })} />
-                ))}
-              </div>
-            ))}
-          </pre>
-        )}
-      </Highlight>
-    );
+export const MDXComponents = {
+  code: ({ className, children }: { className?: string; children: string }) => {
+    const lang = className?.replace('language-', '');
+
+    if (lang) {
+      // Triple backticks → code block → Shiki
+      return <CodeBlock code={children} language={lang} />;
+    }
+
+    // Single backticks → inline highlight
+    return <span className="highlight">{children}</span>;
   },
 };
-
-export default MDXComponent;
