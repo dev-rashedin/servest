@@ -1,9 +1,17 @@
-const AddonsPage = () => {
-  return (
-    <div>
-      <h1>Addons Page</h1>
-      <p>All the servest addons will be listed here </p>
-    </div>
-  );
-};
-export default AddonsPage;
+import fs from 'fs/promises';
+import path from 'path';
+import { compileMDX } from 'next-mdx-remote/rsc';
+import { MDXComponents } from '@/components/MDXComponent';
+
+export default async function AddonsPage() {
+  const filePath = path.join(process.cwd(), '../docs/addons/index.mdx');
+  const source = await fs.readFile(filePath, 'utf-8');
+
+  const { content } = await compileMDX({
+    source,
+    components: MDXComponents,
+    options: { parseFrontmatter: true },
+  });
+
+  return <div className="prose prose-lg">{content}</div>;
+}
