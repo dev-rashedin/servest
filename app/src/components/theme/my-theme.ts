@@ -1,6 +1,6 @@
 import type { PrismTheme } from 'prism-react-renderer';
 
-export const NoctisTheme: PrismTheme = {
+const MyTheme: PrismTheme = {
   plain: {
     color: '#e6e6e6', // neutral foreground text
     backgroundColor: '#052529', // dark background
@@ -90,3 +90,5 @@ export const NoctisTheme: PrismTheme = {
     },
   ],
 };
+
+export default MyTheme;

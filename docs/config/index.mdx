@@ -1,10 +1,6 @@
----
-title: Configuring Servest
----
+# Config
 
-# Servest Config
-
-Servest projects use a `servest.config.json` file to store settings.  
+Servest projects use a `servest.config.json` file to store settings.
 This config is generated automatically when you initialize a project:
 
 ```bash
@@ -37,17 +33,17 @@ All addons and later commands depend on this file.
 
 Defines the main project setup:
 
-- **framework** – backend framework (e.g. **express**, **django**)
-- **language** – js or ts
-- **architecture** – basic, mvc, modular
-- **srcDir** – whether to use a **/src** directory
+- `framework` – backend framework (e.g. `express`, `django`)
+- `language` – `js` or `ts`
+- `architecture` – `basic`, `mvc`, `modular`
+- `srcDir` – whether to use a `/src` directory
 
 ### Environment Options
 
 Specifies runtime environment:
 
-- **runtime** – default: node
-- **nodeVersion** – Node.js version used
+- `runtime` – default: `node`
+- `nodeVersion` – Node.js version used
 
 ### Features
 
@@ -60,5 +56,5 @@ Tracks enabled addons:
 
 Additional metadata:
 
-- **servestVersion** – version of Servest used
-- **createdAt** – timestamp when config was created
+- `servestVersion` – version of Servest used
+- `createdAt` – timestamp when config was created
