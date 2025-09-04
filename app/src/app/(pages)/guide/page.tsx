@@ -1,6 +1,6 @@
 const GuidePage = () => {
   return (
-    <main className="wall py-8">
+    <main>
       <h2 className="text-xl font-bold font-heading">Welcome to the Servest Guide</h2>
       <p>
         This guide will help you get started with Servest. If you are new to Servest, we recommend
