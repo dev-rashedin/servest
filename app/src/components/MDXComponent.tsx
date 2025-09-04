@@ -1,17 +1,19 @@
-'use client';
-
 import CodeBlock from './CodeBlock';
 
-export const MDXComponents = {
-  code: ({ className, children }: { className?: string; children: string }) => {
-    const lang = className?.replace('language-', '');
+const InlineHighlight = ({ children }: { children: React.ReactNode }) => (
+  <span className="text-green-500 text-lg font-medium">{children}</span>
+);
 
-    if (lang) {
-      // Triple backticks → code block → Shiki
-      return <CodeBlock code={children} language={lang} />;
+export const MDXComponents = {
+  // Inline vs block distinction
+  code: ({ className, children }: { className?: string; children: string }) => {
+    if (!className) {
+      // single backtick inline code → highlighted text
+      return <InlineHighlight>{children}</InlineHighlight>;
     }
 
-    // Single backticks → inline highlight
-    return <span className="highlight">{children}</span>;
+    // triple backticks → Shiki code block
+    const lang = className.replace('language-', '');
+    return <CodeBlock code={children} language={lang} />;
   },
 };

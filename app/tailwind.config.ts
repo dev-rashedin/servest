@@ -25,31 +25,36 @@ const config: Config = {
             color: 'hsl(var(--foreground))',
             a: { color: 'hsl(var(--brand))' },
             strong: { color: 'hsl(var(--foreground))' },
-            h1: { color: 'hsl(var(--foreground))' },
-            h2: { color: 'hsl(var(--foreground))' },
-            h3: { color: 'hsl(var(--foreground))' },
-            code: {
-              backgroundColor: 'transparent', // remove background
-              padding: '0', // remove padding
-              color: 'inherit', // match text color
-              fontWeight: 'inherit', // normal weight
+            h1: {
+              color: 'hsl(var(--foreground))',
+              fontFamily: 'var(--font-heading)',
+              fontWeight: '700',
             },
-            'code::before': { content: 'none' },
-            'code::after': { content: 'none' },
+            h2: {
+              color: 'hsl(var(--foreground))',
+              fontFamily: 'var(--font-heading)',
+              fontWeight: '600',
+            },
+            h3: {
+              color: 'hsl(var(--foreground))',
+              fontFamily: 'var(--font-heading)',
+              fontWeight: '600',
+            },
+
+            pre: {
+              margin: '0 !important',
+              padding: '0 !important',
+            },
+
+            '.shiki': {
+              padding: '1.5rem !important',
+              borderRadius: '0.5rem !important',
+            },
             blockquote: { color: 'hsl(var(--foreground))' },
           },
         },
-        dark: {
-          css: {
-            code: {
-              color: 'inherit',
-              backgroundColor: 'transparent', // ensure no bg in dark
-              padding: '0',
-              fontWeight: 'inherit',
-            },
-          },
-        },
       },
+
       colors: {
         'yellow-sunshine': '#FACC15',
         'yellow-dusk': '#FFAF45',

@@ -13,7 +13,7 @@ export default async function CodeBlock({ code, language = 'ts' }: CodeBlockProp
   // Initialize highlighter once
   if (!highlighterPromise) {
     highlighterPromise = createHighlighter({
-      themes: ['solarized-dark'],
+      themes: ['andromeeda'],
       langs: ['ts', 'js', 'json', 'bash', 'html', 'css'],
     });
   }
@@ -22,10 +22,13 @@ export default async function CodeBlock({ code, language = 'ts' }: CodeBlockProp
 
   const html = highlighter.codeToHtml(code, {
     lang: language,
-    theme: 'solarized-dark',
+    theme: 'andromeeda',
   });
 
   return (
-    <div className="my-4 overflow-x-auto rounded-md" dangerouslySetInnerHTML={{ __html: html }} />
+    <div
+      className="overflow-x-auto rounded-md [&_.shiki]:text-lg [&_.shiki_code]:text-[16px]"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
   );
 }
