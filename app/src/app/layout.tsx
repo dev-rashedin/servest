@@ -32,7 +32,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <div className="">
             <Navbar />
-            <div className="min-h-[calc(100vh-192px)] boundary py-8">{children}</div>
+            <div className="min-h-[calc(100vh-175px)] boundary py-8">{children}</div>
           </div>
           <Footer />
         </ThemeProvider>

@@ -17,6 +17,11 @@
   .boundary {
     @apply container mx-auto px-4 md:px-8 lg:px-12 xl:px-20;
   }
+
+  .primary-gradient {
+    @apply bg-gradient-to-br from-[#FACC15] via-[#FFAF45] to-[#FF8225];
+  }
+
   .wall {
     @apply max-w-5xl mx-auto;
   }
