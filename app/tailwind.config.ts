@@ -28,8 +28,25 @@ const config: Config = {
             h1: { color: 'hsl(var(--foreground))' },
             h2: { color: 'hsl(var(--foreground))' },
             h3: { color: 'hsl(var(--foreground))' },
-            code: { color: 'hsl(var(--foreground))' },
+            code: {
+              backgroundColor: 'transparent', // remove background
+              padding: '0', // remove padding
+              color: 'inherit', // match text color
+              fontWeight: 'inherit', // normal weight
+            },
+            'code::before': { content: 'none' },
+            'code::after': { content: 'none' },
             blockquote: { color: 'hsl(var(--foreground))' },
+          },
+        },
+        dark: {
+          css: {
+            code: {
+              color: 'inherit',
+              backgroundColor: 'transparent', // ensure no bg in dark
+              padding: '0',
+              fontWeight: 'inherit',
+            },
           },
         },
       },

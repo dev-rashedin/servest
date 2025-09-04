@@ -4,16 +4,6 @@ import { compileMDX } from 'next-mdx-remote/rsc';
 import { Highlight } from 'prism-react-renderer';
 import { NoctisTheme } from '@/components/theme/noctis';
 
-// const cssTheme = {
-//   plain: { color: 'hsl(var(--foreground))', backgroundColor: 'hsl(var(--background))' },
-//   styles: [
-//     { types: ['keyword'], style: { color: 'hsl(var(--brand))', fontWeight: 'bold' } },
-//     { types: ['function'], style: { color: 'hsl(var(--accent))' } },
-//     { types: ['string'], style: { color: 'hsl(var(--destructive))' } },
-//     { types: ['type', 'class-name'], style: { color: 'hsl(var(--primary))' } },
-//   ],
-// };
-
 const MDXComponents = {
   code: ({ className, children }: { className?: string; children: React.ReactNode }) => {
     const language = className?.replace('language-', '') || 'ts';
