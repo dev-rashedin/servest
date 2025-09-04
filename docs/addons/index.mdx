@@ -1,0 +1,26 @@
+# Addons
+
+Addons extend your Servest project with additional features.
+
+## How Addons Work
+
+- Installed using: `npx servest@latest add <feature>`
+- Tracked automatically in `servest.config.json` under `features`
+- Can be enabled or disabled without affecting the core project
+
+## Example
+
+```json
+{
+  "features": {
+    "future-navbar": true,
+    "auth-module": false
+  }
+}
+```
+
+### Tips
+
+- Always check your servest.config.json before removing addons
+
+- Addons ensure consistency across different environments
