@@ -1,7 +1,7 @@
 import CodeBlock from './CodeBlock';
 
 const InlineHighlight = ({ children }: { children: React.ReactNode }) => (
-  <span className="text-green-500 text-lg font-medium">{children}</span>
+  <strong className="text-highlight text-lg font-medium mx-0.5">{children}</strong>
 );
 
 export const MDXComponents = {

@@ -45,6 +45,7 @@
     --navbar-bg: 252 252% 252%;
     --footer-bg: 255 255% 255%;
     --brand: 34, 100%, 64%;
+    --highlighted: 292, 91%, 50%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
@@ -78,6 +79,7 @@
     --navbar-bg: 0 0% 10%;
     --footer-bg: 0 0% 1%;
     --brand: 48, 96%, 53%;
+    --highlighted: 292, 91%, 60%;
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3.9%;

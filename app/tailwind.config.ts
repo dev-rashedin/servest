@@ -60,6 +60,7 @@ const config: Config = {
         'yellow-dusk': '#FFAF45',
         'deep-ocean': '#000055',
         brand: 'hsl(var(--brand))',
+        highlight: 'hsl(var(--highlighted))',
         'white-pearl': '#f9f9f9',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

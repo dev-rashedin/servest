@@ -34,7 +34,6 @@
     "eslint-config-next": "^15.5.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "rehype-shiki": "^0.0.9",
     "shiki": "^3.12.2",
     "tailwindcss": "^3.4.17",
     "tailwindcss-animate": "^1.0.7"
