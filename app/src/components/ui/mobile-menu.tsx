@@ -29,8 +29,8 @@ export default function MobileMenu() {
       </button>
 
       <div
-        className={`md:hidden bg-[rgb(var(--footer-bg))] w-80 px-4  py-8 space-y-4 flex flex-col absolute top-16 right-0
-        transform transition-all duration-300 ease-in-out pl-4
+        className={`md:hidden bg-[rgb(var(--footer-bg))] w-80 rounded-md px-4  py-8 space-y-4 flex flex-col absolute top-16 right-0
+        transform transition-all duration-300 ease-in-out pl-4 z-50
         ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}
         `}
       >
@@ -41,7 +41,7 @@ export default function MobileMenu() {
               key={to}
               href={to}
               className={`block font-medium tracking-wide px-2 py-1 rounded transition-colors duration-300 border-b pb-2 
-                ${isActive ? 'text-yellow-sunshine' : ''}
+                ${isActive ? 'text-brand font-medium' : ''}
                 hover:text-yellow-dusk
               `}
             >
@@ -50,7 +50,7 @@ export default function MobileMenu() {
           );
         })}
 
-        <div className="w-full mx-auto border rounded-lg flex-between py-1 px-4 justify-end">
+        <div className="w-full mx-auto border rounded-lg flex-between py-2 px-4 justify-end">
           <span className="text-xs text-muted-foreground opacity-75">Theme</span>
           <ThemeSwitcher />
         </div>
