@@ -14,28 +14,29 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
-    "@tailwindcss/typography": "^0.5.16",
-    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "motion": "^12.23.12",
     "next": "15.4.6",
     "next-mdx-remote": "^5.0.0",
     "next-themes": "^0.4.6",
-    "prism-react-renderer": "^2.4.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-icons": "^5.5.0",
-    "tailwind-merge": "^3.3.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",
+    "class-variance-authority": "^0.7.1",
     "eslint-config-next": "^15.5.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "tailwindcss": "^3.4.17"
+    "rehype-shiki": "^0.0.9",
+    "shiki": "^3.12.2",
+    "tailwindcss": "^3.4.17",
+    "tailwindcss-animate": "^1.0.7"
   }
 }
