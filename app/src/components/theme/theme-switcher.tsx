@@ -10,7 +10,18 @@ export function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
-  if (!mounted) return null;
+  if (!mounted) {
+    return (
+      <Button
+        variant="theme"
+        size="icon"
+        className="rounded-full bg-transparent"
+        aria-label="Toggle theme"
+      >
+        <FiMoon />
+      </Button>
+    );
+  }
 
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
 
