@@ -23,7 +23,10 @@ const config: Config = {
         DEFAULT: {
           css: {
             color: 'hsl(var(--foreground))',
-            a: { color: 'hsl(var(--brand))' },
+            a: {
+              color: 'hsl(var(--link))',
+              '&:hover': { color: 'hsl(var(--link-hover))' },
+            },
             strong: { color: 'hsl(var(--foreground))' },
             h1: {
               color: 'hsl(var(--foreground))',
@@ -40,7 +43,7 @@ const config: Config = {
               fontFamily: 'var(--font-heading)',
               fontWeight: '600',
             },
-            table: { width: '100%', borderCollapse: 'collapse' },
+            table: { width: '100% !important', borderCollapse: 'collapse' },
             'table th': {
               textAlign: 'left',
               padding: '1.2rem 1rem !important',
@@ -55,6 +58,7 @@ const config: Config = {
             '.shiki': {
               padding: '1.5rem !important',
               borderRadius: '0.5rem !important',
+              maxWidth: '100% !important',
             },
             blockquote: {
               color: 'hsl(var(--secondary-foreground))',

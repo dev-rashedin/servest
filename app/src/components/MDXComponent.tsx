@@ -23,7 +23,7 @@ export const MDXComponents = {
 
   // Add table support
   table: (props: React.HTMLAttributes<HTMLTableElement>) => (
-    <table className="min-w-full text-sm px-4 border-collapse rounded-lg" {...props} />
+    <table className="text-sm px-4 border-collapse rounded-lg" {...props} />
   ),
   thead: (props: React.HTMLAttributes<HTMLTableSectionElement>) => <thead {...props} />,
   th: (props: React.HTMLAttributes<HTMLTableCellElement>) => (

@@ -23,7 +23,7 @@
   }
 
   .wall {
-    @apply max-w-4xl mx-auto;
+    @apply max-w-3xl mx-auto px-2;
   }
   .p {
     @apply text-sm  leading-loose;
@@ -47,6 +47,8 @@
     --brand: 34, 100%, 64%;
     --highlighted: 292, 91%, 50%;
     --table-odd: 216, 12%, 95%;
+    --link: 240, 100%, 45%;
+    --link-hover: 240, 100%, 65%;
     --table-even: 213, 12%, 85%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
@@ -84,6 +86,8 @@
     --highlighted: 292, 91%, 60%;
     --table-odd: 220, 9%, 25%;
     --table-even: 220, 9%, 15%;
+    --link: 200, 100%, 55%;
+    --link-hover: 200, 100%, 65%;
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3.9%;
