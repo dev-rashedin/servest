@@ -14,7 +14,7 @@ export default async function AddonsPage() {
     options: {
       parseFrontmatter: true,
       mdxOptions: {
-        remarkPlugins: [remarkGfm], // 👈 add this
+        remarkPlugins: [remarkGfm],
       },
     },
   });

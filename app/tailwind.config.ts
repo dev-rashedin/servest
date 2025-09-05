@@ -42,8 +42,11 @@ const config: Config = {
             },
             // Table styling
             table: { width: '100%', borderCollapse: 'collapse' },
-            'table th': { borderBottom: '1px solid #e2e8f0', textAlign: 'left', padding: '0.5rem' },
-            'table td': { borderBottom: '1px solid #e2e8f0', padding: '0.5rem' },
+            'table th': {
+              textAlign: 'left',
+              padding: '1.2rem 1rem !important',
+            },
+            'table td': { padding: '1rem !important' },
 
             pre: {
               margin: '0 !important',
@@ -65,6 +68,8 @@ const config: Config = {
         'deep-ocean': '#000055',
         brand: 'hsl(var(--brand))',
         highlight: 'hsl(var(--highlighted))',
+        odd: 'hsl(var(--table-odd))',
+        even: 'hsl(var(--table-even))',
         'white-pearl': '#f9f9f9',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

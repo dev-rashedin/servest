@@ -19,25 +19,23 @@ export const MDXComponents = {
 
   // Add table support
   table: (props: React.HTMLAttributes<HTMLTableElement>) => (
-    <table
-      className="min-w-full text-sm text-gray-800 dark:text-gray-200 border-collapse"
-      {...props}
-    />
+    <table className="min-w-full text-sm px-4 border-collapse rounded-lg" {...props} />
   ),
-  thead: (props: React.HTMLAttributes<HTMLTableSectionElement>) => (
-    <thead
-      className="border-b border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 uppercase tracking-wider"
-      {...props}
-    />
-  ),
+  thead: (props: React.HTMLAttributes<HTMLTableSectionElement>) => <thead {...props} />,
   th: (props: React.HTMLAttributes<HTMLTableCellElement>) => (
-    <th className="px-3 py-2 text-left" {...props} />
+    <th
+      className="p-5 text-left text-secondary-foreground uppercase tracking-wider bg-even border-none"
+      {...props}
+    />
   ),
   tbody: (props: React.HTMLAttributes<HTMLTableSectionElement>) => <tbody {...props} />,
   tr: (props: React.HTMLAttributes<HTMLTableRowElement>) => (
-    <tr className="bg-primary-foreground" {...props} />
+    <tr
+      className="text-secondary-foreground text-[15px] tracking-wide odd:bg-odd even:bg-even border-none"
+      {...props}
+    />
   ),
   td: (props: React.HTMLAttributes<HTMLTableCellElement>) => (
-    <td className="px-3 py-2 border-b border-gray-200 dark:border-gray-700" {...props} />
+    <td className="px-3 py-2" {...props} />
   ),
 };
