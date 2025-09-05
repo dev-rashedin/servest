@@ -4,8 +4,14 @@ import { compileMDX } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import { MDXComponents } from '@/components/MDXComponent';
 
-export default async function AddonsPage() {
-  const filePath = path.join(process.cwd(), '../docs/addons/index.mdx');
+export async function generateStaticParams() {
+  const dir = path.join(process.cwd(), '../docs/addons');
+  const files = await fs.readdir(dir);
+  return files.filter((f) => f.endsWith('.mdx')).map((f) => ({ slug: f.replace(/\.mdx$/, '') }));
+}
+
+export default async function AddonPage({ params }: { params: { slug: string } }) {
+  const filePath = path.join(process.cwd(), '../docs/addons', `${params.slug}.mdx`);
   const source = await fs.readFile(filePath, 'utf-8');
 
   const { content } = await compileMDX({
@@ -13,9 +19,7 @@ export default async function AddonsPage() {
     components: MDXComponents,
     options: {
       parseFrontmatter: true,
-      mdxOptions: {
-        remarkPlugins: [remarkGfm],
-      },
+      mdxOptions: { remarkPlugins: [remarkGfm] },
     },
   });
 
