@@ -30,7 +30,7 @@
   }
 
   .prose pre {
-    @apply rounded-lg overflow-x-auto; /* remove bg, Shiki handles it */
+    @apply rounded-lg overflow-x-auto;
   }
   .prose code {
     @apply font-mono text-sm;

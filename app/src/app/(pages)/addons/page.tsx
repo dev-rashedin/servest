@@ -1,6 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { compileMDX } from 'next-mdx-remote/rsc';
+import remarkGfm from 'remark-gfm';
 import { MDXComponents } from '@/components/MDXComponent';
 
 export default async function AddonsPage() {
@@ -10,7 +11,12 @@ export default async function AddonsPage() {
   const { content } = await compileMDX({
     source,
     components: MDXComponents,
-    options: { parseFrontmatter: true },
+    options: {
+      parseFrontmatter: true,
+      mdxOptions: {
+        remarkPlugins: [remarkGfm], // 👈 add this
+      },
+    },
   });
 
   return <div className="prose prose-lg">{content}</div>;

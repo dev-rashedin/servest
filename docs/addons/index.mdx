@@ -1,26 +1,52 @@
 # Addons
 
-Addons extend your Servest project with additional features.
+**Servest Addons** allow you to quickly enhance your project with utilities, integrations, or pre-configured setups. Addons are framework- and runtime-agnostic, meaning they can work across Node.js frameworks like Express, Fastify, NestJS, and future runtimes like Bun, Python, PHP, or Go.
+
+---
 
 ## How Addons Work
 
-- Installed using: `npx servest@latest add <feature>`
-- Tracked automatically in `servest.config.json` under `features`
-- Can be enabled or disabled without affecting the core project
+1. **Scaffold or Initialize Your Project**  
+   If you haven't already:
 
-## Example
+   ```bash
+   npx create-servest@latest my-backend-app -- --template <templateName>
+   cd my-backend-app
+   npx servest@latest init
+   ```
 
-```json
-{
-  "features": {
-    "future-navbar": true,
-    "auth-module": false
-  }
-}
-```
+2. **Add an Addon**
 
-### Tips
+   ```bash
+   npx servest@latest add <feature>
+   ```
 
-- Always check your servest.config.json before removing addons
+   Example:
 
-- Addons ensure consistency across different environments
+   ```bash
+   npx servest@latest add f-auth
+   npx servest@latest add mongoose
+   ```
+
+   Multiple addons can be added in one command:
+
+   ```bash
+   npx servest@latest add eslint prettier prisma
+   ```
+
+---
+
+## Available Addons
+
+| Feature           | Description                                                                |
+| ----------------- | -------------------------------------------------------------------------- |
+| `f-fileName`      | Creates related files/folders for your project structure (MVC or modular). |
+| `mongoose`        | Adds pre-configured Mongoose setup for MongoDB.                            |
+| `eslint`          | Sets up ESLint with recommended rules.                                     |
+| `prettier`        | Sets up Prettier formatting.                                               |
+| `eslint-prettier` | Integrates ESLint + Prettier for a complete linting & formatting workflow. |
+| `prisma`          | Adds Prisma ORM with starter schema and migration commands.                |
+| `drizzle`         | Adds Drizzle ORM with SQLite support.                                      |
+| `lint-staged`     | Adds lint-staged + simple-git-hooks for pre-commit checks.                 |
+
+---

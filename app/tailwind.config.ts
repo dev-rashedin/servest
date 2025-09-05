@@ -40,6 +40,7 @@ const config: Config = {
               fontFamily: 'var(--font-heading)',
               fontWeight: '600',
             },
+            // Table styling
 
             pre: {
               margin: '0 !important',
