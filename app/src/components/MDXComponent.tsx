@@ -17,6 +17,10 @@ export const MDXComponents = {
     return <CodeBlock code={children} language={lang} />;
   },
 
+  hr: (props: React.HTMLAttributes<HTMLHRElement>) => (
+    <hr className="border-t border-border" {...props} />
+  ),
+
   // Add table support
   table: (props: React.HTMLAttributes<HTMLTableElement>) => (
     <table className="min-w-full text-sm px-4 border-collapse rounded-lg" {...props} />

@@ -14,7 +14,7 @@ export default async function CodeBlock({ code, language = 'ts' }: CodeBlockProp
   if (!highlighterPromise) {
     highlighterPromise = createHighlighter({
       themes: ['andromeeda'],
-      langs: ['ts', 'js', 'json', 'bash', 'html', 'css'],
+      langs: ['ts', 'tsx', 'js', 'jsx', 'json', 'bash', 'html', 'css'],
     });
   }
 

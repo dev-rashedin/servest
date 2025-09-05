@@ -17,7 +17,7 @@ const config: Config = {
         heading: ['Montserrat', 'sans-serif'],
       },
       fontSize: {
-        body: ['0.9rem', { lineHeight: '1.7', letterSpacing: '0.015em' }],
+        body: ['0.9rem', { lineHeight: '1.7', letterSpacing: '0.02em' }],
       },
       typography: {
         DEFAULT: {
@@ -40,7 +40,6 @@ const config: Config = {
               fontFamily: 'var(--font-heading)',
               fontWeight: '600',
             },
-            // Table styling
             table: { width: '100%', borderCollapse: 'collapse' },
             'table th': {
               textAlign: 'left',
@@ -57,7 +56,12 @@ const config: Config = {
               padding: '1.5rem !important',
               borderRadius: '0.5rem !important',
             },
-            blockquote: { color: 'hsl(var(--foreground))' },
+            blockquote: {
+              color: 'hsl(var(--secondary-foreground))',
+              borderLeft: '4px solid hsl(var(--brand)) !important',
+              fontFamily: 'var(--font-heading)',
+              fontSize: '1.2rem',
+            },
           },
         },
       },

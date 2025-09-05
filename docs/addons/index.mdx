@@ -6,33 +6,33 @@
 
 ## How Addons Work
 
-1. **Scaffold or Initialize Your Project**  
-   If you haven't already:
+### Scaffold Your Project If you haven't already :
 
-   ```bash
-   npx create-servest@latest my-backend-app -- --template <templateName>
-   cd my-backend-app
-   npx servest@latest init
-   ```
+```bash
+npx create-servest@latest my-backend-app -- --template <templateName>
+cd my-backend-app
+```
 
-2. **Add an Addon**
+> You can also add servest addons in your existent backend projects
 
-   ```bash
-   npx servest@latest add <feature>
-   ```
+### Initialize Servest :
 
-   Example:
+```bash
+npx servest@latest init
+```
 
-   ```bash
-   npx servest@latest add f-auth
-   npx servest@latest add mongoose
-   ```
+### **Add One or Multiple Addons**
 
-   Multiple addons can be added in one command:
+```bash
+npx servest@latest add <feature>
 
-   ```bash
-   npx servest@latest add eslint prettier prisma
-   ```
+<--Example-->
+npx servest@latest add f-auth
+npx servest@latest add mongoose
+
+<-- Multiple addons can be added in one command:-->
+npx servest@latest add eslint prettier prisma
+```
 
 ---
 
