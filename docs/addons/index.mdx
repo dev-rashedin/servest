@@ -6,7 +6,7 @@
 
 ## How Addons Work
 
-### Scaffold Your Project If you haven't already :
+### Scaffold a New Project :
 
 ```bash
 npx create-servest@latest my-backend-app -- --template <templateName>
@@ -40,7 +40,7 @@ npx servest@latest add eslint prettier prisma
 
 | Feature                                  | Description                                                     |
 | ---------------------------------------- | --------------------------------------------------------------- |
-| [f-fileName](./f-files.mdx)              | Creates related files/folders for your project structure.       |
+| [f-fileName](./f-fileName.mdx)           | Creates related files/folders based on your project structure.  |
 | [mongoose](./mongoose.mdx)               | Adds pre-configured Mongoose setup for MongoDB.                 |
 | [eslint](./eslint.mdx)                   | Sets up ESLint with recommended rules.                          |
 | [prettier](./prettier.mdx)               | Sets up Prettier formatting.                                    |
@@ -51,19 +51,26 @@ npx servest@latest add eslint prettier prisma
 
 ---
 
-## How Addons Affect Your Project
+## What Happens When You Add an Addon
 
-- Automatically updates your **project structure** (MVC or modular).
-- Installs necessary **dependencies** and scripts.
-- Maintains **consistency** across different projects.
-- Ensures that **features and integrations** work together without conflict.
+- 🏗️ Updates your **project structure** (MVC or modular) automatically.
+- 📦 Installs all required **dependencies** and scripts.
+- ✅ Keeps your setup **consistent** across projects.
+- 🔗 Ensures addons work **together without conflict**.
 
 ---
 
-## Adding Framework-Specific Addons
+## Framework-Specific Addons
 
 Currently, **Express** is the only supported framework.  
-Future frameworks (NestJS, Fastify, Koa, Django, Laravel, etc.) will have specific instructions when they are added.
+In future releases, addons will include support for:
+
+- Node.js frameworks → NestJS, Fastify, Koa
+- Python → Django, FastAPI
+- PHP → Laravel
+- Go (planned)
+
+Each framework will have its own section under `/addons/`.
 
 ---
 
