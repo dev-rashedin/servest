@@ -1,0 +1,38 @@
+import fs from 'fs/promises';
+import path from 'path';
+import Link from 'next/link';
+import { ReactNode } from 'react';
+
+export default async function AddonsLayout({ children }: { children: ReactNode }) {
+  const dir = path.join(process.cwd(), '../docs/addons');
+  const files = await fs.readdir(dir);
+
+  // Remove index.mdx because it’s for the homepage
+  const pages = files.filter((file) => file.endsWith('.mdx') && file !== 'index.mdx');
+
+  const links = pages.map((file) => {
+    const slug = file.replace(/\.mdx$/, '');
+    return { slug, label: slug.charAt(0).toUpperCase() + slug.slice(1) };
+  });
+
+  return (
+    <div className="flex">
+      {/* Sidebar */}
+      <aside className="w-64 border-r min-h-screen p-4 space-y-2 bg-[rgb(var(--background))]">
+        <nav className="flex flex-col gap-2">
+          <Link href="/addons" className="font-semibold">
+            Overview
+          </Link>
+          {links.map(({ slug, label }) => (
+            <Link key={slug} href={`/addons/${slug}`} className="hover:underline">
+              {label}
+            </Link>
+          ))}
+        </nav>
+      </aside>
+
+      {/* Main content */}
+      <main className="flex-1 p-8">{children}</main>
+    </div>
+  );
+}
