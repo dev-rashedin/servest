@@ -41,6 +41,9 @@ const config: Config = {
               fontWeight: '600',
             },
             // Table styling
+            table: { width: '100%', borderCollapse: 'collapse' },
+            'table th': { borderBottom: '1px solid #e2e8f0', textAlign: 'left', padding: '0.5rem' },
+            'table td': { borderBottom: '1px solid #e2e8f0', padding: '0.5rem' },
 
             pre: {
               margin: '0 !important',
