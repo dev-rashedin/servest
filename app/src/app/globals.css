@@ -18,7 +18,7 @@
     @apply container mx-auto px-4 md:px-8 lg:px-12 xl:px-20;
   }
   .wall {
-    @apply max-w-5xl mx-auto px-2;
+    @apply max-w-4xl mx-auto px-2;
   }
 
   .primary-gradient {
@@ -50,6 +50,7 @@
     --link: 240, 100%, 45%;
     --link-hover: 240, 100%, 65%;
     --table-even: 213, 12%, 85%;
+    --docs: 60, 100%, 95%%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
@@ -88,6 +89,7 @@
     --table-even: 220, 9%, 15%;
     --link: 200, 100%, 55%;
     --link-hover: 200, 100%, 65%;
+    --docs: 240, 7%, 11%;
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3.9%;

@@ -73,12 +73,11 @@ const config: Config = {
       colors: {
         'yellow-sunshine': '#FACC15',
         'yellow-dusk': '#FFAF45',
-        'deep-ocean': '#000055',
         brand: 'hsl(var(--brand))',
         highlight: 'hsl(var(--highlighted))',
         odd: 'hsl(var(--table-odd))',
         even: 'hsl(var(--table-even))',
-        'white-pearl': '#f9f9f9',
+        docs: 'hsl(var(--docs))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {

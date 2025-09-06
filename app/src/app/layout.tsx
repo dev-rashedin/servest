@@ -27,10 +27,8 @@ export default function RootLayout({
     >
       <body className="relative">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          <div className="">
-            <Navbar />
-            <div className="min-h-[calc(100vh-80px)]">{children}</div>
-          </div>
+          <Navbar />
+          <div className="min-h-[calc(100vh-80px)]">{children}</div>
         </ThemeProvider>
       </body>
     </html>
