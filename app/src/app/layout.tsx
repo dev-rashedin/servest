@@ -4,7 +4,6 @@ import { Merriweather, Montserrat } from 'next/font/google';
 import './globals.css';
 import Navbar from '../components/Navbar';
 import { ThemeProvider } from '@/components/theme/theme-provider';
-import { Spotlight } from '@/components/ui/spotlight-new';
 
 const merriweather = Merriweather({ subsets: ['latin'], weight: ['400', '700'] });
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '700'] });
@@ -27,7 +26,6 @@ export default function RootLayout({
       className={`${merriweather.className} ${montserrat.className} font-body text-body antialiased [scrollbar-gutter:stable]`}
     >
       <body className="relative">
-        <Spotlight className="absolute -top-40 left-0 md:-top-20 md:left-60" fill="white" />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <div className="">
             <Navbar />
