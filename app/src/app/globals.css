@@ -18,7 +18,7 @@
     @apply container mx-auto px-4 md:px-8 lg:px-12 xl:px-20;
   }
   .wall {
-    @apply max-w-3xl mx-auto px-2;
+    @apply max-w-5xl mx-auto px-2;
   }
 
   .primary-gradient {

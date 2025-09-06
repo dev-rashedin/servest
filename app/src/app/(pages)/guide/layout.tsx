@@ -7,9 +7,11 @@ export default function GuideLayout({ children }: { children: ReactNode }) {
   const links = getAddonLinks(); // server-side
 
   return (
-    <div className="flex w-full h-full fixed">
-      <Sidebar links={links} type="addons" />
-      <MotionWrapper>{children}</MotionWrapper>
-    </div>
+    <main className="w-full h-full fixed">
+      <div className="flex lg:pl-12 xl:pl-24">
+        <Sidebar links={links} type="guide" />
+        <MotionWrapper>{children}</MotionWrapper>
+      </div>
+    </main>
   );
 }
