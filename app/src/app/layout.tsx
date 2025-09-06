@@ -3,7 +3,6 @@ import React, { JSX } from 'react';
 import { Merriweather, Montserrat } from 'next/font/google';
 import './globals.css';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 import { ThemeProvider } from '@/components/theme/theme-provider';
 import { Spotlight } from '@/components/ui/spotlight-new';
 
@@ -32,9 +31,8 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <div className="">
             <Navbar />
-            <div className="min-h-[calc(100vh-175px)] boundary py-8">{children}</div>
+            <div className="min-h-[calc(100vh-80px)]">{children}</div>
           </div>
-          <Footer />
         </ThemeProvider>
       </body>
     </html>

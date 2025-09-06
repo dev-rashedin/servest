@@ -17,9 +17,9 @@ export default async function AddonsLayout({ children }: { children: ReactNode }
   });
 
   return (
-    <div className="flex fixed">
+    <div className="flex fixed ">
       {/* Sidebar */}
-      <aside className="w-64 h-8 bg-gray-500 sticky top-0 overflow-y-auto border-r p-4 space-y-2">
+      <aside className="w-64 h-screen bg-gray-500 sticky top-0 overflow-y-auto border-r p-4 space-y-2 pt-8">
         <nav className="flex flex-col gap-2">
           <Link href="/addons" className="font-semibold">
             Overview
@@ -33,7 +33,7 @@ export default async function AddonsLayout({ children }: { children: ReactNode }
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 px-36 h-screen overflow-y-auto">{children}</main>
+      <main className="flex-1 px-36 h-screen overflow-y-auto pt-16">{children}</main>
     </div>
   );
 }
