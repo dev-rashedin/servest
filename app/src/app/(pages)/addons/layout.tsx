@@ -2,6 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import Link from 'next/link';
 import { ReactNode } from 'react';
+import './addons.layout.css';
 
 export default async function AddonsLayout({ children }: { children: ReactNode }) {
   const dir = path.join(process.cwd(), '../docs/addons');
@@ -16,9 +17,9 @@ export default async function AddonsLayout({ children }: { children: ReactNode }
   });
 
   return (
-    <div className="flex">
+    <div className="flex fixed">
       {/* Sidebar */}
-      <aside className="w-64 border-r min-h-screen p-4 space-y-2 bg-[rgb(var(--background))]">
+      <aside className="w-64 h-8 bg-gray-500 sticky top-0 overflow-y-auto border-r p-4 space-y-2">
         <nav className="flex flex-col gap-2">
           <Link href="/addons" className="font-semibold">
             Overview
@@ -32,7 +33,7 @@ export default async function AddonsLayout({ children }: { children: ReactNode }
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 p-8">{children}</main>
+      <main className="flex-1 px-36 h-screen overflow-y-auto">{children}</main>
     </div>
   );
 }
