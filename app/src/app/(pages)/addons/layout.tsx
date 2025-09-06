@@ -1,28 +1,21 @@
-import fs from 'fs/promises';
-import path from 'path';
 import { ReactNode } from 'react';
-import './addons.layout.css';
 import Sidebar from '@/components/Sidebar';
+import { getAddonLinks } from '@/scripts/getAddonLinks';
 
-export default async function AddonsLayout({ children }: { children: ReactNode }) {
-  const dir = path.join(process.cwd(), '../docs/addons');
-  const files = await fs.readdir(dir);
+interface AddonsLayoutProps {
+  children: ReactNode;
+}
 
-  // Remove index.mdx because it’s for the homepage
-  const pages = files.filter((file) => file.endsWith('.mdx') && file !== 'index.mdx');
+const links = getAddonLinks();
 
-  const links = pages.map((file) => {
-    const slug = file.replace(/\.mdx$/, '');
-    return { slug, label: slug.charAt(0).toUpperCase() + slug.slice(1) };
-  });
-
+// Server component
+export default async function AddonsLayout({ children }: AddonsLayoutProps) {
   return (
-    <div className="flex fixed ">
-      {/* Sidebar */}
+    <div className="flex w-full h-full">
       <Sidebar links={links} type="addons" />
 
       {/* Main content */}
-      <main className="flex-1 px-36 h-screen overflow-y-auto pt-16">{children}</main>
+      <main className="flex-1 overflow-y-auto px-36 pt-16">{children}</main>
     </div>
   );
 }
