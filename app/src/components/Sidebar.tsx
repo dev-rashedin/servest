@@ -6,8 +6,8 @@ const Sidebar = ({ links, type }: { links: { slug: string; label: string }[]; ty
   const pathname = usePathname();
 
   return (
-    <aside className="w-72 border-r space-y-8 pt-8 hidden lg:block">
-      <nav className="h-screen sticky top-0 overflow-y-auto flex flex-col gap-3 pl-6">
+    <aside className="h-full border-r space-y-8 pt-8 hidden lg:block lg:pl-20 xl:pl-28">
+      <nav className=" overflow-y-auto flex flex-col gap-3">
         <Link
           href={`/${type}`}
           className={`font-semibold hover:underline ${

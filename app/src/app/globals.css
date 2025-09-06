@@ -21,6 +21,14 @@
     @apply max-w-4xl mx-auto px-2;
   }
 
+  .sidebar {
+    @apply lg:w-[25%] xl:w-[20%];
+  }
+
+  .docs-content {
+    @apply lg:w-[75%] xl:w-[80%];
+  }
+
   .primary-gradient {
     @apply bg-gradient-to-br from-[#FACC15] via-[#FFAF45] to-[#FF8225];
   }
