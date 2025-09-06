@@ -22,11 +22,11 @@
   }
 
   .sidebar {
-    @apply lg:w-[25%] xl:w-[20%];
+    @apply lg:w-[25%] xl:w-[20%] bg-sidebar;
   }
 
   .docs-content {
-    @apply lg:w-[75%] xl:w-[80%];
+    @apply lg:w-[75%] xl:w-[80%] bg-docs;
   }
 
   .primary-gradient {
@@ -59,6 +59,7 @@
     --link-hover: 240, 100%, 65%;
     --table-even: 213, 12%, 85%;
     --docs: 60, 100%, 95%%;
+    --sidebar: 240, 8%, 95%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
@@ -98,6 +99,7 @@
     --link: 200, 100%, 55%;
     --link-hover: 200, 100%, 65%;
     --docs: 240, 7%, 11%;
+    --sidebar: 240, 4%, 5%;
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3.9%;

@@ -8,10 +8,10 @@ export default function GuideLayout({ children }: { children: ReactNode }) {
 
   return (
     <main className="flex min-h-[calc(100vh-80px)]">
-      <div className="sidebar bg-black">
+      <div className="sidebar">
         <Sidebar links={links} type="guide" />
       </div>
-      <div className="docs-content bg-docs">
+      <div className="docs-content">
         <MotionWrapper>{children}</MotionWrapper>
       </div>
     </main>

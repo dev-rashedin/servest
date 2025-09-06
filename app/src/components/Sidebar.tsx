@@ -1,13 +1,15 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Logo from './ui/logo';
 
 const Sidebar = ({ links, type }: { links: { slug: string; label: string }[]; type: string }) => {
   const pathname = usePathname();
 
   return (
     <aside className="h-full border-r space-y-8 pt-8 hidden lg:block lg:pl-20 xl:pl-28">
-      <nav className=" overflow-y-auto flex flex-col gap-3">
+      <Logo />
+      <nav className="border-t border-border overflow-y-auto flex flex-col gap-3">
         <Link
           href={`/${type}`}
           className={`font-semibold hover:underline ${

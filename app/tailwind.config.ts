@@ -78,6 +78,7 @@ const config: Config = {
         odd: 'hsl(var(--table-odd))',
         even: 'hsl(var(--table-even))',
         docs: 'hsl(var(--docs))',
+        sidebar: 'hsl(var(--sidebar))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {

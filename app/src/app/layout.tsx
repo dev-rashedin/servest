@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import React, { JSX } from 'react';
 import { Merriweather, Montserrat } from 'next/font/google';
 import './globals.css';
-import Navbar from '../components/Navbar';
 import { ThemeProvider } from '@/components/theme/theme-provider';
 
 const merriweather = Merriweather({ subsets: ['latin'], weight: ['400', '700'] });
@@ -27,7 +26,6 @@ export default function RootLayout({
     >
       <body className="relative">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          <Navbar />
           <div className="">{children}</div>
         </ThemeProvider>
       </body>

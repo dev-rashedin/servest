@@ -5,7 +5,7 @@ import Socials from './ui/socials';
 
 const DocsNav = () => {
   return (
-    <nav className="flex justify-between items-center h-20 pt-2 sticky top-0 border-b border-border shadow-3xl">
+    <nav className="border border-red-500 flex align-self-end items-center h-20 pt-2 sticky top-0 border-b border-border shadow-3xl">
       <main className="boundary flex-between">
         <section className="flex-center gap-10 lg:gap-20">
           {/* nav links */}
