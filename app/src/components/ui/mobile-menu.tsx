@@ -42,7 +42,6 @@ export default function MobileMenu() {
               href={to}
               className={`block font-medium tracking-wide px-2 py-1 rounded transition-colors duration-300 border-b pb-2 
                 ${isActive ? 'text-brand font-medium' : ''}
-                hover:text-yellow-dusk
               `}
             >
               {label}

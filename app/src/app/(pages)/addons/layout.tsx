@@ -1,8 +1,8 @@
 import fs from 'fs/promises';
 import path from 'path';
-import Link from 'next/link';
 import { ReactNode } from 'react';
 import './addons.layout.css';
+import Sidebar from '@/components/Sidebar';
 
 export default async function AddonsLayout({ children }: { children: ReactNode }) {
   const dir = path.join(process.cwd(), '../docs/addons');
@@ -19,18 +19,7 @@ export default async function AddonsLayout({ children }: { children: ReactNode }
   return (
     <div className="flex fixed ">
       {/* Sidebar */}
-      <aside className="w-64 h-screen bg-gray-500 sticky top-0 overflow-y-auto border-r p-4 space-y-2 pt-8">
-        <nav className="flex flex-col gap-2">
-          <Link href="/addons" className="font-semibold">
-            Overview
-          </Link>
-          {links.map(({ slug, label }) => (
-            <Link key={slug} href={`/addons/${slug}`} className="hover:underline">
-              {label}
-            </Link>
-          ))}
-        </nav>
-      </aside>
+      <Sidebar links={links} type="addons" />
 
       {/* Main content */}
       <main className="flex-1 px-36 h-screen overflow-y-auto pt-16">{children}</main>
