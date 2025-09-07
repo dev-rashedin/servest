@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import Sidebar from '@/components/Sidebar';
 import { getAddonLinks } from '@/scripts/getLinks';
 import MotionWrapper from '@/components/MotionWrapper';
+import RightSidebar from '@/components/RightSidebar';
 
 export default function AddonsLayout({ children }: { children: ReactNode }) {
   const links = getAddonLinks(); // server-side
@@ -13,6 +14,7 @@ export default function AddonsLayout({ children }: { children: ReactNode }) {
       </div>
       <div className="docs-content">
         <MotionWrapper>{children}</MotionWrapper>
+        <RightSidebar headings={[]} />
       </div>
     </main>
   );
