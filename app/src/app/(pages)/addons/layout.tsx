@@ -7,9 +7,11 @@ export default function AddonsLayout({ children }: { children: ReactNode }) {
   const links = getAddonLinks(); // server-side
 
   return (
-    <main>
-      <div className="flex">
-        <Sidebar links={links} type="addons" />
+    <main className="flex min-h-[calc(100vh-80px)]">
+      <div className="sidebar">
+        <Sidebar links={links} type="guide" />
+      </div>
+      <div className="docs-content">
         <MotionWrapper>{children}</MotionWrapper>
       </div>
     </main>

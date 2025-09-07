@@ -2,14 +2,13 @@
 import { ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { usePathname } from 'next/navigation';
-import DocsNav from '@/components/DocsNav';
 
 export default function MotionWrapper({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   return (
     <main>
-      {pathname.includes('config') || pathname === '/config' ? null : <DocsNav />}
+      {/* {pathname.includes('config') || pathname === '/config' ? null : <DocsNav />} */}
       <motion.div
         key={pathname}
         initial={{ opacity: 0, y: 10 }}
