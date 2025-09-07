@@ -6,11 +6,6 @@ import RightSidebar from '@/components/RightSidebar';
 
 export default function AddonsLayout({ children }: { children: ReactNode }) {
   const links = getAddonLinks();
-  const headings = [
-    { id: 'installation', text: 'Installation', level: 2 },
-    { id: 'usage', text: 'Usage', level: 2 },
-    { id: 'examples', text: 'Examples', level: 3 },
-  ];
 
   return (
     <main className="flex min-h-[calc(100vh-80px)]">
@@ -19,7 +14,7 @@ export default function AddonsLayout({ children }: { children: ReactNode }) {
       </div>
       <div className="docs-content">
         <MotionWrapper>{children}</MotionWrapper>
-        <RightSidebar headings={headings} />
+        <RightSidebar clientHeadings={[]} />
       </div>
     </main>
   );
