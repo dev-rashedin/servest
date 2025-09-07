@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Logo from './ui/logo';
+import HeaderFrame from './ui/header-frame';
 
 const Sidebar = ({ links, type }: { links: { slug: string; label: string }[]; type: string }) => {
   const pathname = usePathname();
@@ -9,10 +10,10 @@ const Sidebar = ({ links, type }: { links: { slug: string; label: string }[]; ty
   return (
     <aside className="h-screen hidden lg:flex lg:flex-col lg:pl-16 xl:pl-24 overflow-y-auto">
       {/* logo and divider */}
-      <section className="sticky top-0 z-10 bg-sidebar h-20 pt-4">
+      <HeaderFrame bg="bg-sidebar" type="logo">
         <Logo />
-      </section>
-      <div className="border-t-2 border-border mt-2 mr-12"></div>
+      </HeaderFrame>
+      {/* <div className="border-t-2 border-border mt-2 mr-12"></div> */}
 
       {/* Nav list (scrolls, but passes under sticky header) */}
       <nav className="flex flex-col gap-4 lg:pl-4 xl:pl-6 mt-6">
