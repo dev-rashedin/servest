@@ -1,1 +1,83 @@
 ## Guide Page
+
+# Addons
+
+**Servest Addons** allow you to quickly enhance your project with utilities, integrations, or pre-configured setups. Addons are framework- and runtime-agnostic, meaning they can work across Node.js frameworks like Express, Fastify, NestJS, and future runtimes like Bun, Python, PHP, or Go.
+
+---
+
+## How Addons Work
+
+### Scaffold a New Project :
+
+```bash
+npx create-servest@latest my-backend-app -- --template <templateName>
+cd my-backend-app
+```
+
+> You can also add servest addons in your existent backend projects
+
+### Initialize Servest :
+
+```bash
+npx servest@latest init
+```
+
+### **Add One or Multiple Addons**
+
+```bash
+npx servest@latest add <feature>
+
+<--Example-->
+npx servest@latest add f-auth
+npx servest@latest add mongoose
+
+<-- Multiple addons can be added in one command:-->
+npx servest@latest add eslint prettier prisma
+```
+
+---
+
+## Available Addons
+
+| Feature                                  | Description                                                     |
+| ---------------------------------------- | --------------------------------------------------------------- |
+| [f-fileName](./f-fileName.mdx)           | Creates related files/folders based on your project structure.  |
+| [mongoose](./mongoose.mdx)               | Adds pre-configured Mongoose setup for MongoDB.                 |
+| [eslint](./eslint.mdx)                   | Sets up ESLint with recommended rules.                          |
+| [prettier](./prettier.mdx)               | Sets up Prettier formatting.                                    |
+| [eslint-prettier](./eslint-prettier.mdx) | Integrates ESLint + Prettier for linting & formatting workflow. |
+| [prisma](./prisma.mdx)                   | Adds Prisma ORM with starter schema and migration commands.     |
+| [drizzle](./drizzle.mdx)                 | Adds Drizzle ORM with SQLite support.                           |
+| [lint-staged](./lint-staged.mdx)         | Adds lint-staged + simple-git-hooks for pre-commit checks.      |
+
+---
+
+## What Happens When You Add an Addon
+
+- 🏗️ Updates your **project structure** (MVC or modular) automatically.
+- 📦 Installs all required **dependencies** and scripts.
+- ✅ Keeps your setup **consistent** across projects.
+- 🔗 Ensures addons work **together without conflict**.
+
+---
+
+## Framework-Specific Addons
+
+Currently, **Express** is the only supported framework.  
+In future releases, addons will include support for:
+
+- Node.js frameworks → NestJS, Fastify, Koa
+- Python → Django, FastAPI
+- PHP → Laravel
+- Go (planned)
+
+Each framework will have its own section under `/addons/`.
+
+---
+
+## Best Practices
+
+- Always run `npx servest@latest init` before adding addons.
+- Add multiple features in one command to save time.
+- Use addons to standardize your development workflow.

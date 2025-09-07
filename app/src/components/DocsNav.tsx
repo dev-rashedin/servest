@@ -7,7 +7,7 @@ import Socials from './ui/socials';
 
 const DocsNav = () => {
   return (
-    <HeaderFrame bg="bg-docs">
+    <HeaderFrame type="config">
       <section className="lg:hidden">
         <Logo />
       </section>

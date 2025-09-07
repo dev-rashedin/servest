@@ -3,7 +3,6 @@ import { ReactNode } from 'react';
 export default function HeaderFrame({
   children,
   type = 'nav',
-  bg = 'bg-[rgb(var(--navbar-bg))]',
 }: {
   children: ReactNode;
   type?: string;
@@ -11,12 +10,9 @@ export default function HeaderFrame({
 }) {
   return (
     <header
-      className={`h-24 w-full flex items-center justiry-end sticky top-0 ${type === 'nav' ? '' : ''} ${bg}`}
+      className={`h-20 pt-2 flex border-b  items-center sticky top-0  ${type === 'home' ? 'bg-navbar border-border' : type === 'logo' ? 'mr-12 bg-sidebar border-c-logo' : ' justify-end bg-docs border-c-docs'}`}
     >
-      <div>
-        {children}
-        <div className="border-t-2 border-border mt-4"></div>
-      </div>
+      {children}
     </header>
   );
 }

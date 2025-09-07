@@ -50,7 +50,7 @@
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --radial-bg: radial-gradient(circle at 50% 50%, hsl(0, 0%, 99%) 10%, hsl(0, 0%, 96%) 100%);
-    --navbar-bg: 252 252% 252%;
+    --navbar: 60, 100%, 99%;
     --footer-bg: 255 255% 255%;
     --brand: 34, 100%, 64%;
     --highlighted: 292, 91%, 50%;
@@ -58,8 +58,8 @@
     --link: 240, 100%, 45%;
     --link-hover: 240, 100%, 65%;
     --table-even: 213, 12%, 85%;
-    --docs: 60, 100%, 95%%;
-    --sidebar: 240, 8%, 95%;
+    --docs: 60, 100%, 99%;
+    --sidebar: 0, 0%, 95%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
@@ -75,6 +75,8 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 0, 0%, 90%;
+    --border-docs: 0, 0%, 75%;
+    --border-logo: 0, 0%, 80%;
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
     --chart-1: 12 76% 61%;
@@ -88,9 +90,9 @@
   }
   .dark {
     --background: 0 0% 10%;
-    --foreground: 0 0% 90%;
+    --foreground: 0 0% 92%;
     --radial-bg: radial-gradient(circle at 50% 50%, hsl(221, 63%, 6%) 10%, hsl(221, 100%, 3%) 100%);
-    --navbar-bg: 0 0% 10%;
+    --navbar: 240, 100%, 5%;
     --footer-bg: 0 0% 1%;
     --brand: 48, 96%, 53%;
     --highlighted: 292, 91%, 60%;
@@ -98,8 +100,8 @@
     --table-even: 220, 9%, 15%;
     --link: 200, 100%, 55%;
     --link-hover: 200, 100%, 65%;
-    --docs: 240, 7%, 11%;
-    --sidebar: 240, 4%, 5%;
+    --docs: 240, 7%, 5%;
+    --sidebar: 240, 4%, 10%;
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3.9%;
@@ -115,6 +117,8 @@
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 15%;
+    --border-docs: 0 0% 20%;
+    --border-logo: 0 0% 35%;
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
     --chart-1: 220 70% 50%;

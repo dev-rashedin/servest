@@ -1,12 +1,21 @@
-const GuidePage = () => {
-  return (
-    <main>
-      <h2 className="text-xl font-bold font-heading">Welcome to the Servest Guide</h2>
-      <p>
-        This guide will help you get started with Servest. If you are new to Servest, we recommend
-        reading the <a href="https://servest.vercel.app/guide">Servest Guide</a> first.
-      </p>
-    </main>
-  );
-};
-export default GuidePage;
+import fs from 'fs/promises';
+import path from 'path';
+import { compileMDX } from 'next-mdx-remote/rsc';
+import remarkGfm from 'remark-gfm';
+import { MDXComponents } from '@/components/MDXComponent';
+
+export default async function AddonsPage() {
+  const filePath = path.join(process.cwd(), '../docs/guide/index.mdx');
+  const source = await fs.readFile(filePath, 'utf-8');
+
+  const { content } = await compileMDX({
+    source,
+    components: MDXComponents,
+    options: {
+      parseFrontmatter: true,
+      mdxOptions: { remarkPlugins: [remarkGfm] },
+    },
+  });
+
+  return <div className="prose prose-lg">{content}</div>;
+}

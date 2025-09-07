@@ -33,16 +33,18 @@ import HeaderFrame from './ui/header-frame';
 
 const Navbar = ({ type = 'home' }: { type: string }) => {
   return (
-    <HeaderFrame bg={type === 'home' ? 'bg-[rgb(var(--navbar-bg))]' : 'bg-docs'}>
-      <Logo />
-      <section className="flex-center gap-10 lg:gap-20">
-        <NavLink />
-        <MobileMenu />
-        <div className="hidden md:flex-center gap-4">
-          <Socials />
-          <ThemeSwitcher />
-        </div>
-      </section>
+    <HeaderFrame type={type}>
+      <nav className="boundary flex-between">
+        <Logo />
+        <section className="flex-center gap-10 lg:gap-20">
+          <NavLink />
+          <MobileMenu />
+          <div className="hidden md:flex-center gap-4">
+            <Socials />
+            <ThemeSwitcher />
+          </div>
+        </section>
+      </nav>
     </HeaderFrame>
   );
 };
