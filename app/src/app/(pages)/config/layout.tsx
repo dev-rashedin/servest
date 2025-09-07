@@ -1,10 +1,12 @@
 import { ReactNode } from 'react';
 import MotionWrapper from '@/components/MotionWrapper';
 import './config.layout.css';
+import Navbar from '@/components/Navbar';
 
 export default function AddonsLayout({ children }: { children: ReactNode }) {
   return (
     <main className="bg-docs">
+      <Navbar type="doc" />
       <div className="wall">
         <MotionWrapper>{children}</MotionWrapper>
       </div>
