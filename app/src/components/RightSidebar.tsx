@@ -2,7 +2,11 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-interface Heading { id: string; text: string; level: number }
+interface Heading {
+  id: string;
+  text: string;
+  level: number;
+}
 
 export default function RightSidebar({ clientHeadings }: { clientHeadings: Heading[] }) {
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -45,10 +49,10 @@ export default function RightSidebar({ clientHeadings }: { clientHeadings: Headi
   if (!clientHeadings?.length) return null;
 
   return (
-    <aside className="hidden xl:block fixed right-8 top-24 w-64 bg-white h-40">
+    <aside className="hidden xl:block fixed right-20 top-40 w-64">
       <div className="relative pl-4">
         {/* vertical progress bar at far right */}
-        <div className="absolute right-0 top-0 h-full w-[2px] bg-neutral-200">
+        <div className="absolute left-0 top-0 h-full w-[2px] bg-neutral-200">
           <div className="bg-brand w-full" style={{ height: `${progress}%` }} />
         </div>
 
@@ -64,7 +68,7 @@ export default function RightSidebar({ clientHeadings }: { clientHeadings: Headi
                 el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 history.replaceState(null, '', `#${h.id}`);
               }}
-              className={`block text-sm truncate ${activeId === h.id ? 'text-brand font-semibold' : 'text-muted'} ${h.level === 3 ? 'pl-4' : ''}`}
+              className={`block truncate ${activeId === h.id ? 'text-brand font-semibold' : 'text-muted-foreground'} ${h.level === 3 ? 'pl-4' : ''}`}
             >
               {h.text}
             </a>
