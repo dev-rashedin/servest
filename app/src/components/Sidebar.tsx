@@ -7,9 +7,7 @@ const Sidebar = ({ links, type }: { links: { slug: string; label: string }[]; ty
 
   return (
     <aside className=" pt-4 hidden lg:block lg:pl-16 xl:pl-24 h-screen ">
-      {/* <Logo />
-      <div className="border-t-2 border-border w-[200px] my-2 "></div> */}
-      <nav className="lg:pl-4 mt-8 flex flex-col gap-4 fixed overflow-y-auto">
+      <nav className="lg:pl-4 xl:pl-6 mt-8 flex flex-col gap-4 fixed overflow-y-auto">
         <Link
           href={`/${type}`}
           className={`font-semibold hover:underline ${

@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
 import Sidebar from '@/components/Sidebar';
-import { getAddonLinks } from '@/scripts/getLinks';
+import { getGuideLinks } from '@/scripts/getLinks';
 import MotionWrapper from '@/components/MotionWrapper'; // <- client wrapper
 
 export default function GuideLayout({ children }: { children: ReactNode }) {
-  const links = getAddonLinks(); // server-side
+  const links = getGuideLinks(); // server-side
 
   return (
     <main className="flex min-h-[calc(100vh-80px)]">

@@ -22,11 +22,11 @@
   }
 
   .sidebar {
-    @apply lg:w-[25%] xl:w-[20%] bg-sidebar;
+    @apply lg:w-[25%] xl:w-[23%] bg-sidebar;
   }
 
   .docs-content {
-    @apply lg:w-[75%] xl:w-[80%] bg-docs;
+    @apply lg:w-[75%] xl:w-[77%] bg-docs;
   }
 
   .primary-gradient {

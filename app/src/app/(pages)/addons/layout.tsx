@@ -9,7 +9,7 @@ export default function AddonsLayout({ children }: { children: ReactNode }) {
   return (
     <main className="flex min-h-[calc(100vh-80px)]">
       <div className="sidebar">
-        <Sidebar links={links} type="guide" />
+        <Sidebar links={links} type="addons" />
       </div>
       <div className="docs-content">
         <MotionWrapper>{children}</MotionWrapper>
