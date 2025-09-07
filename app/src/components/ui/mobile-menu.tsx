@@ -29,9 +29,9 @@ export default function MobileMenu() {
       </button>
 
       <div
-        className={`md:hidden bg-[rgb(var(--footer-bg))] w-80 rounded-md px-4  py-8 space-y-4 flex flex-col absolute top-16 right-0
+        className={`md:hidden bg-[rgb(var(--footer-bg))] w-[90vw] rounded-md px-20 py-8 space-y-4 flex flex-col absolute top-16 right-0
         transform transition-all duration-300 ease-in-out pl-4 z-50
-        ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}
+        ${isOpen ? 'opacity-100 translate-y-0' : 'translate-y-5 opacity-0 pointer-events-none'}
         `}
       >
         {navItems.map(({ label, to }) => {

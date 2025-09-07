@@ -9,7 +9,7 @@ export default function MotionWrapper({ children }: { children: ReactNode }) {
 
   return (
     <main>
-      <DocsNav />
+      {pathname.includes('config') || pathname === '/config' ? null : <DocsNav />}
       <motion.div
         key={pathname}
         initial={{ opacity: 0, y: 10 }}
