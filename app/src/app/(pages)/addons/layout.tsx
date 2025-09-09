@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import Sidebar from '@/components/Sidebar';
-import { getAddonLinks } from '@/scripts/getLinks';
+import { getAddonLinks } from '@/lib/getLinks';
 import MotionWrapper from '@/components/MotionWrapper';
 
 export default function AddonsLayout({ children }: { children: ReactNode }) {

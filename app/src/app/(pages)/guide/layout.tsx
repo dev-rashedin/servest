@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import Sidebar from '@/components/Sidebar';
-import { getGuideLinks } from '@/scripts/getLinks';
+import { getGuideLinks } from '@/lib/getLinks';
 import MotionWrapper from '@/components/MotionWrapper'; // <- client wrapper
 
 export default function GuideLayout({ children }: { children: ReactNode }) {
