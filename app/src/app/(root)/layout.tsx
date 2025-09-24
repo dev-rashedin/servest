@@ -9,7 +9,10 @@ export default function HomeLayout({
 }>): JSX.Element {
   return (
     <main className="relative">
-      <Spotlight className="absolute -top-40 left-0 md:-top-20 md:left-60" fill="white" />
+      <Spotlight
+        className="absolute -top-40 -left-20 sm:-top-40 sm:left-0 md:-top-20 md:left-60 opacity-70 sm:opacity-80 md:opacity-100"
+        fill="white"
+      />
       <Navbar type="home" />
       {children}
     </main>

@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import React, { JSX } from 'react';
-import { Merriweather, Montserrat } from 'next/font/google';
+import { Inter, Roboto } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme/theme-provider';
 
-const merriweather = Merriweather({ subsets: ['latin'], weight: ['400', '700'] });
-const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '700'] });
+const inter = Inter({ subsets: ['latin'], weight: ['400', '500', '600', '700'] });
+const roboto = Roboto({ subsets: ['latin'], weight: ['300', '400', '500', '700'] });
 
 export const metadata: Metadata = {
   title: 'Servest – The Ultimate Backend Starter & Addon Toolkit',
@@ -22,11 +22,11 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${merriweather.className} ${montserrat.className} font-body text-body antialiased [scrollbar-gutter:stable]`}
+      className={`${roboto.className} ${inter.className} font-body text-body antialiased [scrollbar-gutter:stable]`}
     >
       <body className="relative">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          <div className="">{children}</div>
+          <div className="min-h-screen flex flex-col">{children}</div>
         </ThemeProvider>
       </body>
     </html>

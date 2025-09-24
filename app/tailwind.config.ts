@@ -13,35 +13,53 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Merriweather', 'serif'],
-        heading: ['Montserrat', 'sans-serif'],
+        body: ['Roboto', 'system-ui', 'sans-serif'],
+        heading: ['Inter', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        body: ['0.9rem', { lineHeight: '1.7', letterSpacing: '0.02em' }],
+        body: ['1rem', { lineHeight: '1.6', letterSpacing: '0.01em' }],
+        code: ['0.95rem', { lineHeight: '1.5' }],
       },
       typography: {
         DEFAULT: {
           css: {
             color: 'hsl(var(--foreground))',
+            lineHeight: '1.6',
             a: {
               color: 'hsl(var(--link))',
-              '&:hover': { color: 'hsl(var(--link-hover))' },
+              textDecoration: 'none',
+              fontWeight: '500',
+              '&:hover': { color: 'hsl(var(--link-hover))', textDecoration: 'underline' },
             },
-            strong: { color: 'hsl(var(--foreground))' },
+            strong: { color: 'hsl(var(--foreground))', fontWeight: '600' },
             h1: {
               color: 'hsl(var(--foreground))',
               fontFamily: 'var(--font-heading)',
               fontWeight: '700',
+              letterSpacing: '-0.025em',
+              marginBottom: '1.5rem',
             },
             h2: {
               color: 'hsl(var(--foreground))',
               fontFamily: 'var(--font-heading)',
               fontWeight: '600',
+              letterSpacing: '-0.015em',
+              marginTop: '2rem',
+              marginBottom: '1rem',
             },
             h3: {
               color: 'hsl(var(--foreground))',
               fontFamily: 'var(--font-heading)',
               fontWeight: '600',
+              marginTop: '1.75rem',
+              marginBottom: '0.75rem',
+            },
+            code: {
+              fontWeight: '400',
+              fontSize: '0.95rem',
+              backgroundColor: 'hsl(var(--muted))',
+              borderRadius: '0.25rem',
+              padding: '0.15rem 0.3rem',
             },
             table: { width: '100% !important', borderCollapse: 'collapse' },
             'table th': {
