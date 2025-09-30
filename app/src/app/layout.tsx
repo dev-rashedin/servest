@@ -2,8 +2,7 @@ import type { Metadata } from 'next';
 import React, { JSX } from 'react';
 import { Merriweather, Montserrat } from 'next/font/google';
 import './globals.css';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import { ThemeProvider } from '@/components/theme/theme-provider';
 
 const merriweather = Merriweather({ subsets: ['latin'], weight: ['400', '700'] });
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '700'] });
@@ -20,13 +19,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>): JSX.Element {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${merriweather.className} ${montserrat.className} font-body antialiased`}>
-        <div className="container mx-auto px-2 lg:px-4">
-          <Navbar />
-          <div className="min-h-[calc(100vh-160px)]">{children}</div>
-        </div>
-        <Footer />
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${merriweather.className} ${montserrat.className} font-body text-body antialiased [scrollbar-gutter:stable]`}
+    >
+      <body className="relative">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          <div className="">{children}</div>
+        </ThemeProvider>
       </body>
     </html>
   );

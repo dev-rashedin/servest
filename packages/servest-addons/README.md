@@ -1,6 +1,8 @@
 # Servest <a href="https://npmjs.com/package/servest"><img src="https://img.shields.io/npm/v/servest" alt="npm package"></a>
 
-**Servest** is a collection of utilities and integrations designed to enhance your Node.js backend and full-stack projects. Inspired by [shadcn](https://github.com/shadcn), it aims to simplify and accelerate the development workflow by providing pre-configured tools, folder structures, and scripts.
+**Servest** is a collection of utilities and integrations designed to enhance your Node.js backend and full-stack projects. It aims to simplify and accelerate the development workflow by providing pre-configured tools, folder structures, and scripts.
+
+> This project draws inspiration from [shadcn](https://ui.shadcn.com), adapting the concept for backend development.
 
 ---
 

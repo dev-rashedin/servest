@@ -10,7 +10,7 @@ declare interface IServestConfig {
   servestVersion: string;
   framework: string;
   language: Languages;
-  architecture: Architecture;
+  architecture: TArchitecture;
   srcDir: boolean;
   environment: {
     runtime: Runtime;

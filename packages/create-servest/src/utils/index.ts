@@ -1,6 +1,6 @@
 import { boldGreen, boldRed, boldYellow, cyan, green, red, yellow } from '../../../utils/colors';
 
-export const FRAMEWORKS: Framework[] = [
+export const FRAMEWORKS: IFramework[] = [
   {
     name: 'Express',
     value: 'express',

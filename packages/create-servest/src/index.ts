@@ -11,6 +11,7 @@ import spawn from 'cross-spawn';
 // Local utilities
 import { green, red, yellow } from '../../utils/colors';
 import { cancelOperation, detectPkgManager } from '../../utils/sharedUtility';
+import { getIServestConfig } from '../../servest-addons/src/utils/createFile';
 import { ALL_TEMPLATES, FRAMEWORKS, helpMessage } from './utils';
 import {
   copyDir,
@@ -170,7 +171,7 @@ async function init() {
     const fullCustomCommand = getFullCustomCommand(customCommand, pkgInfo);
 
     if (fullCustomCommand.includes('--template')) {
-      log.info(`Running custom command: ${fullCustomCommand}`);
+      log.info(`ℹ️ Running custom command: ${fullCustomCommand}`);
     }
 
     const [command, ...args] = fullCustomCommand.split(' ');
@@ -182,7 +183,7 @@ async function init() {
     process.exit(status ?? 0);
   }
 
-  log.step(green(`🎉 Scaffolding project in ${root}...`));
+  log.step(green(`ℹ️ Scaffolding project in ${root}...`));
 
   // 6️⃣ Copy template files
   const templateDir = path.resolve(__dirname, '../templates', template);
@@ -200,29 +201,58 @@ async function init() {
   }
 
   // 7️⃣ Running addons if specified
-  const addons = addonsArg ? addonsArg.split(/\s+/).filter(Boolean) : [];
+  // Start with the -a/-addons value (if any)
+  let addons: string[] = addonsArg ? addonsArg.split(/\s+/).filter(Boolean) : [];
+
+  // Include any extra positional arguments after the project name
+  addons = addons.concat(argv._.slice(1));
+
+  let inStallCommand = false;
 
   if (addons.length > 0) {
-    const { status } = spawn.sync('npx', ['servest@latest', 'init'], {
+    // Installing dependencies
+    const installResult = spawn.sync(pkgManager, ['install'], { cwd: root, stdio: 'inherit' });
+    if (installResult.status !== 0) {
+      log.warn(red(`🚨 'npm install' failed. Please run '${pkgManager} install' manually.`));
+      process.exit(installResult.status ?? 1);
+    } else {
+      inStallCommand = true;
+      log.success(green(`✅ Dependencies installed successfully!`));
+    }
+
+    // Initializing servest
+    const initResult = spawn.sync('npx', ['servest@latest', 'init'], {
+      cwd: root,
       stdio: 'inherit',
     });
+    if (initResult.status !== 0) {
+      log.warn(
+        red(
+          `🚨 Failed to initialize servest. Run 'npx servest@latest init' manually inside ${root}.`,
+        ),
+      );
+      process.exit(initResult.status ?? 1);
+    }
 
-    if (status !== 0) {
-      log.warn(red(`🚨 Failed to initialize servest. Run 'npx servest@latest init' manually.`));
-      process.exit(status ?? 1);
-    } else {
-      for (const addon of addons) {
-        log.info(`\nAdding ${addon}...`);
-        const { status } = spawn.sync('npx', ['servest@latest', 'add', addon], {
-          stdio: 'inherit',
-        });
+    //  Checking if config exists
+    const servestConfig = getIServestConfig(root);
 
-        if (status !== 0) {
-          log.warn(`${red('Failed:')} ${addon}`);
-        } else {
-          log.success(green(`${addon} added successfully!`));
-        }
+    if (servestConfig) {
+      // Run all addons in a single command
+      const { status } = spawn.sync('npx', ['servest@latest', 'add', ...addons], {
+        cwd: root,
+        stdio: 'inherit',
+        shell: true,
+      });
+
+      if (status !== 0) {
+        log.warn(red(`🚨 Failed to add addons: ${addons.join(', ')}`));
+        process.exit(status ?? 1);
+      } else {
+        log.success(green(`✅ Addons added successfully!`));
       }
+    } else {
+      log.warn(yellow(`⚠️ servest.config.json not found. Skipping addon installation.`));
     }
   }
 
@@ -233,12 +263,18 @@ async function init() {
 
   const installCommands =
     pkgManager === 'yarn'
-      ? ['yarn', 'yarn dev:start']
+      ? inStallCommand
+        ? ['yarn start:dev']
+        : ['yarn', 'yarn start:dev']
       : pkgManager === 'pnpm'
-        ? ['pnpm install', 'pnpm run dev:start']
-        : ['npm install', 'npm run dev:start'];
+        ? inStallCommand
+          ? ['pnpm run start:dev']
+          : ['pnpm install', 'pnpm run start:dev']
+        : inStallCommand
+          ? ['npm run start:dev']
+          : ['npm install', 'npm run start:dev'];
 
-  let finalMessage = `'Done. Now run:', ${cdCommand}`;
+  let finalMessage = `'🎉 Done. Now run:', ${cdCommand}`;
 
   if (template.includes('express')) {
     finalMessage = ['Done. Now run:', cdCommand, ...installCommands]

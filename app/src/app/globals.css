@@ -2,33 +2,215 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 @layer utilities {
   .flex-center {
     @apply flex items-center justify-center;
+  }
+
+  .flex-between {
+    @apply flex items-center justify-between;
+  }
+
+  .boundary {
+    @apply container mx-auto px-3 sm:px-4 md:px-8 lg:px-12 xl:px-20;
+  }
+
+  .wall {
+    @apply max-w-4xl mx-auto px-2;
+  }
+
+  .sidebar {
+    @apply lg:w-[25%] xl:w-[23%] bg-sidebar;
+  }
+
+  .docs-content {
+    @apply lg:w-[75%] xl:w-[77%] bg-docs;
+  }
+
+  .primary-gradient {
+    @apply bg-gradient-to-br from-[#FACC15] via-[#FFAF45] to-[#FF8225];
+  }
+
+  /* Professional Hero animations */
+  .hero-fade-in {
+    animation: heroFadeIn 0.8s ease-out forwards;
+  }
+
+  .hero-slide-up {
+    animation: heroSlideUp 0.6s ease-out forwards;
+  }
+
+  .text-glow-hover:hover {
+    text-shadow:
+      0 0 10px rgba(250, 204, 21, 0.3),
+      0 0 20px rgba(255, 175, 69, 0.2);
+    transition: text-shadow 0.3s ease;
+  }
+
+  @keyframes heroFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes heroSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .p {
+    @apply text-base leading-relaxed mb-4;
+  }
+
+  .prose {
+    @apply max-w-none;
+  }
+
+  .prose p {
+    @apply mb-4 leading-relaxed text-foreground/90;
+  }
+
+  .prose pre {
+    @apply rounded-lg overflow-x-auto p-4 my-4 bg-muted/50 border border-muted-foreground/10;
+  }
+
+  .prose code {
+    @apply font-mono text-code;
+  }
+
+  .prose h2,
+  .prose h3,
+  .prose h4 {
+    @apply scroll-mt-20;
+  }
+
+  .prose ul,
+  .prose ol {
+    @apply my-4 pl-6;
+  }
+
+  .prose li {
+    @apply mb-1;
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-muted-foreground/30 pl-4 italic text-muted-foreground;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --radial-bg: radial-gradient(circle at 50% 50%, hsl(0, 0%, 99%) 10%, hsl(0, 0%, 96%) 100%);
+    --navbar: 60, 100%, 99%;
+    --footer-bg: 255 255% 255%;
+    --brand: 34, 100%, 64%;
+    --highlighted: 292, 91%, 50%;
+    --table-odd: 216, 12%, 95%;
+    --link: 240, 100%, 45%;
+    --link-hover: 240, 100%, 65%;
+    --table-even: 213, 12%, 85%;
+    --docs: 60, 100%, 99%;
+    --sidebar: 0, 0%, 95%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 10%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0, 0%, 90%;
+    --border-docs: 0, 0%, 75%;
+    --border-logo: 0, 0%, 80%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --font-body: 'Merriweather', serif;
+    --font-heading: 'Montserrat', sans-serif;
+  }
+
+  .dark {
+    --background: 0 0% 10%;
+    --foreground: 0 0% 92%;
+    --radial-bg: radial-gradient(circle at 50% 50%, hsl(221, 63%, 6%) 10%, hsl(221, 100%, 3%) 100%);
+    --navbar: 240, 100%, 5%;
+    --footer-bg: 0 0% 1%;
+    --brand: 48, 96%, 53%;
+    --highlighted: 292, 91%, 60%;
+    --table-odd: 220, 9%, 25%;
+    --table-even: 220, 9%, 15%;
+    --link: 200, 100%, 55%;
+    --link-hover: 200, 100%, 65%;
+    --docs: 240, 7%, 5%;
+    --sidebar: 240, 4%, 10%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 30, 2%, 85%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 15%;
+    --border-docs: 0 0% 20%;
+    --border-logo: 0 0% 35%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background-image: var(--radial-bg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
   }
 }

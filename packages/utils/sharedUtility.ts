@@ -10,6 +10,8 @@ export const cancelOperation: CancelOperation = (message = 'Operation cancelled'
   process.exit(1);
 };
 
+export const nodeFrameWorks: string[] = ['express', 'nest', 'fastify', 'koa'];
+
 export const detectPkgManager = (cwd: string = process.cwd()): PackageManager => {
   if (fs.existsSync(path.join(cwd, 'pnpm-lock.yaml'))) return 'pnpm';
   if (fs.existsSync(path.join(cwd, 'yarn.lock'))) return 'yarn';

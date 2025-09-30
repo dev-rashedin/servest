@@ -7,21 +7,21 @@ declare interface IArgv {
   a?: string;
 }
 
-declare interface Variant {
+declare interface IVariant {
   value: string;
   name: string;
   color: (text: string) => string;
   customCommand?: string;
 }
 
-declare interface Framework {
+declare interface IFramework {
   value: string;
   name: string;
   color: (text: string) => string;
   variants: Variant[];
 }
 
-declare interface PkgInfo {
+declare interface IPkgInfo {
   name: string;
   version: string;
 }

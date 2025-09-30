@@ -1,36 +1,68 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { JSX } from 'react';
+'use client';
+import { useEffect, useState } from 'react';
+import { ThemeSwitcher } from './theme/theme-switcher';
+import NavLink from './ui/navlink';
+import MobileMenu from './ui/mobile-menu';
+import Socials from './ui/socials';
+import Logo from './ui/logo';
+import HeaderFrame from './ui/header-frame';
 
-const Navbar = (): JSX.Element => {
+const Navbar = ({ type = 'home' }: { type: string }) => {
+  const [mounted, setMounted] = useState(false);
+
+  // Animation on initial load
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
-    <nav className="flex justify-between items-center h-20 sticky top-0">
-      <div>
-        <Link href="/" className="flex-center gap-2">
-          <Image src="/logo.svg" width={40} height={40} alt="logo" />
-          <h1 className="text-2xl font-bold">Servest</h1>
-        </Link>
-      </div>
-      <div>
-        <ul className="flex gap-8">
-          <li>
-            <Link href="/">Home</Link>
-          </li>
-          <li>
-            <Link href="/docs">Docs</Link>
-          </li>
-          <li>
-            <Link href="/guide">Guide</Link>
-          </li>
-          <li>
-            <Link href="/blogs">Blogs</Link>
-          </li>
-          <li>
-            <Link href="/github">GitHub</Link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <HeaderFrame type={type}>
+      <nav className="boundary flex-between w-full transition-all duration-300 ease-in-out py-3 sm:py-4">
+        {/* Logo with fade-in animation */}
+        <div
+          className={`
+          transition-all duration-700 ease-out
+          ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}
+          scale-90 sm:scale-100
+        `}
+        >
+          <Logo />
+        </div>
+
+        {/* Navigation elements with staggered fade-in */}
+        <section className="flex-center gap-4 sm:gap-6 lg:gap-16">
+          <div
+            className={`
+            hidden md:block transition-all duration-700 delay-100 ease-out
+            ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}
+          `}
+          >
+            <NavLink />
+          </div>
+
+          <div
+            className={`
+            hidden md:flex-center gap-4 sm:gap-6 transition-all duration-700 delay-200 ease-out
+            ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}
+          `}
+          >
+            <Socials />
+            <div className="border-l border-border/30 h-6 mx-1"></div>
+            <ThemeSwitcher />
+          </div>
+
+          <div
+            className={`
+            md:hidden transition-all duration-700 delay-100 ease-out
+            ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}
+          `}
+          >
+            <MobileMenu />
+          </div>
+        </section>
+      </nav>
+    </HeaderFrame>
   );
 };
+
 export default Navbar;
