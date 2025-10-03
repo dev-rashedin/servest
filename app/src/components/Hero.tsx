@@ -9,7 +9,7 @@ const Hero = () => {
         className="text-5xl md:text-7xl font-heading font-bold mb-7 tracking-wide hover:glow"
         style={{ lineHeight: '1.1' }}
       >
-        The Ultimate Backend Builder
+        The Ultimate Backend Builder r
       </h1>
       <p className="md:max-w-2xl md:text-[16px] lg:text-xl lg:max-w-3xl font-medium text-muted-foreground  leading-8 lg:leading-9">
         The simplest way to bootstrap backend projects. Generate clean templates, add the tools you
