@@ -5,8 +5,7 @@ import remarkGfm from 'remark-gfm';
 import { MDXComponents } from '@/components/MDXComponent';
 
 export async function generateStaticParams() {
-  const dir = path.join(process.cwd(), '../docs/guide');
-  const files = await fs.readdir(dir);
+  const files = await fs.readdir(path.join(process.cwd(), '../docs/guide'));
   return files.filter((f) => f.endsWith('.mdx')).map((f) => ({ slug: f.replace(/\.mdx$/, '') }));
 }
 

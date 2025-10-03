@@ -7,9 +7,14 @@ import { MDXComponents } from '@/components/MDXComponent';
 import RightSidebar from '@/components/RightSidebar';
 import { extractHeadingsFromMdx } from '@/lib/mdx';
 
+// export async function generateStaticParams() {
+//   const dir = path.join(process.cwd(), '../docs/addons');
+//   const files = await fs.readdir(dir);
+//   return files.filter((f) => f.endsWith('.mdx')).map((f) => ({ slug: f.replace(/\.mdx$/, '') }));
+// }
+
 export async function generateStaticParams() {
-  const dir = path.join(process.cwd(), '../docs/addons');
-  const files = await fs.readdir(dir);
+  const files = await fs.readdir(path.join(process.cwd(), '../docs/addons'));
   return files.filter((f) => f.endsWith('.mdx')).map((f) => ({ slug: f.replace(/\.mdx$/, '') }));
 }
 
