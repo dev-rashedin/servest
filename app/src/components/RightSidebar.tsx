@@ -1,4 +1,3 @@
-// components/RightSidebar.tsx
 'use client';
 import { useEffect, useState } from 'react';
 
@@ -11,8 +10,6 @@ interface Heading {
 export default function RightSidebar({ clientHeadings }: { clientHeadings: Heading[] }) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
-
-  console.log(clientHeadings);
 
   useEffect(() => {
     if (!clientHeadings?.length) return;

@@ -1,11 +1,8 @@
 import fs from 'fs/promises';
 import path from 'path';
-import { compileMDX } from 'next-mdx-remote/rsc';
-import remarkGfm from 'remark-gfm';
-import rehypeSlug from 'rehype-slug';
-import { MDXComponents } from '@/components/MDXComponent';
 import RightSidebar from '@/components/RightSidebar';
-import { extractHeadingsFromMdx } from '@/lib/mdx';
+
+import { getContent } from '@/lib';
 
 // ✅ generateStaticParams
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
@@ -20,22 +17,7 @@ interface SlugPageProps {
 }
 
 export default async function AddonPage({ params }: SlugPageProps) {
-  const filePath = path.join(process.cwd(), '../docs/addons', `${params.slug}.mdx`);
-  const source = await fs.readFile(filePath, 'utf-8');
-
-  const headings = extractHeadingsFromMdx(source);
-
-  const { content } = await compileMDX({
-    source,
-    components: MDXComponents,
-    options: {
-      parseFrontmatter: true,
-      mdxOptions: {
-        remarkPlugins: [remarkGfm],
-        rehypePlugins: [rehypeSlug],
-      },
-    },
-  });
+  const { content, headings } = await getContent('addons', params.slug);
 
   return (
     <div className="flex gap-8">
