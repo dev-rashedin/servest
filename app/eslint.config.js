@@ -1,4 +1,4 @@
-import { defineConfig } from 'eslint-define-config';
+import { defineConfig } from 'eslint/config';
 import eslintPluginTs from '@typescript-eslint/eslint-plugin';
 import eslintPluginNext from 'eslint-plugin-next';
 
