@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Heading {
   id: string;
@@ -10,6 +10,10 @@ interface Heading {
 export default function RightSidebar({ clientHeadings }: { clientHeadings: Heading[] }) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
+  const [indicatorY, setIndicatorY] = useState(0);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
+  console.log('progress', progress);
 
   useEffect(() => {
     if (!clientHeadings?.length) return;
@@ -43,18 +47,29 @@ export default function RightSidebar({ clientHeadings }: { clientHeadings: Headi
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!activeId || !sidebarRef.current) return;
+    const linkEl = sidebarRef.current.querySelector<HTMLAnchorElement>(`a[href="#${activeId}"]`);
+    if (linkEl) {
+      const rect = linkEl.getBoundingClientRect();
+      const sidebarRect = sidebarRef.current.getBoundingClientRect();
+      setIndicatorY(rect.top - sidebarRect.top);
+    }
+  }, [activeId]);
+
   if (!clientHeadings?.length) return null;
 
   return (
     <aside className="hidden xl:block fixed right-20 xl:right-48 top-48 w-64">
       <div className="relative pl-4">
         {/* vertical progress bar at far right */}
-        <div className="absolute left-0 top-0 h-full w-[2px] bg-neutral-200">
-          <div className="bg-brand w-full" style={{ height: `${progress}%` }} />
-        </div>
+        <div
+          className="absolute left-0 w-[2px] bg-brand transition-all duration-300"
+          style={{ top: `${indicatorY}px`, height: '20px' }}
+        />
 
         {/* headings list */}
-        <nav className="flex flex-col gap-2 max-h-[70vh] overflow-auto pr-3">
+        <nav ref={sidebarRef} className="flex flex-col gap-3 max-h-[70vh] overflow-auto">
           {clientHeadings.map((h) => (
             <a
               key={h.id}
@@ -65,7 +80,7 @@ export default function RightSidebar({ clientHeadings }: { clientHeadings: Headi
                 el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 history.replaceState(null, '', `#${h.id}`);
               }}
-              className={`block truncate ${activeId === h.id ? 'text-brand font-semibold' : 'text-muted-foreground'} ${h.level === 3 ? 'pl-4' : ''}`}
+              className={`block truncate ${activeId === h.id ? 'text-brand font-semibold' : 'text-muted-foreground'} ${h.level === 3 ? 'pl-6' : ''}`}
             >
               {h.text}
             </a>

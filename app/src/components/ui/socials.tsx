@@ -7,7 +7,7 @@ const Socials = ({ screenType = 'large' }) => {
       <Link href="https://github.com/dev-rashedin/servest" target="_blank">
         <FaGithub className="text-2xl z-10" />
       </Link>
-      <Link href="https://discord.com/channels/@dev_rashedin" target="_blank">
+      <Link href="https://discord.gg/AhqDGZj3" target="_blank">
         <FaDiscord className="text-3xl z-10" />
       </Link>
     </div>
