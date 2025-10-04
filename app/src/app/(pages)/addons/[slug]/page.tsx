@@ -1,23 +1,26 @@
 import fs from 'fs/promises';
 import path from 'path';
+import { getContent } from '@/lib';
 import RightSidebar from '@/components/RightSidebar';
 
-import { getContent } from '@/lib';
-
-// ✅ generateStaticParams
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const files = await fs.readdir(path.join(process.cwd(), '../docs/addons'));
-  return files.filter((f) => f.endsWith('.mdx')).map((f) => ({ slug: f.replace(/\.mdx$/, '') }));
+
+  // Type assertion ensures TS sees it as Array<{slug: string}>
+  const params = files
+    .filter((f) => f.endsWith('.mdx'))
+    .map((f) => ({ slug: f.replace(/\.mdx$/, '') })) as { slug: string }[];
+
+  return params;
 }
 
-// ✅ Page props type including optional searchParams
-interface SlugPageProps {
-  params: { slug: string };
-  searchParams?: Record<string, string | string[] | undefined>;
-}
+export default async function AddonPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const { content, headings } = await getContent('addons', slug);
 
-export default async function AddonPage({ params }: SlugPageProps) {
-  const { content, headings } = await getContent('addons', params.slug);
+  {
+    console.log(params);
+  }
 
   return (
     <div className="flex gap-8">

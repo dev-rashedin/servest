@@ -4,17 +4,19 @@ import { getContent } from '@/lib';
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const files = await fs.readdir(path.join(process.cwd(), '../docs/guide'));
-  return files.filter((f) => f.endsWith('.mdx')).map((f) => ({ slug: f.replace(/\.mdx$/, '') }));
+
+  // Type assertion ensures TS sees it as Array<{slug: string}>
+  const params = files
+    .filter((f) => f.endsWith('.mdx'))
+    .map((f) => ({ slug: f.replace(/\.mdx$/, '') })) as { slug: string }[];
+
+  return params;
 }
 
-// Updated props type to include optional searchParams
-interface SlugPageProps {
-  params: { slug: string };
-  searchParams?: Record<string, string | string[] | undefined>;
-}
+export default async function GuidPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
 
-export default async function GuidPage({ params }: SlugPageProps) {
-  const { content } = await getContent('guide', params.slug);
+  const { content } = await getContent('guide', slug);
 
   return <div className="prose prose-lg">{content}</div>;
 }

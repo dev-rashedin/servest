@@ -3,10 +3,16 @@ import path from 'path';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
+import type { ReactNode } from 'react';
 import { extractHeadingsFromMdx } from './mdx';
 import { MDXComponents } from '@/components/MDXComponent';
 
-async function getContent(endpoint: string, slug: string) {
+interface GetContentResult {
+  content: ReactNode;
+  headings: { id: string; text: string; level: number }[];
+}
+
+async function getContent(endpoint: string, slug: string): Promise<GetContentResult> {
   const filePath = path.join(process.cwd(), `../docs/${endpoint}`, `${slug}.mdx`);
   const source = await fs.readFile(filePath, 'utf-8');
 
@@ -21,7 +27,7 @@ async function getContent(endpoint: string, slug: string) {
     },
   });
 
-  return { content, headings };
+  return { content: content as unknown as ReactNode, headings };
 }
 
 export default getContent;

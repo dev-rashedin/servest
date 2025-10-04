@@ -22,3 +22,5 @@ packages/**/dist-ssr
 
 # Misc
 explorations
+
+.vercel
