@@ -7,25 +7,23 @@ import { MDXComponents } from '@/components/MDXComponent';
 import RightSidebar from '@/components/RightSidebar';
 import { extractHeadingsFromMdx } from '@/lib/mdx';
 
-// export async function generateStaticParams() {
-//   const dir = path.join(process.cwd(), '../docs/addons');
-//   const files = await fs.readdir(dir);
-//   return files.filter((f) => f.endsWith('.mdx')).map((f) => ({ slug: f.replace(/\.mdx$/, '') }));
-// }
-
+// ✅ generateStaticParams
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const files = await fs.readdir(path.join(process.cwd(), '../docs/guide'));
+  const files = await fs.readdir(path.join(process.cwd(), '../docs/addons'));
   return files.filter((f) => f.endsWith('.mdx')).map((f) => ({ slug: f.replace(/\.mdx$/, '') }));
 }
 
-export default async function AddonPage({ params }: { params: { slug: string } }) {
+// ✅ Page props type including optional searchParams
+interface SlugPageProps {
+  params: { slug: string };
+  searchParams?: Record<string, string | string[] | undefined>;
+}
+
+export default async function AddonPage({ params }: SlugPageProps) {
   const filePath = path.join(process.cwd(), '../docs/addons', `${params.slug}.mdx`);
   const source = await fs.readFile(filePath, 'utf-8');
 
-  // build-time extract headings (ids will match rehype-slug)
   const headings = extractHeadingsFromMdx(source);
-
-  console.log('headings', headings);
 
   const { content } = await compileMDX({
     source,

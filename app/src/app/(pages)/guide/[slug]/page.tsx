@@ -9,7 +9,13 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
   return files.filter((f) => f.endsWith('.mdx')).map((f) => ({ slug: f.replace(/\.mdx$/, '') }));
 }
 
-export default async function AddonPage({ params }: { params: { slug: string } }) {
+// Updated props type to include optional searchParams
+interface AddonPageProps {
+  params: { slug: string };
+  searchParams?: Record<string, string | string[] | undefined>;
+}
+
+export default async function AddonPage({ params }: AddonPageProps) {
   const filePath = path.join(process.cwd(), '../docs/guide', `${params.slug}.mdx`);
   const source = await fs.readFile(filePath, 'utf-8');
 

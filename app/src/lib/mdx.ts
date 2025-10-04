@@ -7,6 +7,7 @@ import remarkMdx from 'remark-mdx';
 import { visit } from 'unist-util-visit';
 import { toString } from 'mdast-util-to-string';
 import Slugger from 'github-slugger';
+import type { Heading } from 'mdast';
 
 export async function readMdxSource(section: string, slug: string) {
   const filePath = path.join(process.cwd(), `../docs/${section}/${slug}.mdx`);
@@ -14,13 +15,13 @@ export async function readMdxSource(section: string, slug: string) {
   return source;
 }
 
-/** Extract headings (id, text, level) from raw MDX source using github-slugger */
+/** Extracting headings (id, text, level) from raw MDX source using github-slugger */
 export function extractHeadingsFromMdx(source: string) {
   const tree = unified().use(remarkParse).use(remarkMdx).parse(source);
   const slugger = new Slugger();
   const headings: { id: string; text: string; level: number }[] = [];
 
-  visit(tree, 'heading', (node: any) => {
+  visit(tree, 'heading', (node: Heading) => {
     const text = toString(node);
     if (!text) return;
     const id = slugger.slug(text);

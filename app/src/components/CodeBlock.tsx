@@ -1,13 +1,13 @@
 // components/CodeBlock.tsx
 import React from 'react';
-import { createHighlighter } from 'shiki';
+import { type Highlighter, createHighlighter } from 'shiki';
 
 interface CodeBlockProps {
   code: string;
   language?: string;
 }
 
-let highlighterPromise: Promise<any> | null = null;
+let highlighterPromise: Promise<Highlighter> | null = null;
 
 export default async function CodeBlock({ code, language = 'ts' }: CodeBlockProps) {
   // Initialize highlighter once
