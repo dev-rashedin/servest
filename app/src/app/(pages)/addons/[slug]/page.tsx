@@ -16,7 +16,19 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
 
 export default async function AddonPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const { content, headings } = await getContent('addons', slug);
+  const { content, headings, slugOrder, currentSlug, prevSlug, nextSlug } = await getContent(
+    'addons',
+    slug,
+  );
 
-  return <DisplayContent content={content} headings={headings} />;
+  return (
+    <DisplayContent
+      content={content}
+      headings={headings}
+      slugOrder={slugOrder}
+      currentSlug={currentSlug}
+      prevSlug={prevSlug}
+      nextSlug={nextSlug}
+    />
+  );
 }

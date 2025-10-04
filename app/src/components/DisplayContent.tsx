@@ -1,18 +1,59 @@
+import Link from 'next/link';
 import RightSidebar from './RightSidebar';
+
+interface Props {
+  content: React.ReactNode;
+  headings: { id: string; text: string; level: number }[];
+  slugOrder?: string[];
+  currentSlug?: string;
+  prevSlug?: string | null;
+  nextSlug?: string | null;
+  endpoint?: string; // needed to construct URL
+}
 
 const DisplayContent = ({
   content,
   headings,
-}: {
-  content: React.ReactNode;
-  headings: { id: string; text: string; level: number }[];
-}) => {
+  slugOrder,
+  currentSlug,
+  prevSlug,
+  nextSlug,
+  endpoint,
+}: Props) => {
+  console.log('inside display content', endpoint, currentSlug, prevSlug, nextSlug, slugOrder);
+
   return (
     <>
       <article className="prose prose-lg">{content}</article>
+
       <RightSidebar clientHeadings={headings} />
 
-      <div className="h-80 mt-40">
+      {/* Previous / Next navigation */}
+      <div className="max-w-4xl  flex justify-between mt-20 mb-40 border-2 border-white min-h-20">
+        {prevSlug ? (
+          <Link
+            href={`/${endpoint}/${prevSlug === 'index' ? '' : prevSlug}`}
+            className="text-muted-foreground hover:text-brand transition-colors"
+          >
+            ← {prevSlug}
+          </Link>
+        ) : (
+          <div />
+        )}
+
+        {nextSlug ? (
+          <Link
+            href={`/${endpoint}/${nextSlug === 'index' ? '' : nextSlug}`}
+            className="text-muted-foreground hover:text-brand transition-colors"
+          >
+            {nextSlug} →
+          </Link>
+        ) : (
+          <div />
+        )}
+      </div>
+
+      <div className="h-80 mt-20">
         <div className="h-[2px] border-t border-muted pb-8"></div>
 
         <h2 className="text-2xl font-bold mt-4 pb-4">Community</h2>
@@ -38,4 +79,5 @@ const DisplayContent = ({
     </>
   );
 };
+
 export default DisplayContent;

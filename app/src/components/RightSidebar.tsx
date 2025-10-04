@@ -11,9 +11,9 @@ export default function RightSidebar({ clientHeadings }: { clientHeadings: Headi
   const [activeId, setActiveId] = useState<string | null>(null);
   const [indicatorY, setIndicatorY] = useState(40);
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const rafRef = useRef<number>(null);
+  const rafRef = useRef<number | null>(null);
 
-  // 🧭 Detecting which heading is visible
+  // Detecting which heading is visible
   useEffect(() => {
     if (!clientHeadings?.length) return;
 
@@ -42,7 +42,7 @@ export default function RightSidebar({ clientHeadings }: { clientHeadings: Headi
     return () => observer.disconnect();
   }, [clientHeadings, activeId]);
 
-  // 🎯 Smoothly moving the highlight indicator (debounced with rAF)
+  // Moving the highlight indicator with subtle smoothing
   useEffect(() => {
     if (!activeId || !sidebarRef.current) return;
 
@@ -66,10 +66,12 @@ export default function RightSidebar({ clientHeadings }: { clientHeadings: Headi
   return (
     <aside className="hidden xl:block fixed right-20 xl:right-48 top-48 w-64">
       <div className="relative pl-6">
-        <div className="absolute left-0 top-0 w-[1px] h-full bg-muted" />
-        {/* Moving highlight bar */}
+        {/* Background for the scrollbar */}
+        <div className="absolute left-0 top-0 w-[2px] h-full bg-muted" />
+
+        {/* Moving highlight bar with subtle transition */}
         <div
-          className="absolute left-0 w-[1px] bg-brand transition-transform duration-100 ease-in"
+          className="absolute left-0 w-[2px] bg-brand transition-transform duration-150 ease-out"
           style={{
             transform: `translateY(${indicatorY}px)`,
             height: '20px',
@@ -87,8 +89,8 @@ export default function RightSidebar({ clientHeadings }: { clientHeadings: Headi
                 onClick={(e) => {
                   e.preventDefault();
                   const el = document.getElementById(h.id);
-                  el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  history.replaceState(null, '', `#${h.id}`);
+                  el?.scrollIntoView({ block: 'start' });
+                  setActiveId(h.id);
                 }}
                 className={`block truncate transition-colors ${
                   activeId === h.id ? 'text-muted-highlights' : 'text-muted-foreground'

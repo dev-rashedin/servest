@@ -10,10 +10,25 @@ import { MDXComponents } from '@/components/MDXComponent';
 interface GetContentResult {
   content: ReactNode;
   headings: { id: string; text: string; level: number }[];
+  slugOrder: string[];
+  currentSlug: string;
+  prevSlug: string | null;
+  nextSlug: string | null;
 }
 
 async function getContent(endpoint: string, slug: string): Promise<GetContentResult> {
-  const filePath = path.join(process.cwd(), `../docs/${endpoint}`, `${slug}.mdx`);
+  const dir = path.join(process.cwd(), `../docs/${endpoint}`);
+  const files = await fs.readdir(dir);
+
+  // Sort files alphabetically or however you want
+  const slugOrder = files.filter((f) => f.endsWith('.mdx')).map((f) => f.replace(/\.mdx$/, ''));
+
+  const currentIndex = slugOrder.indexOf(slug);
+
+  const prevSlug = currentIndex > 0 ? slugOrder[currentIndex - 1] : null;
+  const nextSlug = currentIndex < slugOrder.length - 1 ? slugOrder[currentIndex + 1] : null;
+
+  const filePath = path.join(dir, `${slug}.mdx`);
   const source = await fs.readFile(filePath, 'utf-8');
 
   const headings = extractHeadingsFromMdx(source);
@@ -27,7 +42,14 @@ async function getContent(endpoint: string, slug: string): Promise<GetContentRes
     },
   });
 
-  return { content: content as unknown as ReactNode, headings };
+  return {
+    content: content as unknown as ReactNode,
+    headings,
+    slugOrder,
+    currentSlug: slug,
+    prevSlug,
+    nextSlug,
+  };
 }
 
 export default getContent;
