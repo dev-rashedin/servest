@@ -7,7 +7,7 @@ export default function GuideLayout({ children }: { children: ReactNode }) {
   const links = getContentLinks('guide'); // server-side
 
   return (
-    <main className="flex min-h-[calc(100vh-80px)]">
+    <main className="lg:flex">
       <div className="sidebar">
         <Sidebar links={links} type="guide" />
       </div>

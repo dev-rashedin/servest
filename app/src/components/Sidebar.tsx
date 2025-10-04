@@ -8,7 +8,7 @@ const Sidebar = ({ links, type }: { links: { slug: string; label: string }[]; ty
   const pathname = usePathname();
 
   return (
-    <aside className="h-screen hidden lg:flex lg:flex-col lg:pl-16 xl:pl-24 fixed w-[23%] overflow-y-auto">
+    <aside className="h-screen hidden lg:flex lg:flex-col lg:pl-16 xl:pl-24 fixed w-[25%] lg:w-[20%] overflow-y-auto">
       {/* logo */}
       <section className="sticky top-0 z-10 bg-sidebar ">
         <HeaderFrame type="logo">
@@ -35,7 +35,7 @@ const Sidebar = ({ links, type }: { links: { slug: string; label: string }[]; ty
               href={`/${type}/${slug}`}
               className={` hover:underline ${isActive ? 'text-brand font-medium' : ''}`}
             >
-              {label}
+              {label.split('.')[0]}
             </Link>
           );
         })}

@@ -13,11 +13,12 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Merriweather', 'serif'],
+        // body: ['Merriweather', 'serif'],
+        body: ['Inter', 'serif'],
         heading: ['Montserrat', 'sans-serif'],
       },
       fontSize: {
-        body: ['0.9rem', { lineHeight: '1.7', letterSpacing: '0.02em' }],
+        body: ['0.9rem', { lineHeight: '1.8', letterSpacing: '0.036em' }],
       },
       typography: {
         DEFAULT: {

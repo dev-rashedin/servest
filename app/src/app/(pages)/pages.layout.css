@@ -4,7 +4,7 @@
 } */
 
 main::-webkit-scrollbar {
-  width: 0px; /* scrollbar width */
+  width: 10px; /* scrollbar width */
 }
 
 main::-webkit-scrollbar-thumb {

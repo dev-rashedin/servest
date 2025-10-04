@@ -46,7 +46,7 @@ export default function RightSidebar({ clientHeadings }: { clientHeadings: Headi
   if (!clientHeadings?.length) return null;
 
   return (
-    <aside className="hidden xl:block fixed right-20 top-40 w-64">
+    <aside className="hidden xl:block fixed right-20 xl:right-48 top-48 w-64">
       <div className="relative pl-4">
         {/* vertical progress bar at far right */}
         <div className="absolute left-0 top-0 h-full w-[2px] bg-neutral-200">
