@@ -9,73 +9,95 @@ interface Heading {
 
 export default function RightSidebar({ clientHeadings }: { clientHeadings: Heading[] }) {
   const [activeId, setActiveId] = useState<string | null>(null);
-  const [indicatorY, setIndicatorY] = useState(0);
+  const [indicatorY, setIndicatorY] = useState(40);
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number>(null);
 
-  // Track active heading using IntersectionObserver
+  // 🧭 Detecting which heading is visible
   useEffect(() => {
     if (!clientHeadings?.length) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries.filter((e) => e.isIntersecting);
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
         if (visible.length) {
-          const topMost = visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-          setActiveId(topMost.target.id);
+          const newId = visible[0].target.id;
+          if (newId !== activeId) setActiveId(newId);
         }
       },
-      { root: null, rootMargin: '0px 0px -60% 0px', threshold: [0, 0.1, 0.5, 1] },
+      {
+        rootMargin: '0px 0px -60% 0px',
+        threshold: [0.1, 0.5, 1],
+      },
     );
 
-    clientHeadings.forEach((h) => {
-      const el = document.getElementById(h.id);
+    clientHeadings.forEach(({ id }) => {
+      const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
 
     return () => observer.disconnect();
-  }, [clientHeadings]);
+  }, [clientHeadings, activeId]);
 
-  // Compute indicator Y relative to scrollable nav
+  // 🎯 Smoothly moving the highlight indicator (debounced with rAF)
   useEffect(() => {
     if (!activeId || !sidebarRef.current) return;
 
-    const linkEl = sidebarRef.current.querySelector<HTMLAnchorElement>(`a[href="#${activeId}"]`);
-    if (linkEl) {
-      const newY = linkEl.offsetTop - sidebarRef.current.scrollTop;
-      setIndicatorY(newY);
-    }
+    cancelAnimationFrame(rafRef.current!);
+
+    rafRef.current = requestAnimationFrame(() => {
+      const linkEl = sidebarRef.current!.querySelector<HTMLAnchorElement>(`a[href="#${activeId}"]`);
+      if (!linkEl) return;
+
+      const rect = linkEl.getBoundingClientRect();
+      const sidebarRect = sidebarRef.current!.getBoundingClientRect();
+      const y = rect.top - sidebarRect.top;
+      setIndicatorY(y);
+    });
+
+    return () => cancelAnimationFrame(rafRef.current!);
   }, [activeId]);
 
   if (!clientHeadings?.length) return null;
 
   return (
     <aside className="hidden xl:block fixed right-20 xl:right-48 top-48 w-64">
-      <div className="relative pl-4">
-        {/* small vertical indicator */}
+      <div className="relative pl-6">
+        <div className="absolute left-0 top-0 w-[1px] h-full bg-muted" />
+        {/* Moving highlight bar */}
         <div
-          className="absolute left-0 w-[2px] bg-brand rounded transition-transform duration-200"
-          style={{ transform: `translateY(${indicatorY}px)`, height: '20px' }}
+          className="absolute left-0 w-[1px] bg-brand transition-transform duration-100 ease-in"
+          style={{
+            transform: `translateY(${indicatorY}px)`,
+            height: '20px',
+          }}
         />
 
-        {/* scrollable headings list */}
+        {/* Headings list */}
         <nav ref={sidebarRef} className="flex flex-col gap-3 max-h-[70vh] overflow-auto">
-          {clientHeadings.map((h) => (
-            <a
-              key={h.id}
-              href={`#${h.id}`}
-              onClick={(e) => {
-                e.preventDefault();
-                const el = document.getElementById(h.id);
-                el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                history.replaceState(null, '', `#${h.id}`);
-              }}
-              className={`block truncate ${
-                activeId === h.id ? 'text-muted-foreground brightness-200' : 'text-muted-foreground'
-              } ${h.level === 3 ? 'pl-6' : ''}`}
-            >
-              {h.text}
-            </a>
-          ))}
+          <p className="font-semibold">On this page</p>
+          {clientHeadings.map((h, idx) =>
+            idx === 0 ? null : (
+              <a
+                key={h.id}
+                href={`#${h.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  const el = document.getElementById(h.id);
+                  el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  history.replaceState(null, '', `#${h.id}`);
+                }}
+                className={`block truncate transition-colors ${
+                  activeId === h.id ? 'text-muted-highlights' : 'text-muted-foreground'
+                } ${h.level === 3 ? 'pl-6' : ''}`}
+              >
+                {h.text}
+              </a>
+            ),
+          )}
         </nav>
       </div>
     </aside>
