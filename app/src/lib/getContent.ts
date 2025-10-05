@@ -6,6 +6,7 @@ import rehypeSlug from 'rehype-slug';
 import type { ReactNode } from 'react';
 import { extractHeadingsFromMdx } from './mdx';
 import { MDXComponents } from '@/components/MDXComponent';
+import { docsOrder } from '@/data';
 
 interface GetContentResult {
   content: ReactNode;
@@ -25,8 +26,11 @@ async function getContent(endpoint: string, slug: string): Promise<GetContentRes
 
   const headings = extractHeadingsFromMdx(source);
 
-  // Sort files alphabetically or however you want
-  const slugOrder = files.filter((f) => f.endsWith('.mdx')).map((f) => f.replace(/\.mdx$/, ''));
+  const defaultOrder = files
+    .filter((f) => f.endsWith('.mdx') && f !== 'index.mdx')
+    .map((f) => f.replace(/\.mdx$/, ''));
+
+  const slugOrder = docsOrder[endpoint] || defaultOrder;
 
   const currentIndex = slugOrder.indexOf(slug);
 

@@ -18,24 +18,29 @@ const Sidebar = ({ links, type }: { links: { slug: string; label: string }[]; ty
 
       {/* Nav list (scrolls under the sticky header) */}
       <nav className="flex flex-col gap-4 lg:pl-4 xl:pl-6 mt-6">
-        <Link
+        {/* <Link
           href={`/${type}`}
           className={`font-medium hover:underline ${
             pathname === `/${type}` || pathname === `/${type}/` ? 'text-brand' : ''
           }`}
         >
           Overview
-        </Link>
+        </Link> */}
 
         {links.map(({ slug, label }) => {
-          const isActive = pathname === `/${type}/${slug}`;
+          const href = slug === 'index' ? `/${type}` : `/${type}/${slug}`;
+
+          const isActive =
+            pathname === href ||
+            (slug === 'index' && (pathname === `/${type}` || pathname === `/${type}/`));
+
           return (
             <Link
               key={slug}
-              href={`/${type}/${slug}`}
-              className={` hover:underline ${isActive ? 'text-brand font-medium' : ''}`}
+              href={href}
+              className={` hover:underline ${isActive ? 'text-brand font-medium' : ''} `}
             >
-              {label.split('.')[0]}
+              {slug === 'index' ? 'Overview' : label.replace(/\.mdx$/, '').replace(/-/g, ' ')}
             </Link>
           );
         })}

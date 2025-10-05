@@ -9,9 +9,9 @@ export const navItems = [
   { label: 'Resources', to: '/resources' },
 ];
 
-export const docsOrder = {
-  guide: ['index', 'f-fileName'],
-  addons: [
+export const docsOrder: Record<string, string[]> = {
+  addons: ['index', 'f-fileName'],
+  guide: [
     'index',
     'philosophy',
     'gettin-started',

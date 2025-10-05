@@ -26,11 +26,10 @@ const DisplayContent = async ({ endpoint, slug }: Props) => {
       {/* Previous / Next navigation */}
 
       <section className="max-w-3xl min-h-80 py-40">
-        <Divider />
-
         {/* community */}
         {slug === 'index' && (
           <>
+            <Divider />
             <h3 className="text-xl lg:text-2xl font-bold mt-4 pb-4">Community</h3>
             <p className="w-full text-muted-foreground lg:text-[16px]">
               If you have questions or feedback, reach out to the community at{' '}
@@ -54,7 +53,7 @@ const DisplayContent = async ({ endpoint, slug }: Props) => {
           </>
         )}
 
-        <div className="mt-20 mb-8">
+        <div className="mt-20 mb-6">
           <Link
             href={`https://github.com/dev-rashedin/servest/edit/main/docs/${endpoint}/${currentSlug}.mdx`}
             target="_blank"
@@ -68,7 +67,7 @@ const DisplayContent = async ({ endpoint, slug }: Props) => {
         <Divider />
 
         {/* next and previous button */}
-        <div className="flex justify-between mt-20 min-h-16">
+        <div className="flex justify-between mt-12 min-h-16">
           {prevSlug ? (
             <Link
               href={`/${endpoint}/${prevSlug === 'index' ? '' : prevSlug}`}
@@ -76,7 +75,9 @@ const DisplayContent = async ({ endpoint, slug }: Props) => {
             >
               <span className="text-sm text-muted-highlight">Previous Page</span>
               <span className="text-brand">
-                {prevSlug.charAt(0).toUpperCase() + prevSlug.slice(1)}
+                {prevSlug === 'index'
+                  ? 'Overview'
+                  : prevSlug.charAt(0).toUpperCase() + prevSlug.slice(1)}
               </span>
             </Link>
           ) : (
