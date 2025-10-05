@@ -21,7 +21,7 @@
     @apply container mx-auto px-4 md:px-8 lg:px-12 xl:px-20;
   }
   .wall {
-    @apply max-w-4xl mx-auto px-2;
+    @apply max-w-6xl mx-auto px-2;
   }
 
   .sidebar {
