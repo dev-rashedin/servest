@@ -1,25 +1,18 @@
 import Link from 'next/link';
 import RightSidebar from './RightSidebar';
+import { getContent } from '@/lib';
 
 interface Props {
-  content: React.ReactNode;
-  headings: { id: string; text: string; level: number }[];
-  slugOrder?: string[];
-  currentSlug?: string;
-  prevSlug?: string | null;
-  nextSlug?: string | null;
-  endpoint?: string; // needed to construct URL
+  endpoint: string;
+  slug: string;
 }
 
-const DisplayContent = ({
-  content,
-  headings,
-  slugOrder,
-  currentSlug,
-  prevSlug,
-  nextSlug,
-  endpoint,
-}: Props) => {
+const DisplayContent = async ({ endpoint, slug }: Props) => {
+  const { content, headings, slugOrder, currentSlug, prevSlug, nextSlug } = await getContent(
+    endpoint,
+    slug,
+  );
+
   console.log('inside display content', endpoint, currentSlug, prevSlug, nextSlug, slugOrder);
 
   return (

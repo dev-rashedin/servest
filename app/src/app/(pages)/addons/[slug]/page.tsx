@@ -1,6 +1,5 @@
 import fs from 'fs/promises';
 import path from 'path';
-import { getContent } from '@/lib';
 import DisplayContent from '@/components/DisplayContent';
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
@@ -16,19 +15,6 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
 
 export default async function AddonPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const { content, headings, slugOrder, currentSlug, prevSlug, nextSlug } = await getContent(
-    'addons',
-    slug,
-  );
 
-  return (
-    <DisplayContent
-      content={content}
-      headings={headings}
-      slugOrder={slugOrder}
-      currentSlug={currentSlug}
-      prevSlug={prevSlug}
-      nextSlug={nextSlug}
-    />
-  );
+  return <DisplayContent endpoint="addons" slug={slug} />;
 }

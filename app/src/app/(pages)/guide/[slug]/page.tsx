@@ -1,7 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
-import { getContent } from '@/lib';
-import RightSidebar from '@/components/RightSidebar';
+import DisplayContent from '@/components/DisplayContent';
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const files = await fs.readdir(path.join(process.cwd(), '../docs/guide'));
@@ -17,10 +16,5 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
 export default async function GuidPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
-  const { content, headings } = await getContent('guide', slug);
-
-  <div className="flex gap-8">
-    <article className="prose prose-lg flex-1">{content}</article>
-    <RightSidebar clientHeadings={headings} />
-  </div>;
+  return <DisplayContent endpoint="guide" slug={slug} />;
 }

@@ -4,7 +4,7 @@ import { getContentLinks } from '@/lib';
 import MotionWrapper from '@/components/MotionWrapper'; // <- client wrapper
 
 export default function GuideLayout({ children }: { children: ReactNode }) {
-  const links = getContentLinks('guide'); // server-side
+  const links = getContentLinks('guide');
 
   return (
     <main className="lg:flex">
