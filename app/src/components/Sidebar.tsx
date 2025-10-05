@@ -10,7 +10,7 @@ const Sidebar = ({ links, type }: { links: { slug: string; label: string }[]; ty
   return (
     <aside className="h-screen hidden lg:flex lg:flex-col lg:pl-16 xl:pl-24 fixed w-[25%] lg:w-[20%] overflow-y-auto">
       {/* logo */}
-      <section className="sticky top-0 z-10 bg-sidebar ">
+      <section className="hidden lg:block sticky top-0 z-10 bg-sidebar ">
         <HeaderFrame type="logo">
           <Logo />
         </HeaderFrame>
@@ -18,15 +18,6 @@ const Sidebar = ({ links, type }: { links: { slug: string; label: string }[]; ty
 
       {/* Nav list (scrolls under the sticky header) */}
       <nav className="flex flex-col gap-4 lg:pl-4 xl:pl-6 mt-6">
-        {/* <Link
-          href={`/${type}`}
-          className={`font-medium hover:underline ${
-            pathname === `/${type}` || pathname === `/${type}/` ? 'text-brand' : ''
-          }`}
-        >
-          Overview
-        </Link> */}
-
         {links.map(({ slug, label }) => {
           const href = slug === 'index' ? `/${type}` : `/${type}/${slug}`;
 

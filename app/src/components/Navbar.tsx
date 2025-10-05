@@ -9,15 +9,6 @@ const Navbar = ({ type = 'home' }: { type: string }) => {
   return (
     <HeaderFrame type={type}>
       <nav className="boundary flex-between">
-        {/* {type === 'sidebar' ? (
-          <div>
-            <div className="lg:hidden">
-              <Logo />
-            </div>
-          </div>
-        ) : (
-          <Logo />
-        )} */}
         <Logo type={type} />
         <section className="flex-center gap-10 lg:gap-20">
           <NavLink />

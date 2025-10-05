@@ -3,11 +3,9 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { RiMenu3Fill } from 'react-icons/ri';
-import { IoCloseCircleOutline } from 'react-icons/io5';
 import { ThemeSwitcher } from '../theme/theme-switcher';
 import Socials from './socials';
-import { navItems } from '@/data';
+import { IoCloseCircleOutline, RiMenu3Fill, navItems  } from '@/data';
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);

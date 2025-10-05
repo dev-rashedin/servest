@@ -1,6 +1,7 @@
 import { FaDiscord, FaGithub } from 'react-icons/fa';
-import { IoSunnyOutline } from 'react-icons/io5';
+import { IoCloseCircleOutline, IoSunnyOutline } from 'react-icons/io5';
 import { FiEdit, FiMoon } from 'react-icons/fi';
+import { RiArrowRightSLine, RiMenu2Fill, RiMenu3Fill } from 'react-icons/ri';
 
 export const navItems = [
   { label: 'Guide', to: '/guide' },
@@ -23,4 +24,14 @@ export const docsOrder: Record<string, string[]> = {
   ],
 };
 
-export { FaGithub, IoSunnyOutline, FiMoon, FaDiscord, FiEdit };
+export {
+  FaGithub,
+  IoSunnyOutline,
+  FiMoon,
+  FaDiscord,
+  FiEdit,
+  IoCloseCircleOutline,
+  RiMenu3Fill,
+  RiMenu2Fill,
+  RiArrowRightSLine,
+};
