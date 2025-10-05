@@ -20,6 +20,11 @@ async function getContent(endpoint: string, slug: string): Promise<GetContentRes
   const dir = path.join(process.cwd(), `../docs/${endpoint}`);
   const files = await fs.readdir(dir);
 
+  const filePath = path.join(dir, `${slug}.mdx`);
+  const source = await fs.readFile(filePath, 'utf-8');
+
+  const headings = extractHeadingsFromMdx(source);
+
   // Sort files alphabetically or however you want
   const slugOrder = files.filter((f) => f.endsWith('.mdx')).map((f) => f.replace(/\.mdx$/, ''));
 
@@ -27,11 +32,6 @@ async function getContent(endpoint: string, slug: string): Promise<GetContentRes
 
   const prevSlug = currentIndex > 0 ? slugOrder[currentIndex - 1] : null;
   const nextSlug = currentIndex < slugOrder.length - 1 ? slugOrder[currentIndex + 1] : null;
-
-  const filePath = path.join(dir, `${slug}.mdx`);
-  const source = await fs.readFile(filePath, 'utf-8');
-
-  const headings = extractHeadingsFromMdx(source);
 
   const { content } = await compileMDX({
     source,

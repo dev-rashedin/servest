@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-const Logo = ({ type }: { type: string }) => {
+const Logo = ({ type = 'home' }: { type?: string }) => {
   return (
     <div>
       <Link

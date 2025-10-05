@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Button } from './ui/button';
-import { FaGithub } from '@/data/icons';
+import { FaGithub } from '@/data';
 
 const Hero = () => {
   return (

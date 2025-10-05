@@ -7,7 +7,7 @@ import { RiMenu3Fill } from 'react-icons/ri';
 import { IoCloseCircleOutline } from 'react-icons/io5';
 import { ThemeSwitcher } from '../theme/theme-switcher';
 import Socials from './socials';
-import { navItems } from '@/data/constant';
+import { navItems } from '@/data';
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);

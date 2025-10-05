@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FaDiscord, FaGithub } from '@/data/icons';
+import { FaDiscord, FaGithub } from '@/data';
 
 const Socials = ({ screenType = 'large' }) => {
   return (

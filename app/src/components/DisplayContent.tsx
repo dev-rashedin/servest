@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import RightSidebar from './RightSidebar';
+import Divider from './ui/divider';
 import { getContent } from '@/lib';
+import { FiEdit } from '@/data';
 
 interface Props {
   endpoint: string;
@@ -22,53 +24,81 @@ const DisplayContent = async ({ endpoint, slug }: Props) => {
       <RightSidebar clientHeadings={headings} />
 
       {/* Previous / Next navigation */}
-      <div className="max-w-4xl  flex justify-between mt-20 mb-40  min-h-16 pr-20 xl:pr-40">
-        {prevSlug ? (
-          <Link
-            href={`/${endpoint}/${prevSlug === 'index' ? '' : prevSlug}`}
-            className="text-muted-foreground hover:text-brand transition-colors border flex-center px-12 py-0 border-white rounded-lg"
-          >
-            ← {prevSlug}
-          </Link>
-        ) : (
-          <div />
+
+      <section className="max-w-3xl min-h-80 py-40">
+        <Divider />
+
+        {/* community */}
+        {slug === 'index' && (
+          <>
+            <h3 className="text-xl lg:text-2xl font-bold mt-4 pb-4">Community</h3>
+            <p className="w-full text-muted-foreground lg:text-[16px]">
+              If you have questions or feedback, reach out to the community at{' '}
+              <a
+                className="text-brand underline hover:brightness-105"
+                href="https://discord.gg/AhqDGZj3"
+                target="_blank"
+              >
+                Discord
+              </a>{' '}
+              and{' '}
+              <a
+                className="text-brand underline hover:brightness-105"
+                href="https://github.com/dev-rashedin/servest/discussions"
+                target="_blank"
+              >
+                GitHub Discussions
+              </a>
+              .
+            </p>
+          </>
         )}
 
-        {nextSlug ? (
+        <div className="mt-20 mb-8">
           <Link
-            href={`/${endpoint}/${nextSlug === 'index' ? '' : nextSlug}`}
-            className="text-muted-foreground hover:text-brand transition-colors border flex-center px-12 py-0 border-white rounded-lg"
+            href={`https://github.com/dev-rashedin/servest/edit/main/docs/${endpoint}/${currentSlug}.mdx`}
+            target="_blank"
+            className="flex items-center gap-4 text-brand"
           >
-            {nextSlug} →
+            <FiEdit />
+            Suggest changes to this page
           </Link>
-        ) : (
-          <div />
-        )}
-      </div>
-
-      <div className="h-80 mt-20">
-        <div className="h-[2px] border-t border-muted pb-8"></div>
-
-        <h2 className="text-2xl font-bold mt-4 pb-4">Community</h2>
-        <div className="text-muted-foreground text-[16px]">
-          If you have questions or need help, reach out to the community at{' '}
-          <a
-            className="text-brand underline hover:brightness-105 mr-2"
-            href="https://discord.gg/AhqDGZj3"
-            target="_blank"
-          >
-            Discord
-          </a>
-          and
-          <a
-            className="text-brand underline hover:brightness-105 ml-2"
-            href="https://github.com/dev-rashedin/servest/discussions"
-            target="_blank"
-          >
-            GitHub Discussions
-          </a>
         </div>
-      </div>
+
+        <Divider />
+
+        {/* next and previous button */}
+        <div className="flex justify-between mt-20 min-h-16">
+          {prevSlug ? (
+            <Link
+              href={`/${endpoint}/${prevSlug === 'index' ? '' : prevSlug}`}
+              className="next-previous-btn"
+            >
+              <span className="text-sm text-muted-highlight">Previous Page</span>
+              <span className="text-brand">
+                {prevSlug.charAt(0).toUpperCase() + prevSlug.slice(1)}
+              </span>
+            </Link>
+          ) : (
+            <div />
+          )}
+
+          {nextSlug ? (
+            <Link
+              href={`/${endpoint}/${nextSlug === 'index' ? '' : nextSlug}`}
+              className="next-previous-btn items-end"
+            >
+              {' '}
+              <span className="text-sm text-muted-highlight">Next Page</span>
+              <span className="text-brand">
+                {nextSlug.charAt(0).toUpperCase() + nextSlug.slice(1)}
+              </span>
+            </Link>
+          ) : (
+            <div />
+          )}
+        </div>
+      </section>
     </>
   );
 };
