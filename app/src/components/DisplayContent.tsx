@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import RightSidebar from './RightSidebar';
 import Divider from './ui/divider';
+import RightSidebarPortal from './RightSidebarPortal';
 import { getContent } from '@/lib';
 import { FiEdit } from '@/data';
 
@@ -10,19 +11,14 @@ interface Props {
 }
 
 const DisplayContent = async ({ endpoint, slug }: Props) => {
-  const { content, headings, slugOrder, currentSlug, prevSlug, nextSlug } = await getContent(
-    endpoint,
-    slug,
-  );
-
-  console.log('inside display content', endpoint, currentSlug, prevSlug, nextSlug, slugOrder);
+  const { content, headings, currentSlug, prevSlug, nextSlug } = await getContent(endpoint, slug);
 
   return (
     <>
       <article className="prose prose-lg">{content}</article>
 
       <RightSidebar clientHeadings={headings} />
-
+      <RightSidebarPortal clientHeadings={headings} />
       {/* Previous / Next navigation */}
 
       <section className="max-w-3xl min-h-80 py-40">

@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { usePathname } from 'next/navigation';
 import Navbar from './Navbar';
+import SecondaryNav from './ui/secondary-nav';
 
 export default function MotionWrapper({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -10,6 +11,7 @@ export default function MotionWrapper({ children }: { children: ReactNode }) {
   return (
     <main>
       {pathname.includes('config') || pathname === '/config' ? null : <Navbar type="sidebar" />}
+      <SecondaryNav pathname={pathname} />
       <motion.div
         key={pathname}
         initial={{ opacity: 0, y: 10 }}

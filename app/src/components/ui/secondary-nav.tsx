@@ -9,6 +9,7 @@ const SecondaryNav = ({ pathname }: { pathname: string }) => {
       {pathname.includes('config') || pathname === '/config' ? null : (
         <RiMenu2Fill size={18} onClick={() => setSidebarOpen(true)} />
       )}
+
       <p className="flex-center text-xs gap-1 text-muted-foreground bg-[rgb(var(--footer-bg))] px-4 py-2 rounded-lg">
         On this page <RiArrowRightSLine size={18} onClick={() => setRightSidebarOpen(true)} />
       </p>
