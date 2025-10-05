@@ -29,11 +29,11 @@ const DisplayContent = ({
       <RightSidebar clientHeadings={headings} />
 
       {/* Previous / Next navigation */}
-      <div className="max-w-4xl  flex justify-between mt-20 mb-40 border-2 border-white min-h-20">
+      <div className="max-w-4xl  flex justify-between mt-20 mb-40  min-h-16 pr-20 xl:pr-40">
         {prevSlug ? (
           <Link
             href={`/${endpoint}/${prevSlug === 'index' ? '' : prevSlug}`}
-            className="text-muted-foreground hover:text-brand transition-colors"
+            className="text-muted-foreground hover:text-brand transition-colors border flex-center px-12 py-0 border-white rounded-lg"
           >
             ← {prevSlug}
           </Link>
@@ -44,7 +44,7 @@ const DisplayContent = ({
         {nextSlug ? (
           <Link
             href={`/${endpoint}/${nextSlug === 'index' ? '' : nextSlug}`}
-            className="text-muted-foreground hover:text-brand transition-colors"
+            className="text-muted-foreground hover:text-brand transition-colors border flex-center px-12 py-0 border-white rounded-lg"
           >
             {nextSlug} →
           </Link>
