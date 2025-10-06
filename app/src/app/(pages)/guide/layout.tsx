@@ -11,11 +11,13 @@ export default function GuideLayout({ children }: { children: ReactNode }) {
   return (
     <SidebarProvider>
       <main className="lg:flex">
-        <div className="sidebar">
-          <LeftSidebar links={links} type="guide" />
+        <div className="hidden lg:block">
+          <LeftSidebar links={links} type="addons" />
         </div>
-        <div className="docs-content relative">
-          <DrawerContainer links={links} type="guide">
+
+        {/* content area */}
+        <div className="flex-1 relative">
+          <DrawerContainer links={links} type="addons">
             <MotionWrapper>{children}</MotionWrapper>
           </DrawerContainer>
         </div>

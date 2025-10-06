@@ -12,12 +12,12 @@ export default function AddonsLayout({ children }: { children: ReactNode }) {
   return (
     <SidebarProvider>
       <main className="lg:flex">
-        <div className="hidden lg:block lg:w-[20%]">
+        <div className="sidebar">
           <LeftSidebar links={links} type="addons" />
         </div>
 
         {/* content area */}
-        <div className="flex-1 relative">
+        <div className="sidebar">
           <DrawerContainer links={links} type="addons">
             <MotionWrapper>{children}</MotionWrapper>
           </DrawerContainer>

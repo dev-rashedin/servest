@@ -26,16 +26,31 @@ function Drawers({ links, type }: DrawerProps) {
       </div>
 
       {/* Right LeftSidebar Portal Container */}
-      <div
+      {/* <div
         id="right-sidebar-portal"
         className={`fixed inset-0 xl:hidden ${rightSidebarOpen ? 'block' : 'hidden'}`}
         onClick={() => setRightSidebarOpen(false)}
+      > 
+          <div id="right-sidebar-portal-content" />
+      </div> */}
+
+      <div
+        id="right-sidebar-portal"
+        className={`fixed inset-0 z-50 xl:hidden transition-opacity duration-300 ease-in-out ${
+          rightSidebarOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={() => setRightSidebarOpen(false)}
       >
         <div
-          className="absolute right-0 top-0 bottom-0 w-[60%] md:w-[40%] bg-sidebar p-4 shadow-lg overflow-y-auto"
+          className={`absolute left-1/2 top-[calc(9rem+1rem)] -translate-x-1/2 w-[90%] lg:w-[40%] transform transition-all duration-300 ease-in-out ${
+            rightSidebarOpen ? 'translate-y-0 opacity-100' : '-translate-y-6 opacity-0'
+          }`}
           onClick={(e) => e.stopPropagation()}
         >
-          <div id="right-sidebar-portal-content" />
+          <div
+            id="right-sidebar-portal-content"
+            className="bg-sidebar p-6 rounded-lg shadow-lg border border-c-logo max-h-[70vh] overflow-y-auto"
+          />
         </div>
       </div>
     </>
