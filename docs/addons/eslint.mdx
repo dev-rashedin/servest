@@ -1,6 +1,7 @@
 # ESLint Addon
 
-The **ESLint addon** in Servest sets up linting for your project to help you maintain a consistent and error-free codebase.  
+The **ESLint addon** in `Servest` sets up linting for your project to help you maintain a consistent and error-free codebase.
+
 It automatically installs recommended dependencies, creates configuration files, and updates your scripts.
 
 ---
@@ -15,7 +16,7 @@ npx servest@latest add eslint
 
 Servest will:
 
-1. Check your selected framework (only Node.js frameworks are supported for now).
+1. Check your selected framework (only Node.js framework is supported for this).
 2. Detect whether your project uses **TypeScript** or **JavaScript**.
 3. Install ESLint and related dependencies.
 4. Create an `.eslintrc` configuration file using recommended defaults.
@@ -27,10 +28,10 @@ Servest will:
 
 Depending on your project’s language, the following dependencies are installed:
 
-| Language   | Packages Installed                                     |
-| ---------- | ------------------------------------------------------ |
-| JavaScript | `eslint`, `globals`, `@eslint/js`                      |
-| TypeScript | `eslint`, `globals`, `@eslint/js`, `typescript-eslint` |
+| Language   | Packages Installed                                                                 |
+| ---------- | ---------------------------------------------------------------------------------- |
+| JavaScript | `eslint@9.34.0`, `globals@16.3.0`, `@eslint/js@9.34.0`                             |
+| TypeScript | `eslint@9.34.0`, `globals@16.3.0`, `@eslint/js@9.34.0`, `typescript-eslint@8.41.0` |
 
 ---
 
@@ -79,7 +80,3 @@ The addon performs the following steps:
 - Prevents common coding errors before runtime.
 - Ensures code consistency across team members.
 - Helps maintain a predictable, professional code style.
-
----
-
-Next: [Prettier Addon →](./prettier)
