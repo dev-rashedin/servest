@@ -4,20 +4,8 @@ import { usePathname } from 'next/navigation';
 import Logo from './ui/logo';
 import HeaderFrame from './ui/header-frame';
 
-const Sidebar = ({
-  links,
-  type,
-  setSidebarOpen,
-}: {
-  links: { slug: string; label: string }[];
-  type: string;
-  setSidebarOpen?: () => void;
-}) => {
+const LeftSidebar = ({ links, type, setSidebarOpen }: SidebarProps) => {
   const pathname = usePathname();
-
-  // return <div>
-  //   Hi there
-  // </div>
 
   return (
     <aside
@@ -44,7 +32,7 @@ const Sidebar = ({
               key={slug}
               href={href}
               className={` hover:underline ${isActive ? 'text-brand font-medium' : ''} `}
-              onClick={() => setSidebarOpen && setSidebarOpen()}
+              onClick={() => setSidebarOpen && setSidebarOpen(false)}
             >
               {slug === 'index' ? 'Overview' : label.replace(/\.mdx$/, '').replace(/-/g, ' ')}
             </Link>
@@ -55,4 +43,4 @@ const Sidebar = ({
   );
 };
 
-export default Sidebar;
+export default LeftSidebar;

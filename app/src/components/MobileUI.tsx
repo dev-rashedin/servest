@@ -1,19 +1,14 @@
 'use client';
 import React from 'react';
 import { useSidebar } from './SidebarToggleContext';
-import Sidebar from '@/components/Sidebar';
+import LeftSidebar from '@/components/LeftSidebar';
 
-interface LinkItem {
-  slug: string;
-  label: string;
-}
-
-function Drawers({ links, type }: { links: LinkItem[]; type: string }) {
+function Drawers({ links, type }: DrawerProps) {
   const { sidebarOpen, setSidebarOpen, rightSidebarOpen, setRightSidebarOpen } = useSidebar();
 
   return (
     <>
-      {/* Left Sidebar Drawer */}
+      {/* Left LeftSidebar Drawer */}
       <div
         className={`fixed inset-0 z-50 lg:hidden transition-opacity duration-300 ease-in-out ${
           sidebarOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
@@ -26,11 +21,11 @@ function Drawers({ links, type }: { links: LinkItem[]; type: string }) {
           }`}
           onClick={(e) => e.stopPropagation()}
         >
-          <Sidebar links={links} type={type} setSidebarOpen={setSidebarOpen} />
+          <LeftSidebar links={links} type={type} setSidebarOpen={setSidebarOpen} />
         </div>
       </div>
 
-      {/* Right Sidebar Portal Container */}
+      {/* Right LeftSidebar Portal Container */}
       <div
         id="right-sidebar-portal"
         className={`fixed inset-0 lg:hidden ${rightSidebarOpen ? 'block' : 'hidden'}`}

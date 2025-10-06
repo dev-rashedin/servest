@@ -5,7 +5,7 @@ const SecondaryNav = ({ pathname }: { pathname: string }) => {
   const { setSidebarOpen, setRightSidebarOpen } = useSidebar();
 
   return (
-    <div className="boundary lg:hidden flex-between h-12 mt-4">
+    <div className="boundary lg:hidden flex-between h-12 sticky top-0 bg-docs py-8">
       {pathname.includes('config') || pathname === '/config' ? null : (
         <RiMenu2Fill size={18} onClick={() => setSidebarOpen(true)} />
       )}

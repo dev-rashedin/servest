@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import Sidebar from '@/components/Sidebar';
+import LeftSidebar from '@/components/LeftSidebar';
 import { getContentLinks } from '@/lib';
 import MotionWrapper from '@/components/MotionWrapper';
 import MobileUI from '@/components/MobileUI';
@@ -12,7 +12,7 @@ export default function GuideLayout({ children }: { children: ReactNode }) {
     <SidebarProvider>
       <main className="lg:flex">
         <div className="sidebar">
-          <Sidebar links={links} type="guide" />
+          <LeftSidebar links={links} type="guide" />
         </div>
         <div className="docs-content relative">
           <MobileUI links={links} type="guide">

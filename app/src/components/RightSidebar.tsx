@@ -1,12 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 
-interface Heading {
-  id: string;
-  text: string;
-  level: number;
-}
-
 export default function RightSidebar({ clientHeadings }: { clientHeadings: Heading[] }) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [indicatorY, setIndicatorY] = useState(40);

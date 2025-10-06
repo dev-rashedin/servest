@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import Sidebar from '@/components/Sidebar';
+import LeftSidebar from '@/components/LeftSidebar';
 import { getContentLinks } from '@/lib';
 import '../pages.layout.css';
 import MotionWrapper from '@/components/MotionWrapper';
@@ -12,12 +12,11 @@ export default function AddonsLayout({ children }: { children: ReactNode }) {
   return (
     <SidebarProvider>
       <main className="lg:flex">
-        {/* Desktop sidebar (always visible on large screens) */}
         <div className="hidden lg:block lg:w-[20%]">
-          <Sidebar links={links} type="addons" />
+          <LeftSidebar links={links} type="addons" />
         </div>
 
-        {/* Content area */}
+        {/* content area */}
         <div className="flex-1 relative">
           <MobileUI links={links} type="addons">
             <MotionWrapper>{children}</MotionWrapper>
