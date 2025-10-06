@@ -4,11 +4,25 @@ import { usePathname } from 'next/navigation';
 import Logo from './ui/logo';
 import HeaderFrame from './ui/header-frame';
 
-const Sidebar = ({ links, type }: { links: { slug: string; label: string }[]; type: string }) => {
+const Sidebar = ({
+  links,
+  type,
+  setSidebarOpen,
+}: {
+  links: { slug: string; label: string }[];
+  type: string;
+  setSidebarOpen?: () => void;
+}) => {
   const pathname = usePathname();
 
+  // return <div>
+  //   Hi there
+  // </div>
+
   return (
-    <aside className="h-screen hidden lg:flex lg:flex-col lg:pl-16 xl:pl-24 fixed w-[25%] lg:w-[20%] overflow-y-auto">
+    <aside
+      className={`h-screen flex flex-col pl-16 xl:pl-24 pt-6 lg:pt-0 fixed w-full lg:w-[20%] overflow-y-auto `}
+    >
       {/* logo */}
       <section className="hidden lg:block sticky top-0 z-10 bg-sidebar ">
         <HeaderFrame type="logo">
@@ -30,6 +44,7 @@ const Sidebar = ({ links, type }: { links: { slug: string; label: string }[]; ty
               key={slug}
               href={href}
               className={` hover:underline ${isActive ? 'text-brand font-medium' : ''} `}
+              onClick={() => setSidebarOpen && setSidebarOpen()}
             >
               {slug === 'index' ? 'Overview' : label.replace(/\.mdx$/, '').replace(/-/g, ' ')}
             </Link>

@@ -3,7 +3,10 @@ import React from 'react';
 import { useSidebar } from './SidebarToggleContext';
 import Sidebar from '@/components/Sidebar';
 
-interface LinkItem { slug: string; label: string }
+interface LinkItem {
+  slug: string;
+  label: string;
+}
 
 function Drawers({ links, type }: { links: LinkItem[]; type: string }) {
   const { sidebarOpen, setSidebarOpen, rightSidebarOpen, setRightSidebarOpen } = useSidebar();
@@ -12,25 +15,29 @@ function Drawers({ links, type }: { links: LinkItem[]; type: string }) {
     <>
       {/* Left Sidebar Drawer */}
       <div
-        className={`fixed inset-0 z-50 lg:hidden ${sidebarOpen ? 'block' : 'hidden'}`}
+        className={`fixed inset-0 z-50 lg:hidden transition-opacity duration-300 ease-in-out ${
+          sidebarOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
         onClick={() => setSidebarOpen(false)}
       >
         <div
-          className="absolute left-0 top-0 bottom-0 w-[60%] bg-background p-4 shadow-lg overflow-y-auto"
+          className={`absolute left-0 top-0 bottom-0 w-[60%] md:w-[40%] bg-sidebar shadow-lg overflow-y-auto transform transition-transform duration-300 ease-in-out ${
+            sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
           onClick={(e) => e.stopPropagation()}
         >
-          <Sidebar links={links} type={type} />
+          <Sidebar links={links} type={type} setSidebarOpen={setSidebarOpen} />
         </div>
       </div>
 
       {/* Right Sidebar Portal Container */}
       <div
         id="right-sidebar-portal"
-        className={`fixed inset-0 z-50 lg:hidden ${rightSidebarOpen ? 'block' : 'hidden'}`}
+        className={`fixed inset-0 lg:hidden ${rightSidebarOpen ? 'block' : 'hidden'}`}
         onClick={() => setRightSidebarOpen(false)}
       >
         <div
-          className="absolute right-0 top-0 bottom-0 w-[60%] bg-background p-4 shadow-lg overflow-y-auto"
+          className="absolute right-0 top-0 bottom-0 w-[60%] md:w-[40%] bg-sidebar p-4 shadow-lg overflow-y-auto"
           onClick={(e) => e.stopPropagation()}
         >
           <div id="right-sidebar-portal-content" />
