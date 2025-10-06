@@ -1,0 +1,85 @@
+# ESLint Addon
+
+The **ESLint addon** in Servest sets up linting for your project to help you maintain a consistent and error-free codebase.  
+It automatically installs recommended dependencies, creates configuration files, and updates your scripts.
+
+---
+
+## What It Does
+
+When you run:
+
+```bash
+npx servest@latest add eslint
+```
+
+Servest will:
+
+1. Check your selected framework (only Node.js frameworks are supported for now).
+2. Detect whether your project uses **TypeScript** or **JavaScript**.
+3. Install ESLint and related dependencies.
+4. Create an `.eslintrc` configuration file using recommended defaults.
+5. Add linting scripts (`lint` and `lint:fix`) to your `package.json`.
+
+---
+
+## Installed Packages
+
+Depending on your project’s language, the following dependencies are installed:
+
+| Language   | Packages Installed                                     |
+| ---------- | ------------------------------------------------------ |
+| JavaScript | `eslint`, `globals`, `@eslint/js`                      |
+| TypeScript | `eslint`, `globals`, `@eslint/js`, `typescript-eslint` |
+
+---
+
+## How It Works Internally
+
+The addon performs the following steps:
+
+1. **Framework Check**  
+   Uses `checkNodeFramework()` to ensure ESLint can be applied to your Node-based setup.
+
+2. **Dependency Installation**  
+   Runs the appropriate package manager command (npm, pnpm, or yarn) to install the required dependencies as devDependencies.
+
+3. **Configuration Setup**  
+   Calls `addESLintConfig()` from the `lintPrettierHelper` module, generating a default ESLint config file based on your language.
+
+4. **Script Injection**  
+   Updates your `package.json` with the following scripts (if they don’t exist):
+
+   ```json
+   "scripts": {
+     "lint": "eslint .",
+     "lint:fix": "eslint . --fix"
+   }
+   ```
+
+5. **Final Output**  
+   Displays success messages like:
+   ```bash
+   ✅ Added lint scripts to package.json.
+   🎉 ESLint setup completed!
+   ```
+
+---
+
+## Best Practices
+
+- Always run `npx servest@latest init` before adding addons.
+- Run `npx servest@latest add eslint prettier` together for a smoother workflow.
+- Use the `lint:fix` command regularly to keep your code clean and standardized.
+
+---
+
+## Why ESLint Matters
+
+- Prevents common coding errors before runtime.
+- Ensures code consistency across team members.
+- Helps maintain a predictable, professional code style.
+
+---
+
+Next: [Prettier Addon →](./prettier)
