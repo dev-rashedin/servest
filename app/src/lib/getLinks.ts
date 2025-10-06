@@ -10,10 +10,16 @@ function getContentLinks(endpoint: string) {
 
   const slugOrder = docsOrder[endpoint] || defaultOrder;
 
-  return slugOrder.map((slug) => ({
-    slug,
-    label: slug.replace(/-/g, ' ').replace(/^\w/, (c) => c.toUpperCase()),
-  }));
+  return slugOrder.map((slug) => {
+    if (slug.startsWith('_')) {
+      return { type: 'group' as const, label: slug.slice(1) };
+    }
+    return {
+      type: 'link' as const,
+      slug,
+      label: slug.replace(/-/g, ' ').replace(/^\w/, (c) => c.toUpperCase()),
+    };
+  });
 }
 
 export default getContentLinks;

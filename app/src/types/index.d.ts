@@ -1,11 +1,12 @@
 interface LinkItem {
-  slug: string;
+  type: 'group' | 'link';
+  slug?: string;
   label: string;
 }
 
 declare interface DrawerProps {
-  links?: LinkItem[];
-  type?: string;
+  links: LinkItem[];
+  type: string;
 }
 
 declare interface Heading {

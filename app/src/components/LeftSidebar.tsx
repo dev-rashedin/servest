@@ -11,7 +11,7 @@ const LeftSidebar = ({ links, type }: DrawerProps) => {
 
   return (
     <aside
-      className={`h-screen  pl-16 xl:pl-24 pt-6 lg:pt-0 fixed w-full lg:w-[20%] overflow-y-auto ${sidebarOpen ? 'flex flex-col' : 'hidden lg:flex lg:flex-col'}`}
+      className={`h-screen  pl-16 xl:pl-24 pt-6 lg:pt-0 fixed w-full lg:w-[25%] xl:w-[20%] overflow-y-auto ${sidebarOpen ? 'flex flex-col' : 'hidden lg:flex lg:flex-col'}`}
     >
       {/* logo */}
       <section className="hidden lg:block sticky top-0 z-10 bg-sidebar ">
@@ -21,22 +21,32 @@ const LeftSidebar = ({ links, type }: DrawerProps) => {
       </section>
 
       {/* Nav list (scrolls under the sticky header) */}
-      <nav className="flex flex-col gap-4 lg:pl-4 xl:pl-6 mt-6">
-        {links!.map(({ slug, label }) => {
-          const href = slug === 'index' ? `/${type}` : `/${type}/${slug}`;
+      <nav className="flex flex-col gap-3 mt-6 pr-11">
+        {links.map((item) => {
+          if (item.type === 'group') {
+            return (
+              <p
+                key={item.label}
+                className="text-[16px] font-semibold mt-4 pt-2 border-t border-c-logo "
+              >
+                {item.label}
+              </p>
+            );
+          }
 
+          const href = item.slug === 'index' ? `/${type}` : `/${type}/${item.slug}`;
           const isActive =
             pathname === href ||
-            (slug === 'index' && (pathname === `/${type}` || pathname === `/${type}/`));
+            (item.slug === 'index' && (pathname === `/${type}` || pathname === `/${type}/`));
 
           return (
             <Link
-              key={slug}
+              key={item.slug}
               href={href}
-              className={` hover:underline ${isActive ? 'text-brand font-medium' : ''} `}
+              className={`hover:underline ${isActive ? 'text-brand font-medium' : ''}`}
               onClick={() => setSidebarOpen && setSidebarOpen(false)}
             >
-              {slug === 'index' ? 'Overview' : label.replace(/\.mdx$/, '').replace(/-/g, ' ')}
+              {item.slug === 'index' ? 'Overview' : item.label}
             </Link>
           );
         })}

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ThemeSwitcher } from '../theme/theme-switcher';
 import Socials from './socials';
-import { IoCloseCircleOutline, RiMenu3Fill, navItems  } from '@/data';
+import { IoCloseCircleOutline, RiMenu3Fill, navItems } from '@/data';
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,8 +13,9 @@ export default function MobileMenu() {
 
   return (
     <div className="relative">
+      {/* Toggle Button */}
       <button
-        className="md:hidden flex items-center justify-center p-2 "
+        className="md:hidden flex items-center justify-center p-2"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span
@@ -26,10 +27,19 @@ export default function MobileMenu() {
         </span>
       </button>
 
+      {/* Overlay + Menu */}
+      {isOpen && (
+        <div
+          className="fixed top-20 inset-0 z-40 bg-docs transition-opacity duration-300"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {/* Mobile Menu Drawer */}
       <div
-        className={`md:hidden bg-[rgb(var(--footer-bg))] w-[90vw] rounded-md px-12 py-8 space-y-6 flex flex-col absolute top-16 right-0
-        transform transition-all duration-300 ease-in-out z-50
-        ${isOpen ? 'opacity-100 translate-y-0' : 'translate-y-5 opacity-0 pointer-events-none'}
+        className={`md:hidden w-[90vw] rounded-md px-12 py-8 space-y-6 flex flex-col absolute top-16 right-0
+        transform ${isOpen ? 'transition-all duration-500 ease-in-out' : ''} z-50
+        ${isOpen ? 'opacity-100 translate-y-0' : '-translate-y-5 opacity-0 pointer-events-none'}
         `}
       >
         {navItems.map(({ label, to }) => {
