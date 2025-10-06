@@ -3,11 +3,9 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { RiMenu3Fill } from 'react-icons/ri';
-import { IoCloseCircleOutline } from 'react-icons/io5';
 import { ThemeSwitcher } from '../theme/theme-switcher';
 import Socials from './socials';
-import { navItems } from '@/data/constant';
+import { IoCloseCircleOutline, RiMenu3Fill, navItems  } from '@/data';
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,8 +27,8 @@ export default function MobileMenu() {
       </button>
 
       <div
-        className={`md:hidden bg-[rgb(var(--footer-bg))] w-[90vw] rounded-md px-20 py-8 space-y-4 flex flex-col absolute top-16 right-0
-        transform transition-all duration-300 ease-in-out pl-4 z-50
+        className={`md:hidden bg-[rgb(var(--footer-bg))] w-[90vw] rounded-md px-12 py-8 space-y-6 flex flex-col absolute top-16 right-0
+        transform transition-all duration-300 ease-in-out z-50
         ${isOpen ? 'opacity-100 translate-y-0' : 'translate-y-5 opacity-0 pointer-events-none'}
         `}
       >
@@ -49,7 +47,7 @@ export default function MobileMenu() {
           );
         })}
 
-        <div className="w-full mx-auto border rounded-lg flex-between py-2 px-4 justify-end">
+        <div className="w-full mx-auto border rounded-lg flex-between py-2 px-8 justify-end">
           <span className="text-xs text-muted-foreground opacity-75">Theme</span>
           <ThemeSwitcher />
         </div>

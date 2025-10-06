@@ -2,13 +2,13 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { navItems } from '@/data/constant';
+import { navItems } from '@/data';
 
 export default function NavLink() {
   const pathname = usePathname();
 
   return (
-    <ul className="flex gap-8">
+    <ul className="hidden md:flex gap-8">
       {navItems.map(({ label, to }) => {
         const isActive = pathname === to;
         return (

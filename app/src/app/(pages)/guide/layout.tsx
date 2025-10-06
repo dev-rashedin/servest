@@ -1,18 +1,23 @@
 import { ReactNode } from 'react';
-import Sidebar from '@/components/Sidebar';
+import LeftSidebar from '@/components/LeftSidebar';
 import { getContentLinks } from '@/lib';
-import MotionWrapper from '@/components/MotionWrapper'; // <- client wrapper
+import MotionWrapper from '@/components/MotionWrapper';
+import DrawerContainer from '@/components/DrawerContainer';
 
 export default function GuideLayout({ children }: { children: ReactNode }) {
-  const links = getContentLinks('guide'); // server-side
+  const links = getContentLinks('guide');
 
   return (
     <main className="lg:flex">
       <div className="sidebar">
-        <Sidebar links={links} type="guide" />
+        <LeftSidebar links={links} type="addons" />
       </div>
-      <div className="docs-content">
-        <MotionWrapper>{children}</MotionWrapper>
+
+      {/* content area */}
+      <div className="docs-content relative">
+        <DrawerContainer links={links} type="addons">
+          <MotionWrapper>{children}</MotionWrapper>
+        </DrawerContainer>
       </div>
     </main>
   );

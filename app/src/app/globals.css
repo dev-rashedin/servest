@@ -14,11 +14,14 @@
   .flex-between {
     @apply flex items-center justify-between;
   }
+  .flex-col-center {
+    @apply flex flex-col items-center justify-center;
+  }
   .boundary {
     @apply container mx-auto px-4 md:px-8 lg:px-12 xl:px-20;
   }
   .wall {
-    @apply max-w-4xl mx-auto px-2;
+    @apply max-w-6xl mx-auto px-2;
   }
 
   .sidebar {
@@ -31,6 +34,10 @@
 
   .primary-gradient {
     @apply bg-gradient-to-br from-[#FACC15] via-[#FFAF45] to-[#FF8225];
+  }
+
+  .next-previous-btn {
+    @apply w-80 text-muted-foreground hover:text-brand transition-colors border flex flex-col justify-center px-6 py-4 border-muted-foreground hover:border-brand rounded-lg;
   }
 
   .p {
@@ -161,5 +168,17 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+  }
+
+  h1 {
+    @apply text-5xl md:text-7xl font-heading font-bold tracking-wide;
+  }
+
+  h5 {
+    @apply md:text-[16px] lg:text-xl font-medium text-muted-foreground  leading-8 lg:leading-9;
+  }
+
+  em {
+    @apply border rounded-full px-4 py-1 mb-3 text-sm lg:text-base text-muted-foreground;
   }
 }

@@ -1,21 +1,19 @@
 import Link from 'next/link';
 import { Button } from './ui/button';
-import { FaGithub } from '@/data/icons';
+import { FaGithub } from '@/data';
 
 const Hero = () => {
   return (
-    <main className="min-h-[81vh] max-w-3xl  mx-auto flex flex-col items-center justify-center text-center ">
-      <h1
-        className="text-5xl md:text-7xl font-heading font-bold mb-7 tracking-wide hover:glow"
-        style={{ lineHeight: '1.1' }}
-      >
+    <main className="min-h-[81vh] max-w-3xl  mx-auto flex-col-center text-center ">
+      <em>Inspired by vite and shadcn</em>
+      <h1 className="mb-5 hover:glow" style={{ lineHeight: '1.1' }}>
         The Ultimate Backend Builder
       </h1>
-      <p className="md:max-w-2xl md:text-[16px] lg:text-xl lg:max-w-3xl font-medium text-muted-foreground  leading-8 lg:leading-9">
+      <h5 className="md:max-w-2xl  lg:max-w-3xl">
         The simplest way to bootstrap backend projects. Generate clean templates, add the tools you
         need, and evolve your stack without friction.
-      </p>
-      <p className="text-sm mt-3 text-muted-foreground opacity-85">
+      </h5>
+      <p className="text-sm md:text-base mt-5 text-muted-foreground opacity-85">
         Express templates are available now, more frameworks coming soon!
       </p>
       <div className="flex gap-4 mt-8">

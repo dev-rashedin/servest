@@ -28,9 +28,7 @@ All addons and later commands rely on this file. If it is missing or incomplete,
 }
 ```
 
-## Sections
-
-### Project Options
+## Project Options
 
 Defines the main project setup:
 
@@ -39,7 +37,7 @@ Defines the main project setup:
 - **architecture** – project structure (`basic`, `mvc`, `modular`, `apps-based`, `laravel-mvc`)
 - **srcDir** – whether the project uses a `/src` directory
 
-### Environment Options
+## Environment Options
 
 Specifies runtime environment:
 
@@ -47,21 +45,21 @@ Specifies runtime environment:
 - **nodeVersion** – Node.js version (only if runtime is `node`)
 - **bunVersion** – Bun version (only if runtime is `bun`)
 
-### Features
+## Features
 
 Tracks enabled addons:
 
 - Populated when you run `npx servest@latest add <feature>`
 - Keeps addon state consistent across commands
 
-### Meta
+## Meta
 
 Additional metadata:
 
 - **servestVersion** – version of Servest used to generate this file
 - **createdAt** – timestamp when the config was created
 
-### Why This Config Matters
+## Why This Config Matters
 
 - Every command in Servest depends on `servest.config.json`
 - Ensures consistent project setup across environments
