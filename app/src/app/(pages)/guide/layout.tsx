@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import LeftSidebar from '@/components/LeftSidebar';
 import { getContentLinks } from '@/lib';
 import MotionWrapper from '@/components/MotionWrapper';
-import MobileUI from '@/components/MobileUI';
+import DrawerContainer from '@/components/DrawerContainer';
 import { SidebarProvider } from '@/components/SidebarToggleContext';
 
 export default function GuideLayout({ children }: { children: ReactNode }) {
@@ -15,9 +15,9 @@ export default function GuideLayout({ children }: { children: ReactNode }) {
           <LeftSidebar links={links} type="guide" />
         </div>
         <div className="docs-content relative">
-          <MobileUI links={links} type="guide">
+          <DrawerContainer links={links} type="guide">
             <MotionWrapper>{children}</MotionWrapper>
-          </MobileUI>
+          </DrawerContainer>
         </div>
       </main>
     </SidebarProvider>

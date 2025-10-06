@@ -1,80 +1,36 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useSidebar } from './SidebarToggleContext';
 
 export default function RightSidebar({ clientHeadings }: { clientHeadings: Heading[] }) {
-  const [activeId, setActiveId] = useState<string | null>(null);
-  const [indicatorY, setIndicatorY] = useState(40);
-  const sidebarRef = useRef<HTMLDivElement>(null);
-  const rafRef = useRef<number | null>(null);
-
-  // Detecting which heading is visible
-  useEffect(() => {
-    if (!clientHeadings?.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-        if (visible.length) {
-          const newId = visible[0].target.id;
-          if (newId !== activeId) setActiveId(newId);
-        }
-      },
-      {
-        rootMargin: '0px 0px -60% 0px',
-        threshold: [0.1, 0.5, 1],
-      },
-    );
-
-    clientHeadings.forEach(({ id }) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, [clientHeadings, activeId]);
-
-  // Moving the highlight indicator with subtle smoothing
-  useEffect(() => {
-    if (!activeId || !sidebarRef.current) return;
-
-    cancelAnimationFrame(rafRef.current!);
-
-    rafRef.current = requestAnimationFrame(() => {
-      const linkEl = sidebarRef.current!.querySelector<HTMLAnchorElement>(`a[href="#${activeId}"]`);
-      if (!linkEl) return;
-
-      const rect = linkEl.getBoundingClientRect();
-      const sidebarRect = sidebarRef.current!.getBoundingClientRect();
-      const y = rect.top - sidebarRect.top;
-      setIndicatorY(y);
-    });
-
-    return () => cancelAnimationFrame(rafRef.current!);
-  }, [activeId]);
+  const { rightSidebarOpen, setRightSidebarOpen } = useSidebar();
 
   if (!clientHeadings?.length) return null;
 
+  const handleBackToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <aside className="hidden xl:block fixed right-20 xl:right-48 top-48 w-64">
-      <div className="relative pl-6">
-        {/* Background for the scrollbar */}
-        <div className="absolute left-0 top-0 w-[2px] h-full bg-muted" />
+    <div
+      className={`fixed inset-0 lg:hidden z-50 bg-background/70 backdrop-blur-sm ${
+        rightSidebarOpen ? 'pointer-events-auto' : 'pointer-events-none'
+      }`}
+      onClick={() => setRightSidebarOpen(false)}
+    >
+      <div
+        className={`absolute left-0 right-0 bottom-0 bg-sidebar p-6 rounded-t-2xl shadow-lg overflow-y-auto max-h-[75vh] transform transition-transform duration-300 ease-in-out ${
+          rightSidebarOpen ? 'translate-y-0' : 'translate-y-full'
+        }`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex justify-between items-center mb-4">
+          <p className="font-semibold text-sm">On this page</p>
+          <button onClick={handleBackToTop} className="text-xs text-brand underline">
+            Back to top
+          </button>
+        </div>
 
-        {/* Moving highlight bar with subtle transition */}
-        <div
-          className="absolute left-0 w-[2px] bg-brand transition-transform duration-150 ease-out"
-          style={{
-            transform: `translateY(${indicatorY}px)`,
-            height: '20px',
-          }}
-        />
-
-        {/* Headings list */}
-        <nav ref={sidebarRef} className="flex flex-col gap-3 max-h-[70vh] overflow-auto">
-          <p className="font-semibold">On this page</p>
+        <nav className="flex flex-col gap-3">
           {clientHeadings.map((h, idx) =>
             idx === 0 ? null : (
               <a
@@ -84,11 +40,11 @@ export default function RightSidebar({ clientHeadings }: { clientHeadings: Headi
                   e.preventDefault();
                   const el = document.getElementById(h.id);
                   el?.scrollIntoView({ block: 'start' });
-                  setActiveId(h.id);
+                  setRightSidebarOpen(false);
                 }}
-                className={`block truncate transition-colors ${
-                  activeId === h.id ? 'text-muted-highlights' : 'text-muted-foreground'
-                } ${h.level === 3 ? 'pl-6' : ''}`}
+                className={`block truncate text-sm ${
+                  h.level === 3 ? 'pl-4 text-muted-foreground' : 'text-muted-highlights'
+                }`}
               >
                 {h.text}
               </a>
@@ -96,6 +52,6 @@ export default function RightSidebar({ clientHeadings }: { clientHeadings: Headi
           )}
         </nav>
       </div>
-    </aside>
+    </div>
   );
 }

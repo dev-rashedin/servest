@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import RightSidebar from './RightSidebar';
+import DisplayHeadings from './DisplayHeadings';
 import Divider from './ui/divider';
 import RightSidebarPortal from './RightSidebarPortal';
 import { getContent } from '@/lib';
@@ -17,8 +17,9 @@ const DisplayContent = async ({ endpoint, slug }: Props) => {
     <>
       <article className="prose prose-lg">{content}</article>
 
-      <RightSidebar clientHeadings={headings} />
+      <DisplayHeadings clientHeadings={headings} />
       <RightSidebarPortal clientHeadings={headings} />
+
       {/* Previous / Next navigation */}
 
       <section className="max-w-3xl min-h-80 py-40">

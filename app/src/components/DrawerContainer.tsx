@@ -28,7 +28,7 @@ function Drawers({ links, type }: DrawerProps) {
       {/* Right LeftSidebar Portal Container */}
       <div
         id="right-sidebar-portal"
-        className={`fixed inset-0 lg:hidden ${rightSidebarOpen ? 'block' : 'hidden'}`}
+        className={`fixed inset-0 xl:hidden ${rightSidebarOpen ? 'block' : 'hidden'}`}
         onClick={() => setRightSidebarOpen(false)}
       >
         <div
@@ -42,7 +42,7 @@ function Drawers({ links, type }: DrawerProps) {
   );
 }
 
-export default function MobileUI({
+export default function DrawerContainer({
   links,
   type,
   children,

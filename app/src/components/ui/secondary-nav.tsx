@@ -5,14 +5,14 @@ const SecondaryNav = ({ pathname }: { pathname: string }) => {
   const { setSidebarOpen, setRightSidebarOpen } = useSidebar();
 
   return (
-    <div className="boundary lg:hidden flex-between h-12 sticky top-0 bg-docs py-8">
+    <div className="boundary flex-between h-12 sticky top-0 bg-docs py-8 ">
       {pathname.includes('config') || pathname === '/config' ? null : (
-        <RiMenu2Fill size={18} onClick={() => setSidebarOpen(true)} />
+        <RiMenu2Fill size={18} onClick={() => setSidebarOpen(true)} className="lg:hidden" />
       )}
 
       <p
         onClick={() => setRightSidebarOpen(true)}
-        className="flex-center text-xs gap-1 text-muted-foreground bg-[rgb(var(--footer-bg))] px-4 py-2 rounded-lg"
+        className="flex-center text-xs gap-1 text-muted-foreground bg-[rgb(var(--footer-bg))] px-4 py-2 rounded-lg xl:hidden"
       >
         On this page <RiArrowRightSLine size={18} />
       </p>
