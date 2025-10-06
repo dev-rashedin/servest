@@ -3,26 +3,23 @@ import LeftSidebar from '@/components/LeftSidebar';
 import { getContentLinks } from '@/lib';
 import '../pages.layout.css';
 import MotionWrapper from '@/components/MotionWrapper';
-import { SidebarProvider } from '@/components/SidebarToggleContext';
 import DrawerContainer from '@/components/DrawerContainer';
 
 export default function AddonsLayout({ children }: { children: ReactNode }) {
   const links = getContentLinks('addons');
 
   return (
-    <SidebarProvider>
-      <main className="lg:flex">
-        <div className="sidebar">
-          <LeftSidebar links={links} type="addons" />
-        </div>
+    <main className="lg:flex">
+      <div className="sidebar">
+        <LeftSidebar links={links} type="addons" />
+      </div>
 
-        {/* content area */}
-        <div className="sidebar">
-          <DrawerContainer links={links} type="addons">
-            <MotionWrapper>{children}</MotionWrapper>
-          </DrawerContainer>
-        </div>
-      </main>
-    </SidebarProvider>
+      {/* content area */}
+      <div className="docs-content relative">
+        <DrawerContainer links={links} type="addons">
+          <MotionWrapper>{children}</MotionWrapper>
+        </DrawerContainer>
+      </div>
+    </main>
   );
 }

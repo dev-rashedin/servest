@@ -3,13 +3,15 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Logo from './ui/logo';
 import HeaderFrame from './ui/header-frame';
+import { useSidebar } from './SidebarToggleContext';
 
-const LeftSidebar = ({ links, type, setSidebarOpen }: SidebarProps) => {
+const LeftSidebar = ({ links, type }: DrawerProps) => {
   const pathname = usePathname();
+  const { sidebarOpen, setSidebarOpen } = useSidebar();
 
   return (
     <aside
-      className={`h-screen flex flex-col pl-16 xl:pl-24 pt-6 lg:pt-0 fixed w-full lg:w-[20%] overflow-y-auto `}
+      className={`h-screen  pl-16 xl:pl-24 pt-6 lg:pt-0 fixed w-full lg:w-[20%] overflow-y-auto ${sidebarOpen ? 'flex flex-col' : 'hidden lg:flex lg:flex-col'}`}
     >
       {/* logo */}
       <section className="hidden lg:block sticky top-0 z-10 bg-sidebar ">
@@ -20,7 +22,7 @@ const LeftSidebar = ({ links, type, setSidebarOpen }: SidebarProps) => {
 
       {/* Nav list (scrolls under the sticky header) */}
       <nav className="flex flex-col gap-4 lg:pl-4 xl:pl-6 mt-6">
-        {links.map(({ slug, label }) => {
+        {links!.map(({ slug, label }) => {
           const href = slug === 'index' ? `/${type}` : `/${type}/${slug}`;
 
           const isActive =

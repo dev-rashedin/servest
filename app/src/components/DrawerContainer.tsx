@@ -21,7 +21,7 @@ function Drawers({ links, type }: DrawerProps) {
           }`}
           onClick={(e) => e.stopPropagation()}
         >
-          <LeftSidebar links={links} type={type} setSidebarOpen={setSidebarOpen} />
+          <LeftSidebar links={links} type={type} />
         </div>
       </div>
 
@@ -61,11 +61,7 @@ export default function DrawerContainer({
   links,
   type,
   children,
-}: {
-  links: { slug: string; label: string }[];
-  type: string;
-  children: React.ReactNode;
-}) {
+}: DrawerProps & { children: React.ReactNode }) {
   return (
     <>
       {children}
