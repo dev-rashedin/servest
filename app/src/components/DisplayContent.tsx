@@ -50,7 +50,7 @@ const DisplayContent = async ({ endpoint, slug }: Props) => {
           </>
         )}
 
-        <div className="mt-20 mb-6">
+        <div className="mt- mb-6">
           <Link
             href={`https://github.com/dev-rashedin/servest/edit/main/docs/${endpoint}/${currentSlug}.mdx`}
             target="_blank"

@@ -181,4 +181,13 @@
   em {
     @apply border rounded-full px-4 py-1.5 mb-3 text-xs lg:text-sm text-muted-foreground;
   }
+
+  h1[id],
+  h2[id],
+  h3[id],
+  h4[id],
+  h5[id],
+  h6[id] {
+    scroll-margin-top: 6rem; /* ~80px if your navbar is h-20 */
+  }
 }
