@@ -1,12 +1,14 @@
 # Prettier Addon
 
-The `Prettier` Addon in **Servest** automatically sets up code formatting in your Servest project using Prettier — ensuring a consistent and clean code style across your team.
+The `Prettier` addon in **Servest** automatically sets up code formatting for your project, ensuring a consistent and clean code style across your team.
+
+It installs the required package, creates configuration files, and updates your scripts for easy usage.
 
 ---
 
-## 🧩 What It Does
+## How It Works
 
-When you run the following command:
+When you run:
 
 ```bash
 npx servest@latest add prettier
@@ -14,35 +16,19 @@ npx servest@latest add prettier
 
 Servest will:
 
-1. **Verify** that you're using a Node.js-based framework (e.g., Express, Fastify, NestJS, Koa).
-2. **Install** the required Prettier package.
-3. **Generate** configuration files for Prettier (like `.prettierrc` and `.prettierignore`).
-4. **Add scripts** to your `package.json` to easily run Prettier checks or fix formatting issues.
+1. **Check the framework**  
+   Ensures your project uses a supported Node.js framework (like Express, Fastify, NestJS, Koa). Prettier only works for JavaScript/TypeScript projects.
 
----
+2. **Install Prettier package**  
+   Packages installed (with versions):
+   - `prettier@3.6.2`
 
-## 📦 Installed Packages
+3. **Create configuration files**
+   - `.prettierrc` → contains your Prettier configuration options (tab width, quotes, semicolons).
+   - `.prettierignore` → lists files/folders to skip formatting (like `node_modules` or build directories).
 
-| Package    | Version | Description                                                         |
-| ---------- | ------- | ------------------------------------------------------------------- |
-| `prettier` | `3.6.2` | The core code formatter for JavaScript, TypeScript, and JSON files. |
-
----
-
-## ⚙️ What It Adds
-
-### 1. Configuration Files
-
-If not already present, Servest creates two files:
-
-- `.prettierrc` → Contains your Prettier configuration options (like tab width, quotes, and semicolons).
-- `.prettierignore` → Lists files and folders to skip during formatting (like `node_modules` or build directories).
-
-These files are created automatically inside your **project root**.
-
-### 2. Package Scripts
-
-The addon adds the following scripts to your `package.json`:
+4. **Update `package.json` scripts**  
+   Adds or preserves the following scripts:
 
 ```json
 "scripts": {
@@ -51,55 +37,45 @@ The addon adds the following scripts to your `package.json`:
 }
 ```
 
-This allows you to quickly check or fix formatting issues with simple commands:
+---
+
+## Example
+
+After adding Prettier in a TypeScript MVC project:
+
+```bash
+src/app/
+  controllers/
+  models/
+  routes/
+.prettierrc
+.prettierignore
+package.json (prettier scripts added)
+```
+
+You can now check formatting:
 
 ```bash
 npm run prettier      # Check code formatting
-npm run prettier:fix  # Automatically fix code formatting
+npm run prettier:fix  # Automatically fix formatting issues
 ```
 
 ---
 
-## 🧠 How It Works Internally
+## Notes
 
-1. **Framework Check:**  
-   Ensures the detected framework is Node.js-based using `checkNodeFramework()`.
-
-2. **Install Packages:**  
-   Uses `cross-spawn` to run the installation command dynamically, based on your selected package manager (`npm`, `pnpm`, or `yarn`).
-
-3. **Config Creation:**  
-   Runs `addPrettierConfig()` to create `.prettierrc` and `.prettierignore` files if they don’t exist.
-
-4. **Package Script Updates:**  
-   Adds `prettier` and `prettier:fix` scripts to your `package.json` for easy usage.
-
-5. **Confirmation Messages:**
-   - ✅ Shows when configuration and scripts are successfully added.
-   - 👍 Appears if Prettier is already installed.
-   - 🎉 Confirms successful setup.
-
----
-
-## 🧭 Notes
-
-- You can safely re-run `npx servest@latest add prettier` — it will skip existing configurations without overwriting your setup.
+- Prettier can be safely re-run — existing configurations and scripts are preserved.
 - Works seamlessly with the [ESLint Addon](./eslint) for combined linting and formatting workflows.
-- Only supports Node.js-based frameworks for now — cross-language support (e.g., Python, Go) is planned for future versions.
+- **Confirmation Messages**:
+  - ✅ Shows when configuration and scripts are successfully added.
+  - 👍 Appears if Prettier is already installed.
+  - 🎉 Confirms successful setup.
 
 ---
 
-## 🚀 Example Usage
+## Why Use Prettier?
 
-```bash
-# Add Prettier to your project
-npx servest@latest add prettier
-
-# Run Prettier to check formatting
-npm run prettier
-
-# Automatically fix formatting issues
-npm run prettier:fix
-```
-
-Once complete, your project will have automatic formatting capabilities — keeping your codebase beautiful and consistent.
+- **Consistency** → ensures code style is uniform across the project.
+- **Cleaner Code** → automatically formats code, reducing manual style fixes.
+- **Integration-friendly** → works well with other Servest addons like ESLint and lint-staged.
+- **Safe to re-run** → won’t overwrite existing setup, avoiding accidental data loss.

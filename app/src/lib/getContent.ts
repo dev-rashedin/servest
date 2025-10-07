@@ -30,7 +30,7 @@ async function getContent(endpoint: string, slug: string): Promise<GetContentRes
     .filter((f) => f.endsWith('.mdx') && f !== 'index.mdx')
     .map((f) => f.replace(/\.mdx$/, ''));
 
-  const slugOrder = docsOrder[endpoint].filter((s) => !s.startsWith('_')) || defaultOrder;
+  const slugOrder = docsOrder[endpoint]?.filter((s) => !s.startsWith('_')) || defaultOrder;
 
   const currentIndex = slugOrder.indexOf(slug);
 

@@ -6,7 +6,7 @@ It automatically installs recommended dependencies, creates configuration files,
 
 ---
 
-## What It Does
+## How It Works
 
 When you run:
 
@@ -16,40 +16,24 @@ npx servest@latest add eslint
 
 Servest will:
 
-1. Check your selected framework (only Node.js framework is supported for this).
-2. Detect whether your project uses **TypeScript** or **JavaScript**.
-3. Install ESLint and related dependencies.
-4. Create an `.eslintrc` configuration file using recommended defaults.
-5. Add linting scripts (`lint` and `lint:fix`) to your `package.json`.
+1. **Check the framework**  
+   Ensures your project uses a supported Node.js framework. If not, the operation is canceled.
 
----
+2. Detect whether your project uses **JavaScript** or **TypeScript**.
 
-## Installed Packages
+3. **Install ESLint and required packages**  
+   Packages installed (with versions):
+   - `eslint@9.34.0`
+   - `globals@16.3.0`
+   - `@eslint/js@9.34.0`
+   - `typescript-eslint@8.41.0` (only if project language is TypeScript)
 
-Depending on your project’s language, the following dependencies are installed:
+4. **Create ESLint configuration**
+   - Generates `.eslintrc.js` or `.eslintrc.ts` depending on your language.
+   - Adds recommended rules and presets.
 
-| Language   | Packages Installed                                                                 |
-| ---------- | ---------------------------------------------------------------------------------- |
-| JavaScript | `eslint@9.34.0`, `globals@16.3.0`, `@eslint/js@9.34.0`                             |
-| TypeScript | `eslint@9.34.0`, `globals@16.3.0`, `@eslint/js@9.34.0`, `typescript-eslint@8.41.0` |
-
----
-
-## How It Works Internally
-
-The addon performs the following steps:
-
-1. **Framework Check**  
-   Uses `checkNodeFramework()` to ensure ESLint can be applied to your Node-based setup.
-
-2. **Dependency Installation**  
-   Runs the appropriate package manager command (npm, pnpm, or yarn) to install the required dependencies as devDependencies.
-
-3. **Configuration Setup**  
-   Calls `addESLintConfig()` from the `lintPrettierHelper` module, generating a default ESLint config file based on your language.
-
-4. **Script Injection**  
-   Updates your `package.json` with the following scripts (if they don’t exist):
+5. **Update `package.json` scripts**  
+   Adds or preserves the following scripts:
 
    ```json
    "scripts": {
@@ -58,25 +42,39 @@ The addon performs the following steps:
    }
    ```
 
-5. **Final Output**  
-   Displays success messages like:
-   ```bash
-   ✅ Added lint scripts to package.json.
-   🎉 ESLint setup completed!
-   ```
+---
+
+## Example
+
+After adding ESLint in a TypeScript MVC project:
+
+```bash
+src/app/
+  controllers/
+  models/
+  routes/
+.eslintrc.ts
+package.json (lint scripts added)
+```
+
+This gives you a ready-to-use linting setup without manually installing packages or creating config files.
 
 ---
 
-## Best Practices
+## Notes
 
-- Always run `npx servest@latest init` before adding addons.
-- Run `npx servest@latest add eslint prettier` together for a smoother workflow.
-- Use the `lint:fix` command regularly to keep your code clean and standardized.
+- ESLint can be safely re-run — existing configurations and scripts are preserved.
+- Works seamlessly with the [Prettier Addon](./prettier) for combined linting and formatting workflows.
+- **Confirmation Messages**:
+  - ✅ Shows when configuration and scripts are successfully added.
+  - 👍 Appears if ESLint is already installed.
+  - 🎉 Confirms successful setup.
 
 ---
 
-## Why ESLint Matters
+## Why Use ESLint?
 
-- Prevents common coding errors before runtime.
-- Ensures code consistency across team members.
-- Helps maintain a predictable, professional code style.
+- **Consistency** → ensures coding standards are followed across the project.
+- **Error prevention** → detects potential bugs before runtime.
+- **Integration-friendly** → works well with other Servest addons like Prettier and lint-staged.
+- **Safe to re-run** → won’t overwrite existing setup, avoiding accidental data loss.

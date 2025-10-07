@@ -25,15 +25,6 @@ function Drawers({ links, type }: DrawerProps) {
         </div>
       </div>
 
-      {/* Right LeftSidebar Portal Container */}
-      {/* <div
-        id="right-sidebar-portal"
-        className={`fixed inset-0 xl:hidden ${rightSidebarOpen ? 'block' : 'hidden'}`}
-        onClick={() => setRightSidebarOpen(false)}
-      > 
-          <div id="right-sidebar-portal-content" />
-      </div> */}
-
       <div
         id="right-sidebar-portal"
         className={`fixed inset-0 z-50 xl:hidden transition-opacity duration-300 ease-in-out ${
