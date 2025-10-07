@@ -1,0 +1,90 @@
+# ESLint + Prettier Addon
+
+The `ESLint + Prettier` addon in **Servest** sets up both linting and formatting in your Node.js project, providing a consistent, error-free, and beautifully formatted codebase.
+
+It installs recommended dependencies, creates configuration files, and updates your scripts for a combined workflow.
+
+---
+
+## How It Works
+
+When you run:
+
+```bash
+npx servest@latest add eslint-prettier
+```
+
+Servest will:
+
+1. **Check the framework**  
+   Ensures your project uses a supported Node.js framework. If not, the operation is canceled.
+
+2. Detect whether your project uses **JavaScript** or **TypeScript**.
+
+3. **Install Required Packages** using your selected package manager (`npm`, `pnpm`, `yarn`, or `bun`).
+
+   Packages installed (with versions):
+   - `eslint@9.34.0`
+   - `globals@16.3.0`
+   - `@eslint/js@9.34.0`
+   - `eslint-plugin-prettier@5.5.4`
+   - `eslint-config-prettier@10.1.8`
+   - `typescript-eslint@8.41.0` (only if project language is TypeScript)
+
+4. **Create ESLint Configuration**
+   - Generates `.eslintrc.js` or `.eslintrc.ts` depending on your language.
+   - Adds recommended rules and integrates the Prettier plugin.
+
+5. **Create Prettier Configuration**
+   - Generates `.prettierrc` and `.prettierignore` files if they don’t exist.
+
+6. **Update `package.json` Scripts**  
+   Adds or preserves the following scripts:
+
+```json
+"scripts": {
+  "lint": "eslint .",
+  "lint:fix": "eslint . --fix",
+  "prettier": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
+  "prettier:fix": "prettier --write \"./src/**/*.+(js|ts|json)\""
+}
+```
+
+---
+
+## Example
+
+After adding ESLint + Prettier in a TypeScript MVC project:
+
+```bash
+src/app/
+  controllers/
+  models/
+  routes/
+.eslintrc.ts
+.prettierrc
+.prettierignore
+package.json (lint & prettier scripts added)
+```
+
+This gives you a ready-to-use linting and formatting setup without manually installing packages or creating config files.
+
+---
+
+## Notes
+
+- ESLint + Prettier can be safely re-run — existing configurations and scripts are preserved.
+- Works seamlessly with other Servest addons.
+- **Confirmation Messages**:
+  - ✅ Shows when configuration and scripts are successfully added.
+  - 👍 Appears if ESLint & Prettier are already installed.
+  - 🎉 Confirms successful setup.
+
+---
+
+## Why Use ESLint + Prettier?
+
+- **Consistency** → ensures coding standards and formatting are followed across the project.
+- **Error prevention** → detects potential bugs before runtime.
+- **Integration-friendly** → works well with other Servest addons like lint-staged.
+- **Safe to re-run** → won’t overwrite existing setup, avoiding accidental data loss.

@@ -65,8 +65,8 @@
     --link: 240, 100%, 45%;
     --link-hover: 240, 100%, 65%;
     --table-even: 213, 12%, 85%;
-    --docs: 60, 100%, 95%;
-    --sidebar: 60, 100%, 98%;
+    --docs: 60, 100%, 98%;
+    --sidebar: 0, 0%, 90%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
@@ -118,7 +118,7 @@
     --link: 200, 100%, 55%;
     --link-hover: 200, 100%, 65%;
     --docs: 220, 43%, 11%;
-    --sidebar: 220, 43%, 15%;
+    --sidebar: 220, 43%, 8%;
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3.9%;
@@ -180,5 +180,14 @@
 
   em {
     @apply border rounded-full px-4 py-1.5 mb-3 text-xs lg:text-sm text-muted-foreground;
+  }
+
+  h1[id],
+  h2[id],
+  h3[id],
+  h4[id],
+  h5[id],
+  h6[id] {
+    scroll-margin-top: 6rem; /* ~80px if your navbar is h-20 */
   }
 }
