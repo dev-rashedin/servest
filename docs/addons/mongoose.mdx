@@ -5,7 +5,7 @@ It automatically installs `mongoose`, creates a connection file, and injects the
 
 ---
 
-## What It Does
+## How It Works
 
 When you run:
 
@@ -18,35 +18,29 @@ Servest will:
 1. **Check the framework**  
    Ensures your project uses a supported Node.js framework. If not, the operation is canceled.
 
-2. **Install Mongoose**  
-   Installs the `mongoose` package if not already present.
+2. Detect whether your project uses **JavaScript** or **TypeScript**.
 
-3. **Create a connection file**  
-   Generates `config/connectDB.ts` or `config/connectDB.js` depending on your project language.
+3. **Install Mongoose**  
+   Installs the `mongoose` package using your selected package manager (`npm`, `pnpm`, `yarn`, or `bun`).
 
-4. **Inject connection logic**  
-   Adds code to `src/server.ts`, `src/app.ts`, or their `.js` equivalents to automatically connect to MongoDB when the server starts.
-
----
-
-## How It Works
-
-1. **Framework Check**  
-   Uses `checkNodeFramework()` to ensure the project is Node.js-based.
-
-2. **Install Dependencies**  
-   Runs the install command using the selected package manager (`npm`, `pnpm`, or `yarn`).
-
-3. **Generate Connection File**  
+4. **Generate Connection File**  
    Creates a `config/` directory (if not present) and adds a `connectDB` file suited to your project type:
    - **TypeScript** → uses `mongoose` with type definitions.
    - **ES Module** → uses `import` syntax.
    - **CommonJS** → uses `require` syntax.
 
-4. **Inject Database Logic**  
-   Automatically detects `src/server` or `src/app` entry files and injects the connection logic:
-   - Imports the `connectDB` function.
-   - Wraps server startup inside an async IIFE that connects to MongoDB before running the app.
+5. **Inject Database Logic**  
+   Automatically detects your project’s main entry file — checking in this order:  
+   `src/server`, `src/app`, `/server`, `/app`, or `/index` —  
+   and injects the MongoDB connection logic accordingly.
+
+   Based on your setup:
+   - `.ts` files → used for TypeScript projects
+   - `.js` files → used for JavaScript projects
+
+   The addon then:
+   - Imports the generated `connectDB` function from the `config/` directory.
+   - Wraps the server startup in an **async IIFE**, ensuring MongoDB connects successfully **before** your app starts listening on the defined port.
 
 ---
 
@@ -84,6 +78,7 @@ This ensures the database connection is established before the server starts.
 
 ## Notes
 
+- You need to import MONGO_URI from your `config` or from the `.env` file
 - You can safely re-run `npx servest@latest add mongoose` — it will skip existing configurations without overwriting your setup.
 - Works only for Node.js frameworks (Express, Fastify, NestJS, etc.).
 - **Confirmation Messages:**

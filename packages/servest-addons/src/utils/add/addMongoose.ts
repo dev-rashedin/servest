@@ -106,8 +106,8 @@ export async function addMongoose({
 
   // Step 3: Injecting connectDB into server.js/ts or app.js/ts
 
-  const possibleFiles = ['src/server', 'src/app'].map((name) =>
-    path.join(cwd, `${name}.${isTypeScript ? 'ts' : 'js'}`),
+  const possibleFiles = ['src/server', 'src/app', 'src/index', 'server', 'app', 'index'].map(
+    (name) => path.join(cwd, `${name}.${isTypeScript ? 'ts' : 'js'}`),
   );
 
   const targetFile = possibleFiles.find((file) => fs.existsSync(file));
