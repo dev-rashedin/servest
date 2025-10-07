@@ -11,7 +11,7 @@ export const navItems = [
 ];
 
 export const docsOrder: Record<string, string[]> = {
-  addons: ['index', '_Addons', 'f-fileName'],
+  addons: ['index', '_Addons', 'f-fileName', 'eslint', 'prettier'],
   guide: [
     'index',
     'philosophy',

@@ -65,7 +65,7 @@ const DisplayContent = async ({ endpoint, slug }: Props) => {
 
         {/* next and previous button */}
         <div className="flex justify-between mt-12 min-h-16">
-          {prevSlug ? (
+          {prevSlug && !prevSlug.startsWith('_') ? (
             <Link
               href={`/${endpoint}/${prevSlug === 'index' ? '' : prevSlug}`}
               className="next-previous-btn"
@@ -81,7 +81,7 @@ const DisplayContent = async ({ endpoint, slug }: Props) => {
             <div />
           )}
 
-          {nextSlug ? (
+          {nextSlug && !nextSlug.startsWith('_') ? (
             <Link
               href={`/${endpoint}/${nextSlug === 'index' ? '' : nextSlug}`}
               className="next-previous-btn items-end"

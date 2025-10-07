@@ -16,7 +16,7 @@ function Drawers({ links, type }: DrawerProps) {
         onClick={() => setSidebarOpen(false)}
       >
         <div
-          className={`absolute left-0 top-0 bottom-0 w-[60%] md:w-[40%] bg-sidebar shadow-lg overflow-y-auto transform transition-transform duration-300 ease-in-out ${
+          className={`absolute left-0 top-0 bottom-0 w-[60%] md:w-[36%] bg-sidebar shadow-lg overflow-y-auto transform transition-transform duration-300 ease-in-out ${
             sidebarOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
           onClick={(e) => e.stopPropagation()}

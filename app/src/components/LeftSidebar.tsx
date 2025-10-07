@@ -11,7 +11,7 @@ const LeftSidebar = ({ links, type }: DrawerProps) => {
 
   return (
     <aside
-      className={`h-screen  pl-16 xl:pl-24 pt-6 lg:pt-0 fixed w-full lg:w-[25%] xl:w-[20%] overflow-y-auto ${sidebarOpen ? 'flex flex-col' : 'hidden lg:flex lg:flex-col'}`}
+      className={`h-screen  pl-12 xl:pl-36 pt-6 lg:pt-0 fixed w-full lg:w-[25%] xl:w-[20%] overflow-y-auto ${sidebarOpen ? 'flex flex-col' : 'hidden lg:flex lg:flex-col'}`}
     >
       {/* logo */}
       <section className="hidden lg:block sticky top-0 z-10 bg-sidebar ">
@@ -21,7 +21,7 @@ const LeftSidebar = ({ links, type }: DrawerProps) => {
       </section>
 
       {/* Nav list (scrolls under the sticky header) */}
-      <nav className="flex flex-col gap-3 mt-6 pr-11">
+      <nav className="flex flex-col pl-4 md:pl-8 lg:pl-0  text-start gap-3 mt-8 pr-11">
         {links.map((item) => {
           if (item.type === 'group') {
             return (

@@ -33,12 +33,16 @@ Servest will:
 
 ```bash
 src/app/
-  controllers/
-    auth.controller.ts
-  models/
-    auth.model.ts
   routes/
     auth.route.ts
+  models/
+    auth.model.ts
+  interfaces/
+    auth.interface.ts
+  controllers/
+    auth.controller.ts
+  services/
+    auth.service.ts
 ```
 
 ### Modular Architecture
@@ -48,9 +52,11 @@ src/app/
 
 ```bash
 src/app/modules/auth/
-  auth.controller.ts
-  auth.model.ts
   auth.route.ts
+  auth.model.ts
+  auth.interface.ts
+  auth.controller.ts
+  auth.service.ts
 ```
 
 ### Basic Architecture
@@ -78,5 +84,3 @@ src/app/
 - **Consistency** → keeps all features structured the same way.
 - **Flexibility** → works across MVC, modular, and basic architectures.
 - **Smart defaults** → auto-detects the right folder (`src/app`, `src`, or root).
-
----

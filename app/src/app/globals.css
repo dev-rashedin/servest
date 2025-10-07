@@ -112,7 +112,7 @@
     --navbar: 240, 100%, 5%;
     --footer-bg: 0 0% 1%;
     --brand: 48, 100%, 60%;
-    --highlighted: 292, 91%, 60%;
+    --highlighted: 180, 60%, 50%;
     --table-odd: 220, 9%, 25%;
     --table-even: 220, 9%, 15%;
     --link: 200, 100%, 55%;
@@ -179,6 +179,6 @@
   }
 
   em {
-    @apply border rounded-full px-4 py-1 mb-3 text-sm lg:text-base text-muted-foreground;
+    @apply border rounded-full px-4 py-1.5 mb-3 text-xs lg:text-sm text-muted-foreground;
   }
 }
