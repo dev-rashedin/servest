@@ -1,0 +1,101 @@
+# Mongoose Addon
+
+The `Mongoose` addon in **Servest** sets up a pre-configured MongoDB connection for your Node.js project.  
+It automatically installs `mongoose`, creates a connection file, and injects the necessary code into your server entry file.
+
+---
+
+## What It Does
+
+When you run:
+
+```bash
+npx servest@latest add mongoose
+```
+
+Servest will:
+
+1. **Check the framework**  
+   Ensures your project uses a supported Node.js framework. If not, the operation is canceled.
+
+2. **Install Mongoose**  
+   Installs the `mongoose` package if not already present.
+
+3. **Create a connection file**  
+   Generates `config/connectDB.ts` or `config/connectDB.js` depending on your project language.
+
+4. **Inject connection logic**  
+   Adds code to `src/server.ts`, `src/app.ts`, or their `.js` equivalents to automatically connect to MongoDB when the server starts.
+
+---
+
+## How It Works
+
+1. **Framework Check**  
+   Uses `checkNodeFramework()` to ensure the project is Node.js-based.
+
+2. **Install Dependencies**  
+   Runs the install command using the selected package manager (`npm`, `pnpm`, or `yarn`).
+
+3. **Generate Connection File**  
+   Creates a `config/` directory (if not present) and adds a `connectDB` file suited to your project type:
+   - **TypeScript** → uses `mongoose` with type definitions.
+   - **ES Module** → uses `import` syntax.
+   - **CommonJS** → uses `require` syntax.
+
+4. **Inject Database Logic**  
+   Automatically detects `src/server` or `src/app` entry files and injects the connection logic:
+   - Imports the `connectDB` function.
+   - Wraps server startup inside an async IIFE that connects to MongoDB before running the app.
+
+---
+
+## Example
+
+After adding the Mongoose addon in a TypeScript project:
+
+```bash
+src/
+  app/
+  config/
+    connectDB.ts
+package.json
+```
+
+### Example `connectDB.ts`
+
+```ts
+import mongoose from 'mongoose';
+
+export async function connectDB(): Promise<void> {
+  try {
+    const conn = await mongoose.connect(MONGO_URI!);
+    console.log(`MongoDB connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.error('MongoDB connection failed', error);
+    process.exit(1);
+  }
+}
+```
+
+This ensures the database connection is established before the server starts.
+
+---
+
+## Notes
+
+- You can safely re-run `npx servest@latest add mongoose` — it will skip existing configurations without overwriting your setup.
+- Works only for Node.js frameworks (Express, Fastify, NestJS, etc.).
+- **Confirmation Messages:**
+  - ✅ Shows when config and files are successfully added.
+  - 👍 Appears if Mongoose is already installed.
+  - 🎉 Confirms successful setup.
+
+---
+
+## Why It Matters
+
+- **Automatic setup** → saves time configuring MongoDB manually.
+- **Error prevention** → ensures database connects before the app starts.
+- **Consistency** → keeps project structure uniform across Servest templates.
+- **Safe to re-run** → won’t overwrite or break existing setup.
