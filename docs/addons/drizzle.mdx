@@ -1,1 +1,95 @@
 # Drizzle Addon
+
+The `Drizzle` addon in **Servest** sets up the Drizzle ORM with SQLite (or PostgreSQL) for your backend project, giving you a type-safe and modern database integration.
+
+It automatically installs dependencies, creates initial configuration files, and updates your scripts for easy setup and management.
+
+---
+
+## How It Works
+
+When you run:
+
+npx servest@latest add drizzle
+
+Servest will:
+
+1. **Check the framework**  
+   Ensures your project uses a supported Node.js framework. If not, the operation is canceled.
+
+2. Detect whether your project uses **JavaScript** or **TypeScript**, and accordingly names the generated files with `.js` or `.ts`.
+
+3. **Install Drizzle ORM and database driver** using your selected package manager (`npm`, `pnpm`, `yarn`, or `bun`).
+
+   Packages installed:
+   - drizzle-orm
+   - sqlite3 (you can replace it with `pg` for PostgreSQL)
+
+4. **Generate Database Folder Structure**  
+   Creates a `src/db` folder containing:
+   - `client.ts` or `client.js` → initializes the Drizzle client and connects to SQLite.
+   - `schema.ts` or `schema.js` → defines your first example table schema.
+
+5. **Update package.json scripts**  
+   Adds or preserves the following script:
+
+```bash
+   "scripts": {
+     "drizzle:generate": "drizzle-kit generate"
+   }
+```
+
+6. **Confirm Setup**  
+   Once complete, Servest logs:
+
+   ✅ Drizzle client created at `src/db/client.ts`  
+   ✅ Drizzle schema created at `src/db/schema.ts`  
+   ✅ Added Drizzle scripts to package.json  
+   🎉 Drizzle setup completed!
+
+---
+
+## Example Generated Files
+
+### src/db/client.ts
+
+```ts
+import { drizzle } from 'drizzle-orm/libsql';
+import sqlite3 from 'sqlite3';
+
+const db = new sqlite3.Database('./dev.db');
+export const client = drizzle(db);
+```
+
+### src/db/schema.ts
+
+```ts
+import { sqliteTable, integer, text } from 'drizzle-orm/sqlite-core';
+import { client } from './../../../dist/index';
+
+export const users = sqliteTable('users', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  name: text('name'),
+});
+```
+
+---
+
+## Notes
+
+- Automatically detects project structure and creates files under `src/db`.
+- Supports both JavaScript and TypeScript environments.
+- Easily extendable to PostgreSQL or MySQL by changing the client adapter.
+- Automatically adds Drizzle commands to your package scripts for smooth developer experience.
+
+---
+
+## Next Steps
+
+After running the command, you can:
+
+- Modify `schema.ts` to define your actual tables.
+- Run `npm run drizzle:generate` to generate migrations.
+- Import and use `client` from anywhere in your app to query the database.
+
+That's it — your Drizzle ORM setup is ready!

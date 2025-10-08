@@ -1,6 +1,7 @@
 # Mongoose Addon
 
-The `Mongoose` addon in **Servest** sets up a pre-configured MongoDB connection for your Node.js project.  
+The `Mongoose` addon in **Servest** sets up a pre-configured MongoDB connection for your Node.js project.
+
 It automatically installs `mongoose`, creates a connection file, and injects the necessary code into your server entry file.
 
 ---
@@ -18,7 +19,7 @@ Servest will:
 1. **Check the framework**  
    Ensures your project uses a supported Node.js framework. If not, the operation is canceled.
 
-2. Detect whether your project uses **JavaScript** or **TypeScript**.
+2. Detect whether your project uses **JavaScript** or **TypeScript**, and accordingly names the generated files with `.js` or `.ts`.
 
 3. **Install Mongoose**  
    Installs the `mongoose` package using your selected package manager (`npm`, `pnpm`, `yarn`, or `bun`).

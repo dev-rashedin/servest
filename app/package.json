@@ -36,6 +36,7 @@
     "@types/react-dom": "^19.1.7",
     "class-variance-authority": "^0.7.1",
     "eslint-config-next": "^15.5.0",
+    "eslint-plugin-n": "^17.23.1",
     "eslint-plugin-next": "^0.0.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
