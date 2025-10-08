@@ -13,6 +13,8 @@ interface Props {
 const DisplayContent = async ({ endpoint, slug }: Props) => {
   const { content, headings, currentSlug, prevSlug, nextSlug } = await getContent(endpoint, slug);
 
+  const isIndex = slug === 'index' || slug === 'introduction';
+
   return (
     <>
       <article className="prose prose-lg">{content}</article>
@@ -22,12 +24,12 @@ const DisplayContent = async ({ endpoint, slug }: Props) => {
 
       {/* Previous / Next navigation */}
 
-      <section className="max-w-3xl min-h-80 py-40">
+      <section className="max-w-3xl pt-40 pb-60">
         {/* community */}
-        {slug === 'index' && (
+        {isIndex && (
           <>
             <Divider />
-            <h3 className="text-xl lg:text-2xl font-bold mt-4 pb-4">Community</h3>
+            <h3 className="text-xl lg:text-2xl font-bold mt-8 pb-4">Community</h3>
             <p className="w-full text-muted-foreground lg:text-[16px]">
               If you have questions or feedback, reach out to the community at{' '}
               <a
@@ -50,7 +52,7 @@ const DisplayContent = async ({ endpoint, slug }: Props) => {
           </>
         )}
 
-        <div className="mt- mb-6">
+        <div className={`${isIndex ? 'mt-28' : ''}`}>
           <Link
             href={`https://github.com/dev-rashedin/servest/edit/main/docs/${endpoint}/${currentSlug}.mdx`}
             target="_blank"
@@ -64,7 +66,7 @@ const DisplayContent = async ({ endpoint, slug }: Props) => {
         <Divider />
 
         {/* next and previous button */}
-        <div className="flex justify-between mt-12 min-h-16">
+        <div className="flex justify-between min-h-16">
           {prevSlug && !prevSlug.startsWith('_') ? (
             <Link
               href={`/${endpoint}/${prevSlug === 'index' ? '' : prevSlug}`}

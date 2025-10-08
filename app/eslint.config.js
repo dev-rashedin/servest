@@ -6,8 +6,7 @@ import tseslint from 'typescript-eslint';
 import nextPlugin from '@next/eslint-plugin-next';
 import globals from 'globals';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig([
   { ignores: ['node_modules', '.next', 'dist', 'out'] },
@@ -25,6 +24,7 @@ export default defineConfig([
     rules: {
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
+      'n/no-unsupported-features/node-builtins': 'off',
     },
   },
 

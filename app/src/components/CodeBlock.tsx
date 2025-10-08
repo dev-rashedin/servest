@@ -1,6 +1,7 @@
 // components/CodeBlock.tsx
 import React from 'react';
 import { type Highlighter, createHighlighter } from 'shiki';
+import CopyableCodeBlock from './CopyCodeBlock';
 
 interface CodeBlockProps {
   code: string;
@@ -9,26 +10,41 @@ interface CodeBlockProps {
 
 let highlighterPromise: Promise<Highlighter> | null = null;
 
-export default async function CodeBlock({ code, language = 'ts' }: CodeBlockProps) {
+export default async function CodeBlock({ code, language = 'bash' }: CodeBlockProps) {
   // Initialize highlighter once
   if (!highlighterPromise) {
     highlighterPromise = createHighlighter({
       themes: ['andromeeda'],
-      langs: ['ts', 'tsx', 'js', 'jsx', 'json', 'bash', 'html', 'css'],
+      langs: [
+        'ts',
+        'tsx',
+        'js',
+        'jsx',
+        'json',
+        'bash',
+        'html',
+        'css',
+        'prisma',
+        'graphql',
+        'dotenv',
+        'md',
+        'mdx',
+      ],
     });
   }
 
   const highlighter = await highlighterPromise;
 
-  const html = highlighter.codeToHtml(code, {
-    lang: language,
-    theme: 'andromeeda',
-  });
+  const isVariants = typeof code === 'object';
 
-  return (
-    <div
-      className="overflow-x-auto rounded-md [&_.shiki]:text-lg [&_.shiki_code]:text-[16px]"
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
-  );
+  const htmls = isVariants
+    ? Object.fromEntries(
+        Object.entries(code).map(([key, snippet]) => [
+          key,
+          highlighter.codeToHtml(snippet as string, { lang: language, theme: 'andromeeda' }),
+        ]),
+      )
+    : { default: highlighter.codeToHtml(code as string, { lang: language, theme: 'andromeeda' }) };
+
+  return <CopyableCodeBlock codeHTML={htmls} isVariants={isVariants} />;
 }

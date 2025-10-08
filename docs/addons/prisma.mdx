@@ -29,7 +29,7 @@ Servest will:
 3. **Generate Prisma configuration**  
    Creates the `prisma/schema.prisma` file with a default PostgreSQL setup:
 
-   ```bash
+   ```prisma
    generator client {
      provider = "prisma-client-js"
    }
@@ -43,7 +43,7 @@ Servest will:
 4. **Create environment file**  
    Adds a `.env` file with a placeholder database URL if it does not already exist:
 
-   ```bash
+   ```dotenv
    DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
    ```
 
