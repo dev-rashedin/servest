@@ -9,8 +9,6 @@ const LeftSidebar = ({ links, type }: DrawerProps) => {
   const pathname = usePathname();
   const { sidebarOpen, setSidebarOpen } = useSidebar();
 
-  console.log('links inside sidebar', links);
-
   return (
     <aside
       className={`h-screen  pl-12 xl:pl-36 pt-6 lg:pt-0 fixed w-full lg:w-[25%] xl:w-[20%] overflow-y-auto ${sidebarOpen ? 'flex flex-col' : 'hidden lg:flex lg:flex-col'}`}
