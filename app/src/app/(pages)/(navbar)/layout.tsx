@@ -3,7 +3,7 @@ import MotionWrapper from '@/components/MotionWrapper';
 import '../pages.layout.css';
 import Navbar from '@/components/Navbar';
 
-export default function ConfigLayout({ children }: { children: ReactNode }) {
+export default function WithNavbarLayout({ children }: { children: ReactNode }) {
   return (
     <main className="bg-docs min-h-screen">
       <Navbar type="with-navbar" />

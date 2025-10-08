@@ -36,9 +36,9 @@ export const docsOrder: Record<string, string[]> = {
     'drizzle',
   ],
   guide: [
-    'index',
-    'philosophy',
-    'gettin-started',
+    '_Overview',
+    'introduction',
+    'why-Servest',
     'cli',
     'runtime',
     'features',
