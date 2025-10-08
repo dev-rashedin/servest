@@ -1,135 +1,96 @@
-# Prisma Addon Setup Guide
+# Prisma Addon
 
-This guide explains how the **Prisma Addon** works inside **Servest** and what happens behind the scenes when you run:
+The `Prisma` addon in **Servest** provides an easy way to integrate Prisma ORM into your backend project.  
+It automates the setup of Prisma dependencies, configuration files, and environment variables to help you start working with databases faster.
+
+---
+
+## How It Works
+
+When you run:
 
 ```bash
-npx servest add prisma
+npx servest@latest add prisma
 ```
 
+Servest will:
+
+1. **Check the framework**  
+   Ensures your project uses a supported Node.js framework before proceeding.
+
+2. **Install Prisma dependencies**  
+   Installs the required packages using your selected package manager (`npm`, `pnpm`, `yarn`, or `bun`).
+
+   Packages installed (with versions):
+   - `prisma@6.15.0` (as a dev dependency)
+   - `@prisma/client@6.15.0` (as a runtime dependency)
+
+3. **Generate Prisma configuration**  
+   Creates the `prisma/schema.prisma` file with a default PostgreSQL setup:
+
+   ```bash
+   generator client {
+     provider = "prisma-client-js"
+   }
+
+   datasource db {
+     provider = "postgresql"
+     url      = env("DATABASE_URL")
+   }
+   ```
+
+4. **Create environment file**  
+   Adds a `.env` file with a placeholder database URL if it does not already exist:
+
+   ```bash
+   DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
+   ```
+
+5. **Add Prisma scripts to package.json**  
+   Adds or preserves these helpful scripts for common Prisma commands:
+
+   ```json
+   "scripts": {
+     "prisma:generate": "prisma generate",
+     "prisma:migrate": "prisma migrate dev"
+   }
+   ```
+
 ---
 
-## 🧩 What This Addon Does
+## Example
 
-This addon automates the **installation and configuration** of [Prisma ORM](https://www.prisma.io/) in your backend project — handling dependencies, setup files, and useful scripts for you.
-
----
-
-## ⚙️ How It Works (Step-by-Step)
-
-### 1. **Framework Compatibility Check**
-
-Ensures your project uses a supported Node.js framework before applying the Prisma setup.
-
-```ts
-checkNodeFramework(config.framework, 'prisma');
-```
-
----
-
-### 2. **Install Prisma Packages**
-
-Prisma requires two packages — one for CLI (dev dependency) and one for runtime.
-
-| Type               | Packages         | Version  |
-| ------------------ | ---------------- | -------- |
-| Dev Dependency     | `prisma`         | `6.15.0` |
-| Runtime Dependency | `@prisma/client` | `6.15.0` |
-
-**Installation Example:**
+After running the Prisma addon, your project structure may look like this:
 
 ```bash
-# Using npm
-npm install prisma@6.15.0 -D
-npm install @prisma/client@6.15.0
+prisma/
+  schema.prisma
+.env
+package.json (with added Prisma scripts)
 ```
 
-> 🧠 The addon automatically detects your package manager (`npm`, `yarn`, `pnpm`, or `bun`) and runs the correct commands.
-
----
-
-### 3. **Create Prisma Schema**
-
-If no `prisma/` directory exists, the addon creates one with a base `schema.prisma` file:
-
-```ts
-generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-```
-
-> 💡 You can modify the datasource to use `mysql`, `sqlite`, or `mongodb` instead of PostgreSQL.
-
----
-
-### 4. **Setup Environment Variables**
-
-If a `.env` file doesn’t exist, it automatically generates one with a placeholder database URL:
+You can then run Prisma commands directly from your terminal:
 
 ```bash
-DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
-```
-
-You should replace this with your actual database credentials.
-
----
-
-### 5. **Add Scripts to package.json**
-
-Adds useful Prisma commands if they aren’t already defined:
-
-```json
-{
-  "scripts": {
-    "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate dev"
-  }
-}
+npm run prisma:generate
+npm run prisma:migrate
 ```
 
 ---
 
-## 🧠 Notes
+## Notes
 
-- You can run migrations using:
-  ```bash
-  npm run prisma:migrate
-  ```
-- Regenerate Prisma Client after updating your schema:
-  ```bash
-  npm run prisma:generate
-  ```
-- Make sure your database is reachable before running migration commands.
+- The addon checks if Prisma or `@prisma/client` are already installed to avoid duplicate setups.
+- It safely creates missing configuration or environment files without overwriting existing ones.
+- Make sure your `.env` file contains a valid `DATABASE_URL` before running migrations.
+- You can manually modify the provider (e.g., `mysql`, `sqlite`, `mongodb`) in `schema.prisma` as needed.
 
 ---
 
-## ✅ Summary of Actions
+## Why Use Prisma?
 
-| Step | Action                  | File/Folder            |
-| ---- | ----------------------- | ---------------------- |
-| 1    | Check framework support | —                      |
-| 2    | Install dependencies    | `node_modules/`        |
-| 3    | Create schema           | `prisma/schema.prisma` |
-| 4    | Add env file            | `.env`                 |
-| 5    | Add scripts             | `package.json`         |
-
----
-
-## 🎉 Final Output
-
-After successful setup, your project structure will look like this:
-
-```
-📦 your-project
- ┣ 📂 prisma/
- ┃ ┗ 📜 schema.prisma
- ┣ 📜 .env
- ┣ 📜 package.json
- ┗ 📂 src/
-```
-
-And you’re ready to start modeling your database with Prisma!
+- **Type-safe queries** → works seamlessly with TypeScript and autocompletes queries.
+- **Cross-database support** → supports PostgreSQL, MySQL, SQLite, MongoDB, and more.
+- **Developer-friendly CLI** → provides powerful commands for migrations and schema management.
+- **Auto-generated client** → reduces boilerplate code and increases development speed.
+- **Integrated setup** → Servest automates everything, so you can focus on writing your app instead of setting up ORM files.
