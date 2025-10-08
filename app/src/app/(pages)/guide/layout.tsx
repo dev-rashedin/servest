@@ -7,8 +7,6 @@ import DrawerContainer from '@/components/DrawerContainer';
 export default function GuideLayout({ children }: { children: ReactNode }) {
   const links = getContentLinks('guide');
 
-  console.log('links', links);
-
   return (
     <main className="lg:flex">
       <div className="sidebar">
