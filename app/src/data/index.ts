@@ -11,7 +11,7 @@ export const navItems = [
   {
     label: 'Resources',
     dropdown: [
-      { label: 'Blog', to: 'https://dev.to/devrashedin' },
+      { label: 'Blog', to: '/blog' },
       { label: 'GitHub', to: 'https://github.com/dev-rashedin/servest' },
       { label: 'Discord', to: 'https://discord.gg/AhqDGZj3' },
       { label: 'Changelog', to: 'https://github.com/dev-rashedin/servest/blob/main/CHANGELOG.md' },

@@ -29,21 +29,22 @@ export default function NavLink() {
             </button>
 
             {open && (
-              <div className="absolute -left-8 top-full bg-card shadow-lg rounded-xl w-48 z-50 p-4">
+              <ul className="absolute -left-8 top-full bg-docs shadow-lg rounded-xl w-40 flex flex-col gap-3 z-50 px-4 py-8">
                 {link.dropdown.map((sub) => (
-                  <Link
-                    key={sub.to}
-                    href={sub.to}
-                    className={`group px-[2px] relative rounded-full cursor-pointer tracking-wide flex gap-2 items-center xl:text-lg
+                  <li key={sub.to}>
+                    <Link
+                      href={sub.to}
+                      className={`group px-[2px] relative rounded-full cursor-pointer tracking-wide flex gap-8 items-center
                 ${isActive ? 'text-brand font-medium' : ''}`}
-                  >
-                    <span className="relative group">
-                      {sub.label}
-                      <AnimatedBorder />
-                    </span>
-                  </Link>
+                    >
+                      <span className="relative group">
+                        {sub.label}
+                        <AnimatedBorder />
+                      </span>
+                    </Link>
+                  </li>
                 ))}
-              </div>
+              </ul>
             )}
           </li>
         ) : (
