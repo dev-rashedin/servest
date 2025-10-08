@@ -36,24 +36,27 @@ export default function MobileMenu() {
       )}
 
       {/* Mobile Menu Drawer */}
-      <div
+      <ul
         className={`md:hidden w-[90vw] rounded-md px-12 py-8 space-y-6 flex flex-col absolute top-16 right-0
         transform ${isOpen ? 'transition-all duration-500 ease-in-out' : ''} z-50
         ${isOpen ? 'opacity-100 translate-y-0' : '-translate-y-5 opacity-0 pointer-events-none'}
         `}
       >
-        {navItems.map(({ label, to }) => {
-          const isActive = pathname === to;
-          return (
-            <Link
-              key={to}
-              href={to}
-              className={`block font-medium tracking-wide px-2 py-1 rounded transition-colors duration-300 border-b pb-2 
+        {navItems.map((link) => {
+          const isActive = pathname === link.to;
+          return !link.dropdown ? (
+            <li key={link.label}>
+              <Link
+                href={link.to}
+                className={`block font-medium tracking-wide px-2 py-1 rounded transition-colors duration-300 border-b pb-2 
                 ${isActive ? 'text-brand font-medium' : ''}
               `}
-            >
-              {label}
-            </Link>
+              >
+                {link.label}
+              </Link>
+            </li>
+          ) : (
+            ''
           );
         })}
 
@@ -65,7 +68,7 @@ export default function MobileMenu() {
         <div className="pt-4">
           <Socials screenType="small" />
         </div>
-      </div>
+      </ul>
     </div>
   );
 }
