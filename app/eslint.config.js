@@ -13,8 +13,10 @@ export default defineConfig([
 
   js.configs.recommended,
   ...tseslint.configs.recommended,
+
   {
-    files: ['**/*.{ts,tsx}'],
+    // Only apply type-aware rules to source files
+    files: ['src/**/*.{ts,tsx}'],
     languageOptions: {
       parserOptions: {
         project: './tsconfig.json',
@@ -24,7 +26,6 @@ export default defineConfig([
     rules: {
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
-      'n/no-unsupported-features/node-builtins': 'off',
     },
   },
 

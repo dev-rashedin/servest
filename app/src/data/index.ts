@@ -31,6 +31,17 @@ export const navItems = [
 ];
 
 export const docsOrder: Record<string, string[]> = {
+  guide: [
+    '_Introduction',
+    'index',
+    'why-Servest',
+    'core-Concept',
+    'cli',
+    'runtime',
+    'features',
+    'errors',
+    'frameworks',
+  ],
   addons: [
     'index',
     '_Addons',
@@ -41,17 +52,6 @@ export const docsOrder: Record<string, string[]> = {
     'mongoose',
     'prisma',
     'drizzle',
-  ],
-  guide: [
-    '_Overview',
-    'introduction',
-    'why-Servest',
-    'core-Concept',
-    'cli',
-    'runtime',
-    'features',
-    'errors',
-    'frameworks',
   ],
 };
 

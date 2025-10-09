@@ -13,7 +13,7 @@ interface Props {
 const DisplayContent = async ({ endpoint, slug }: Props) => {
   const { content, headings, currentSlug, prevSlug, nextSlug } = await getContent(endpoint, slug);
 
-  const isIndex = slug === 'index' || slug === 'introduction';
+  const isIndex = slug === 'index';
 
   return (
     <>
