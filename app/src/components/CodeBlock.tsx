@@ -1,17 +1,10 @@
-// components/CodeBlock.tsx
 import React from 'react';
 import { type Highlighter, createHighlighter } from 'shiki';
 import CopyableCodeBlock from './CopyCodeBlock';
 
-interface CodeBlockProps {
-  code: string;
-  language?: string;
-}
-
 let highlighterPromise: Promise<Highlighter> | null = null;
 
 export default async function CodeBlock({ code, language = 'bash' }: CodeBlockProps) {
-  // Initialize highlighter once
   if (!highlighterPromise) {
     highlighterPromise = createHighlighter({
       themes: ['andromeeda'],

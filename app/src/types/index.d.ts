@@ -14,3 +14,13 @@ declare interface Heading {
   text: string;
   level: number;
 }
+
+declare interface CodeBlockProps {
+  code: string;
+  language?: string;
+}
+
+declare interface CopyableCodeBlockProps {
+  codeHTML: Record<string, string>;
+  isVariants: boolean;
+}

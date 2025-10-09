@@ -1,23 +1,25 @@
 'use client';
-/* eslint-env browser */
 import { useState } from 'react';
 import copy from 'copy-to-clipboard';
 
 interface CopyableCodeBlockProps {
-  codeHTML: Record<string, string>;
+  codeHTML: Record<string, string> | string;
   isVariants: boolean;
 }
 
 export default function CopyableCodeBlock({ codeHTML, isVariants }: CopyableCodeBlockProps) {
+  const variants = isVariants ? Object.keys(codeHTML as Record<string, string>) : ['default'];
+  const [selected, setSelected] = useState(variants[0]);
   const [copied, setCopied] = useState(false);
-  const [selected, setSelected] = useState(isVariants ? Object.keys(codeHTML)[0] : 'default');
 
+  // Helper to strip HTML from highlighted code
   function stripHtml(html: string) {
     const div = document.createElement('div');
     div.innerHTML = html;
     return div.textContent || div.innerText || '';
   }
 
+  // Copy code to clipboard
   const handleCopy = async () => {
     const textToCopy = typeof codeHTML === 'string' ? codeHTML : stripHtml(codeHTML[selected]);
     copy(textToCopy.trim());
@@ -25,15 +27,13 @@ export default function CopyableCodeBlock({ codeHTML, isVariants }: CopyableCode
     setTimeout(() => setCopied(false), 1500);
   };
 
-  // Helper to strip HTML tags for copying
-
   return (
     <div className="rounded-lg overflow-hidden border border-zinc-800 bg-[#1e1e1e]">
-      {/* header bar */}
+      {/* Header with variants & copy button */}
       <div className="flex items-center justify-between bg-[#2a2a2a] px-3 py-2 text-sm text-zinc-300 border-b border-zinc-700">
         <div className="flex items-center gap-2">
-          {isVariants ? (
-            Object.keys(codeHTML).map((key) => (
+          {isVariants &&
+            variants.map((key) => (
               <button
                 key={key}
                 onClick={() => setSelected(key)}
@@ -43,10 +43,7 @@ export default function CopyableCodeBlock({ codeHTML, isVariants }: CopyableCode
               >
                 {key}
               </button>
-            ))
-          ) : (
-            <span></span>
-          )}
+            ))}
         </div>
         <button
           onClick={handleCopy}
@@ -56,9 +53,14 @@ export default function CopyableCodeBlock({ codeHTML, isVariants }: CopyableCode
         </button>
       </div>
 
+      {/* Highlighted code */}
       <div
-        className="[&_.shiki]:p-4 [&_.shiki]:block [&_.shiki_code]:text-[16px]"
-        dangerouslySetInnerHTML={{ __html: codeHTML[selected] }}
+        className="[&_.shiki]:p-4 [&_.shiki]:block [&_.shiki_code]:text-[16px] overflow-x-auto"
+        dangerouslySetInnerHTML={{
+          __html: isVariants
+            ? (codeHTML as Record<string, string>)[selected]
+            : (codeHTML as string),
+        }}
       />
     </div>
   );

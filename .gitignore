@@ -24,3 +24,5 @@ packages/**/dist-ssr
 explorations
 
 .vercel
+
+.vercel
