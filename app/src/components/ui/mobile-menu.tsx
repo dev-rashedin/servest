@@ -1,15 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { ThemeSwitcher } from '../theme/theme-switcher';
 import Socials from './socials';
-import { IoCloseCircleOutline, IoIosArrowDown, IoIosArrowUp, RiMenu3Fill, navItems } from '@/data';
+import NavLink from './Navlinks';
+import { IoCloseCircleOutline, RiMenu3Fill } from '@/data';
 
 export default function MobileMenu() {
-  const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   return (
@@ -17,33 +14,33 @@ export default function MobileMenu() {
       {/* Toggle Button */}
       <button
         className="md:hidden flex items-center justify-center p-2"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setDropdownOpen(!dropdownOpen)}
       >
         <span
           className={`transform transition-transform duration-300 ${
-            isOpen ? 'rotate-180 scale-110' : 'rotate-0 scale-100'
+            dropdownOpen ? 'rotate-180 scale-110' : 'rotate-0 scale-100'
           }`}
         >
-          {isOpen ? <IoCloseCircleOutline size={27} /> : <RiMenu3Fill size={24} />}
+          {dropdownOpen ? <IoCloseCircleOutline size={27} /> : <RiMenu3Fill size={24} />}
         </span>
       </button>
 
       {/* Overlay + Menu */}
-      {isOpen && (
+      {dropdownOpen && (
         <div
           className="fixed top-20 inset-0 z-40 bg-docs transition-opacity duration-300"
-          onClick={() => setIsOpen(false)}
+          onClick={() => setDropdownOpen(false)}
         />
       )}
 
       {/* Mobile Menu Drawer */}
-      <ul
+      <div
         className={`md:hidden w-[90vw] rounded-md px-12 py-8 space-y-6 flex flex-col absolute top-16 right-0
-        transform ${isOpen ? 'transition-all duration-500 ease-in-out' : ''} z-50
-        ${isOpen ? 'opacity-100 translate-y-0' : '-translate-y-5 opacity-0 pointer-events-none'}
+        transform ${dropdownOpen ? 'transition-all duration-500 ease-in-out' : ''} z-50
+        ${dropdownOpen ? 'opacity-100 translate-y-0' : '-translate-y-5 opacity-0 pointer-events-none'}
         `}
       >
-        {navItems.map((link) => {
+        {/* {navItems.map((link) => {
           const isActive = pathname === link.to;
           return link.dropdown ? (
             <li
@@ -85,7 +82,8 @@ export default function MobileMenu() {
               </Link>
             </li>
           );
-        })}
+        })} */}
+        <NavLink dropdownOpen={dropdownOpen} />
 
         <div className="w-full mx-auto border rounded-lg flex-between py-2 px-8 justify-end">
           <span className="text-xs text-muted-foreground opacity-75">Theme</span>
@@ -95,7 +93,7 @@ export default function MobileMenu() {
         <div className="pt-4">
           <Socials screenType="small" />
         </div>
-      </ul>
+      </div>
     </div>
   );
 }

@@ -11,17 +11,27 @@ export const navItems = [
   {
     label: 'Resources',
     dropdown: [
-      // {
-      //   label: 'Packages',
-      //   dropdown: [
-      //     { label: 'create-servest', to:'https://www.npmjs.com/package/create-servest' },
-      //     {label: 'servest-addons', to:'https://www.npmjs.com/package/servest' },
-      //   ],
-      // },
       { label: 'Blog', to: '/blog' },
-      { label: 'GitHub', to: 'https://github.com/dev-rashedin/servest' },
-      { label: 'Discord', to: 'https://discord.gg/AhqDGZj3' },
-      { label: 'Changelog', to: 'https://github.com/dev-rashedin/servest/blob/main/CHANGELOG.md' },
+      {
+        label: 'create-servest',
+        subMenu: [
+          { label: 'npm Package', to: 'https://www.npmjs.com/package/create-servest' },
+          {
+            label: 'Changelog',
+            to: 'https://github.com/dev-rashedin/servest/blob/main/packages/create-servest/CHANGELOG.md',
+          },
+        ],
+      },
+      {
+        label: 'servest-addons',
+        subMenu: [
+          { label: 'npm Package', to: 'https://www.npmjs.com/package/servest' },
+          {
+            label: 'Changelog',
+            to: 'https://github.com/dev-rashedin/servest/blob/main/packages/servest-addons/CHANGELOG.md',
+          },
+        ],
+      },
       {
         label: 'Contributing',
         to: 'https://github.com/dev-rashedin/servest/blob/main/CONTRIBUTING.md',
