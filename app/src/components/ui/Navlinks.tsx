@@ -2,24 +2,52 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AnimatedBorder from './AnimatedBorder';
 import { IoIosArrowDown, IoIosArrowUp, RiArrowRightSLine, navItems } from '@/data';
 
-function NavItem({ item, pathname, type = 'main' }: ItemProps) {
+function NavItem({ item, pathname, type = 'main', isMobile }: ItemProps) {
   const [open, setOpen] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024);
+    };
+
+    handleResize(); // initial check
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const isActive = pathname === item.to;
+
+  const isNative =
+    item.label === 'Blog' ||
+    item.label === 'Guide' ||
+    item.label === 'Config' ||
+    item.label === 'Addons';
+
+  const handleMouseEnter = () => isLargeScreen && setOpen(true);
+  const handleMouseLeave = () => {
+    if (isLargeScreen) {
+      setTimeout(() => setOpen(false), 300);
+    }
+  };
+  const handleClick = () => !isLargeScreen && setOpen((prev) => !prev);
 
   return (
     <li
       className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setTimeout(() => setOpen(false), 300)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
     >
       {item.to ? (
         <Link
           href={item.to}
-          className={`group relative rounded-full cursor-pointer tracking-wide flex gap-2 px-2 items-center ${
+          target={isNative ? '_self' : '_blank'}
+          className={`group relative flex gap-2 px-2 items-center rounded-full cursor-pointer tracking-wide  ${
             isActive ? 'text-brand font-medium' : ''
           } ${type === 'sub' ? 'ml-6 mt-1' : ''}`}
         >
@@ -37,13 +65,15 @@ function NavItem({ item, pathname, type = 'main' }: ItemProps) {
           ))}
         </>
       ) : (
-        <button className="flex items-center gap-2">
+        <button className="flex items-center gap-2 ml-2 md:ml-0">
           {item.label} {item.dropdown && (open ? <IoIosArrowUp /> : <IoIosArrowDown />)}
         </button>
       )}
 
       {item.dropdown && open && (
-        <ul className="absolute -left-24 lg:-left-16 top-full w-[200px] bg-navbar rounded-xl flex flex-col gap-4 z-50 px-4 py-8">
+        <ul
+          className={` w-[200px]  rounded-xl flex flex-col gap-4 z-50 px-4 py-8 ${isMobile ? '' : 'absolute -left-24 lg:-left-16 top-full bg-navbar'}`}
+        >
           {item.dropdown.map((sub: NavItemType) => (
             <NavItem key={sub.label} item={sub} pathname={pathname} />
           ))}
@@ -53,13 +83,34 @@ function NavItem({ item, pathname, type = 'main' }: ItemProps) {
   );
 }
 
-export default function NavLink() {
+export default function NavLink({ dropdownOpen = false }: { dropdownOpen?: boolean }) {
   const pathname = usePathname();
+  const [isMobile, setIsMobile] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 450);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  if (!hydrated) return null;
 
   return (
-    <ul className="hidden md:flex gap-8 xl:mr-20">
+    <ul
+      className={`${isMobile ? (dropdownOpen ? 'flex' : 'hidden') : 'flex'} flex-col md:flex-row gap-8 xl:mr-36`}
+    >
       {navItems.map((item) => (
-        <NavItem key={item.label} item={item} pathname={pathname} />
+        <NavItem key={item.label} item={item} pathname={pathname} isMobile={isMobile} />
       ))}
     </ul>
   );

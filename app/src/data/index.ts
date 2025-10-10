@@ -15,7 +15,7 @@ export const navItems = [
       {
         label: 'create-servest',
         subMenu: [
-          { label: 'npm-package', to: 'https://www.npmjs.com/package/create-servest' },
+          { label: 'npm Package', to: 'https://www.npmjs.com/package/create-servest' },
           {
             label: 'Changelog',
             to: 'https://github.com/dev-rashedin/servest/blob/main/packages/create-servest/CHANGELOG.md',
@@ -25,7 +25,7 @@ export const navItems = [
       {
         label: 'servest-addons',
         subMenu: [
-          { label: 'npm-package', to: 'https://www.npmjs.com/package/servest' },
+          { label: 'npm Package', to: 'https://www.npmjs.com/package/servest' },
           {
             label: 'Changelog',
             to: 'https://github.com/dev-rashedin/servest/blob/main/packages/servest-addons/CHANGELOG.md',
