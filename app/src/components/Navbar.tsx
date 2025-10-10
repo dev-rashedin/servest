@@ -10,7 +10,7 @@ const Navbar = ({ type = 'home' }: { type: string }) => {
     <HeaderFrame type={type}>
       <nav className="boundary flex-between">
         <Logo type={type} />
-        <section className="flex-center gap-10 lg:gap-20">
+        <section className="flex-center gap-10 lg:gap-16">
           <NavLink />
           <MobileMenu />
           <div className={`hidden md:flex-center gap-4 ${type === 'sidebar' ? 'xl:mr-20' : ''}`}>
