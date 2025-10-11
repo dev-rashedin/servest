@@ -1,43 +1,32 @@
-import React from 'react';
-import { type Highlighter, createHighlighter } from 'shiki';
+'use client';
+import { useEffect, useState } from 'react';
+import { createHighlighter } from 'shiki';
 import CopyableCodeBlock from './CopyCodeBlock';
 
-let highlighterPromise: Promise<Highlighter> | null = null;
+export default function CodeBlock({ code, language = 'bash' }: CodeBlockProps) {
+  const [html, setHtml] = useState<string | null>(null);
 
-export default async function CodeBlock({ code, language = 'bash' }: CodeBlockProps) {
-  if (!highlighterPromise) {
-    highlighterPromise = createHighlighter({
-      themes: ['andromeeda'],
-      langs: [
-        'ts',
-        'tsx',
-        'js',
-        'jsx',
-        'json',
-        'bash',
-        'html',
-        'css',
-        'prisma',
-        'graphql',
-        'dotenv',
-        'md',
-        'mdx',
-      ],
-    });
-  }
+  useEffect(() => {
+    let cancelled = false;
 
-  const highlighter = await highlighterPromise;
+    async function highlight() {
+      const highlighter = await createHighlighter({
+        themes: ['andromeeda'],
+        langs: ['ts', 'js', 'bash', 'json', 'tsx', 'jsx', 'css', 'html'],
+      });
 
-  const isVariants = typeof code === 'object';
+      const htmlResult = highlighter.codeToHtml(code, { lang: language, theme: 'andromeeda' });
 
-  const htmls = isVariants
-    ? Object.fromEntries(
-        Object.entries(code).map(([key, snippet]) => [
-          key,
-          highlighter.codeToHtml(snippet as string, { lang: language, theme: 'andromeeda' }),
-        ]),
-      )
-    : { default: highlighter.codeToHtml(code as string, { lang: language, theme: 'andromeeda' }) };
+      if (!cancelled) setHtml(htmlResult);
+    }
 
-  return <CopyableCodeBlock codeHTML={htmls} isVariants={isVariants} />;
+    highlight();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [code, language]);
+
+  if (!html) return <pre>Loading...</pre>;
+  return <CopyableCodeBlock codeHTML={{ default: html }} isVariants={false} />;
 }

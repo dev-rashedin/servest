@@ -45,7 +45,7 @@ export default function CopyableCodeBlock({ codeHTML, isVariants }: CopyableCode
               </button>
             ))
           ) : (
-            <span></span>
+            <span>Code</span>
           )}
         </div>
         <button
