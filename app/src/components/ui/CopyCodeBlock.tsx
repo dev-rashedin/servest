@@ -5,7 +5,7 @@ import { RiNpmjsFill } from 'react-icons/ri';
 import { SiBun, SiDeno, SiPnpm, SiYarn } from 'react-icons/si';
 
 interface CopyableCodeBlockProps {
-  codeHTML: string | Record<string, string>; // string for single, Record for variants
+  codeHTML: string | Record<string, string>;
   language?: string;
 }
 
@@ -19,6 +19,7 @@ const codeIcons: Record<string, JSX.Element> = {
 
 export default function CopyableCodeBlock({ codeHTML, language = 'bash' }: CopyableCodeBlockProps) {
   const isVariants = typeof codeHTML !== 'string';
+  const codeKeys = isVariants ? Object.keys(codeHTML) : [];
   const [copied, setCopied] = useState(false);
   const [selected, setSelected] = useState(isVariants ? Object.keys(codeHTML)[0] : 'default');
 
@@ -35,13 +36,15 @@ export default function CopyableCodeBlock({ codeHTML, language = 'bash' }: Copya
     setTimeout(() => setCopied(false), 1500);
   };
 
+  const headerLabel = isVariants ? selected : language;
+
   return (
     <div className="rounded-lg overflow-hidden border border-zinc-800 bg-[#1e1e1e]">
       {/* Header */}
       <div className="flex items-center justify-between bg-[#2a2a2a] px-3 py-2 text-sm text-zinc-300 border-b border-zinc-700">
         <div className="flex items-center gap-2">
           {isVariants ? (
-            Object.keys(codeHTML).map((key) => (
+            codeKeys.map((key) => (
               <button
                 key={key}
                 onClick={() => setSelected(key)}
@@ -54,7 +57,7 @@ export default function CopyableCodeBlock({ codeHTML, language = 'bash' }: Copya
               </button>
             ))
           ) : (
-            <span className="uppercase tracking-wide text-xs text-zinc-400">{language}</span>
+            <span className="uppercase tracking wider text-xs text-zinc-300">{headerLabel}</span>
           )}
         </div>
         <button

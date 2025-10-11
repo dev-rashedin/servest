@@ -10,8 +10,8 @@ export const MDXComponents = {
       return <InlineHighlight>{children}</InlineHighlight>;
     }
 
-    const lang = className.replace('language-', '').trim();
+    const lang = className.replace('language-', '').trim() || 'text';
 
-    return <CodeBlock code={children} language={lang} />;
+    return <CodeBlock code={children} language={lang || 'bash'} />;
   },
 };
