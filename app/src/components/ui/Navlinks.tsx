@@ -11,8 +11,6 @@ function NavItem({ item, pathname, type = 'main' }: ItemProps) {
   const [open, setOpen] = useState(false);
   const { isLargeScreen, isMobile } = useScreenSize();
 
-  console.log('isLargeScreen', isLargeScreen);
-
   const isActive = pathname === item.to;
 
   const isNative =

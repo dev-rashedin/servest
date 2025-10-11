@@ -1,4 +1,5 @@
-import CodeBlock from './CodeBlock';
+import CodeBlock from './ui/CodeBlock';
+import CodeGroup from './ui/CodeGroup';
 
 const InlineHighlight = ({ children }: { children: React.ReactNode }) => (
   <strong className="text-highlight text-lg font-medium mx-0.5">{children}</strong>
@@ -12,8 +13,21 @@ export const MDXComponents = {
       return <InlineHighlight>{children}</InlineHighlight>;
     }
 
+    console.log('children inside MDX Component', children);
+
     // triple backticks → Shiki code block
     const lang = className.replace('language-', '');
+
+    let parsed: Record<string, string> | null = null;
+    try {
+      parsed = JSON.parse(children.replace(/'/g, '"').trim());
+      console.log('parsed inside mdx com', parsed);
+    } catch {
+      console.log('something went wrong');
+    }
+
+    if (parsed) return <CodeGroup variants={parsed} language={lang} />;
+
     return <CodeBlock code={children} language={lang} />;
   },
 
