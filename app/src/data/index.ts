@@ -3,6 +3,7 @@ import { IoCloseCircleOutline, IoSunnyOutline } from 'react-icons/io5';
 import { FiEdit, FiMoon } from 'react-icons/fi';
 import { RiArrowRightSLine, RiMenu2Fill, RiMenu3Fill } from 'react-icons/ri';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { SiBun, SiDeno, SiNpm, SiPnpm, SiYarn } from 'react-icons/si';
 
 export const navItems = [
   { label: 'Guide', to: '/guide' },
@@ -77,4 +78,9 @@ export {
   RiArrowRightSLine,
   IoIosArrowDown,
   IoIosArrowUp,
+  SiNpm,
+  SiYarn,
+  SiPnpm,
+  SiBun,
+  SiDeno,
 };

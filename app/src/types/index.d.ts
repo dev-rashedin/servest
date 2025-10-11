@@ -18,6 +18,7 @@ declare interface Heading {
 declare interface CodeBlockProps {
   code: string;
   language?: string;
+  variant?: string;
 }
 
 declare interface CopyableCodeBlockProps {
@@ -36,5 +37,4 @@ declare interface ItemProps {
   item: NavItemType;
   pathname: string;
   type?: 'main' | 'sub';
-  isMobile?: boolean;
 }

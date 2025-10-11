@@ -2,23 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import AnimatedBorder from './AnimatedBorder';
 import { IoIosArrowDown, IoIosArrowUp, RiArrowRightSLine, navItems } from '@/data';
+import { useScreenSize } from '@/hooks';
 
-function NavItem({ item, pathname, type = 'main', isMobile }: ItemProps) {
+function NavItem({ item, pathname, type = 'main' }: ItemProps) {
   const [open, setOpen] = useState(false);
-  const [isLargeScreen, setIsLargeScreen] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsLargeScreen(window.innerWidth >= 1024);
-    };
-
-    handleResize(); // initial check
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const { isLargeScreen, isMobile } = useScreenSize();
 
   const isActive = pathname === item.to;
 
@@ -72,7 +63,9 @@ function NavItem({ item, pathname, type = 'main', isMobile }: ItemProps) {
 
       {item.dropdown && open && (
         <ul
-          className={` w-[200px]  rounded-xl flex flex-col gap-4 z-50 px-4 py-8 ${isMobile ? '' : 'absolute -left-24 lg:-left-16 top-full bg-navbar'}`}
+          className={`w-[200px] rounded-xl flex flex-col gap-4 z-50 px-4 py-8 ${
+            isMobile ? '' : 'absolute -left-24 lg:-left-16 top-full bg-navbar'
+          }`}
         >
           {item.dropdown.map((sub: NavItemType) => (
             <NavItem key={sub.label} item={sub} pathname={pathname} />
@@ -85,23 +78,17 @@ function NavItem({ item, pathname, type = 'main', isMobile }: ItemProps) {
 
 export default function NavLink({ dropdownOpen = false }: { dropdownOpen?: boolean }) {
   const pathname = usePathname();
-  const [isMobile, setIsMobile] = useState(false);
   const [hydrated, setHydrated] = useState(false);
+  const { isMobile } = useScreenSize();
 
   useEffect(() => {
     setHydrated(true);
   }, []);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 450);
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  const renderedNavItems = useMemo(
+    () => navItems.map((item) => <NavItem key={item.label} item={item} pathname={pathname} />),
+    [pathname],
+  );
 
   if (!hydrated) return null;
 
@@ -109,9 +96,7 @@ export default function NavLink({ dropdownOpen = false }: { dropdownOpen?: boole
     <ul
       className={`${isMobile ? (dropdownOpen ? 'flex' : 'hidden') : 'flex'} flex-col md:flex-row gap-8 xl:mr-36`}
     >
-      {navItems.map((item) => (
-        <NavItem key={item.label} item={item} pathname={pathname} isMobile={isMobile} />
-      ))}
+      {renderedNavItems}
     </ul>
   );
 }

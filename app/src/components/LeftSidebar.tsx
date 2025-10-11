@@ -21,13 +21,13 @@ const LeftSidebar = ({ links, type }: DrawerProps) => {
       </section>
 
       {/* Nav list (scrolls under the sticky header) */}
-      <nav className="flex flex-col pl-4 md:pl-8 lg:pl-0  text-start gap-3 mt-8 pr-11">
+      <nav className="flex flex-col pl-4 md:pl-8 lg:pl-0  text-start gap-3 mt-6 pr-11">
         {links.map((item) => {
           if (item.type === 'group') {
             return (
               <p
                 key={item.label}
-                className={`text-[16px] font-semibold pt-2 ${item.label === 'Introduction' ? '' : 'border-t border-c-logo mt-4'} `}
+                className={`text-[16px] font-semibold pt-3 ${item.label === 'Introduction' ? '' : 'border-t border-c-logo mt-4'} `}
               >
                 {item.label}
               </p>
