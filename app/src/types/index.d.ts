@@ -36,5 +36,4 @@ declare interface ItemProps {
   item: NavItemType;
   pathname: string;
   type?: 'main' | 'sub';
-  isMobile?: boolean;
 }
