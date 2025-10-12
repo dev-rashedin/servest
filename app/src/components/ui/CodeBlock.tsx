@@ -23,7 +23,7 @@ export default function CodeBlock({ code, language = 'bash' }: CodeBlockProps) {
     async function highlight() {
       const highlighter = await createHighlighter({
         themes: ['andromeeda'],
-        langs: ['ts', 'js', 'bash', 'json', 'tsx', 'jsx', 'css', 'html'],
+        langs: ['ts', 'js', 'bash', 'json', 'tsx', 'jsx', 'css', 'html', 'prisma', 'dotenv'],
       });
 
       if (isVariants && parsed) {
@@ -58,8 +58,7 @@ export default function CodeBlock({ code, language = 'bash' }: CodeBlockProps) {
 
   return (
     <CopyableCodeBlock
-      codeHTML={isVariants ? (variantHtml as Record<string, string>) : { default: html! }}
-      isVariants={isVariants}
+      codeHTML={isVariants ? (variantHtml as Record<string, string>) : html!}
       language={language}
     />
   );

@@ -3,7 +3,8 @@ import { IoCloseCircleOutline, IoSunnyOutline } from 'react-icons/io5';
 import { FiEdit, FiMoon } from 'react-icons/fi';
 import { RiArrowRightSLine, RiMenu2Fill, RiMenu3Fill } from 'react-icons/ri';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
-import { SiBun, SiDeno, SiNpm, SiPnpm, SiYarn } from 'react-icons/si';
+import { SiBun, SiDeno, SiPnpm, SiYarn } from 'react-icons/si';
+import { CgNpm } from 'react-icons/cg';
 
 export const navItems = [
   { label: 'Guide', to: '/guide' },
@@ -45,13 +46,11 @@ export const docsOrder: Record<string, string[]> = {
   guide: [
     '_Introduction',
     'index',
+    'index2',
     'why-Servest',
-    'core-Concept',
-    'cli',
-    'runtime',
-    'features',
-    'errors',
-    'frameworks',
+    'our-Journey',
+    '_Guide',
+    'preinstalled-Packages',
   ],
   addons: [
     'index',
@@ -78,9 +77,9 @@ export {
   RiArrowRightSLine,
   IoIosArrowDown,
   IoIosArrowUp,
-  SiNpm,
   SiYarn,
   SiPnpm,
   SiBun,
   SiDeno,
+  CgNpm,
 };
