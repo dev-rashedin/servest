@@ -1,0 +1,137 @@
+## Overview
+
+`Servest` is a backend project scaffolding and addon generator built to make backend development fast, consistent, and framework-agnostic.
+
+It helps you create production-ready backend templates — powered by Express.js (and soon other runtimes like Go, Python, and PHP).
+
+Servest consists of two main parts:
+
+- **create-servest** — The CLI tool used to scaffold new backend projects instantly.
+- **servest (addons)** — A powerful extension system that lets you generate new modules, middleware, and integrations (like authentication, databases, and utilities) inside your existing project.
+
+Together, they provide a _Vite-like_ developer experience — but for backend frameworks.
+
+You can think of Servest as:
+
+> create-vite + shadcn, but for backend frameworks.
+
+Whether you’re building a simple API or a complex modular architecture, Servest ensures your project starts with clean, modern conventions and can grow with you.
+
+---
+
+You can learn more about specific addons in the [Addons Guide](/addons).
+
+---
+
+## Scaffolding Your First Servest Project
+
+```bash
+{
+  "npm": "npm create servest@latest",
+  "yarn": "yarn create servest",
+  "pnpm": "pnpm create servest",
+  "bun": "bun create servest",
+  "deno": "deno init --npm servest",
+}
+```
+
+Then follow the prompts to select your preferred template.
+
+### Example: Create an Express MVC (TypeScript) Project
+
+      npm create servest@latest servest-project -- --template express-mvc-ts -a f-auth f-articles mongoose eslint-prettier
+
+This command:
+
+- Creates a new Express MVC + TypeScript project
+- Installs pre-configured dependencies
+- Generates authentication, article routes, Mongoose, and ESLint + Prettier setup instantly
+
+---
+
+## Template Types
+
+Currently available templates (Node.js + Express):
+
+| Template Name     | Description                    |
+| :---------------- | :----------------------------- |
+| express-basic     | Minimal Express setup          |
+| express-basic-ts  | Express + TypeScript setup     |
+| express-api       | REST API structure             |
+| express-api-ts    | REST API + TypeScript          |
+| express-mvc       | MVC folder pattern             |
+| express-mvc-ts    | MVC + TypeScript               |
+| express-router    | Router-based project structure |
+| express-router-ts | Router-based + TypeScript      |
+
+_(More runtimes like Django, Go, and PHP will be supported soon.)_
+
+---
+
+## Manual Installation
+
+      # npm
+      npm install -D servest
+
+      # yarn
+      yarn add -D servest
+
+      # pnpm
+      pnpm add -D servest
+
+      # bun
+      bun add -D servest
+
+Then you can run the Servest CLI inside your project:
+
+      npx servest add f-auth
+
+That will generate the full authentication feature with routes, controller, and service pre-configured.
+
+---
+
+## Command Line Interface
+
+Once installed, Servest provides two primary CLIs:
+
+| Command        | Description                                   |
+| :------------- | :-------------------------------------------- |
+| create-servest | Scaffold new backend projects                 |
+| servest        | Add or remove addons, utilities, and features |
+
+### Example Commands
+
+      # Create new project
+      npm create servest@latest my-api -- --template express-api-ts
+
+      # Add Mongoose addon
+      npx servest add mongoose
+
+      # Add Auth + ESLint + Prettier
+      npx servest add f-auth eslint-prettier
+
+Run `npx servest --help` for a full list of available commands.
+
+---
+
+## Node.js Compatibility
+
+Servest requires **Node.js 18+** (tested on 20.x and 22.x).  
+ Some addons may require a higher version depending on dependencies.
+
+> 💡 Make sure your Node version supports ES modules and import.meta syntax.
+
+---
+
+## Community & Contributions
+
+Servest is open-source and welcomes contributors!  
+ You can find the source code and contribute via:
+
+- **GitHub:** https://github.com/dev-rashedin/create-servest
+- **NPM:** [create-servest](https://www.npmjs.com/package/create-servest), [servest](https://www.npmjs.com/package/servest)
+
+If you want to contribute addons, fix bugs, or improve the docs — check the [Contributors Guide](/community/contributing).
+
+> Released under the MIT License  
+> Copyright © 2025-present Rashedin Islam & Servest Contributors

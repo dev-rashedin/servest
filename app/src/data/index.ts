@@ -43,7 +43,15 @@ export const navItems = [
 ];
 
 export const docsOrder: Record<string, string[]> = {
-  guide: ['_Introduction', 'index', 'why-Servest', 'our-Journey'],
+  guide: [
+    '_Introduction',
+    'index',
+    'index2',
+    'why-Servest',
+    'our-Journey',
+    '_Guide',
+    'preinstalled-Packages',
+  ],
   addons: [
     'index',
     '_Addons',

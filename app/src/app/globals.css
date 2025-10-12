@@ -194,7 +194,7 @@
     }
 
     blockquote {
-      @apply min-h-12 flex items-center;
+      @apply p-0 leading-normal flex items-start text-[16px];
     }
 
     hr {
