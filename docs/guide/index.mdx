@@ -1,142 +1,148 @@
-# Servest Overview
+# Servest Guide
 
-Servest is a backend project scaffolding and addon generator built to make backend development fast, consistent, and framework-agnostic.
+## Overview
 
-It helps you create production-ready backend templates — powered by Express.js (and soon other runtimes like Go, Python, and PHP).
+`Servest` is a modern backend project scaffolding and addon generator, inspired by **create-vite** and **shadcn/ui**, but built entirely for backend frameworks. It helps you quickly create structured backend starter projects and extend them with ready-to-use features.
 
-Servest consists of two main parts:
+`Servest` is framework- and runtime-agnostic — currently supporting `Express`, with **Django**, **Fastify**, **NestJS**, **Laravel**, and more coming soon.
 
-- **create-servest** — The CLI tool used to scaffold new backend projects instantly.
-- **servest (addons)** — A powerful extension system that lets you generate new modules, middleware, and integrations (like authentication, databases, and utilities) inside your existing project.
+It consists of two main parts:
 
-Together, they provide a Vite-like developer experience — but for backend frameworks.
+- `create-servest` — The CLI tool used to scaffold new backend projects instantly.
+- `servest (addons)` — A flexible extension system for generating modules, middleware, and integrations (authentication, databases, utilities) inside existing projects.
+
+You can think of Servest as:
 
 > create-vite + shadcn, but for backend frameworks.
 
-Whether you’re building a simple API or a complex modular architecture, Servest ensures your project starts with clean, modern conventions and can grow with you.
+Together, they provide a smooth developer experience, eliminating configuration hassles and repetitive setup, and can significantly speed up backend project development using ready-to-use templates and addons — or both combined.
 
 ---
 
-## Installing Servest
+## What Servest Does
 
-Use the following commands depending on your package manager:
+Servest consists of two main tools:
+
+### _*1*_ ` create-servest`
+
+CLI tool to scaffold backend project templates.
 
 ```bash
 {
-"npm": "npm create servest@latest",
-"yarn": "yarn create servest",
-"pnpm": "pnpm create servest",
-"bun": "bun create servest",
-"deno": "deno init --npm servest"
+  "npm": "npm create servest@latest",
+  "yarn": "yarn create servest",
+  "pnpm": "pnpm create servest",
+  "bun": "bun create servest",
+  "deno": "deno init --npm servest"
 }
 ```
 
-Then follow the prompts to select your preferred template.
+Example:
 
-### Example: Create an Express MVC (TypeScript) Project
+```bash
+npm create servest@latest my-app -- --template express-mvc-ts
+```
 
-npm create servest@latest servest-project -- --template express-mvc-ts -a f-auth f-articles mongoose eslint-prettier
+### _*2*_ `servest`
 
-This command:
+Addon utility CLI to add backend features — inspired by **shadcn**’s `add` command.
 
-- Creates a new Express MVC + TypeScript project
-- Installs pre-configured dependencies
-- Generates authentication, article routes, Mongoose, and ESLint + Prettier setup instantly
-
----
-
-## Preinstalled Packages
-
-Each Servest template comes with a curated set of dependencies to give you a ready-to-go developer environment.
-
-For **Express templates**, these packages are preinstalled:
-
-| Package               | Purpose                          |
-| :-------------------- | :------------------------------- |
-| express               | Core web framework               |
-| cors                  | Cross-origin resource sharing    |
-| dotenv                | Environment variable management  |
-| express-error-toolkit | Clean error handling & responses |
-| nodemon (dev)         | Auto-reload during development   |
-
-Additional addons (like Mongoose, Prisma, Auth, ESLint, etc.) can be installed via the [Servest Addons CLI](/addons).
+```bash
+npx servest@latest add eslint prettier mongoose
+```
 
 ---
 
-## Template Types
+## Why Servest
 
-Currently available templates (Node.js + Express):
+Setting up backend projects manually often means repeating the same steps — configuring ESLint, setting up ORM, folder structures, etc. Servest eliminates this by providing pre-configured templates and add-ons that can be extended anytime.
 
-| Template Name     | Description                    |
-| :---------------- | :----------------------------- |
-| express-basic     | Minimal Express setup          |
-| express-basic-ts  | Express + TypeScript setup     |
-| express-api       | REST API structure             |
-| express-api-ts    | REST API + TypeScript          |
-| express-mvc       | MVC folder pattern             |
-| express-mvc-ts    | MVC + TypeScript               |
-| express-router    | Router-based project structure |
-| express-router-ts | Router-based + TypeScript      |
-
-_(More runtimes like Django, Go, and PHP will be supported soon.)_
+- 🚀 **Fast project setup** — ready in seconds.
+- 🧩 **Addons system** — add features anytime.
+- 🧱 **Framework agnostic** — works with Node, Python, PHP, and more.
+- ⚙️ **Customizable** — modify, extend, or combine templates.
 
 ---
 
-## Trying Servest Online
+## Try Servest Templates Online
 
-You can try Servest templates online in your browser using StackBlitz. Replace `{template}` with your desired template name (links will be added later):
+Like Vite’s `vite.new`, Servest plans to support **StackBlitz** for live template previews.
 
-- [Express Basic](#)
-- [Express MVC](#)
-- [Express API](#)
+For now, you can explore the GitHub templates directly:
 
-Simply navigate to `stackblitz.com/github/dev-rashedin/servest/tree/main/templates/{template}` to try a template without installing anything locally.
+| Framework | Template         | Link                                                                                                                                |
+| --------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Express   | express-basic-js | [View](https://stackblitz.com/github/dev-rashedin/servest/blob/main/packages/create-servest/templates/express-basic-js?file=app.js) |
+| Express   | express-mvc-ts   | Coming soon                                                                                                                         |
+| Django    | django-basic     | Coming soon                                                                                                                         |
 
----
+Once integrated, templates will be accessible via:
 
-## Command Line Interface
-
-Once installed, Servest provides two primary CLIs:
-
-| Command        | Description                                   |
-| :------------- | :-------------------------------------------- |
-| create-servest | Scaffold new backend projects                 |
-| servest        | Add or remove addons, utilities, and features |
-
-### Example Commands
-
-# Create new project
-
-npm create servest@latest my-api -- --template express-api-ts
-
-# Add Mongoose addon
-
-npx servest add mongoose
-
-# Add Auth + ESLint + Prettier
-
-npx servest add f-auth eslint-prettier
-
-Run `npx servest --help` for a full list of available commands.
+```
+servest.new/{template-name}
+```
 
 ---
 
-## Node.js Compatibility
+## Supported Templates
 
-Servest requires **Node.js 18+** (tested on 20.x and 22.x). Some addons may require a higher version depending on dependencies.
-
-> 💡 Make sure your Node version supports ES modules and import.meta syntax.
+| Framework   | Templates                                                                          |
+| ----------- | ---------------------------------------------------------------------------------- |
+| **Express** | basic-js, basic-ts, mvc-cjs, mvc-esm, mvc-ts, modular-cjs, modular-esm, modular-ts |
+| **Django**  | django-basic                                                                       |
 
 ---
 
-## Community & Contributions
+## Addons Overview
 
-Servest is open-source and welcomes contributors!
+Enhance your backend project anytime using Servest Addons:
 
-- **GitHub:** [https://github.com/dev-rashedin/create-servest](https://github.com/dev-rashedin/create-servest)
-- **NPM:** [create-servest](https://www.npmjs.com/package/create-servest), [servest](https://www.npmjs.com/package/servest)
+```bash
+npx servest@latest add <feature>
 
-If you want to contribute addons, fix bugs, or improve the docs — check the [Contributors Guide](/community/contributing).
+# Examples:
+npx servest@latest add mongoose
+npx servest@latest add eslint prettier prisma
+```
 
-> Released under the MIT License
-> Copyright © 2025-present Rashedin Islam & Servest Contributors
+| Addon       | Description                              |
+| ----------- | ---------------------------------------- |
+| eslint      | Adds ESLint setup with recommended rules |
+| prettier    | Adds Prettier configuration              |
+| mongoose    | Adds MongoDB setup with Mongoose         |
+| prisma      | Adds Prisma ORM integration              |
+| drizzle     | Adds Drizzle ORM setup                   |
+| lint-staged | Adds pre-commit linting & formatting     |
+
+---
+
+## Future Plan
+
+Servest aims to become the **create-vite for backend** — providing a unified scaffolding experience across all major backend frameworks and runtimes.
+
+**Upcoming goals:**
+
+- Add support for **NestJS**, **Fastify**, and **Laravel**.
+- Add **StackBlitz** and **GitHub Codespaces** integration.
+- Build **official addons library** for backend utilities.
+
+---
+
+## Get Started
+
+```bash
+# Create a new project
+npm create servest@latest my-backend -- --template express-mvc-ts
+
+# Move into project
+yarn dev  # or npm run dev
+
+# Add more features anytime
+npx servest@latest add mongoose eslint prettier
+```
+
+---
+
+## License
+
+MIT

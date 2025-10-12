@@ -19,6 +19,7 @@ const config: Config = {
       },
       fontSize: {
         body: ['0.9rem', { lineHeight: '1.8', letterSpacing: '0.036em' }],
+        heading: ['0.8rem', { lineHeight: '1.4', letterSpacing: '0.036em' }],
       },
       typography: {
         DEFAULT: {
@@ -33,6 +34,7 @@ const config: Config = {
               color: 'hsl(var(--foreground))',
               fontFamily: 'var(--font-heading)',
               fontWeight: '700',
+              fontSize: '2rem',
             },
             h2: {
               color: 'hsl(var(--foreground))',

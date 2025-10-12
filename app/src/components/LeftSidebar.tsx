@@ -27,7 +27,7 @@ const LeftSidebar = ({ links, type }: DrawerProps) => {
             return (
               <p
                 key={item.label}
-                className={`text-[16px] font-semibold pt-3 ${item.label === 'Introduction' ? '' : 'border-t border-c-logo mt-4'} `}
+                className={`text-[16px] font-semibold pt-3 ${item.label === 'Introduction' ? '' : 'border-t border-c-logo mt-3'} `}
               >
                 {item.label}
               </p>

@@ -7,52 +7,37 @@
   --color-foreground: var(--foreground);
 }
 
-@layer utilities {
-  .flex-center {
-    @apply flex items-center justify-center;
+@layer base {
+  * {
+    @apply border-border;
   }
-  .flex-between {
-    @apply flex items-center justify-between;
-  }
-  .flex-col-center {
-    @apply flex flex-col items-center justify-center;
-  }
-  .boundary {
-    @apply container mx-auto px-4 md:px-8 lg:px-12 xl:px-20;
-  }
-  .wall {
-    @apply max-w-6xl mx-auto px-2;
+  body {
+    @apply bg-background text-foreground;
+    background-image: var(--radial-bg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
   }
 
-  .sidebar {
-    @apply lg:w-[25%] xl:w-[23%] bg-sidebar;
+  h1 {
+    @apply text-5xl md:text-7xl font-heading font-bold tracking-wide;
   }
 
-  .docs-content {
-    @apply lg:w-[75%] xl:w-[77%] bg-docs;
+  h5 {
+    @apply md:text-[16px] lg:text-xl font-medium text-muted-foreground  leading-8 lg:leading-9;
   }
 
-  .primary-gradient {
-    @apply bg-gradient-to-br from-[#FACC15] via-[#FFAF45] to-[#FF8225];
+  em {
+    @apply border rounded-full px-4 py-1.5 mb-3 text-xs lg:text-sm text-muted-foreground;
   }
 
-  .next-previous-btn {
-    @apply w-80 text-muted-foreground hover:text-brand transition-colors border flex flex-col justify-center px-6 py-4 border-muted-foreground hover:border-brand rounded-lg;
-  }
-
-  .p {
-    @apply text-sm  leading-loose;
-  }
-
-  .prose pre {
-    @apply rounded-lg overflow-x-auto;
-  }
-  .prose code {
-    @apply font-mono text-sm;
-  }
-
-  .prose blockquote {
-    @apply min-h-12 flex items-center;
+  h1[id],
+  h2[id],
+  h3[id],
+  h4[id],
+  h5[id],
+  h6[id] {
+    scroll-margin-top: 6rem;
   }
 }
 
@@ -162,36 +147,58 @@
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
+@layer utilities {
+  .flex-center {
+    @apply flex items-center justify-center;
   }
-  body {
-    @apply bg-background text-foreground;
-    background-image: var(--radial-bg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+  .flex-between {
+    @apply flex items-center justify-between;
   }
-
-  h1 {
-    @apply text-5xl md:text-7xl font-heading font-bold tracking-wide;
+  .flex-col-center {
+    @apply flex flex-col items-center justify-center;
   }
-
-  h5 {
-    @apply md:text-[16px] lg:text-xl font-medium text-muted-foreground  leading-8 lg:leading-9;
+  .boundary {
+    @apply container mx-auto px-4 md:px-8 lg:px-12 xl:px-20;
+  }
+  .wall {
+    @apply max-w-6xl mx-auto px-2;
   }
 
-  em {
-    @apply border rounded-full px-4 py-1.5 mb-3 text-xs lg:text-sm text-muted-foreground;
+  .sidebar {
+    @apply lg:w-[25%] xl:w-[23%] bg-sidebar;
   }
 
-  h1[id],
-  h2[id],
-  h3[id],
-  h4[id],
-  h5[id],
-  h6[id] {
-    scroll-margin-top: 6rem; /* ~80px if your navbar is h-20 */
+  .docs-content {
+    @apply lg:w-[75%] xl:w-[77%] bg-docs;
+  }
+
+  .primary-gradient {
+    @apply bg-gradient-to-br from-[#FACC15] via-[#FFAF45] to-[#FF8225];
+  }
+
+  .next-previous-btn {
+    @apply w-80 text-muted-foreground hover:text-brand transition-colors border flex flex-col justify-center px-6 py-4 border-muted-foreground hover:border-brand rounded-lg;
+  }
+
+  .p {
+    @apply text-sm  leading-loose;
+  }
+
+  .prose {
+    pre {
+      @apply rounded-lg overflow-x-auto;
+    }
+
+    code {
+      @apply font-mono text-sm;
+    }
+
+    blockquote {
+      @apply min-h-12 flex items-center;
+    }
+
+    hr {
+      @apply border-c-docs;
+    }
   }
 }
