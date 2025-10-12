@@ -50,10 +50,10 @@
     --footer-bg: 255 255% 255%;
     --brand: 34, 100%, 60%;
     --highlighted: 292, 91%, 50%;
-    --table-odd: 216, 12%, 95%;
+    --table-odd: 216, 12%, 98%;
     --link: 240, 100%, 45%;
     --link-hover: 240, 100%, 65%;
-    --table-even: 213, 12%, 85%;
+    --table-even: 213, 12%, 90%;
     --docs: 60, 100%, 98%;
     --sidebar: 0, 0%, 90%;
     --card: 0 0% 100%;
@@ -102,8 +102,8 @@
     --footer-bg: 0 0% 1%;
     --brand: 48, 100%, 60%;
     --highlighted: 180, 60%, 50%;
-    --table-odd: 220, 9%, 25%;
-    --table-even: 220, 9%, 15%;
+    --table-odd: 220, 9%, 12%;
+    --table-even: 220, 9%, 6%;
     --link: 200, 100%, 55%;
     --link-hover: 200, 100%, 65%;
     --docs: 220, 43%, 11%;
@@ -195,6 +195,10 @@
 
     blockquote {
       @apply p-0 leading-normal flex items-start text-[16px];
+    }
+
+    em {
+      @apply text-muted-foreground  bg-sidebar;
     }
 
     hr {

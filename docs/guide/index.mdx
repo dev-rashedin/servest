@@ -19,11 +19,44 @@ Together, they provide a smooth developer experience, eliminating configuration 
 
 ---
 
+## Runtime Compatibility
+
+Servest currently runs on `Node.js 18+` (tested on 20.x and 22.x).  
+Some addons may require a higher Node version depending on their dependencies.
+
+> 💡 Ensure your Node version supports ES modules and `import.meta` syntax.
+
+**Future Runtime Support**
+
+Servest will support additional runtimes beyond Node.js.  
+For these, prebuilt runtime packages (APKs) will be provided, allowing projects to run seamlessly across environments.
+
+This approach ensures Servest remains **framework- and runtime-agnostic**, letting you combine templates and addons in any supported runtime.
+
+---
+
+## Try Servest Online
+
+You can try `Servest` templates online on `StackBlitz`
+— no local setup required.
+Each template runs a backend environment pre-configured with Servest’s project structure and dependencies.
+
+You can open a template directly using the following links:
+
+| Template            | Runtime | Link                                                                                                       |
+| ------------------- | ------- | ---------------------------------------------------------------------------------------------------------- |
+| express-basic-js    | Node.js | [stackblitz.com/fork/servest-express-basic-js](https://stackblitz.com/fork/servest-express-basic-js)       |
+| express-basic-ts    | Node.js | [stackblitz.com/fork/servest-express-basic-ts](https://stackblitz.com/fork/servest-express-basic-ts)       |
+| express-mvc-cjs     | Node.js | [stackblitz.com/fork/servest-express-mvc-cjs](https://stackblitz.com/fork/servest-express-mvc-cjs)         |
+| express-mvc-esm     | Node.js | [stackblitz.com/fork/servest-express-mvc-esm](https://stackblitz.com/fork/servest-express-mvc-esm)         |
+| express-mvc-ts      | Node.js | [stackblitz.com/fork/servest-express-mvc-ts](https://stackblitz.com/fork/servest-express-mvc-ts)           |
+| express-modular-cjs | Node.js | [stackblitz.com/fork/servest-express-modular-cjs](https://stackblitz.com/fork/servest-express-modular-cjs) |
+| express-modular-esm | Node.js | [stackblitz.com/fork/servest-express-modular-esm](https://stackblitz.com/fork/servest-express-modular-esm) |
+| express-modular-ts  | Node.js | [stackblitz.com/fork/servest-express-modular-ts](https://stackblitz.com/fork/servest-express-modular-ts)   |
+
 ## What Servest Does
 
-Servest consists of two main tools:
-
-### _*1*_ ` create-servest`
+### ` create-servest`
 
 CLI tool to scaffold backend project templates.
 
@@ -43,7 +76,7 @@ Example:
 npm create servest@latest my-app -- --template express-mvc-ts
 ```
 
-### _*2*_ `servest`
+### `servest`
 
 Addon utility CLI to add backend features — inspired by **shadcn**’s `add` command.
 
