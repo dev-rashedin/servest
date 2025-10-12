@@ -54,11 +54,15 @@ You can open a template directly using the following links:
 | express-modular-esm | Node.js | [stackblitz.com/fork/servest-express-modular-esm](https://stackblitz.com/fork/servest-express-modular-esm) |
 | express-modular-ts  | Node.js | [stackblitz.com/fork/servest-express-modular-ts](https://stackblitz.com/fork/servest-express-modular-ts)   |
 
-## What Servest Does
+---
 
-### ` create-servest`
+## How Servest Works
 
-CLI tool to scaffold backend project templates.
+`Servest` lets you scaffold backend projects and extend them instantly with built-in addons.
+
+### Scaffolding your first **Servest** project
+
+- CLI tool to scaffold backend project templates.
 
 ```bash
 {
@@ -70,73 +74,59 @@ CLI tool to scaffold backend project templates.
 }
 ```
 
-Example:
+Then follow the prompts!
+
+### Non-interactive scaffolding.
+
+You can directly specify the project name and template via CLI options:
+
+_npm 7+, extra double-dash is needed:_
 
 ```bash
-npm create servest@latest my-app -- --template express-mvc-ts
+npm create servest@latest servest-project -- --template express-mvc-ts
 ```
 
-### `servest`
+> 💡 Tip: Use Dot (**.**) as the project name to scaffold in the current directory:
 
-Addon utility CLI to add backend features — inspired by **shadcn**’s `add` command.
+### Scaffolding with addons.
+
+You can combine create-servest and servest-addons to speed up the process
 
 ```bash
-npx servest@latest add eslint prettier mongoose
+npm create servest@latest servest-project -- --template express-mvc-ts -a f-auth f-articles mongoose eslint-prettier
 ```
+
+See [create-servest](https://github.com/dev-rashedin/servest/tree/main/packages/create-servest/templates) for more details on each supported template: `express-basic-js`, `express-basic-ts`, `express-mvc-cjs`, `express-mvc-esm`, `express-mvc-ts`, `express-modular-cjs`, `express-modular-esm`, `express-modular-ts`.
+
+To know more about create-servest please visit [create-servest](https://www.servest.dev/addons) or [npm](https://www.npmjs.com/package/create-servest)
+
+To know more about servest-addons please visit [servest-addons](https://www.servest.dev/addons) or [npm](https://www.npmjs.com/package/servest)
 
 ---
 
-## Try Servest Templates Online
-
-Like Vite’s `vite.new`, Servest plans to support **StackBlitz** for live template previews.
-
-For now, you can explore the GitHub templates directly:
-
-| Framework | Template         | Link                                                                                                                                |
-| --------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| Express   | express-basic-js | [View](https://stackblitz.com/github/dev-rashedin/servest/blob/main/packages/create-servest/templates/express-basic-js?file=app.js) |
-| Express   | express-mvc-ts   | Coming soon                                                                                                                         |
-| Django    | django-basic     | Coming soon                                                                                                                         |
-
-Once integrated, templates will be accessible via:
-
-```
-servest.new/{template-name}
-```
-
----
-
-## Supported Templates
-
-| Framework   | Templates                                                                          |
-| ----------- | ---------------------------------------------------------------------------------- |
-| **Express** | basic-js, basic-ts, mvc-cjs, mvc-esm, mvc-ts, modular-cjs, modular-esm, modular-ts |
-| **Django**  | django-basic                                                                       |
-
----
-
-## Addons Overview
-
-Enhance your backend project anytime using Servest Addons:
+You can also use a tool like [degit](https://github.com/Rich-Harris/degit) to scaffold your project with one of the templates. Assuming the project is on GitHub and uses `main` as the default branch, you can create a local copy using:
 
 ```bash
-npx servest@latest add <feature>
+npx degit user/project#main my-project
+cd my-project
 
-# Examples:
-npx servest@latest add mongoose
-npx servest@latest add eslint prettier prisma
+npm install
+npm run dev
 ```
 
-| Addon       | Description                              |
-| ----------- | ---------------------------------------- |
-| eslint      | Adds ESLint setup with recommended rules |
-| prettier    | Adds Prettier configuration              |
-| mongoose    | Adds MongoDB setup with Mongoose         |
-| prisma      | Adds Prisma ORM integration              |
-| drizzle     | Adds Drizzle ORM setup                   |
-| lint-staged | Adds pre-commit linting & formatting     |
+## Manual Installation
 
----
+In your project, you can install the `vite` CLI using:
+
+```bash
+{
+  "npm": "npm install -D servest",
+  "yarn": "yarn add -D servest",
+  "pnpm": "pnpm add -D servest",
+  "bun": "bun add -d servest",
+  "deno": "deno install --allow-net --name=servest npm:servest"
+}
+```
 
 ## Future Plan
 
@@ -150,21 +140,19 @@ Servest aims to become the **create-vite for backend** — providing a unified s
 
 ---
 
-## Get Started
+## Community & Contributions
 
-```bash
-# Create a new project
-npm create servest@latest my-backend -- --template express-mvc-ts
+Servest is open-source and welcomes contributors!  
+ You can find the source code and contribute via:
 
-# Move into project
-yarn dev  # or npm run dev
+- **GitHub:** https://github.com/dev-rashedin/servest
 
-# Add more features anytime
-npx servest@latest add mongoose eslint prettier
-```
+- Check the contribution guideline : https://github.com/dev-rashedin/servest/blob/main/CONTRIBUTING.md
 
----
+- **NPM:** [create-servest](https://www.npmjs.com/package/create-servest), [servest](https://www.npmjs.com/package/servest)
 
-## License
+If you want to contribute addons, fix bugs, or improve the docs — check the [Contributors Guide](/community/contributing).
 
-MIT
+Released under the `MIT` License
+
+Copyright © 2025-present `Rashedin Islam` & `Servest Contributors`
