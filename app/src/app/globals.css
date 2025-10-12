@@ -50,6 +50,10 @@
   .prose code {
     @apply font-mono text-sm;
   }
+
+  .prose blockquote {
+    @apply min-h-12 flex items-center;
+  }
 }
 
 @layer base {

@@ -58,8 +58,7 @@ export default function CodeBlock({ code, language = 'bash' }: CodeBlockProps) {
 
   return (
     <CopyableCodeBlock
-      codeHTML={isVariants ? (variantHtml as Record<string, string>) : html}
-      isVariants={isVariants}
+      codeHTML={isVariants ? (variantHtml as Record<string, string>) : html!}
       language={language}
     />
   );

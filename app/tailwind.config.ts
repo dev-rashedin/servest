@@ -66,6 +66,7 @@ const config: Config = {
               borderLeft: '4px solid hsl(var(--brand)) !important',
               fontFamily: 'var(--font-heading)',
               fontSize: '1.2rem',
+              backgroundColor: 'hsl(var(--navbar))',
             },
           },
         },

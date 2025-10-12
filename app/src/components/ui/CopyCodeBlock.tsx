@@ -1,8 +1,7 @@
 'use client';
-import { useState } from 'react';
+import { JSX, useState } from 'react';
 import copy from 'copy-to-clipboard';
-import { RiNpmjsFill } from 'react-icons/ri';
-import { SiBun, SiDeno, SiPnpm, SiYarn } from 'react-icons/si';
+import { CgNpm, SiBun, SiDeno, SiPnpm, SiYarn } from '@/data';
 
 interface CopyableCodeBlockProps {
   codeHTML: string | Record<string, string>;
@@ -10,11 +9,11 @@ interface CopyableCodeBlockProps {
 }
 
 const codeIcons: Record<string, JSX.Element> = {
-  npm: <RiNpmjsFill className="text-red-500" />,
-  yarn: <SiYarn className="text-[#3398C2]" />,
+  npm: <CgNpm className="text-white bg-red-500 text-[14px]" />,
+  yarn: <SiYarn className="text-[#3398C2] text-lg" />,
   pnpm: <SiPnpm className="text-green-600" />,
-  bun: <SiBun className="text-yellow-500" />,
-  deno: <SiDeno className="text-black" />,
+  bun: <SiBun className="text-yellow-500 text-lg" />,
+  deno: <SiDeno className="text-white text-[14px]" />,
 };
 
 export default function CopyableCodeBlock({ codeHTML, language = 'bash' }: CopyableCodeBlockProps) {
@@ -41,15 +40,15 @@ export default function CopyableCodeBlock({ codeHTML, language = 'bash' }: Copya
   return (
     <div className="rounded-lg overflow-hidden border border-zinc-800 bg-[#1e1e1e]">
       {/* Header */}
-      <div className="flex items-center justify-between bg-[#2a2a2a] px-3 py-2 text-sm text-zinc-300 border-b border-zinc-700">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between bg-[#2a2a2a] px-3 py-2 text-zinc-300 border-b border-zinc-700">
+        <div className="flex items-center gap-3">
           {isVariants ? (
             codeKeys.map((key) => (
               <button
                 key={key}
                 onClick={() => setSelected(key)}
-                className={`px-2 py-1 rounded-md flex items-center gap-1 transition ${
-                  selected === key ? 'bg-zinc-700 text-white' : 'hover:bg-zinc-800 text-zinc-400'
+                className={`px-3 rounded-md flex items-center gap-2 transition ${
+                  selected === key ? 'bg-zinc-700 text-white' : 'hover:bg-zinc-800 text-zinc-300'
                 }`}
               >
                 {codeIcons[key.toLowerCase()] ?? null}
