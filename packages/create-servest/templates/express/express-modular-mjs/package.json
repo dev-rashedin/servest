@@ -6,8 +6,8 @@
   "author": "",
   "description": "",
   "scripts": {
-    "start": "node ./src/server.js",
-    "start:dev": "nodemon ./src/server.js"
+    "start": "nodemon ./src/server.js",
+    "start:prod": "node ./src/server.js"
   },
   "keywords": [],
   "license": "ISC",

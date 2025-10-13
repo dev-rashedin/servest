@@ -6,8 +6,8 @@
   "description": "",
   "scripts": {
     "build": "tsc",
-    "start:prod": "node ./dist/server.js",
-    "start:dev": "ts-node-dev --respawn --transpile-only ./src/server.ts"
+    "start": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "start:prod": "node dist/server.js"
   },
   "keywords": [],
   "license": "ISC",
