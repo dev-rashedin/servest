@@ -10,6 +10,7 @@ export const FRAMEWORKS: IFramework[] = [
         name: 'Basic - JavaScript',
         value: 'express-basic-js',
         color: yellow,
+        framework: 'express',
       },
       {
         name: 'Basic - TypeScript',

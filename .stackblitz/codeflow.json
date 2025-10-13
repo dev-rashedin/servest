@@ -1,0 +1,7 @@
+{
+  "pnpm": {
+    "overrides": {
+      "create-servest": "./packages/create-servest"
+    }
+  }
+}
