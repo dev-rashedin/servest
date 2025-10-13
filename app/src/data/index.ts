@@ -48,7 +48,10 @@ export const docsOrder: Record<string, string[]> = {
     'index',
     'why-Servest',
     'our-Journey',
-    '_Guide',
+    '_Reference',
+    'folder-Structure',
+    'cli-reference',
+    'template-options',
     'preinstalled-Packages',
   ],
   addons: [

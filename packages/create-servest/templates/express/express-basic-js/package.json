@@ -5,8 +5,8 @@
   "author": "",
   "description": "",
   "scripts": {
-    "start": "node server.js",
-    "start:dev": "nodemon server.js"
+    "start": "nodemon server.js",
+    "start:prod": "node server.js"
   },
   "keywords": [],
   "license": "ISC",
