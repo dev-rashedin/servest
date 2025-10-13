@@ -36,4 +36,18 @@ export const MDXComponents = {
   td: (props: React.HTMLAttributes<HTMLTableCellElement>) => (
     <td className="px-3 py-2" {...props} />
   ),
+
+  // defining navigation route
+  a: ({ href, children }: { href?: string; children: React.ReactNode }) => {
+    const isExternal = href && !href.startsWith('/') && !href.startsWith('#');
+    return (
+      <a
+        href={href}
+        target={isExternal ? '_blank' : undefined} // open external links in new tab
+        rel={isExternal ? 'noopener noreferrer' : undefined}
+      >
+        {children}
+      </a>
+    );
+  },
 };
