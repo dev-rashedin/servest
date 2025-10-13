@@ -30,6 +30,10 @@ export function toValidPackageName(projectName: string): string {
 export function copyDir(srcDir: string, destDir: string): void {
   const stat = fs.statSync(srcDir);
 
+  if (stat.isDirectory() && path.basename(srcDir) === '.stackblitz') {
+    return;
+  }
+
   if (stat.isDirectory()) {
     fs.mkdirSync(destDir, { recursive: true });
 
