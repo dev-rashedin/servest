@@ -46,7 +46,6 @@ export const docsOrder: Record<string, string[]> = {
   guide: [
     '_Introduction',
     'index',
-    'index2',
     'why-Servest',
     'our-Journey',
     '_Guide',

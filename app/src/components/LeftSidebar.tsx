@@ -11,7 +11,7 @@ const LeftSidebar = ({ links, type }: DrawerProps) => {
 
   return (
     <aside
-      className={`h-screen  pl-12 xl:pl-28 pt-6 lg:pt-0 fixed w-full lg:w-[25%] xl:w-[20%] overflow-y-auto ${sidebarOpen ? 'flex flex-col' : 'hidden lg:flex lg:flex-col'}`}
+      className={`h-screen pl-8 lg:pl-12 xl:pl-24 pt-6 lg:pt-0 fixed w-full lg:w-[25%] xl:w-[20%] overflow-y-auto ${sidebarOpen ? 'flex flex-col' : 'hidden lg:flex lg:flex-col'}`}
     >
       {/* logo */}
       <section className="hidden lg:block sticky top-0 z-10 bg-sidebar ">

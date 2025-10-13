@@ -4,7 +4,7 @@
 
 `Servest` is a modern backend project scaffolding and addon generator, inspired by **create-vite** and **shadcn/ui**, but built entirely for backend frameworks. It helps you quickly create structured backend starter projects and extend them with ready-to-use features.
 
-`Servest` is framework- and runtime-agnostic — currently supporting `Express`, with **Django**, **Fastify**, **NestJS**, **Laravel**, and more coming soon.
+`Servest` is framework- and runtime-agnostic — currently supporting `Express`, with **Fastify**, **NestJS**, **Django**, **Laravel**, and more coming soon.
 
 It consists of two main parts:
 
@@ -62,7 +62,7 @@ You can open a template directly using the following links:
 
 ### Scaffolding your first **Servest** project
 
-- CLI tool to scaffold backend project templates.
+Use the CLI tool to scaffold backend project templates and then follow the prompts:
 
 ```bash
 {
@@ -74,9 +74,9 @@ You can open a template directly using the following links:
 }
 ```
 
-Then follow the prompts!
+visit the [npm package](https://www.npmjs.com/package/create-servest) or check the [GitHub repository](https://github.com/dev-rashedin/servest/blob/main/packages/create-servest/README.md)
 
-### Non-interactive scaffolding.
+### Non-interactive scaffolding
 
 You can directly specify the project name and template via CLI options:
 
@@ -86,72 +86,75 @@ _npm 7+, extra double-dash is needed:_
 npm create servest@latest servest-project -- --template express-mvc-ts
 ```
 
-> 💡 Tip: Use Dot (**.**) as the project name to scaffold in the current directory:
+See [create-servest templates](https://github.com/dev-rashedin/servest/tree/main/packages/create-servest/templates) for more details on each supported template: `express-basic-js`, `express-basic-ts`, `express-mvc-cjs`, `express-mvc-esm`, `express-mvc-ts`, `express-modular-cjs`, `express-modular-esm`, `express-modular-ts`.
 
-### Scaffolding with addons.
+> 💡 Tip: Use Dot (`.`) as the project name to scaffold in the current directory.
 
-You can combine create-servest and servest-addons to speed up the process
+### Scaffolding with addons
+
+You can automatically include additional utilities during scaffolding using the `-a` or `--addons` flag:
 
 ```bash
-npm create servest@latest servest-project -- --template express-mvc-ts -a f-auth f-articles mongoose eslint-prettier
+npm create servest@latest -- --template express-mvc-ts -a f-auth mongoose eslint-prettier lint-staged
 ```
 
-See [create-servest](https://github.com/dev-rashedin/servest/tree/main/packages/create-servest/templates) for more details on each supported template: `express-basic-js`, `express-basic-ts`, `express-mvc-cjs`, `express-mvc-esm`, `express-mvc-ts`, `express-modular-cjs`, `express-modular-esm`, `express-modular-ts`.
+This will scaffold the `express-mvc-ts` project and install the required npm packages to enhance your development workflow.
 
-To know more about create-servest please visit [create-servest](https://www.servest.dev/addons) or [npm](https://www.npmjs.com/package/create-servest)
+> 💡 Tip: If any addon fails, the remaining ones will still be applied. You can re-run the failed addons manually later.
 
-To know more about servest-addons please visit [servest-addons](https://www.servest.dev/addons) or [npm](https://www.npmjs.com/package/servest)
+To learn more about servest addons, visit the [npm package](https://www.npmjs.com/package/servest) or check the [GitHub repository](https://github.com/dev-rashedin/servest/blob/main/packages/servest-addons/README.md)
 
 ---
 
-You can also use a tool like [degit](https://github.com/Rich-Harris/degit) to scaffold your project with one of the templates. Assuming the project is on GitHub and uses `main` as the default branch, you can create a local copy using:
+## Community Templates
+
+`Servest` lets you quickly start backend projects using **ready-made templates**.  
+You’re not limited to the official ones — you can also use **community-maintained templates** from GitHub or elsewhere.
+
+To use a community template from GitHub:
 
 ```bash
-npx degit user/project#main my-project
+# Copy the template files to a new folder
+npx degit user/project my-project
 cd my-project
 
+# Install the project dependencies
 npm install
+
+# Start the development server
 npm run dev
 ```
 
-## Manual Installation
-
-In your project, you can install the `vite` CLI using:
+> 💡 Some repositories use `main` instead of `master` as their default branch. In that case, add `#main` to the repo name:
 
 ```bash
-{
-  "npm": "npm install -D servest",
-  "yarn": "yarn add -D servest",
-  "pnpm": "pnpm add -D servest",
-  "bun": "bun add -d servest",
-  "deno": "deno install --allow-net --name=servest npm:servest"
-}
+npx degit user/project#main my-project
 ```
 
 ## Future Plan
 
-Servest aims to become the **create-vite for backend** — providing a unified scaffolding experience across all major backend frameworks and runtimes.
+Servest aims to become the **create-vite for backend development** — a unified scaffolding and addon ecosystem across all major backend frameworks and runtimes.
 
 **Upcoming goals:**
 
-- Add support for **NestJS**, **Fastify**, and **Laravel**.
-- Add **StackBlitz** and **GitHub Codespaces** integration.
-- Build **official addons library** for backend utilities.
+- Add support for **NestJS**, **Fastify**, **Django**, and **Laravel**.
+- Build an official addon library for common backend utilities
+
+To learn more about the roadmap and vision [Our Journey](https://www.servest.dev/guide/our-Journey)
 
 ---
 
-## Community & Contributions
+## Contributing to Servest
 
-Servest is open-source and welcomes contributors!  
- You can find the source code and contribute via:
+Servest is open-source and welcomes contributors!
 
-- **GitHub:** https://github.com/dev-rashedin/servest
+You can explore the source code and contribute via:
 
-- Check the contribution guideline : https://github.com/dev-rashedin/servest/blob/main/CONTRIBUTING.md
+- **GitHub:** [dev-rashedin/servest](https://github.com/dev-rashedin/servest)
+- **NPM:** [create-servest](https://www.npmjs.com/package/create-servest) • [servest](https://www.npmjs.com/package/servest)
 
-- **NPM:** [create-servest](https://www.npmjs.com/package/create-servest), [servest](https://www.npmjs.com/package/servest)
-
-If you want to contribute addons, fix bugs, or improve the docs — check the [Contributors Guide](/community/contributing).
+If you’d like to contribute **templates**, **addons**, **fix bugs**, or **improve the docs**,  
+check out the [Contributors Guide](https://github.com/dev-rashedin/servest/blob/main/CONTRIBUTING.md).
 
 Released under the `MIT` License
 

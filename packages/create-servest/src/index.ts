@@ -186,7 +186,15 @@ async function init() {
   log.step(green(`ℹ️ Scaffolding project in ${root}...`));
 
   // 6️⃣ Copy template files
-  const templateDir = path.resolve(__dirname, '../templates', template);
+  const variantEntry = FRAMEWORKS.flatMap((f) =>
+    f.variants.map((v) => ({ ...v, framework: f.value })),
+  ).find((v) => v.value === template);
+
+  if (!variantEntry) {
+    return cancelOperation(`🚨 Cannot determine framework for template "${template}"`);
+  }
+
+  const templateDir = path.resolve(__dirname, '../templates', variantEntry.framework, template);
 
   if (!fs.existsSync(templateDir)) {
     return cancelOperation(
@@ -238,7 +246,7 @@ async function init() {
     const servestConfig = getIServestConfig(root);
 
     if (servestConfig) {
-      // Run all addons in a single command
+      // Running all addons in a single command
       const { status } = spawn.sync('npx', ['servest@latest', 'add', ...addons], {
         cwd: root,
         stdio: 'inherit',
