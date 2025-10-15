@@ -17,7 +17,7 @@ function getContentLinks(endpoint: string) {
     return {
       type: 'link' as const,
       slug,
-      label: slug.replace(/-/g, ' ').replace(/^\w/, (c) => c.toUpperCase()),
+      label: slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
     };
   });
 }
