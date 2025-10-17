@@ -25,11 +25,12 @@ const LeftSidebar = ({ links, type, nestedLinks }: DrawerProps) => {
       {/* Nav list (scrolls under the sticky header) */}
       <nav className="flex flex-col pl-4 md:pl-8 lg:pl-0  text-start gap-3 mt-6 pr-11">
         {links.map((item) => {
+          // displaying group title ()
           if (item.type === 'group') {
             return (
               <p
                 key={item.label}
-                className={`text-[16px] font-semibold pt-3  ${item.label === 'Introduction' ? '' : ' border-t border-c-logo mt-3'} `}
+                className={`text-[16px] font-semibold  ${item.label === 'Introduction' || item.label === 'Templates' ? '' : 'pt-3 border-t border-c-logo mt-3'} `}
               >
                 {item.label}
               </p>
@@ -56,19 +57,18 @@ const LeftSidebar = ({ links, type, nestedLinks }: DrawerProps) => {
 
       {/* nested nav items */}
       {pathname.includes('/guide') && nestedLinks && (
-        <>
+        <div className="ml-3">
           {nestedLinks!.map((cat) => (
             <div key={cat.label}>
               {/* Category label (Express, Django, etc.) */}
               <p
-                className={`text-[16px] font-semibold cursor-pointer hover:underline pt-3 ${
-                  cat.label === 'Express' ? '' : ' border-t border-c-logo mt-3'
-                }`}
+                className={`flex items-center gap-2 text-[15px] cursor-pointer  pt-3`}
                 onClick={() =>
                   setOpenCategories((prev) => ({ ...prev, [cat.label]: !prev[cat.label] }))
                 }
               >
-                {cat.label} {openCategories[cat.label] ? '▾' : '▸'}
+                {openCategories[cat.label] ? '▾' : '▸'}
+                <span>{cat.label}</span>
               </p>
 
               {/* Sub-items (express-basic-js, etc.) */}
@@ -81,7 +81,7 @@ const LeftSidebar = ({ links, type, nestedLinks }: DrawerProps) => {
                     <Link
                       key={sub.slug}
                       href={href}
-                      className={`flex flex-col hover:underline ml-6 ${isActive ? 'text-brand font-medium' : ''}`}
+                      className={`flex flex-col hover:underline ml-6 mt-2 ${isActive ? 'text-brand font-medium' : ''}`}
                       onClick={() => setSidebarOpen && setSidebarOpen(false)}
                     >
                       {sub.label}
@@ -90,7 +90,7 @@ const LeftSidebar = ({ links, type, nestedLinks }: DrawerProps) => {
                 })}
             </div>
           ))}
-        </>
+        </div>
       )}
     </aside>
   );

@@ -35,10 +35,7 @@ export function getNestedLinks(): NestedLink[] {
     label: cat.label,
     items: cat.items.map((slug) => ({
       type: 'link',
-      label: slug
-        .split('-')
-        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-        .join(' '),
+      label: slug,
       slug,
     })),
   }));
