@@ -2,7 +2,7 @@
 
 All notable changes to **create-servest** will be documented here.
 
-## [1.2.1~beta] – 2025-10-17
+## [1.2.1] – 2025-10-17
 
 ### Changed
 - Replaced `ts-node-dev` with `tsx` for improved performance and future compatibility.
