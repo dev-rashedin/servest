@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import { docsOrder } from '@/data';
+import { docsOrder, nestedDocsOrder } from '@/data';
 
-function getContentLinks(endpoint: string) {
+export function getContentLinks(endpoint: string) {
   const dir = path.join(process.cwd(), `../docs/${endpoint}`);
   const files = fs.readdirSync(dir);
 
@@ -27,4 +27,19 @@ function getContentLinks(endpoint: string) {
   });
 }
 
-export default getContentLinks;
+export function getNestedLinks(): NestedLink[] {
+  const categories = nestedDocsOrder.templates || [];
+
+  return categories.map((cat) => ({
+    type: 'category',
+    label: cat.label,
+    items: cat.items.map((slug) => ({
+      type: 'link',
+      label: slug
+        .split('-')
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' '),
+      slug,
+    })),
+  }));
+}

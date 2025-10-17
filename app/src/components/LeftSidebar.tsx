@@ -1,13 +1,15 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 import Logo from './ui/logo';
 import HeaderFrame from './ui/header-frame';
 import { useSidebar } from './SidebarToggleContext';
 
-const LeftSidebar = ({ links, type }: DrawerProps) => {
+const LeftSidebar = ({ links, type, nestedLinks }: DrawerProps) => {
   const pathname = usePathname();
   const { sidebarOpen, setSidebarOpen } = useSidebar();
+  const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({});
 
   return (
     <aside
@@ -27,7 +29,7 @@ const LeftSidebar = ({ links, type }: DrawerProps) => {
             return (
               <p
                 key={item.label}
-                className={`text-[16px] font-semibold ${item.label === 'Introduction' || item.label === 'Templates' ? '' : 'pt-3 border-t border-c-logo mt-3'} `}
+                className={`text-[16px] font-semibold pt-3  ${item.label === 'Introduction' ? '' : ' border-t border-c-logo mt-3'} `}
               >
                 {item.label}
               </p>
@@ -51,6 +53,45 @@ const LeftSidebar = ({ links, type }: DrawerProps) => {
           );
         })}
       </nav>
+
+      {/* nested nav items */}
+      {pathname.includes('/guide') && nestedLinks && (
+        <>
+          {nestedLinks!.map((cat) => (
+            <div key={cat.label}>
+              {/* Category label (Express, Django, etc.) */}
+              <p
+                className={`text-[16px] font-semibold cursor-pointer hover:underline pt-3 ${
+                  cat.label === 'Express' ? '' : ' border-t border-c-logo mt-3'
+                }`}
+                onClick={() =>
+                  setOpenCategories((prev) => ({ ...prev, [cat.label]: !prev[cat.label] }))
+                }
+              >
+                {cat.label} {openCategories[cat.label] ? '▾' : '▸'}
+              </p>
+
+              {/* Sub-items (express-basic-js, etc.) */}
+              {openCategories[cat.label] &&
+                cat.items?.map((sub) => {
+                  const href = `/${type}/${sub.slug}`;
+                  const isActive = pathname === href;
+
+                  return (
+                    <Link
+                      key={sub.slug}
+                      href={href}
+                      className={`flex flex-col hover:underline ml-6 ${isActive ? 'text-brand font-medium' : ''}`}
+                      onClick={() => setSidebarOpen && setSidebarOpen(false)}
+                    >
+                      {sub.label}
+                    </Link>
+                  );
+                })}
+            </div>
+          ))}
+        </>
+      )}
     </aside>
   );
 };

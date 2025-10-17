@@ -43,15 +43,7 @@ export const navItems = [
 ];
 
 export const docsOrder: Record<string, string[]> = {
-  guide: [
-    '_Introduction',
-    'index',
-    'why-servest',
-    'our-journey',
-    '_Reference',
-    'cli-reference',
-    '_Templates',
-  ],
+  guide: ['_Introduction', 'index', 'why-servest', 'our-journey', '_Reference', 'cli-reference'],
   addons: [
     'index',
     '_Addons',
@@ -62,6 +54,23 @@ export const docsOrder: Record<string, string[]> = {
     'mongoose',
     'prisma',
     'drizzle',
+  ],
+};
+
+export const nestedDocsOrder: Record<string, { label: string; items: string[] }[]> = {
+  templates: [
+    {
+      label: 'Express',
+      items: ['express-basic-js', 'express-basic-ts'],
+    },
+    {
+      label: 'Django',
+      items: ['django-basic-py', 'django-auth'],
+    },
+    {
+      label: 'Laravel',
+      items: ['laravel-basic-php', 'laravel-auth'],
+    },
   ],
 };
 
