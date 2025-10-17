@@ -1,0 +1,134 @@
+# Servest CLI Reference
+
+This document covers all commands and options for **Servest** — both the project scaffolding (`create-servest`) and the addon system (`servest`).
+
+---
+
+## Create Servest (Project Scaffolding)
+
+Use the `create-servest` CLI to scaffold backend projects quickly.
+
+### Installation
+
+**NPM:**
+
+npm create servest@latest
+
+**Yarn:**
+
+yarn create servest
+
+**PNPM:**
+
+pnpm create servest
+
+**Bun:**
+
+bun create servest
+
+---
+
+### Interactive Project Creation
+
+Run the CLI without additional flags and follow the prompts:
+
+npm create servest@latest
+
+- Choose a framework
+- Choose a template variant
+- Optionally add addons
+
+---
+
+### Non-Interactive Project Creation
+
+Scaffold an Express MVC TypeScript project:
+
+npm create servest@latest my-app -- --template express-mvc-ts
+
+Scaffold with addons:
+
+npm create servest@latest my-app -- --template express-mvc-ts -a f-auth mongoose eslint-prettier
+
+> Tip: Use `.` as the project name to scaffold in the current directory:
+
+npm create servest@latest . -- --template express-basic-ts
+
+---
+
+### CLI Options
+
+| Flag             | Description                                                    |
+| ---------------- | -------------------------------------------------------------- |
+| `-t, --template` | Select a template (e.g., `express-basic-js`, `express-mvc-ts`) |
+| `-a, --addons`   | Space-separated list of addons (optional)                      |
+| `-h, --help`     | Show help message                                              |
+
+---
+
+### Supported Templates (Express)
+
+| Template      | Description        |
+| ------------- | ------------------ |
+| `basic-js`    | Basic JavaScript   |
+| `basic-ts`    | Basic TypeScript   |
+| `mvc-cjs`     | MVC CommonJS       |
+| `mvc-esm`     | MVC ESM            |
+| `mvc-ts`      | MVC TypeScript     |
+| `modular-cjs` | Modular CommonJS   |
+| `modular-esm` | Modular ESM        |
+| `modular-ts`  | Modular TypeScript |
+
+---
+
+## Servest (Addons)
+
+The `servest` CLI allows you to add features or generate files/folders inside an existing project.
+
+### Initialize Servest in a Project
+
+```bash
+npx servest@latest init
+```
+
+- Detects project structure
+- Creates `servest.config.json` with framework, language, architecture, and src directory info
+
+---
+
+### Adding Features / Addons
+
+```bash
+npx servest@latest add <feature>
+```
+
+Example:
+
+npx servest@latest add f-auth
+npx servest@latest add mongoose
+npx servest@latest add eslint prettier prisma
+
+- `f-<feature>` generates project-specific files/folders
+- Other commands (mongoose, prisma, eslint) add utilities to the project
+
+> Multiple addons can be added in a single command.
+
+---
+
+### Utilities and Developer Experience
+
+- Pre-configured MVC and modular folder structures
+- Automatic installation of dependencies for ESLint, Prettier, Prisma, Drizzle, Mongoose
+- Scripts added to `package.json` for easy linting, formatting, and database operations
+- Inspired by [shadcn/ui](https://ui.shadcn.com) for smooth development workflow
+
+---
+
+### CLI Options
+
+| Command             | Description                                               |
+| ------------------- | --------------------------------------------------------- |
+| `init`              | Detect project structure and create `servest.config.json` |
+| `add <features...>` | Add utilities or generate files/folders in your project   |
+| `-v, --version`     | Show the CLI version                                      |
+| `-h, --help`        | Show help message                                         |
