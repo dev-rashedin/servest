@@ -50,9 +50,7 @@ export const docsOrder: Record<string, string[]> = {
     'our-journey',
     '_Reference',
     'cli-reference',
-    'folder-structure',
-    'template-options',
-    'preinstalled-packages',
+    '_Templates',
   ],
   addons: [
     'index',

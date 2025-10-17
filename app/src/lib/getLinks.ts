@@ -17,7 +17,12 @@ function getContentLinks(endpoint: string) {
     return {
       type: 'link' as const,
       slug,
-      label: slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+      label: slug
+        .split('-')
+        .map((word) =>
+          word.toLowerCase() === 'cli' ? 'CLI' : word.charAt(0).toUpperCase() + word.slice(1),
+        )
+        .join(' '),
     };
   });
 }
