@@ -272,15 +272,15 @@ async function init() {
   const installCommands =
     pkgManager === 'yarn'
       ? inStallCommand
-        ? ['yarn start:dev']
-        : ['yarn', 'yarn start:dev']
+        ? ['yarn start']
+        : ['yarn', 'yarn start']
       : pkgManager === 'pnpm'
         ? inStallCommand
-          ? ['pnpm run start:dev']
-          : ['pnpm install', 'pnpm run start:dev']
+          ? ['pnpm run start']
+          : ['pnpm install', 'pnpm run start']
         : inStallCommand
-          ? ['npm run start:dev']
-          : ['npm install', 'npm run start:dev'];
+          ? ['npm run start']
+          : ['npm install', 'npm run start'];
 
   let finalMessage = `'🎉 Done. Now run:', ${cdCommand}`;
 
