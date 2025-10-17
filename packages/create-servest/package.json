@@ -1,6 +1,6 @@
 {
   "name": "create-servest",
-  "version": "1.2.1~beta",
+  "version": "1.2.1",
   "type": "module",
   "license": "MIT",
   "author": "Rashedin Islam <https://www.rashedin.dev>",
@@ -40,5 +40,5 @@
   "bugs": {
     "url": "https://github.com/dev-rashedin/servest/issues"
   },
-  "homepage": "https://github.com/dev-rashedin/servest/tree/main/packages/create-servest#readme"
+  "homepage": "https://www.servest.dev"
 }
