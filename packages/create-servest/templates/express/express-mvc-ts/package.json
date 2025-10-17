@@ -6,7 +6,7 @@
   "description": "",
   "scripts": {
     "build": "tsc",
-    "start": "tsx watch ./src/server.ts",
+    "start": "tsx watch src/server.ts",
     "start:prod": "node dist/server.js"
   },
   "keywords": [],
