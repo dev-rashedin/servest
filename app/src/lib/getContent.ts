@@ -20,13 +20,13 @@ interface GetContentResult {
 async function getContent(endpoint: string, slug: string): Promise<GetContentResult> {
   const baseDir = path.join(process.cwd(), `../docs/${endpoint}`);
 
-  // Convert "express/express-basic-js" → ["express", "express-basic-js"]
+  // Converting "express/express-basic-js" → ["express", "express-basic-js"]
   const slugParts = slug.split('/').filter(Boolean);
 
   // Build correct path for nested files
   const filePath = path.join(baseDir, ...slugParts) + '.mdx';
 
-  // ✅ Read MDX file
+  //  Readind MDX file
   const source = await fs.readFile(filePath, 'utf-8');
 
   const headings = extractHeadingsFromMdx(source);
