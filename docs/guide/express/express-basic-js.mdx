@@ -1,1 +1,113 @@
-## express-basic-js
+# express-basic-js Template
+
+A minimal **Express.js** backend template in JavaScript with essential setup for quickly starting a server, error handling, and CORS support. Ideal for learning or small projects.
+
+---
+
+## When to Use
+
+- You want a **barebones Express server** in JavaScript.
+- No TypeScript or complex folder structures needed.
+- Perfect for quick prototypes or small backend services.
+
+---
+
+## Installation
+
+Scaffold the template using **Servest**:
+
+```bash
+npm create servest@latest servest-project -- --template express-basic-js
+```
+
+> This will create a new project in the `servest-project` folder
+> with all required files.
+
+For detailed installation instructions, see the [create-servest guide](/guide)
+
+---
+
+## Run Commands
+
+Start in development mode (auto-reloads on changes using `nodemon`)
+
+```bash
+npm run start
+```
+
+Start in production mode
+
+```bash
+npm run start:prod
+```
+
+The server will run on the port specified in `.env` (default: `3000`).
+
+---
+
+## Folder Structure
+
+![express-basic-js](/images/express-basic-js.png)
+
+### app.js
+
+```js
+const express = require('express');
+const cors = require('cors');
+const { notFoundHandler, globalErrorHandler } = require('express-error-toolkit');
+const { StatusCodes } = require('http-status-toolkit');
+
+const app = express();
+
+// cors and body parser
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// home route
+app.get('/', (req, res) => {
+  res.status(StatusCodes.OK).json({
+    success: true,
+    message: 'Server is running',
+  });
+});
+
+// not found handler and global error handler
+app.use(notFoundHandler);
+app.use(globalErrorHandler);
+
+module.exports = app;
+```
+
+### server.js
+
+```js
+require('dotenv').config();
+const app = require('./app');
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  console.log(`Server listening on port http://localhost:${port}`);
+});
+```
+
+---
+
+## Pre-installed Packages
+
+| Package                                                                      | Purpose                                       |
+| ---------------------------------------------------------------------------- | --------------------------------------------- |
+| [express](https://expressjs.com)                                             | Core server framework                         |
+| [cors](https://www.npmjs.com/package/cors)                                   | Enable Cross-Origin Resource Sharing          |
+| [dotenv](https://www.npmjs.com/package/dotenv)                               | Load environment variables                    |
+| [express-error-toolkit](https://www.npmjs.com/package/express-error-toolkit) | Handles All Express Errors                    |
+| [http-status-toolkit](https://www.npmjs.com/package/http-status-toolkit)     | Standard HTTP status codes                    |
+| [ nodemon](https://www.npmjs.com/package/nodemon) (devDependency)            | Automatically restarts server on code changes |
+
+---
+
+## Try It Online
+
+Click the link to open the template in **StackBlitz**, edit code, and run the server instantly in your browser:
+
+[Open express-basic-js on StackBlitz](https://stackblitz.com/github/dev-rashedin/servest/tree/main/packages/create-servest/templates/express/express-basic-js?file=app.js)

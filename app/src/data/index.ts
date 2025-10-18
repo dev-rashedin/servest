@@ -1,7 +1,12 @@
 import { FaDiscord, FaGithub } from 'react-icons/fa';
 import { IoCloseCircleOutline, IoSunnyOutline } from 'react-icons/io5';
 import { FiEdit, FiMoon } from 'react-icons/fi';
-import { RiArrowRightSLine, RiMenu2Fill, RiMenu3Fill } from 'react-icons/ri';
+import {
+  RiArrowRightDoubleFill,
+  RiArrowRightSLine,
+  RiMenu2Fill,
+  RiMenu3Fill,
+} from 'react-icons/ri';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { SiBun, SiDeno, SiPnpm, SiYarn } from 'react-icons/si';
 import { CgNpm } from 'react-icons/cg';
@@ -69,16 +74,25 @@ export const nestedDocsOrder: Record<string, { label: string; items: string[] }[
   templates: [
     {
       label: 'Express',
-      items: ['express-basic-js', 'express-basic-ts'],
+      items: [
+        'express-basic-js',
+        'express-basic-ts',
+        'express-mvc-cjs',
+        'express-mvc-mjs',
+        'express-mvc-ts',
+        'express-modular-cjs',
+        'express-modular-mjs',
+        'express-modular-ts',
+      ],
     },
-    {
-      label: 'Django',
-      items: ['django-basic-py', 'django-auth'],
-    },
-    {
-      label: 'Laravel',
-      items: ['laravel-basic-php', 'laravel-auth'],
-    },
+    // {
+    //   label: 'Django',
+    //   items: ['django-basic-py', 'django-auth'],
+    // },
+    // {
+    //   label: 'Laravel',
+    //   items: ['laravel-basic-php', 'laravel-auth'],
+    // },
   ],
 };
 
@@ -99,4 +113,5 @@ export {
   SiBun,
   SiDeno,
   CgNpm,
+  RiArrowRightDoubleFill,
 };

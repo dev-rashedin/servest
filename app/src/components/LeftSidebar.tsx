@@ -5,6 +5,8 @@ import { useState } from 'react';
 import Logo from './ui/logo';
 import HeaderFrame from './ui/header-frame';
 import { useSidebar } from './SidebarToggleContext';
+import AnimatedBorder from './ui/AnimatedBorder';
+import { RiArrowRightDoubleFill } from '@/data';
 
 const LeftSidebar = ({ links, type, nestedLinks }: DrawerProps) => {
   const pathname = usePathname();
@@ -25,7 +27,7 @@ const LeftSidebar = ({ links, type, nestedLinks }: DrawerProps) => {
       {/* Nav list (scrolls under the sticky header) */}
       <nav className="flex flex-col pl-4 md:pl-8 lg:pl-0  text-start gap-3 mt-6 pr-11">
         {links.map((item) => {
-          // displaying group title ()
+          // displaying group title
           if (item.type === 'group') {
             return (
               <p
@@ -46,10 +48,11 @@ const LeftSidebar = ({ links, type, nestedLinks }: DrawerProps) => {
             <Link
               key={item.slug}
               href={href}
-              className={`hover:underline ${isActive ? 'text-brand font-medium' : ''}`}
+              className={`w-full max-w-fit relative group ${isActive ? 'text-brand font-medium' : ''}`}
               onClick={() => setSidebarOpen && setSidebarOpen(false)}
             >
               {item.slug === 'index' ? 'Overview' : item.label}
+              <AnimatedBorder />
             </Link>
           );
         })}
@@ -57,40 +60,56 @@ const LeftSidebar = ({ links, type, nestedLinks }: DrawerProps) => {
 
       {/* nested nav items */}
       {pathname.includes('/guide') && nestedLinks && (
-        <div className="ml-3">
-          {nestedLinks!.map((cat) => (
+        <section className="ml-3">
+          {nestedLinks!.map((cat, idx) => (
             <div key={cat.label}>
-              {/* Category label (Express, Django, etc.) */}
+              {/* Category label */}
               <p
-                className={`flex items-center gap-2 text-[15px] cursor-pointer  pt-3`}
+                className={`flex items-center gap-2 text-[16px] cursor-pointer ${idx === 0 ? 'mt-3' : 'mt-4'}`}
                 onClick={() =>
                   setOpenCategories((prev) => ({ ...prev, [cat.label]: !prev[cat.label] }))
                 }
               >
-                {openCategories[cat.label] ? '▾' : '▸'}
-                <span>{cat.label}</span>
+                <span
+                  className={`inline-block transform transition-transform duration-300 ease-in-out ${
+                    openCategories[cat.label] ? 'rotate-90' : 'rotate-0'
+                  }`}
+                >
+                  <RiArrowRightDoubleFill />
+                </span>
+
+                {cat.label}
               </p>
 
               {/* Sub-items (express-basic-js, etc.) */}
-              {openCategories[cat.label] &&
-                cat.items?.map((sub) => {
-                  const href = `/${type}/${cat.label.toLowerCase()}/${sub.slug}`;
-                  const isActive = pathname === href;
+              <div
+                className={`overflow-hidden transform transition-all duration-100 ease-in-out mt-2 ml-6 ${
+                  openCategories[cat.label]
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 -translate-y-2'
+                }`}
+              >
+                {openCategories[cat.label] &&
+                  cat.items?.map((sub) => {
+                    const href = `/${type}/${cat.label.toLowerCase()}/${sub.slug}`;
+                    const isActive = pathname === href;
 
-                  return (
-                    <Link
-                      key={sub.slug}
-                      href={href}
-                      className={`flex flex-col hover:underline ml-6 mt-2 ${isActive ? 'text-brand font-medium' : ''}`}
-                      onClick={() => setSidebarOpen && setSidebarOpen(false)}
-                    >
-                      {sub.label}
-                    </Link>
-                  );
-                })}
+                    return (
+                      <Link
+                        key={sub.slug}
+                        href={href}
+                        className={`group relative w-full max-w-fit flex flex-col mt-2  ${isActive ? 'text-brand font-medium' : ''}`}
+                        onClick={() => setSidebarOpen && setSidebarOpen(false)}
+                      >
+                        {sub.label}
+                        <AnimatedBorder />
+                      </Link>
+                    );
+                  })}
+              </div>
             </div>
           ))}
-        </div>
+        </section>
       )}
     </aside>
   );

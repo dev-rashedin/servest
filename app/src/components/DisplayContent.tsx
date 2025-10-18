@@ -11,13 +11,14 @@ interface Props {
 }
 
 const DisplayContent = async ({ endpoint, slug }: Props) => {
-  const { content, headings, currentSlug, prevSlug, nextSlug } = await getContent(endpoint, slug);
+  const { content, headings, currentSlug, prevSlug, nextSlug, prevHref, nextHref } =
+    await getContent(endpoint, slug);
 
   const isIndex = slug === 'index';
 
   return (
     <>
-      <article className="prose prose-lg">{content}</article>
+      <article className="prose prose-lg min-h-[30vh]">{content}</article>
 
       <DisplayHeadings clientHeadings={headings} />
       <RightSidebarPortal clientHeadings={headings} />
@@ -68,15 +69,21 @@ const DisplayContent = async ({ endpoint, slug }: Props) => {
         {/* next and previous button */}
         <div className="flex justify-between min-h-16">
           {prevSlug && !prevSlug.startsWith('_') ? (
-            <Link
-              href={`/${endpoint}/${prevSlug === 'index' ? '' : prevSlug}`}
-              className="next-previous-btn"
-            >
+            <Link href={prevHref!} className="next-previous-btn">
               <span className="text-sm text-muted-highlight">Previous Page</span>
               <span className="text-brand">
                 {prevSlug === 'index'
                   ? 'Overview'
-                  : prevSlug.charAt(0).toUpperCase() + prevSlug.slice(1)}
+                  : prevSlug.includes('express')
+                    ? prevSlug
+                    : prevSlug
+                        .split('-')
+                        .map((word) =>
+                          word.toLowerCase() === 'cli'
+                            ? 'CLI'
+                            : word.charAt(0).toUpperCase() + word.slice(1),
+                        )
+                        .join(' ')}
               </span>
             </Link>
           ) : (
@@ -84,14 +91,20 @@ const DisplayContent = async ({ endpoint, slug }: Props) => {
           )}
 
           {nextSlug && !nextSlug.startsWith('_') ? (
-            <Link
-              href={`/${endpoint}/${nextSlug === 'index' ? '' : nextSlug}`}
-              className="next-previous-btn items-end"
-            >
+            <Link href={nextHref!} className="next-previous-btn items-end">
               {' '}
               <span className="text-sm text-muted-highlight">Next Page</span>
               <span className="text-brand">
-                {nextSlug.charAt(0).toUpperCase() + nextSlug.slice(1)}
+                {nextSlug.includes('express')
+                  ? nextSlug
+                  : nextSlug
+                      .split('-')
+                      .map((word) =>
+                        word.toLowerCase() === 'cli'
+                          ? 'CLI'
+                          : word.charAt(0).toUpperCase() + word.slice(1),
+                      )
+                      .join(' ')}
               </span>
             </Link>
           ) : (
