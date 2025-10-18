@@ -18,7 +18,7 @@ const DisplayContent = async ({ endpoint, slug }: Props) => {
 
   return (
     <>
-      <article className="prose prose-lg">{content}</article>
+      <article className="prose prose-lg min-h-[30vh]">{content}</article>
 
       <DisplayHeadings clientHeadings={headings} />
       <RightSidebarPortal clientHeadings={headings} />

@@ -23,7 +23,7 @@ export default function CodeBlock({ code, language = 'bash' }: CodeBlockProps) {
     async function highlight() {
       const highlighter = await createHighlighter({
         themes: ['andromeeda'],
-        langs: ['ts', 'js', 'bash', 'json', 'tsx', 'jsx', 'css', 'html', 'prisma', 'dotenv'],
+        langs: ['ts', 'js', 'bash', 'json', 'tsx', 'jsx', 'css', 'html', 'prisma', 'dotenv', 'mdx'],
       });
 
       if (isVariants && parsed) {
