@@ -97,7 +97,7 @@ async function getContent(endpoint: string, slug: string) {
   });
 
   return {
-    content: content as unknown,
+    content: content as React.ReactNode,
     headings,
     slugOrder,
     currentSlug: slug,
