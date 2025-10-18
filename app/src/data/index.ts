@@ -49,10 +49,8 @@ export const docsOrder: Record<string, string[]> = {
     'why-servest',
     'our-journey',
     '_Reference',
-    'folder-structure',
     'cli-reference',
-    'template-options',
-    'preinstalled-packages',
+    '_Templates',
   ],
   addons: [
     'index',
@@ -64,6 +62,23 @@ export const docsOrder: Record<string, string[]> = {
     'mongoose',
     'prisma',
     'drizzle',
+  ],
+};
+
+export const nestedDocsOrder: Record<string, { label: string; items: string[] }[]> = {
+  templates: [
+    {
+      label: 'Express',
+      items: ['express-basic-js', 'express-basic-ts'],
+    },
+    {
+      label: 'Django',
+      items: ['django-basic-py', 'django-auth'],
+    },
+    {
+      label: 'Laravel',
+      items: ['laravel-basic-php', 'laravel-auth'],
+    },
   ],
 };
 

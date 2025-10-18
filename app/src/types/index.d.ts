@@ -4,9 +4,17 @@ interface LinkItem {
   label: string;
 }
 
+declare interface NestedLink {
+  type: 'category' | 'link';
+  label: string;
+  slug?: string;
+  items?: NestedLink[];
+}
+
 declare interface DrawerProps {
   links: LinkItem[];
   type: string;
+  nestedLinks?: NestedLink[];
 }
 
 declare interface Heading {
@@ -38,3 +46,10 @@ declare interface ItemProps {
   pathname: string;
   type?: 'main' | 'sub';
 }
+
+declare type DocsOrderSection =
+  | string
+  | {
+      label: string;
+      items: string[];
+    };

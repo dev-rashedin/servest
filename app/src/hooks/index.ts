@@ -11,7 +11,7 @@ export function useScreenSize() {
   }, []);
 
   return {
-    isMobile: width < 450,
+    isMobile: width < 750,
     isLargeScreen: width >= 1024,
   };
 }

@@ -1,0 +1,48 @@
+# Servest CLI Reference
+
+This page documents all commands and options available in **Servest**, including both the project scaffolding CLI (`create-servest`) and the addon utility (`servest`).
+
+---
+
+## create-servest
+
+The `create-servest` CLI is used to **scaffold new backend projects** instantly — without any manual configuration.
+
+### CLI Options
+
+| Flag             | Description                                                              |
+| ---------------- | ------------------------------------------------------------------------ |
+| `-t, --template` | Specify a project template (e.g., `express-basic-js`, `express-mvc-ts`). |
+| `-a, --addons`   | Add one or more addons during project creation (optional).               |
+| `-h, --help`     | Display help information.                                                |
+
+Example:
+
+```bash
+npm create servest@latest my-app -- --template express-mvc-ts -a mongoose eslint-prettier
+```
+
+To learn more about **create-servest**, visit the [guide section](/guide).
+
+---
+
+## servest (Addons CLI)
+
+The `servest` CLI is used **inside an existing project** to add utilities, generate files/folders, or configure integrations.
+
+### CLI Commands
+
+| Command             | Description                                                                     |
+| ------------------- | ------------------------------------------------------------------------------- |
+| `init`              | Detects project structure and creates a `servest.config.json` file.             |
+| `add <features...>` | Adds backend utilities or generates files/folders (e.g., `mongoose`, `f-auth`). |
+| `-v, --version`     | Show the installed Servest CLI version.                                         |
+| `-h, --help`        | Display help information.                                                       |
+
+Example:
+
+```bash
+ npx servest@latest add f-users mongoose eslint-prettier
+```
+
+To learn more about **Servest addons**, visit the [addons section](/addons).

@@ -18,13 +18,22 @@ interface GetContentResult {
 }
 
 async function getContent(endpoint: string, slug: string): Promise<GetContentResult> {
-  const dir = path.join(process.cwd(), `../docs/${endpoint}`);
-  const files = await fs.readdir(dir);
+  const baseDir = path.join(process.cwd(), `../docs/${endpoint}`);
 
-  const filePath = path.join(dir, `${slug}.mdx`);
+  // Convert "express/express-basic-js" → ["express", "express-basic-js"]
+  const slugParts = slug.split('/').filter(Boolean);
+
+  // Build correct path for nested files
+  const filePath = path.join(baseDir, ...slugParts) + '.mdx';
+
+  // ✅ Read MDX file
   const source = await fs.readFile(filePath, 'utf-8');
 
   const headings = extractHeadingsFromMdx(source);
+
+  const dirToRead = slugParts.length > 1 ? path.join(baseDir, slugParts[0]) : baseDir;
+
+  const files = await fs.readdir(dirToRead);
 
   const defaultOrder = files
     .filter((f) => f.endsWith('.mdx') && f !== 'index.mdx')
@@ -32,7 +41,7 @@ async function getContent(endpoint: string, slug: string): Promise<GetContentRes
 
   const slugOrder = docsOrder[endpoint]?.filter((s) => !s.startsWith('_')) || defaultOrder;
 
-  const currentIndex = slugOrder.indexOf(slug);
+  const currentIndex = slugOrder.indexOf(slugParts.at(-1)!);
 
   const prevSlug = currentIndex > 0 ? slugOrder[currentIndex - 1] : null;
   const nextSlug = currentIndex < slugOrder.length - 1 ? slugOrder[currentIndex + 1] : null;
@@ -42,12 +51,15 @@ async function getContent(endpoint: string, slug: string): Promise<GetContentRes
     components: MDXComponents,
     options: {
       parseFrontmatter: true,
-      mdxOptions: { remarkPlugins: [remarkGfm], rehypePlugins: [rehypeSlug] },
+      mdxOptions: {
+        remarkPlugins: [remarkGfm],
+        rehypePlugins: [rehypeSlug],
+      },
     },
   });
 
   return {
-    content: content as unknown as ReactNode,
+    content: content as unknown as React.ReactNode,
     headings,
     slugOrder,
     currentSlug: slug,
