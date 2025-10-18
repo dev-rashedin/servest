@@ -74,7 +74,7 @@ const LeftSidebar = ({ links, type, nestedLinks }: DrawerProps) => {
               {/* Sub-items (express-basic-js, etc.) */}
               {openCategories[cat.label] &&
                 cat.items?.map((sub) => {
-                  const href = `/${type}/${sub.slug}`;
+                  const href = `/${type}/${cat.label.toLowerCase()}/${sub.slug}`;
                   const isActive = pathname === href;
 
                   return (

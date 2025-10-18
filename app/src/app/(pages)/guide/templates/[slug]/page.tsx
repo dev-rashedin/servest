@@ -3,7 +3,7 @@ import path from 'path';
 import DisplayContent from '@/components/DisplayContent';
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const files = await fs.readdir(path.join(process.cwd(), '../docs/guide'));
+  const files = await fs.readdir(path.join(process.cwd(), '../docs/guide/express'));
 
   // Type assertion ensures TS sees it as Array<{slug: string}>
   const params = files
@@ -13,8 +13,8 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
   return params;
 }
 
-export default async function GuidPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function TemplatePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
-  return <DisplayContent endpoint="guide" slug={slug} />;
+  return <DisplayContent endpoint="templates" slug={slug} />;
 }
