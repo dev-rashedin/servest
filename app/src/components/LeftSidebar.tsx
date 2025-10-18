@@ -26,9 +26,8 @@ const LeftSidebar = ({ links, type, nestedLinks }: DrawerProps) => {
 
       {/* Nav list (scrolls under the sticky header) */}
       <nav className="flex flex-col pl-4 md:pl-8 lg:pl-0  text-start gap-3 mt-6 pr-11">
-        // group name
         {links.map((item) => {
-          // displaying group title ()
+          // displaying group title
           if (item.type === 'group') {
             return (
               <p
@@ -49,7 +48,7 @@ const LeftSidebar = ({ links, type, nestedLinks }: DrawerProps) => {
             <Link
               key={item.slug}
               href={href}
-              className={`w-auto relative group ${isActive ? 'text-brand font-medium' : ''}`}
+              className={`w-full max-w-fit relative group ${isActive ? 'text-brand font-medium' : ''}`}
               onClick={() => setSidebarOpen && setSidebarOpen(false)}
             >
               {item.slug === 'index' ? 'Overview' : item.label}
@@ -84,10 +83,10 @@ const LeftSidebar = ({ links, type, nestedLinks }: DrawerProps) => {
 
               {/* Sub-items (express-basic-js, etc.) */}
               <div
-                className={`transform transition-transform duration-100 ease-in-out ${
+                className={`overflow-hidden transform transition-all duration-100 ease-in-out mt-2 ml-6 ${
                   openCategories[cat.label]
-                    ? 'opacity-200 translate-y-0'
-                    : '-translate-y-1 opacity-0'
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 -translate-y-2'
                 }`}
               >
                 {openCategories[cat.label] &&
@@ -99,10 +98,11 @@ const LeftSidebar = ({ links, type, nestedLinks }: DrawerProps) => {
                       <Link
                         key={sub.slug}
                         href={href}
-                        className={`flex flex-col hover:underline ml-6 mt-2 ${isActive ? 'text-brand font-medium' : ''}`}
+                        className={`group relative w-full max-w-fit flex flex-col mt-2  ${isActive ? 'text-brand font-medium' : ''}`}
                         onClick={() => setSidebarOpen && setSidebarOpen(false)}
                       >
                         {sub.label}
+                        <AnimatedBorder />
                       </Link>
                     );
                   })}

@@ -1,1 +1,110 @@
-## express-basic-js
+# Express Basic JS Template
+
+A minimal **Express.js** backend template in JavaScript with essential setup for quickly starting a server, error handling, and CORS support. Ideal for learning or small projects.
+
+---
+
+## When to Use
+
+- You want a **barebones Express server** in JavaScript.
+- No TypeScript or complex folder structures needed.
+- Perfect for quick prototypes or small backend services.
+
+---
+
+## Installation
+
+Scaffold the template using **Servest**:
+
+```bash
+npm create servest@latest servest-project -- --template express-basic-js
+```
+
+> This will create a new project in the `servest-project` folder
+> with all required files.
+
+---
+
+## Run Commands
+
+Start in development mode (auto-reloads on changes using npx)
+
+```bash
+npm start
+```
+
+Start in production mode
+
+```bash
+npm run start:prod
+```
+
+The server will run on the port specified in `.env` or default `3000`.
+
+---
+
+## Folder Structure
+
+```text
+express-basic-js/
+├─ .env.example        # Rename to .env for environment variables
+├─ .gitignore          # Standard gitignore for node projects
+├─ app.js              # Express app configuration
+├─ server.js           # Entry point to start the server
+├─ package.json        # Dependencies and scripts
+└─ server.json         # Optional server config
+```
+
+### .gitignore
+
+```bash
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build output
+dist
+dist-ssr
+
+# Local files
+*.local
+
+# Optional cache
+.cache
+
+# OS files
+.DS_Store
+Thumbs.db
+```
+
+---
+
+## Pre-installed Packages
+
+| Package               | Purpose                                       |
+| --------------------- | --------------------------------------------- |
+| express               | Core server framework                         |
+| cors                  | Enable Cross-Origin Resource Sharing          |
+| dotenv                | Load environment variables                    |
+| express-error-toolkit | Handles 404 and global errors                 |
+| http-status-toolkit   | Standard HTTP status codes                    |
+| nodemon (dev)         | Automatically restarts server on code changes |
+
+---
+
+## Try It Online
+
+You can test this template instantly via **StackBlitz**:
+
+[Open express-basic-js on StackBlitz](#)
+
+> Replace `#` with the actual StackBlitz link when available.
