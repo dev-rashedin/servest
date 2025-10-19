@@ -11,7 +11,9 @@ import { RiArrowRightDoubleFill } from '@/data';
 const LeftSidebar = ({ links, type, nestedLinks }: DrawerProps) => {
   const pathname = usePathname();
   const { sidebarOpen, setSidebarOpen } = useSidebar();
-  const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({});
+  const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({ Express: true });
+
+  console.log('openCategories', openCategories);
 
   return (
     <aside
