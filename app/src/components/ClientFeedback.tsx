@@ -1,7 +1,6 @@
 import { useRef } from 'react';
-import { Alex, Alicia, Angelina, Guillermo, Reacher, Rika, Steven } from '../data/assets';
-import { revealVariants } from '../lib/utils';
 import { HomeSectionHeading, TimelineContent } from './ui';
+import { revealVariants } from '@/lib/utils';
 
 function ClientFeedback() {
   const testimonialRef = useRef<HTMLDivElement>(null);
@@ -37,7 +36,7 @@ function ClientFeedback() {
                   <p>Lead Developer at CodeWave</p>
                 </div>
                 <img
-                  src={Alex}
+                  src="/devs/dev2.jpg"
                   alt="Alex Morgan"
                   width={200}
                   height={200}
@@ -64,7 +63,7 @@ function ClientFeedback() {
                   <p>Content Lead at WriteLab</p>
                 </div>
                 <img
-                  src={Rika}
+                  src="/devs/dev1.jpg"
                   alt="Rika Shinoda"
                   width={200}
                   height={200}
@@ -94,7 +93,7 @@ function ClientFeedback() {
                   <p className="lg:text-base text-sm">CTO of ByteCraft</p>
                 </div>
                 <img
-                  src={Reacher}
+                  src="/devs/dev3.jpg"
                   alt="Reacher"
                   width={200}
                   height={200}
@@ -121,7 +120,7 @@ function ClientFeedback() {
                   <p className="lg:text-base text-sm">Head of Content at WriteFlow</p>
                 </div>
                 <img
-                  src={Alicia}
+                  src="/devs/dev4.jpg"
                   alt="Alicia"
                   width={200}
                   height={200}
@@ -148,7 +147,7 @@ function ClientFeedback() {
                   <p className="lg:text-base text-sm">CEO of MailCraft</p>
                 </div>
                 <img
-                  src={Steven}
+                  src="/devs/dev6.jpg"
                   alt="Steven Sunny"
                   width={200}
                   height={200}
@@ -177,7 +176,7 @@ function ClientFeedback() {
                   <p>CTO of DevLabs</p>
                 </div>
                 <img
-                  src={Guillermo}
+                  src="/devs/dev7.jpg"
                   alt="Guillermo Rauch"
                   width={200}
                   height={200}
@@ -208,7 +207,7 @@ function ClientFeedback() {
                   <p>Lead Engineer at CodeSphere</p>
                 </div>
                 <img
-                  src={Angelina}
+                  src="/devs/dev5.jpg"
                   alt="Angelina"
                   width={200}
                   height={200}
