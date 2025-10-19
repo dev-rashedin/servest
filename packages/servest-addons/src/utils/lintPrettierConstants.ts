@@ -39,7 +39,7 @@ export default defineConfig([
 
   //   Custom overrides
   {
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+    files: ['**/*.{js,esm,cjs,ts,mts,cts}'],
     languageOptions: {
       parserOptions: {
         ecmaVersion: 'latest',
@@ -77,7 +77,7 @@ export default defineConfig([
 
   //   Custom overrides
   {
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+    files: ['**/*.{js,esm,cjs,ts,mts,cts}'],
     languageOptions: {
       parserOptions: {
         ecmaVersion: 'latest',
@@ -115,7 +115,7 @@ module.exports = defineConfig([
 
   // Custom overrides
   {
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+    files: ['**/*.{js,esm,cjs,ts,mts,cts}'],
     languageOptions: {
       parserOptions: {
         ecmaVersion: 'latest',
@@ -161,7 +161,7 @@ export default defineConfig([
 
   //   Custom overrides
   {
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+    files: ['**/*.{js,esm,cjs,ts,mts,cts}'],
     languageOptions: {
       parserOptions: {
         ecmaVersion: 'latest',
@@ -207,7 +207,7 @@ export default defineConfig([
 
   //   Custom overrides
   {
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+    files: ['**/*.{js,esm,cjs,ts,mts,cts}'],
     languageOptions: {
       parserOptions: {
         ecmaVersion: 'latest',
@@ -253,7 +253,7 @@ module.exports = defineConfig([
 
   // Custom overrides
   {
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+    files: ['**/*.{js,esm,cjs,ts,mts,cts}'],
     languageOptions: {
       parserOptions: {
         ecmaVersion: 'latest',

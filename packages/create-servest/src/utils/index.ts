@@ -24,7 +24,7 @@ export const FRAMEWORKS: IFramework[] = [
       },
       {
         name: 'MVC - ESM',
-        value: 'express-mvc-mjs',
+        value: 'express-mvc-esm',
         color: yellow,
       },
       {
@@ -39,7 +39,7 @@ export const FRAMEWORKS: IFramework[] = [
       },
       {
         name: 'Modular - ESM',
-        value: 'express-modular-mjs',
+        value: 'express-modular-esm',
         color: yellow,
       },
       {

@@ -1,0 +1,126 @@
+# express-mvc-cjs Template
+
+A **JavaScript** backend template following the **MVC (Model-View-Controller)** pattern with **Express.js** using CommonJS. Includes structured folders for models, views, controllers, configuration, middlewares, and utilities — ideal for organized and scalable backend projects.
+
+---
+
+## When to Use
+
+- You want an **Express server in JavaScript**.
+- Prefer a **classic MVC architecture** for clear separation of concerns.
+- Use **CommonJS syntax** (`require` / `module.exports`).
+- Suitable for medium to large projects with multiple routes, controllers, and models.
+- Ideal for maintainable and organized backend development.
+
+---
+
+## Installation
+
+Scaffold the template using **Servest**:
+
+```bash
+npm create servest@latest servest-project -- --template express-mvc-cjs
+```
+
+> This will create a new project in the `servest-project` folder
+> with all required files.
+
+For detailed installation instructions, see the [create-servest guide](/guide)
+
+---
+
+## Run Commands
+
+Start in development mode (auto-reloads on changes using `nodemon`)
+
+```bash
+npm run start
+```
+
+Start in production mode
+
+```bash
+npm run start:prod
+```
+
+The server will run on the port specified in `.env` (default: `3000`).
+
+---
+
+## Folder Structure
+
+![express-mvc-cjs](/images/express-mvc-cjs.png)
+
+### src/app.js
+
+```js
+const express = require('express');
+const cors = require('cors');
+const { notFoundHandler, globalErrorHandler } = require('express-error-toolkit');
+const { StatusCodes } = require('http-status-toolkit');
+
+const app = express();
+
+// cors and body parser
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// home route
+app.get('/', (req, res) => {
+  res.status(StatusCodes.OK).json({
+    success: true,
+    message: 'Server is running',
+  });
+});
+
+// not found handler and global error handler
+app.use(notFoundHandler);
+app.use(globalErrorHandler);
+
+module.exports = app;
+```
+
+### src/server.js
+
+```js
+const app = require('./app');
+const config = require('./app/config');
+
+app.listen(config.port, () => {
+  console.log(`Server listening on port http://localhost:${config.port}`);
+});
+```
+
+### src/app/config/index.js
+
+```js
+require('dotenv').config();
+
+module.exports = {
+  port: process.env.PORT || 3000,
+  dbUrl: process.env.DB_URL,
+  jwtSecret: process.env.JWT_SECRET,
+};
+```
+
+---
+
+## Pre-installed Packages
+
+| Package                                                                      | Purpose                                       |
+| ---------------------------------------------------------------------------- | --------------------------------------------- |
+| [express](https://expressjs.com)                                             | Core server framework                         |
+| [cors](https://www.npmjs.com/package/cors)                                   | Enable Cross-Origin Resource Sharing          |
+| [dotenv](https://www.npmjs.com/package/dotenv)                               | Load environment variables                    |
+| [express-error-toolkit](https://www.npmjs.com/package/express-error-toolkit) | Handles All Express Errors                    |
+| [http-status-toolkit](https://www.npmjs.com/package/http-status-toolkit)     | Standard HTTP status codes                    |
+| [ nodemon](https://www.npmjs.com/package/nodemon) (devDependency)            | Automatically restarts server on code changes |
+
+---
+
+## Try It Online
+
+Click the link to open the template in **StackBlitz**, edit code, and run the server instantly in your browser:
+
+[Open express-mvc-cjs on StackBlitz](https://stackblitz.com/github/dev-rashedin/servest/tree/main/packages/create-servest/templates/express/express-mvc-cjs?file=src/app.js)
