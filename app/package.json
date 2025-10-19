@@ -29,15 +29,15 @@
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^15.5.4",
+    "@next/eslint-plugin-next": "15.5.6",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.16",
     "@types/mdast": "^4.0.4",
     "@types/node": "^20",
-    "@types/react": "^19.1.9",
-    "@types/react-dom": "^19.1.7",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
     "class-variance-authority": "^0.7.1",
-    "eslint-config-next": "^15.5.0",
+    "eslint-config-next": "15.5.6",
     "eslint-plugin-next": "^0.0.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
@@ -51,5 +51,11 @@
     "tailwindcss-animate": "^1.0.7",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.2.2",
+      "@types/react-dom": "19.2.2"
+    }
   }
 }
