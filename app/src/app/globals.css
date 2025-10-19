@@ -22,6 +22,9 @@
   h1 {
     @apply text-5xl md:text-7xl font-heading font-bold tracking-wide;
   }
+  h2 {
+    @apply text-4xl md:text-6xl font-heading font-semibold tracking-wide;
+  }
 
   h5 {
     @apply md:text-[16px] lg:text-xl font-medium text-muted-foreground  leading-8 lg:leading-9;
@@ -93,7 +96,12 @@
         @apply text-[hsl(var(--foreground))];
       }
     }
+
+    .border-primary {
+      border: 1px solid hsl(0, 0%, 86%);
+    }
   }
+
   .dark {
     --background: 0 0% 10%;
     --foreground: 0 0% 98%;
@@ -117,7 +125,7 @@
     --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 20%;
-    --muted-foreground: 30, 2%, 80%;
+    --muted-foreground: 30, 2%, 89%;
     --muted-highlight: 30, 2%, 90%;
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
@@ -143,6 +151,10 @@
       p {
         @apply text-[#f8f8f8];
       }
+    }
+
+    .border-primary {
+      border: 1px solid hsl(0, 0%, 20%);
     }
   }
 }
@@ -204,5 +216,13 @@
     hr {
       @apply border-c-docs;
     }
+  }
+
+  .grid-line-color {
+    background:
+      linear-gradient(to right, rgba(152, 158, 169, 0.2) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(151, 157, 164, 0.2) 1px, transparent 1px);
+    background-size: 50px 56px;
+    mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 70%, transparent 120%);
   }
 }

@@ -1,15 +1,18 @@
+'use client';
 import { useRef } from 'react';
-import { HomeSectionHeading, TimelineContent } from './ui';
+import Image from 'next/image';
+import HomeSectionHeading from './ui/HomeSectionHeading';
+import { TimelineContent } from './ui/TimelineContent';
 import { revealVariants } from '@/lib/utils';
 
 function ClientFeedback() {
   const testimonialRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section className="relative boundary rounded-lg  overflow-hidden" ref={testimonialRef}>
+    <section className="relative boundary rounded-lg overflow-hidden" ref={testimonialRef}>
       <HomeSectionHeading
-        title="Trusted by Thousands"
-        subtitle="Here's what our users — developers, writers, and content creators — think about DevScribe-AI"
+        title="Developers Love Servest"
+        subtitle="Here's what developers say about building faster backends with Servest"
         ref={testimonialRef}
       />
 
@@ -19,27 +22,28 @@ function ClientFeedback() {
             animationNum={0}
             customVariants={revealVariants}
             timelineRef={testimonialRef}
-            className="lg:flex-[7] flex-[6] flex flex-col justify-between relative bg-primaryColor overflow-hidden rounded-lg border border-gray-200 p-5"
+            className="lg:flex-[7] flex-[6] flex flex-col justify-between relative overflow-hidden rounded-lg border-primary p-5"
           >
             <div className="absolute bottom-0 left-0 right-0 top-0 grid-line-color"></div>
             <figure>
-              <img src={'/logo.png'} alt="DevScribe-AI" width={80} height={80} />
+              <Image src="/logo.svg" alt="Servest" width={80} height={80} />
             </figure>
             <article className="mt-auto">
               <p>
-                "DevScribe-AI transformed our development workflow. Code explanations and article
-                generation save us hours every week."
+                “Servest is honestly awesome! The idea of a next-gen backend starter with instant
+                setup and CLI addons is super cool. Love how it’s modular, typed, and easy to use.
+                The Express templates are a great start too. This has real potential!”
               </p>
               <div className="flex justify-between pt-5">
                 <div>
-                  <h2 className="font-semibold lg:text-xl text-sm">Alex Morgan</h2>
-                  <p>Lead Developer at CodeWave</p>
+                  <h2 className="font-semibold lg:text-xl text-sm">Rocky Haque</h2>
+                  <p>CTO at Programming-Fighter</p>
                 </div>
-                <img
-                  src="/devs/dev2.jpg"
-                  alt="Alex Morgan"
-                  width={200}
-                  height={200}
+                <Image
+                  src="/devs/Rocky.jpg"
+                  alt="Rocky Haque"
+                  width={64}
+                  height={64}
                   className="w-16 h-16 rounded-xl object-cover"
                 />
               </div>
@@ -50,23 +54,23 @@ function ClientFeedback() {
             animationNum={1}
             customVariants={revealVariants}
             timelineRef={testimonialRef}
-            className="lg:flex-[3] flex-[4] lg:h-fit lg:shrink-0 flex flex-col justify-between relative bg-blue-600 text-white overflow-hidden rounded-lg border border-gray-200 p-5"
+            className="lg:flex-[3] flex-[4] flex flex-col justify-between relative bg-blue-600 text-white overflow-hidden rounded-lg border-primary p-5"
           >
             <article className="mt-auto">
               <p>
-                "The summarizer and email helper are game-changers for content teams. DevScribe-AI
-                is incredibly intuitive."
+                “We replaced our internal boilerplate generator with Servest. It’s faster, cleaner,
+                and easier to maintain.”
               </p>
               <div className="flex justify-between pt-5">
                 <div>
-                  <h2 className="font-semibold text-xl">Rika Shinoda</h2>
-                  <p>Content Lead at WriteLab</p>
+                  <h2 className="font-semibold text-xl">Nina Tokuda</h2>
+                  <p>Fullstack Developer at NodeCrew</p>
                 </div>
-                <img
+                <Image
                   src="/devs/dev1.jpg"
-                  alt="Rika Shinoda"
-                  width={200}
-                  height={200}
+                  alt="Nina Tokuda"
+                  width={64}
+                  height={64}
                   className="w-16 h-16 rounded-xl object-cover"
                 />
               </div>
@@ -74,29 +78,28 @@ function ClientFeedback() {
           </TimelineContent>
         </div>
 
-        {/* Continue updating the rest in the same way: names, roles, companies, and references to DevScribe-AI */}
         <div className="lg:h-full md:flex lg:flex-col h-fit lg:space-y-2 lg:gap-0 gap-2">
           <TimelineContent
             animationNum={2}
             customVariants={revealVariants}
             timelineRef={testimonialRef}
-            className="flex flex-col justify-between relative bg-card-secondary overflow-hidden rounded-lg border border-gray-200 p-5"
+            className="flex flex-col justify-between relative bg-card-secondary overflow-hidden rounded-lg border-primary p-5"
           >
             <article className="mt-auto">
               <p className="2xl:text-base text-sm">
-                "DevScribe-AI’s code refactor and explainer tools helped our team reduce bugs and
-                improve productivity drastically."
+                “Servest Addons feels just like shadcn but for backend tools. Added Mongoose and
+                ESLint in seconds — brilliant experience.”
               </p>
               <div className="flex justify-between items-end pt-5">
                 <div>
-                  <h2 className="font-semibold lg:text-xl text-lg">Jack Reacher</h2>
-                  <p className="lg:text-base text-sm">CTO of ByteCraft</p>
+                  <h2 className="font-semibold lg:text-xl text-lg">Liam O’Connor</h2>
+                  <p className="lg:text-base text-sm">CTO at StackMotion</p>
                 </div>
-                <img
+                <Image
                   src="/devs/dev3.jpg"
-                  alt="Reacher"
-                  width={200}
-                  height={200}
+                  alt="Liam"
+                  width={64}
+                  height={64}
                   className="lg:w-16 lg:h-16 w-12 h-12 rounded-xl object-cover"
                 />
               </div>
@@ -107,23 +110,23 @@ function ClientFeedback() {
             animationNum={3}
             customVariants={revealVariants}
             timelineRef={testimonialRef}
-            className="flex flex-col justify-between relative bg-card-secondary overflow-hidden rounded-lg border border-gray-200 p-5"
+            className="flex flex-col justify-between relative bg-card-secondary overflow-hidden rounded-lg border-primary p-5"
           >
             <article className="mt-auto">
               <p className="2xl:text-base text-sm">
-                "Our writing team now produces high-quality articles faster thanks to DevScribe-AI’s
-                article generator and summarizer."
+                “The CLI experience is smooth and developer-friendly. Servest feels like
+                create-vite, but perfectly tuned for backend devs.”
               </p>
               <div className="flex justify-between items-end pt-5">
                 <div>
-                  <h2 className="font-semibold lg:text-xl text-lg">Alicia Spinet</h2>
-                  <p className="lg:text-base text-sm">Head of Content at WriteFlow</p>
+                  <h2 className="font-semibold lg:text-xl text-lg">Elena Grayson</h2>
+                  <p className="lg:text-base text-sm">API Engineer at NovaTech</p>
                 </div>
-                <img
+                <Image
                   src="/devs/dev4.jpg"
-                  alt="Alicia"
-                  width={200}
-                  height={200}
+                  alt="Elena"
+                  width={64}
+                  height={64}
                   className="lg:w-16 lg:h-16 w-12 h-12 rounded-xl object-cover"
                 />
               </div>
@@ -134,23 +137,23 @@ function ClientFeedback() {
             animationNum={4}
             customVariants={revealVariants}
             timelineRef={testimonialRef}
-            className="flex flex-col justify-between relative bg-card-secondary overflow-hidden rounded-lg border border-gray-200 p-5"
+            className="flex flex-col justify-between relative bg-card-secondary overflow-hidden rounded-lg border-primary p-5"
           >
             <article className="mt-auto">
               <p className="2xl:text-base text-sm">
-                "The AI-powered email helper saves hours every week. DevScribe-AI is a must-have for
-                our team."
+                “Adding ESLint, Mongoose, and Prettier used to be tedious. Now, it’s literally one
+                command with Servest.”
               </p>
               <div className="flex justify-between items-end pt-5">
                 <div>
-                  <h2 className="font-semibold lg:text-xl text-lg">Steven Sunny</h2>
-                  <p className="lg:text-base text-sm">CEO of MailCraft</p>
+                  <h2 className="font-semibold lg:text-xl text-lg">William Smith</h2>
+                  <p className="lg:text-base text-sm">Backend Developer at APIGrid</p>
                 </div>
-                <img
+                <Image
                   src="/devs/dev6.jpg"
-                  alt="Steven Sunny"
-                  width={200}
-                  height={200}
+                  alt="Mateo"
+                  width={64}
+                  height={64}
                   className="lg:w-16 lg:h-16 w-12 h-12 rounded-xl object-cover"
                 />
               </div>
@@ -163,23 +166,23 @@ function ClientFeedback() {
             animationNum={5}
             customVariants={revealVariants}
             timelineRef={testimonialRef}
-            className="lg:flex-[3] flex-[4] flex flex-col justify-between relative bg-blue-600 text-white overflow-hidden rounded-lg border border-gray-200 p-5"
+            className="lg:flex-[3] flex-[4] flex flex-col justify-between relative bg-blue-600 text-white overflow-hidden rounded-lg border-primary p-5"
           >
             <article className="mt-auto">
               <p>
-                "DevScribe-AI has been an essential partner in streamlining our development and
-                writing workflows."
+                “Servest brings frontend-style DX to the backend world. It’s modern, fast, and easy
+                to extend.”
               </p>
               <div className="flex justify-between pt-5">
                 <div>
-                  <h2 className="font-semibold text-xl">Guillermo Rauch</h2>
-                  <p>CTO of DevLabs</p>
+                  <h2 className="font-semibold text-xl">Sarah Lin</h2>
+                  <p>Software Engineer at Craftify</p>
                 </div>
-                <img
-                  src="/devs/dev7.jpg"
-                  alt="Guillermo Rauch"
-                  width={200}
-                  height={200}
+                <Image
+                  src="/devs/dev5.jpg"
+                  alt="Sarah Lin"
+                  width={64}
+                  height={64}
                   className="w-16 h-16 rounded-xl object-cover"
                 />
               </div>
@@ -190,27 +193,27 @@ function ClientFeedback() {
             animationNum={6}
             customVariants={revealVariants}
             timelineRef={testimonialRef}
-            className="lg:flex-[7] flex-[6] flex flex-col justify-between relative bg-primaryColor overflow-hidden rounded-lg border border-gray-200 p-5"
+            className="lg:flex-[7] flex-[6] flex flex-col justify-between relative bg-primaryColor overflow-hidden rounded-lg border-primary p-5"
           >
             <div className="absolute bottom-0 left-0 right-0 top-0 grid-line-color"></div>
             <figure>
-              <img src={'/logo.png'} alt="DevScribe-AI" width={80} height={80} />
+              <Image src="/logo.svg" alt="Servest" width={80} height={80} />
             </figure>
             <article className="mt-auto">
               <p>
-                "DevScribe-AI has revolutionized the way we handle code, articles, and emails. The
-                platform’s versatility and AI accuracy are unmatched."
+                “Servest unified our entire backend scaffolding process. It’s like Vite and shadcn
+                had a backend baby.”
               </p>
               <div className="flex justify-between pt-5">
                 <div>
-                  <h2 className="font-semibold text-xl">Angelina Johnson</h2>
-                  <p>Lead Engineer at CodeSphere</p>
+                  <h2 className="font-semibold text-xl">Jonathan Hudson</h2>
+                  <p>Lead Developer at RapidBase</p>
                 </div>
-                <img
-                  src="/devs/dev5.jpg"
-                  alt="Angelina"
-                  width={200}
-                  height={200}
+                <Image
+                  src="/devs/dev7.png"
+                  alt="Jonathan"
+                  width={64}
+                  height={64}
                   className="w-16 h-16 rounded-xl object-cover"
                 />
               </div>
