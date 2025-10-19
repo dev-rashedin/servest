@@ -50,7 +50,7 @@ The server will run on the port specified in `.env` (default: `3000`).
 
 ![express-modular-cjs](/images/express-modular-cjs.png)
 
-### app.js
+### src/app.js
 
 ```js
 const express = require('express');
@@ -80,7 +80,7 @@ app.use(globalErrorHandler);
 module.exports = app;
 ```
 
-### server.js
+### src/server.js
 
 ```js
 const app = require('./app');
@@ -122,4 +122,4 @@ module.exports = {
 
 Click the link to open the template in **StackBlitz**, edit code, and run the server instantly in your browser:
 
-[Open express-basic-js on StackBlitz](https://stackblitz.com/github/dev-rashedin/servest/tree/main/packages/create-servest/templates/express/express-modular-cjs?file=src/app.js)
+[Open express-modular-cjs on StackBlitz](https://stackblitz.com/github/dev-rashedin/servest/tree/main/packages/create-servest/templates/express/express-modular-cjs?file=src/app.js)

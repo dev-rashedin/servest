@@ -1,14 +1,15 @@
-# express-basic-ts Template
+# express-modular-ts Template
 
-A minimal **Express.js** backend template in TypeScript with essential setup for quickly starting a server, error handling, and CORS support. Ideal for learning or small projects.
+A modular **Express.js** backend template in **TypeScript**. It provides a structured folder layout for configuration, middlewares, modules, and utilities — perfect for scalable, type-safe backend projects.
 
 ---
 
 ## When to Use
 
-- You want a **barebones Express server** in **TypeScript**.
-- Minimal setup for TypeScript projects without complex folder structures.
-- Perfect for quick prototypes or small backend services.
+- You want a **modular Express server** with **TypeScript**.
+- Prefer **`import` / `export` syntax** without using `"type": "module"`.
+- Suitable for medium to large projects needing clear separation of concerns.
+- Ideal for developers seeking type safety and maintainable code in backend projects.
 
 ---
 
@@ -17,7 +18,7 @@ A minimal **Express.js** backend template in TypeScript with essential setup for
 Scaffold the template using **Servest**:
 
 ```bash
-npm create servest@latest servest-project -- --template express-basic-ts
+npm create servest@latest servest-project -- --template express-modular-ts
 ```
 
 > This will create a new project in the `servest-project` folder
@@ -29,7 +30,7 @@ For detailed installation instructions, see the [create-servest guide](/guide)
 
 ## Run Commands
 
-Start in development mode (auto-reloads on changes using `npx`)
+Start in development mode (auto-reloads on changes using `tsx`)
 
 ```bash
 npm run start
@@ -47,9 +48,9 @@ The server will run on the port specified in `.env` (default: `3000`).
 
 ## Folder Structure
 
-![express-basic-ts](/images/express-basic-ts.png)
+![express-modular-ts](/images/express-modular-ts.png)
 
-### app.ts
+### src/app.ts
 
 ```ts
 import express, { Request, Response } from 'express';
@@ -79,17 +80,37 @@ app.use(globalErrorHandler);
 export default app;
 ```
 
-### server.ts
+### src/server.ts
 
 ```ts
-import 'dotenv/config';
 import app from './app';
+import config from './app/config';
 
-const port = process.env.PORT || 3000;
-
-app.listen(port, () => {
-  console.log(`Server listening on port http://localhost:${port}`);
+app.listen(config.port, () => {
+  console.log(`Server listening on port http://localhost:${config.port}`);
 });
+```
+
+### src/app/config/index.ts
+
+```ts
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+interface Config {
+  port: number;
+  dbUrl?: string;
+  jwtSecret?: string;
+}
+
+const config: Config = {
+  port: Number(process.env.PORT) || 3000,
+  dbUrl: process.env.DB_URL,
+  jwtSecret: process.env.JWT_SECRET,
+};
+
+export default config;
 ```
 
 ---
@@ -116,4 +137,4 @@ app.listen(port, () => {
 
 Click the link to open the template in **StackBlitz**, edit code, and run the server instantly in your browser:
 
-[Open express-basic-ts on StackBlitz](https://stackblitz.com/github/dev-rashedin/servest/tree/main/packages/create-servest/templates/express/express-basic-ts?file=app.js)
+[Open express-modular-ts on StackBlitz](https://stackblitz.com/github/dev-rashedin/servest/tree/main/packages/create-servest/templates/express/express-modular-ts?file=src/app.ts)
