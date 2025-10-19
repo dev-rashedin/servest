@@ -1,15 +1,16 @@
-# express-modular-mjs Template
+# express-mvc-cjs Template
 
-A modular **Express.js** backend template in JavaScript using **ES Modules (ESM)**. It includes a structured folder layout for configuration, middlewares, modules, and utilities — ideal for scalable or organized backend projects.
+A **JavaScript** backend template following the **MVC (Model-View-Controller)** pattern with **Express.js** using CommonJS. Includes structured folders for models, views, controllers, configuration, middlewares, and utilities — ideal for organized and scalable backend projects.
 
 ---
 
 ## When to Use
 
-- You want a **modular Express server** in JavaScript.
-- Prefer **ES Module syntax** (`import` / `export`).
-- Suitable for medium to large projects needing clear separation of concerns.
-- Ideal for modern Node.js environments using `"type": "module"` in `package.json`.
+- You want an **Express server in JavaScript**.
+- Prefer a **classic MVC architecture** for clear separation of concerns.
+- Use **CommonJS syntax** (`require` / `module.exports`).
+- Suitable for medium to large projects with multiple routes, controllers, and models.
+- Ideal for maintainable and organized backend development.
 
 ---
 
@@ -18,7 +19,7 @@ A modular **Express.js** backend template in JavaScript using **ES Modules (ESM)
 Scaffold the template using **Servest**:
 
 ```bash
-npm create servest@latest servest-project -- --template express-modular-mjs
+npm create servest@latest servest-project -- --template express-mvc-cjs
 ```
 
 > This will create a new project in the `servest-project` folder
@@ -48,15 +49,15 @@ The server will run on the port specified in `.env` (default: `3000`).
 
 ## Folder Structure
 
-![express-modular-mjs](/images/express-modular-mjs.png)
+![express-mvc-cjs](/images/express-mvc-cjs.png)
 
 ### src/app.js
 
 ```js
-import express from 'express';
-import cors from 'cors';
-import { StatusCodes } from 'http-status-toolkit';
-import { notFoundHandler, globalErrorHandler } from 'express-error-toolkit';
+const express = require('express');
+const cors = require('cors');
+const { notFoundHandler, globalErrorHandler } = require('express-error-toolkit');
+const { StatusCodes } = require('http-status-toolkit');
 
 const app = express();
 
@@ -77,14 +78,14 @@ app.get('/', (req, res) => {
 app.use(notFoundHandler);
 app.use(globalErrorHandler);
 
-export default app;
+module.exports = app;
 ```
 
 ### src/server.js
 
 ```js
-import app from './app.js';
-import config from './app/config/index.js';
+const app = require('./app');
+const config = require('./app/config');
 
 app.listen(config.port, () => {
   console.log(`Server listening on port http://localhost:${config.port}`);
@@ -94,16 +95,13 @@ app.listen(config.port, () => {
 ### src/app/config/index.js
 
 ```js
-import dotenv from 'dotenv';
-dotenv.config();
+require('dotenv').config();
 
-const config = {
+module.exports = {
   port: process.env.PORT || 3000,
   dbUrl: process.env.DB_URL,
   jwtSecret: process.env.JWT_SECRET,
 };
-
-export default config;
 ```
 
 ---
@@ -125,4 +123,4 @@ export default config;
 
 Click the link to open the template in **StackBlitz**, edit code, and run the server instantly in your browser:
 
-[Open express-modular-mjs on StackBlitz](https://stackblitz.com/github/dev-rashedin/servest/tree/main/packages/create-servest/templates/express/express-modular-mjs?file=src/app.js)
+[Open express-mvc-cjs on StackBlitz](https://stackblitz.com/github/dev-rashedin/servest/tree/main/packages/create-servest/templates/express/express-mvc-cjs?file=src/app.js)

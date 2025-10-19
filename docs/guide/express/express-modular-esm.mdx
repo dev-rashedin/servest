@@ -1,0 +1,128 @@
+# express-modular-esm Template
+
+A modular **Express.js** backend template in JavaScript using **ES Modules (ESM)**. It includes a structured folder layout for configuration, middlewares, modules, and utilities — ideal for scalable or organized backend projects.
+
+---
+
+## When to Use
+
+- You want a **modular Express server** in JavaScript.
+- Prefer **ES Module syntax** (`import` / `export`).
+- Suitable for medium to large projects needing clear separation of concerns.
+- Ideal for modern Node.js environments using `"type": "module"` in `package.json`.
+
+---
+
+## Installation
+
+Scaffold the template using **Servest**:
+
+```bash
+npm create servest@latest servest-project -- --template express-modular-esm
+```
+
+> This will create a new project in the `servest-project` folder
+> with all required files.
+
+For detailed installation instructions, see the [create-servest guide](/guide)
+
+---
+
+## Run Commands
+
+Start in development mode (auto-reloads on changes using `nodemon`)
+
+```bash
+npm run start
+```
+
+Start in production mode
+
+```bash
+npm run start:prod
+```
+
+The server will run on the port specified in `.env` (default: `3000`).
+
+---
+
+## Folder Structure
+
+![express-modular-esm](/images/express-modular-esm.png)
+
+### src/app.js
+
+```js
+import express from 'express';
+import cors from 'cors';
+import { StatusCodes } from 'http-status-toolkit';
+import { notFoundHandler, globalErrorHandler } from 'express-error-toolkit';
+
+const app = express();
+
+// cors and body parser
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// home route
+app.get('/', (req, res) => {
+  res.status(StatusCodes.OK).json({
+    success: true,
+    message: 'Server is running',
+  });
+});
+
+// not found handler and global error handler
+app.use(notFoundHandler);
+app.use(globalErrorHandler);
+
+export default app;
+```
+
+### src/server.js
+
+```js
+import app from './app.js';
+import config from './app/config/index.js';
+
+app.listen(config.port, () => {
+  console.log(`Server listening on port http://localhost:${config.port}`);
+});
+```
+
+### src/app/config/index.js
+
+```js
+import dotenv from 'dotenv';
+dotenv.config();
+
+const config = {
+  port: process.env.PORT || 3000,
+  dbUrl: process.env.DB_URL,
+  jwtSecret: process.env.JWT_SECRET,
+};
+
+export default config;
+```
+
+---
+
+## Pre-installed Packages
+
+| Package                                                                      | Purpose                                       |
+| ---------------------------------------------------------------------------- | --------------------------------------------- |
+| [express](https://expressjs.com)                                             | Core server framework                         |
+| [cors](https://www.npmjs.com/package/cors)                                   | Enable Cross-Origin Resource Sharing          |
+| [dotenv](https://www.npmjs.com/package/dotenv)                               | Load environment variables                    |
+| [express-error-toolkit](https://www.npmjs.com/package/express-error-toolkit) | Handles All Express Errors                    |
+| [http-status-toolkit](https://www.npmjs.com/package/http-status-toolkit)     | Standard HTTP status codes                    |
+| [ nodemon](https://www.npmjs.com/package/nodemon) (devDependency)            | Automatically restarts server on code changes |
+
+---
+
+## Try It Online
+
+Click the link to open the template in **StackBlitz**, edit code, and run the server instantly in your browser:
+
+[Open express-modular-esm on StackBlitz](https://stackblitz.com/github/dev-rashedin/servest/tree/main/packages/create-servest/templates/express/express-modular-esm?file=src/app.js)

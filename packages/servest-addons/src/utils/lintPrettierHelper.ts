@@ -16,7 +16,7 @@ import { isESModule } from './index';
 export const addESLintConfig = (cwd: string, isTypeScript: boolean, type: string) => {
   const isESM = isESModule(cwd);
 
-  const configFileName = isTypeScript || isESM ? 'eslint.config.mjs' : 'eslint.config.cjs';
+  const configFileName = isTypeScript || isESM ? 'eslint.config.esm' : 'eslint.config.cjs';
 
   const configPath = path.join(cwd, configFileName);
   let content;
