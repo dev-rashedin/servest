@@ -2,6 +2,13 @@
 
 All notable changes to **create-servest** will be documented here.
 
+## [1.2.2] – 2025-10-19
+
+### Fixed
+- `express-mvc-esm` and `express-modular-esm` templates were renamed by mistake, now fixed.
+
+---
+
 ## [1.2.1] – 2025-10-17
 
 ### Changed
@@ -10,6 +17,8 @@ All notable changes to **create-servest** will be documented here.
   - From `npm/pnpm/yarn run start:dev` → `npm/pnpm/yarn run start`.
 - Updated Express TypeScript templates’ start command:
   - From `ts-node-dev --respawn --transpile-only src/server.ts` → `tsx watch src/server.ts`.
+
+---
 
 ## [1.2.0] – 2025-09-01
 

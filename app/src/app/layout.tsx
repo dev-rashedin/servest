@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 import React, { JSX } from 'react';
-import { Inter, Merriweather, Montserrat } from 'next/font/google';
+import { Inter, Montserrat } from 'next/font/google';
 import './globals.css';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ThemeProvider } from '@/components/theme/theme-provider';
 
-const merriweather = Merriweather({ subsets: ['latin'], weight: ['300', '700'] });
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '700'] });
 const inter = Inter({ subsets: ['latin'], weight: ['400', '700'] });
 
@@ -23,11 +24,13 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${merriweather.className} ${montserrat.className} ${inter.className} font-body text-body antialiased [scrollbar-gutter:stable]`}
+      className={`${montserrat.className} ${inter.className} font-body text-body antialiased [scrollbar-gutter:stable]`}
     >
       <body className="relative overflow-x-hidden">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           {children}
+          <Analytics />
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>
