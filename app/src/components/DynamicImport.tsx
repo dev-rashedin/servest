@@ -11,4 +11,9 @@ const HowItWorks = dynamic(() => import('@/components/HowItWorks'), {
   ssr: false,
 });
 
-export { ClientFeedback, HowItWorks };
+const WhyServest = dynamic(() => import('@/components/WhyServest'), {
+  loading: () => <div className="text-center py-10">Loading features...</div>,
+  ssr: false,
+});
+
+export { ClientFeedback, HowItWorks, WhyServest };

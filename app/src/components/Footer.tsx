@@ -1,6 +1,4 @@
-import { JSX } from 'react';
-
-const Footer = (): JSX.Element => {
+const Footer = () => {
   return (
     <footer className="h-36 flex-center flex-col gap-2 py-4 bg-[rgb(var(--footer-bg))] ">
       <h3 className="font-bold text-[rgb(var(--muted-foreground))] opacity-80">
