@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Button } from './ui/Button';
+import { Button } from '../Button';
 import { FaGithub } from '@/data';
 
 const Hero = () => {

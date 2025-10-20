@@ -1,8 +1,8 @@
 'use client';
 import { useRef } from 'react';
 import Image from 'next/image';
-import HomeSectionHeading from './ui/HomeSectionHeading';
-import { TimelineContent } from './ui/TimelineContent';
+import HomeSectionHeading from '../HomeSectionHeading';
+import { TimelineContent } from '../TimelineContent';
 import { revealVariants } from '@/lib/utils';
 
 function ClientFeedback() {
