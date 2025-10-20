@@ -6,7 +6,7 @@ import { Button } from '../Button';
 
 export default function FinalCTA() {
   return (
-    <section className="min-h-[80vh] flex-center text-center bg-gradient-to-b from-background to-muted/40">
+    <section className="min-h-[80vh] flex-center text-center bg-gradient-to-b from-background to-muted/30">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -17,11 +17,12 @@ export default function FinalCTA() {
         <div className="w-24 h-24 mx-auto flex-center mb-24 border border-brand rounded-xl shadow-glow">
           <Image src="/logo.svg" width={60} height={60} alt="logo" />
         </div>
-        <h2 className="text-3xl lg:text-5xl font-semibold mb-8 tracking-normal">
-          Build your backend with Servest
+        <h2 className="text-4xl lg:text-6xl font-semibold mb-8 tracking-normal">
+          Build faster. Launch sooner
         </h2>
-        <p className="text-lg lg:text-xl text-muted-foreground mb-8">
-          Experience backend setup that’s finally as smooth as frontend tooling
+        <p className="max-w-2xl mx-auto text-lg lg:text-[21px] text-muted-foreground mb-8 tracking-normal leading-relaxed">
+          No more setup hassle. No more backend headaches. <br />
+          With Servest, your server’s ready before your coffee cools
         </p>
 
         <div className="mt-16">

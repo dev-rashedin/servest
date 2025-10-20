@@ -23,7 +23,7 @@
     @apply text-5xl md:text-7xl font-heading font-bold tracking-wide;
   }
   h2 {
-    @apply text-4xl md:text-6xl font-heading font-semibold tracking-wide;
+    @apply text-4xl md:text-6xl font-heading font-semibold tracking-normal;
   }
 
   h5 {

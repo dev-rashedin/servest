@@ -1,5 +1,6 @@
 import {
   ClientFeedback,
+  ContributeSection,
   FinalCTA,
   Footer,
   Hero,
@@ -15,6 +16,7 @@ export default function HomePage() {
         <WhyServest />
         <HowItWorks />
         <ClientFeedback />
+        <ContributeSection />
         <FinalCTA />
       </section>
       <Footer />
