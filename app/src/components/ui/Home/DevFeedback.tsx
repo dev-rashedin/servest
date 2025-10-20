@@ -5,7 +5,7 @@ import HomeSectionHeading from '../HomeSectionHeading';
 import { TimelineContent } from '../TimelineContent';
 import { revealVariants } from '@/lib/utils';
 
-function ClientFeedback() {
+function DevFeedback() {
   const testimonialRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -230,4 +230,4 @@ function ClientFeedback() {
   );
 }
 
-export default ClientFeedback;
+export default DevFeedback;

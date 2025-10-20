@@ -1,29 +1,8 @@
 'use client';
 import { motion } from 'motion/react';
-import { FaPlug, FaRocket, FaTerminal } from 'react-icons/fa';
 import { useRef } from 'react';
 import HomeSectionHeading from '../HomeSectionHeading';
-
-const steps = [
-  {
-    icon: <FaTerminal size={38} />,
-    title: 'Create',
-    desc: 'Spin up a backend template instantly with your favorite framework.',
-    code: 'npm create servest@latest',
-  },
-  {
-    icon: <FaPlug size={38} />,
-    title: 'Add',
-    desc: 'Add tools like ESLint, Mongoose, or Prisma using a single command.',
-    code: 'npx add servest@latest mongoose',
-  },
-  {
-    icon: <FaRocket size={38} />,
-    title: 'Build',
-    desc: 'Start coding your backend with zero setup — everything’s ready.',
-    code: 'npm run start',
-  },
-];
+import { steps } from '@/data';
 
 function HowItWorks() {
   const howItWorksRef = useRef<HTMLDivElement | null>(null);
@@ -44,12 +23,12 @@ function HowItWorks() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.15, duration: 0.4 }}
             viewport={{ once: true }}
-            className="flex flex-col items-center bg-card-secondary border border-primary rounded-2xl px-6 py-12 shadow-sm"
+            className="flex flex-col items-center bg-card border border-primary rounded-2xl px-6 py-12 shadow-sm"
           >
-            <div className="text-primary mb-4">{step.icon}</div>
-            <h3 className="text-xl md:text-2xl font-semibold mb-2">{step.title}</h3>
-            <p className=" text-muted-foreground mb-4">{step.desc}</p>
-            <code className="bg-muted px-3 py-1 rounded text-sm font-mono">{step.code}</code>
+            <div className="text-primary mb-6">{<step.icon size={40} />}</div>
+            <h4>{step.title}</h4>
+            <p className="lg:text-[16px] text-muted-foreground">{step.desc}</p>
+            <code className="bg-muted mt-8 px-3 py-1 rounded font-mono">{step.code}</code>
           </motion.div>
         ))}
       </div>

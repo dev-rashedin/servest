@@ -31,7 +31,7 @@
   }
 
   h4 {
-    @apply text-xl lg:text-3xl text-muted-foreground mb-8 tracking-normal leading-normal;
+    @apply text-xl lg:text-3xl font-semibold text-muted-foreground mb-8 tracking-normal leading-normal;
   }
 
   h5 {
@@ -71,7 +71,8 @@
     --docs: 60, 100%, 98%;
     --sidebar: 0, 0%, 90%;
     --card: 0 0% 95%;
-    --card-foreground: 0 0% 3.9%;
+    --card-secondary: 0 0% 98%;
+    --card-foreground: 0 0% 6%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
     --primary: 0 0% 9%;
@@ -128,7 +129,8 @@
     --docs: 0, 0%, 8%;
     --sidebar: 0, 0%, 6%;
     --card: 0 0% 5%;
-    --card-foreground: 0 0% 98%;
+    --card-secondary: 0 0% 1%;
+    --card-foreground: 0 0% 99%;
     --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;

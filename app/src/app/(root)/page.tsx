@@ -1,12 +1,12 @@
 import {
-  ClientFeedback,
   ContributeSection,
+  DevFeedback,
   FinalCTA,
   Footer,
   Hero,
   HowItWorks,
   WhyServest,
-} from '@/components/HomePage';
+} from '@/components/HomePageSections';
 
 export default function HomePage() {
   return (
@@ -15,7 +15,7 @@ export default function HomePage() {
         <Hero />
         <WhyServest />
         <HowItWorks />
-        <ClientFeedback />
+        <DevFeedback />
         <ContributeSection />
         <FinalCTA />
       </section>

@@ -1,4 +1,16 @@
-import { FaDiscord, FaGithub } from 'react-icons/fa';
+import {
+  FaBolt,
+  FaCodeBranch,
+  FaCubes,
+  FaDiscord,
+  FaGithub,
+  FaLaptopCode,
+  FaMagic,
+  FaPlug,
+  FaRocket,
+  FaServer,
+  FaTerminal,
+} from 'react-icons/fa';
 import { IoCloseCircleOutline, IoSunnyOutline } from 'react-icons/io5';
 import { FiEdit, FiMoon } from 'react-icons/fi';
 import {
@@ -95,6 +107,60 @@ export const nestedDocsOrder: Record<string, { label: string; items: string[] }[
     // },
   ],
 };
+
+export const features = [
+  {
+    icon: FaBolt,
+    title: 'Instant Scaffolding',
+    desc: 'Spin up production-ready backend templates within seconds — no setup hassle.',
+  },
+  {
+    icon: FaCubes,
+    title: 'Framework Agnostic',
+    desc: 'Supports Express — more frameworks like Nest, Fastify, and Django coming soon.',
+  },
+  {
+    icon: FaCodeBranch,
+    title: 'Addon-Driven',
+    desc: 'Easily add tools like ESLint, Mongoose, or Prisma — just like shadcn for backend utilities.',
+  },
+  {
+    icon: FaMagic,
+    title: 'Developer Experience First',
+    desc: 'Built for simplicity, consistency, and scalability — inspired by create-vite’s speed.',
+  },
+  {
+    icon: FaRocket,
+    title: 'Fast Prototyping',
+    desc: 'Get your backend project running in minutes and iterate rapidly without friction.',
+  },
+  {
+    icon: FaServer,
+    title: 'Production Ready',
+    desc: 'All templates follow best practices and include essential tooling to deploy safely.',
+  },
+];
+
+export const steps = [
+  {
+    icon: FaTerminal,
+    title: 'Create',
+    desc: 'Create a backend project immediately with your framework of choice.',
+    code: 'npm create servest@latest',
+  },
+  {
+    icon: FaPlug,
+    title: 'Add',
+    desc: 'Add tools like ESLint, Mongoose, or Prisma using a single command.',
+    code: 'npx add servest@latest mongoose',
+  },
+  {
+    icon: FaLaptopCode,
+    title: 'Build',
+    desc: 'Start coding your backend with zero setup — everything’s ready.',
+    code: 'npm run start',
+  },
+];
 
 export {
   FaGithub,
