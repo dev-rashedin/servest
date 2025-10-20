@@ -1,7 +1,7 @@
 'use client';
 import { useRef } from 'react';
 import { motion } from 'motion/react';
-import { FaBolt, FaCodeBranch, FaCubes, FaMagic } from 'react-icons/fa';
+import { FaBolt, FaCodeBranch, FaCubes, FaMagic, FaRocket, FaServer } from 'react-icons/fa';
 import HomeSectionHeading from '../HomeSectionHeading';
 
 const features = [
@@ -13,7 +13,7 @@ const features = [
   {
     icon: <FaCubes size={34} />,
     title: 'Framework Agnostic',
-    desc: 'Supports Express and Django now — more frameworks like Nest, Fastify, and Flask coming soon.',
+    desc: 'Supports Express — more frameworks like Nest, Fastify, and Django coming soon.',
   },
   {
     icon: <FaCodeBranch size={34} />,
@@ -25,36 +25,48 @@ const features = [
     title: 'Developer Experience First',
     desc: 'Built for simplicity, consistency, and scalability — inspired by create-vite’s speed.',
   },
+  {
+    icon: <FaRocket size={34} />,
+    title: 'Fast Prototyping',
+    desc: 'Get your backend project running in minutes and iterate rapidly without friction.',
+  },
+  {
+    icon: <FaServer size={34} />,
+    title: 'Production Ready',
+    desc: 'All templates follow best practices and include essential tooling to deploy safely.',
+  },
 ];
 
 function WhyServest() {
   const whyServestRef = useRef<HTMLDivElement | null>(null);
 
   return (
-    <section ref={whyServestRef} className="w-full py-16 boundary rounded-lg text-center">
-      <HomeSectionHeading
-        title="Why Servest?"
-        subtitle="Designed to make backend development fast, clean, and modern"
-        ref={whyServestRef}
-      />
+    <main className="secondary-gradient">
+      <section ref={whyServestRef} className="w-full py-28 boundary rounded-lg text-center">
+        <HomeSectionHeading
+          title="Why Servest?"
+          subtitle="Designed to make backend development fast, clean, and modern"
+          ref={whyServestRef}
+        />
 
-      <div className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-4 px-6 md:px-12">
-        {features.map((feature, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1, duration: 0.4 }}
-            viewport={{ once: true }}
-            className="flex flex-col items-center text-center bg-card-secondary border border-primary rounded-2xl p-6 shadow-sm"
-          >
-            <div className="text-primary mb-4">{feature.icon}</div>
-            <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-            <p className="text-sm text-muted-foreground">{feature.desc}</p>
-          </motion.div>
-        ))}
-      </div>
-    </section>
+        <div className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3 px-6 md:px-12">
+          {features.map((feature, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1, duration: 0.4 }}
+              viewport={{ once: true }}
+              className="flex flex-col items-center text-center bg-card border border-primary rounded-2xl px-6 py-12  shadow"
+            >
+              <div className="text-primary mb-4">{feature.icon}</div>
+              <h4 className="font-semibold">{feature.title}</h4>
+              <p className="text-s text-muted-foreground">{feature.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+    </main>
   );
 }
 
