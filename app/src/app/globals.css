@@ -23,11 +23,22 @@
     @apply text-5xl md:text-7xl font-heading font-bold tracking-wide;
   }
   h2 {
-    @apply text-4xl md:text-6xl font-heading font-semibold tracking-wide;
+    @apply text-4xl md:text-6xl font-heading font-semibold tracking-normal;
+  }
+
+  h3 {
+    @apply text-3xl md:text-5xl font-semibold;
+  }
+
+  h4 {
+    @apply text-xl lg:text-3xl font-semibold text-muted-foreground mb-8 tracking-normal leading-normal;
   }
 
   h5 {
-    @apply md:text-[16px] lg:text-xl font-medium text-muted-foreground  leading-8 lg:leading-9;
+    @apply md:text-[18px] lg:text-[22px] font-medium text-muted-foreground  leading-8 lg:leading-9;
+  }
+  h6 {
+    @apply md:text-[16px] lg:text-[19px] font-medium text-muted-foreground  leading-8;
   }
 
   em {
@@ -59,8 +70,9 @@
     --table-even: 213, 12%, 90%;
     --docs: 60, 100%, 98%;
     --sidebar: 0, 0%, 90%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    --card: 0 0% 95%;
+    --card-secondary: 0 0% 98%;
+    --card-foreground: 0 0% 6%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
     --primary: 0 0% 9%;
@@ -103,7 +115,7 @@
   }
 
   .dark {
-    --background: 0 0% 10%;
+    --background: 0 0% 8%;
     --foreground: 0 0% 98%;
     --radial-bg: radial-gradient(circle at 50% 50%, hsl(221, 63%, 6%) 10%, hsl(221, 100%, 3%) 100%);
     --navbar: 240, 100%, 5%;
@@ -116,8 +128,9 @@
     --link-hover: 200, 100%, 65%;
     --docs: 0, 0%, 8%;
     --sidebar: 0, 0%, 6%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 5%;
+    --card-secondary: 0 0% 1%;
+    --card-foreground: 0 0% 99%;
     --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
@@ -125,7 +138,7 @@
     --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 20%;
-    --muted-foreground: 30, 2%, 89%;
+    --muted-foreground: 30, 2%, 85%;
     --muted-highlight: 30, 2%, 90%;
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
@@ -186,6 +199,10 @@
 
   .primary-gradient {
     @apply bg-gradient-to-br from-[#FACC15] via-[#FFAF45] to-[#FF8225];
+  }
+
+  .secondary-gradient {
+    @apply bg-gradient-to-b from-background  to-muted/30;
   }
 
   .next-previous-btn {

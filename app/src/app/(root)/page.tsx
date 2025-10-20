@@ -1,21 +1,25 @@
 import {
-  ClientFeedback,
+  ContributeSection,
+  DevFeedback,
   FinalCTA,
   Footer,
   Hero,
   HowItWorks,
   WhyServest,
-} from '@/components/HomePage';
+} from '@/components/HomePageSections';
 
 export default function HomePage() {
   return (
-    <main className="space-y-40">
-      <Hero />
-      <WhyServest />
-      <HowItWorks />
-      <ClientFeedback />
-      <FinalCTA />
+    <>
+      <section className="space-y-40">
+        <Hero />
+        <WhyServest />
+        <HowItWorks />
+        <DevFeedback />
+        <ContributeSection />
+        <FinalCTA />
+      </section>
       <Footer />
-    </main>
+    </>
   );
 }
