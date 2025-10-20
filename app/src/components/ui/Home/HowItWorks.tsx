@@ -2,7 +2,7 @@
 import { motion } from 'motion/react';
 import { FaPlug, FaRocket, FaTerminal } from 'react-icons/fa';
 import { useRef } from 'react';
-import HomeSectionHeading from './ui/HomeSectionHeading';
+import HomeSectionHeading from '../HomeSectionHeading';
 
 const steps = [
   {

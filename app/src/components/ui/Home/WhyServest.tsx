@@ -2,7 +2,7 @@
 import { useRef } from 'react';
 import { motion } from 'motion/react';
 import { FaBolt, FaCodeBranch, FaCubes, FaMagic } from 'react-icons/fa';
-import HomeSectionHeading from './ui/HomeSectionHeading';
+import HomeSectionHeading from '../HomeSectionHeading';
 
 const features = [
   {

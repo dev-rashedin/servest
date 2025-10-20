@@ -1,6 +1,11 @@
-import Hero from '@/components/Hero';
-import Footer from '@/components/Footer';
-import { ClientFeedback, HowItWorks, WhyServest } from '@/components/DynamicImport';
+import {
+  ClientFeedback,
+  FinalCTA,
+  Footer,
+  Hero,
+  HowItWorks,
+  WhyServest,
+} from '@/components/HomePage';
 
 export default function HomePage() {
   return (
@@ -9,6 +14,7 @@ export default function HomePage() {
       <WhyServest />
       <HowItWorks />
       <ClientFeedback />
+      <FinalCTA />
       <Footer />
     </main>
   );
