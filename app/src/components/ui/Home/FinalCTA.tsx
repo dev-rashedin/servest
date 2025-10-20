@@ -17,13 +17,11 @@ export default function FinalCTA() {
         <div className="w-24 h-24 mx-auto flex-center mb-24 border border-brand rounded-xl shadow-glow">
           <Image src="/logo.svg" width={60} height={60} alt="logo" />
         </div>
-        <h2 className="text-4xl lg:text-6xl font-semibold mb-8 tracking-normal">
-          Build faster. Launch sooner
-        </h2>
-        <p className="max-w-2xl mx-auto text-lg lg:text-[21px] text-muted-foreground mb-8 tracking-normal leading-relaxed">
+        <h2 className="mb-8">Build faster. Launch sooner</h2>
+        <h4 className="max-w-2xl mx-auto">
           No more setup hassle. No more backend headaches. <br />
-          With Servest, your server’s ready before your coffee cools
-        </p>
+          With Servest, your server is ready before your coffee cools
+        </h4>
 
         <div className="mt-16">
           <Button variant="default" size="lg">

@@ -26,8 +26,19 @@
     @apply text-4xl md:text-6xl font-heading font-semibold tracking-normal;
   }
 
+  h3 {
+    @apply text-3xl md:text-5xl font-semibold;
+  }
+
+  h4 {
+    @apply text-lg lg:text-[21px] text-muted-foreground mb-8 tracking-normal leading-normal;
+  }
+
   h5 {
     @apply md:text-[16px] lg:text-xl font-medium text-muted-foreground  leading-8 lg:leading-9;
+  }
+  h6 {
+    @apply md:text-[16px] lg:text-[19px] font-medium text-muted-foreground  leading-8;
   }
 
   em {
@@ -125,7 +136,7 @@
     --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 20%;
-    --muted-foreground: 30, 2%, 89%;
+    --muted-foreground: 30, 2%, 85%;
     --muted-highlight: 30, 2%, 90%;
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;

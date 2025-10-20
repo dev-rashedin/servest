@@ -10,13 +10,13 @@ interface HomeSectionHeadingProps {
 const HomeSectionHeading = ({ title, subtitle, ref }: HomeSectionHeadingProps) => {
   return (
     <article className="max-w-screen mx-auto text-center space-y-6 mb-16 lg:mb-24">
-      <TimelineContent as="h2" animationNum={0} customVariants={revealVariants} timelineRef={ref}>
+      <TimelineContent as="h3" animationNum={0} customVariants={revealVariants} timelineRef={ref}>
         {title}
       </TimelineContent>
       {subtitle && (
         <TimelineContent
-          as="p"
-          className="mx-auto md:text-lg text-muted-foreground"
+          as="h5"
+          className="mx-auto md:text-xl text-muted-foreground"
           animationNum={1}
           customVariants={revealVariants}
           timelineRef={ref}
