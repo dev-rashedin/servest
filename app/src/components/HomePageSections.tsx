@@ -2,6 +2,7 @@
 import dynamic from 'next/dynamic';
 import Hero from './ui/Home/Hero';
 import Footer from './ui/Home/Footer';
+import LoadingSkeleton from './ui/Home/LoadingSkeleton';
 
 const DevFeedback = dynamic(() => import('@/components/ui/Home/DevFeedback'), {
   loading: () => <div className="text-center py-10">Loading feedback...</div>,
@@ -9,12 +10,12 @@ const DevFeedback = dynamic(() => import('@/components/ui/Home/DevFeedback'), {
 });
 
 const HowItWorks = dynamic(() => import('@/components/ui/Home/HowItWorks'), {
-  loading: () => <div className="text-center py-10">Loading steps...</div>,
+  loading: () => <LoadingSkeleton />,
   ssr: false,
 });
 
 const WhyServest = dynamic(() => import('@/components/ui/Home/WhyServest'), {
-  loading: () => <div className="text-center py-10">Loading features...</div>,
+  loading: () => <LoadingSkeleton />,
   ssr: false,
 });
 const ContributeSection = dynamic(() => import('@/components/ui/Home/ContributeSection'), {

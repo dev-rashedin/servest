@@ -53,6 +53,27 @@
   h6[id] {
     scroll-margin-top: 6rem;
   }
+
+  @keyframes verticalScroll {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-100%);
+    }
+  }
+
+  .scroll-container {
+    height: 75vh;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .scroll-content {
+    display: flex;
+    flex-direction: column;
+    animation: verticalScroll 300s linear infinite;
+  }
 }
 
 @layer base {
@@ -115,9 +136,9 @@
   }
 
   .dark {
-    --background: 0 0% 8%;
+    --background: 0 0% 5%;
     --foreground: 0 0% 98%;
-    --radial-bg: radial-gradient(circle at 50% 50%, hsl(221, 63%, 6%) 10%, hsl(221, 100%, 3%) 100%);
+    --radial-bg: radial-gradient(circle at 50% 50%, hsl(221, 63%, 8%) 10%, hsl(221, 100%, 5%) 100%);
     --navbar: 240, 100%, 5%;
     --footer-bg: 0 0% 1%;
     --brand: 48, 100%, 60%;
