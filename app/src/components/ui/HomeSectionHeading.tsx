@@ -14,13 +14,7 @@ const HomeSectionHeading = ({ title, subtitle, ref }: HomeSectionHeadingProps) =
         {title}
       </TimelineContent>
       {subtitle && (
-        <TimelineContent
-          as="h5"
-          className="mx-auto md:text-xl text-muted-foreground"
-          animationNum={1}
-          customVariants={revealVariants}
-          timelineRef={ref}
-        >
+        <TimelineContent as="h6" animationNum={1} customVariants={revealVariants} timelineRef={ref}>
           {subtitle}
         </TimelineContent>
       )}

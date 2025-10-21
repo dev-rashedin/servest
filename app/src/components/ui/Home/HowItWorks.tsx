@@ -10,12 +10,12 @@ function HowItWorks() {
   return (
     <section ref={howItWorksRef} className="w-full py-16 boundary rounded-lg text-center">
       <HomeSectionHeading
-        title="How It Works"
-        subtitle="Set up your backend in three simple steps"
+        title="Three steps to your next backend"
+        subtitle="Simple, consistent, and lightning-fast experience"
         ref={howItWorksRef}
       />
 
-      <div className="mt-10 grid gap-8 md:grid-cols-3 px-6 md:px-12">
+      <div className="mt-10 grid gap-4 lg:gap-8 md:grid-cols-3">
         {steps.map((step, i) => (
           <motion.div
             key={i}

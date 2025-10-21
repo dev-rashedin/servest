@@ -9,10 +9,10 @@ const Hero = () => {
       <h1 className="mb-5 hover:glow" style={{ lineHeight: '1.1' }}>
         The Ultimate Backend Builder
       </h1>
-      <h5 className="md:max-w-2xl  lg:max-w-3xl">
+      <p className="text-lg lg:text-xl">
         The simplest way to bootstrap backend projects. Generate clean templates, add the tools you
         need, and evolve your stack without friction.
-      </h5>
+      </p>
       <p className="text-sm md:text-base mt-5 text-muted-foreground opacity-85">
         Express templates are available now, more frameworks coming soon!
       </p>

@@ -138,7 +138,11 @@
   .dark {
     --background: 0 0% 5%;
     --foreground: 0 0% 98%;
-    --radial-bg: radial-gradient(circle at 50% 50%, hsl(221, 63%, 8%) 10%, hsl(221, 100%, 5%) 100%);
+    /* --radial-bg: radial-gradient(circle at 50% 50%, hsl(222, 87%, 6%) 10%, hsl(222, 38%, 9%) 100%); */
+
+    --radial-bg: radial-gradient(circle at 50% 50%, hsl(221, 63%, 6%) 10%, hsl(221, 100%, 3%) 100%);
+    /* --radial-bg: radial-gradient(circle at 50% 50%, hsl(221, 55%, 9%) 10%, hsl(221, 45%, 7%) 100%); */
+
     --navbar: 240, 100%, 5%;
     --footer-bg: 0 0% 1%;
     --brand: 48, 100%, 60%;
@@ -223,7 +227,7 @@
   }
 
   .secondary-gradient {
-    @apply bg-gradient-to-b from-background  to-muted/30;
+    @apply bg-gradient-to-b from-muted/40 via-muted/30 to-muted/20;
   }
 
   .next-previous-btn {

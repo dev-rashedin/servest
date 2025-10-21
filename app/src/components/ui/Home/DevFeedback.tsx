@@ -16,11 +16,11 @@ function DevFeedback() {
       <section className="relative boundary rounded-lg overflow-hidden">
         <HomeSectionHeading
           title="Developers Love Servest"
-          subtitle="Here's what developers say about building faster backends with Servest"
+          subtitle="Hear why Servest is becoming the go-to tool for backend projects"
           ref={testimonialRef}
         />
 
-        <div className="lg:grid lg:grid-cols-3 gap-2 flex flex-col w-full pb-4 lg:px-10 px-4">
+        <div className="lg:grid lg:grid-cols-3 gap-2 flex flex-col w-full pb-4 xl:px-10">
           <div className="md:flex lg:flex-col lg:space-y-2 h-full lg:gap-0 gap-2">
             <TimelineContent
               animationNum={0}
