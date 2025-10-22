@@ -58,7 +58,7 @@ export default function DisplayHeadings({ clientHeadings }: { clientHeadings: He
   if (!clientHeadings?.length) return null;
 
   return (
-    <aside className="hidden xl:block fixed right-20 xl:right-48 top-48 w-64">
+    <aside className="hidden xl:block fixed right-[max(calc(50%-45rem),2rem)]   top-48 w-64">
       <div className="relative pl-6">
         {/* Background for the scrollbar */}
         <div className="absolute left-0 top-0 w-[2px] h-full bg-muted" />

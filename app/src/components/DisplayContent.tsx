@@ -40,7 +40,8 @@ const DisplayContent = async ({ endpoint, slug }: Props) => {
               >
                 Discord
               </a>{' '}
-              and{' '}
+              and
+              <br />
               <a
                 className="text-brand underline hover:brightness-105"
                 href="https://github.com/dev-rashedin/servest/discussions"

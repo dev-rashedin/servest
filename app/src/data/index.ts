@@ -122,7 +122,7 @@ export const features = [
   {
     icon: FaCodeBranch,
     title: 'Addon-Driven',
-    desc: 'Easily add tools like ESLint, Mongoose, or Prisma — just like shadcn for backend utilities.',
+    desc: 'Easily add tools like ESLint, Prettier, or Prisma — just like shadcn for backend utilities.',
   },
   {
     icon: FaMagic,

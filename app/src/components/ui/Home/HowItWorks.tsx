@@ -10,12 +10,12 @@ function HowItWorks() {
   return (
     <section ref={howItWorksRef} className="w-full py-16 boundary rounded-lg text-center">
       <HomeSectionHeading
-        title="How It Works"
-        subtitle="Set up your backend in three simple steps"
+        title="Getting started is effortless"
+        subtitle="Simple, consistent, and lightning-fast"
         ref={howItWorksRef}
       />
 
-      <div className="mt-10 grid gap-8 md:grid-cols-3 px-6 md:px-12">
+      <div className="mt-10 grid gap-4 lg:gap-8 md:grid-cols-3">
         {steps.map((step, i) => (
           <motion.div
             key={i}
@@ -23,7 +23,7 @@ function HowItWorks() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.15, duration: 0.4 }}
             viewport={{ once: true }}
-            className="flex flex-col items-center bg-card border border-primary rounded-2xl px-6 py-12 shadow-sm"
+            className="card bg-cardSecondary hover:bg-card"
           >
             <div className="text-primary mb-6">{<step.icon size={40} />}</div>
             <h4>{step.title}</h4>
