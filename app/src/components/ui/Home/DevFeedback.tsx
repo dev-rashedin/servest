@@ -21,18 +21,20 @@ function DevFeedback() {
         />
 
         <div className="lg:grid lg:grid-cols-3 gap-2 flex flex-col w-full pb-4 xl:px-10">
+          {/* first column */}
           <div className="md:flex lg:flex-col lg:space-y-2 h-full lg:gap-0 gap-2">
+            {/* first feedback */}
             <TimelineContent
               animationNum={0}
               customVariants={revealVariants}
               timelineRef={testimonialRef}
-              className="lg:flex-[7] flex-[6] flex flex-col justify-between relative overflow-hidden rounded-lg bg-navbar border-primary p-5"
+              className="lg:flex-[7] flex-[6] flex flex-col justify-between relative overflow-hidden rounded-lg bg-card hover:bg-card-secondary border-primary p-5"
             >
               <div className="absolute bottom-0 left-0 right-0 top-0 grid-line-color"></div>
               <figure>
-                <Image src="/logo.svg" alt="Servest" width={80} height={80} />
+                <Image src="/logo.svg" alt="Servest" width={50} height={50} />
               </figure>
-              <article className="mt-auto">
+              <article className="mt-4">
                 <p>
                   Servest offers real value for teams needing a fast, consistent way to bootstrap
                   backend projects. Inspired by tools like Vite and shadcn/ui, its developer
@@ -40,9 +42,9 @@ function DevFeedback() {
                   bridge a genuine gap in how backend services start today. A cool idea with solid
                   potential.
                 </p>
-                <div className="flex justify-between pt-5">
+                <div className="flex justify-between pt-8">
                   <div>
-                    <h2 className="font-semibold lg:text-xl text-sm">Adriano Raiano</h2>
+                    <h6 className="font-semibold">Adriano Raiano</h6>
                     <p>Creator of i18next, locize & vaultrice</p>
                   </div>
                   <Image
@@ -56,16 +58,17 @@ function DevFeedback() {
               </article>
             </TimelineContent>
 
+            {/* second feedback */}
             <TimelineContent
               animationNum={1}
               customVariants={revealVariants}
               timelineRef={testimonialRef}
-              className="lg:flex-[3] flex-[4] flex flex-col justify-between relative bg-navbar overflow-hidden rounded-lg border-primary p-5"
+              className="lg:flex-[3] flex-[4] flex flex-col justify-between relative bg-card hover:bg-cardSecondary overflow-hidden rounded-lg border-primary p-5"
             >
               <article className="mt-auto">
                 <p>
-                  “We replaced our internal boilerplate generator with Servest. It’s faster,
-                  cleaner, and easier to maintain.”
+                  We replaced our internal boilerplate generator with Servest. It’s faster, cleaner,
+                  and easier to maintain.
                 </p>
                 <div className="flex justify-between pt-5">
                   <div>
@@ -84,17 +87,19 @@ function DevFeedback() {
             </TimelineContent>
           </div>
 
+          {/* second column */}
           <div className="lg:h-full md:flex lg:flex-col h-fit lg:space-y-2 lg:gap-0 gap-2">
+            {/* third feedback */}
             <TimelineContent
               animationNum={2}
               customVariants={revealVariants}
               timelineRef={testimonialRef}
-              className="flex flex-col justify-between relative bg-card overflow-hidden rounded-lg border-primary p-5"
+              className="flex flex-col justify-between relative bg-card hover:bg-cardSecondary overflow-hidden rounded-lg border-primary p-5"
             >
               <article className="mt-auto">
                 <p className="2xl:text-base text-sm">
-                  “Servest Addons feels just like shadcn but for backend tools. Added Mongoose and
-                  ESLint in seconds — brilliant experience.”
+                  Servest Addons feels just like shadcn but for backend tools. Added Mongoose and
+                  ESLint in seconds — brilliant experience.
                 </p>
                 <div className="flex justify-between items-end pt-5">
                   <div>
@@ -112,16 +117,17 @@ function DevFeedback() {
               </article>
             </TimelineContent>
 
+            {/* fourth feedback */}
             <TimelineContent
               animationNum={3}
               customVariants={revealVariants}
               timelineRef={testimonialRef}
-              className="flex flex-col justify-between relative bg-card-secondary overflow-hidden rounded-lg border-primary p-5"
+              className="flex flex-col justify-between relative bg-card hover:bg-cardSecondary overflow-hidden rounded-lg border-primary p-5"
             >
               <article className="mt-auto">
                 <p className="2xl:text-base text-sm">
-                  “The CLI experience is smooth and developer-friendly. Servest feels like
-                  create-vite, but perfectly tuned for backend devs.”
+                  The CLI experience is smooth and developer-friendly. Servest feels like
+                  create-vite, but perfectly tuned for backend devs.
                 </p>
                 <div className="flex justify-between items-end pt-5">
                   <div>
@@ -139,16 +145,17 @@ function DevFeedback() {
               </article>
             </TimelineContent>
 
+            {/* 5th feedback */}
             <TimelineContent
               animationNum={4}
               customVariants={revealVariants}
               timelineRef={testimonialRef}
-              className="flex flex-col justify-between relative bg-card-secondary overflow-hidden rounded-lg border-primary p-5"
+              className="flex flex-col justify-between relative bg-card hover:bg-cardSecondary overflow-hidden rounded-lg border-primary p-5"
             >
               <article className="mt-auto">
                 <p className="2xl:text-base text-sm">
-                  “Adding ESLint, Mongoose, and Prettier used to be tedious. Now, it’s literally one
-                  command with Servest.”
+                  Adding ESLint, Prettier, and Mongoose used to be tedious. Now, it’s literally one
+                  command with Servest and — it even adds the right scripts to your package.json.
                 </p>
                 <div className="flex justify-between items-end pt-5">
                   <div>
@@ -167,17 +174,19 @@ function DevFeedback() {
             </TimelineContent>
           </div>
 
+          {/* third column */}
           <div className="h-full md:flex lg:flex-col lg:space-y-2 lg:gap-0 gap-2">
+            {/* 6th feedback */}
             <TimelineContent
               animationNum={5}
               customVariants={revealVariants}
               timelineRef={testimonialRef}
-              className="lg:flex-[3] flex-[4] flex flex-col justify-between relative bg-navbar overflow-hidden rounded-lg border-primary p-5"
+              className="lg:flex-[3] flex-[4] flex flex-col justify-between relative bg-card hover:bg-cardSecondary overflow-hidden rounded-lg border-primary p-5"
             >
               <article className="mt-auto">
                 <p>
-                  “Servest brings frontend-style DX to the backend world. It’s modern, fast, and
-                  easy to extend.”
+                  Servest brings frontend-style DX to the backend world. It’s modern, fast, and easy
+                  to extend.
                 </p>
                 <div className="flex justify-between pt-5">
                   <div>
@@ -195,23 +204,24 @@ function DevFeedback() {
               </article>
             </TimelineContent>
 
+            {/* 7th feedback */}
             <TimelineContent
               animationNum={6}
               customVariants={revealVariants}
               timelineRef={testimonialRef}
-              className="lg:flex-[7] flex-[6] flex flex-col justify-between relative bg-navbar overflow-hidden rounded-lg border-primary p-5"
+              className="lg:flex-[7] flex-[6] flex flex-col justify-between relative bg-card hover:bg-cardSecondary overflow-hidden rounded-lg border-primary p-5"
             >
               <div className="absolute bottom-0 left-0 right-0 top-0 grid-line-color"></div>
               <figure>
-                <Image src="/logo.svg" alt="Servest" width={80} height={80} />
+                <Image src="/logo.svg" alt="Servest" width={60} height={60} />
               </figure>
               <article className="mt-auto">
                 <p>
-                  “Servest is honestly awesome! The idea of a next-gen backend starter with instant
+                  Servest is honestly awesome! The idea of a next-gen backend starter with instant
                   setup and CLI addons is super cool. Love how it’s modular, typed, and easy to use.
-                  The Express templates are a great start too. This has real potential!”
+                  The Express templates are a great start too. This has real potential!
                 </p>
-                <div className="flex justify-between pt-5">
+                <div className="flex justify-between pt-8">
                   <div>
                     <h2 className="font-semibold lg:text-xl text-sm">Rocky Haque</h2>
                     <p>CTO at Programming-Fighter</p>

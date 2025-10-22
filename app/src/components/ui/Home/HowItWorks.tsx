@@ -23,7 +23,7 @@ function HowItWorks() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.15, duration: 0.4 }}
             viewport={{ once: true }}
-            className="flex flex-col items-center bg-card border border-primary rounded-2xl px-6 py-12 shadow-sm"
+            className="card bg-cardSecondary hover:bg-card"
           >
             <div className="text-primary mb-6">{<step.icon size={40} />}</div>
             <h4>{step.title}</h4>

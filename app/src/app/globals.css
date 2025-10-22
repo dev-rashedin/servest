@@ -41,6 +41,10 @@
     @apply md:text-[16px] lg:text-[19px] font-medium text-muted-foreground  leading-8;
   }
 
+  p {
+    @apply text-[15px]  tracking-normal text-muted-foreground;
+  }
+
   em {
     @apply border rounded-full px-4 py-1.5 mb-3 text-xs lg:text-sm text-muted-foreground;
   }
@@ -74,6 +78,10 @@
     flex-direction: column;
     animation: verticalScroll 300s linear infinite;
   }
+
+  .card {
+    @apply flex flex-col items-center text-center rounded-2xl px-6 py-10 shadow;
+  }
 }
 
 @layer base {
@@ -91,9 +99,9 @@
     --table-even: 213, 12%, 90%;
     --docs: 60, 100%, 98%;
     --sidebar: 0, 0%, 90%;
-    --card: 0 0% 95%;
+    --card: 60, 100%, 99%;
     --card-secondary: 0 0% 98%;
-    --card-foreground: 0 0% 6%;
+    --card-foreground: 0 0% 10%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
     --primary: 0 0% 9%;
@@ -141,7 +149,6 @@
     /* --radial-bg: radial-gradient(circle at 50% 50%, hsl(222, 87%, 6%) 10%, hsl(222, 38%, 9%) 100%); */
 
     --radial-bg: radial-gradient(circle at 50% 50%, hsl(221, 63%, 6%) 10%, hsl(221, 100%, 3%) 100%);
-    /* --radial-bg: radial-gradient(circle at 50% 50%, hsl(221, 55%, 9%) 10%, hsl(221, 45%, 7%) 100%); */
 
     --navbar: 240, 100%, 5%;
     --footer-bg: 0 0% 1%;
@@ -153,9 +160,9 @@
     --link-hover: 200, 100%, 65%;
     --docs: 0, 0%, 8%;
     --sidebar: 0, 0%, 6%;
-    --card: 0 0% 5%;
-    --card-secondary: 0 0% 1%;
-    --card-foreground: 0 0% 99%;
+    --card: 240, 100%, 4%;
+    --card-secondary: 240, 100%, 0%;
+    --card-foreground: 0 0% 95%;
     --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
@@ -163,7 +170,7 @@
     --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 20%;
-    --muted-foreground: 30, 2%, 85%;
+    --muted-foreground: 30, 2%, 86%;
     --muted-highlight: 30, 2%, 90%;
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
@@ -192,7 +199,7 @@
     }
 
     .border-primary {
-      border: 1px solid hsl(0, 0%, 20%);
+      @apply border border-[hsl(240,100%,10%)] hover:border-[hsl(240,100%,15%)];
     }
   }
 }
@@ -235,7 +242,7 @@
   }
 
   .p {
-    @apply text-sm  leading-loose;
+    @apply text-sm  leading-loose text-muted-foreground;
   }
 
   .prose {
@@ -264,7 +271,7 @@
     background:
       linear-gradient(to right, rgba(152, 158, 169, 0.2) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(151, 157, 164, 0.2) 1px, transparent 1px);
-    background-size: 50px 56px;
-    mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 70%, transparent 120%);
+    background-size: 50px 46px;
+    mask-image: radial-gradient(ellipse 80% 30% at 50% 0%, #000 70%, transparent 120%);
   }
 }
