@@ -26,7 +26,7 @@ function DevFeedback() {
               animationNum={0}
               customVariants={revealVariants}
               timelineRef={testimonialRef}
-              className="lg:flex-[7] flex-[6] flex flex-col justify-between relative overflow-hidden rounded-lg border-primary p-5"
+              className="lg:flex-[7] flex-[6] flex flex-col justify-between relative overflow-hidden rounded-lg bg-navbar border-primary p-5"
             >
               <div className="absolute bottom-0 left-0 right-0 top-0 grid-line-color"></div>
               <figure>
@@ -34,18 +34,20 @@ function DevFeedback() {
               </figure>
               <article className="mt-auto">
                 <p>
-                  “Servest is honestly awesome! The idea of a next-gen backend starter with instant
-                  setup and CLI addons is super cool. Love how it’s modular, typed, and easy to use.
-                  The Express templates are a great start too. This has real potential!”
+                  Servest offers real value for teams needing a fast, consistent way to bootstrap
+                  backend projects. Inspired by tools like Vite and shadcn/ui, its developer
+                  experience is clear and intuitive. The clean CLI and backend “addons” system
+                  bridge a genuine gap in how backend services start today. A cool idea with solid
+                  potential.
                 </p>
                 <div className="flex justify-between pt-5">
                   <div>
-                    <h2 className="font-semibold lg:text-xl text-sm">Rocky Haque</h2>
-                    <p>CTO at Programming-Fighter</p>
+                    <h2 className="font-semibold lg:text-xl text-sm">Adriano Raiano</h2>
+                    <p>Creator of i18next, locize & vaultrice</p>
                   </div>
                   <Image
-                    src="/devs/Rocky.jpg"
-                    alt="Rocky Haque"
+                    src="/devs/Adriano.jpg"
+                    alt="Adriano Raiano"
                     width={64}
                     height={64}
                     className="w-16 h-16 rounded-xl object-cover"
@@ -58,7 +60,7 @@ function DevFeedback() {
               animationNum={1}
               customVariants={revealVariants}
               timelineRef={testimonialRef}
-              className="lg:flex-[3] flex-[4] flex flex-col justify-between relative bg-blue-600 text-white overflow-hidden rounded-lg border-primary p-5"
+              className="lg:flex-[3] flex-[4] flex flex-col justify-between relative bg-navbar overflow-hidden rounded-lg border-primary p-5"
             >
               <article className="mt-auto">
                 <p>
@@ -87,7 +89,7 @@ function DevFeedback() {
               animationNum={2}
               customVariants={revealVariants}
               timelineRef={testimonialRef}
-              className="flex flex-col justify-between relative bg-card-secondary overflow-hidden rounded-lg border-primary p-5"
+              className="flex flex-col justify-between relative bg-card overflow-hidden rounded-lg border-primary p-5"
             >
               <article className="mt-auto">
                 <p className="2xl:text-base text-sm">
@@ -170,7 +172,7 @@ function DevFeedback() {
               animationNum={5}
               customVariants={revealVariants}
               timelineRef={testimonialRef}
-              className="lg:flex-[3] flex-[4] flex flex-col justify-between relative bg-blue-600 text-white overflow-hidden rounded-lg border-primary p-5"
+              className="lg:flex-[3] flex-[4] flex flex-col justify-between relative bg-navbar overflow-hidden rounded-lg border-primary p-5"
             >
               <article className="mt-auto">
                 <p>
@@ -197,7 +199,7 @@ function DevFeedback() {
               animationNum={6}
               customVariants={revealVariants}
               timelineRef={testimonialRef}
-              className="lg:flex-[7] flex-[6] flex flex-col justify-between relative bg-primaryColor overflow-hidden rounded-lg border-primary p-5"
+              className="lg:flex-[7] flex-[6] flex flex-col justify-between relative bg-navbar overflow-hidden rounded-lg border-primary p-5"
             >
               <div className="absolute bottom-0 left-0 right-0 top-0 grid-line-color"></div>
               <figure>
@@ -205,17 +207,18 @@ function DevFeedback() {
               </figure>
               <article className="mt-auto">
                 <p>
-                  “Servest unified our entire backend scaffolding process. It’s like Vite and shadcn
-                  had a backend baby.”
+                  “Servest is honestly awesome! The idea of a next-gen backend starter with instant
+                  setup and CLI addons is super cool. Love how it’s modular, typed, and easy to use.
+                  The Express templates are a great start too. This has real potential!”
                 </p>
                 <div className="flex justify-between pt-5">
                   <div>
-                    <h2 className="font-semibold text-xl">Jonathan Hudson</h2>
-                    <p>Lead Developer at RapidBase</p>
+                    <h2 className="font-semibold lg:text-xl text-sm">Rocky Haque</h2>
+                    <p>CTO at Programming-Fighter</p>
                   </div>
                   <Image
-                    src="/devs/dev7.png"
-                    alt="Jonathan"
+                    src="/devs/Rocky.jpg"
+                    alt="Rocky Haque"
                     width={64}
                     height={64}
                     className="w-16 h-16 rounded-xl object-cover"

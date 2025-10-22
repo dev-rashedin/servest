@@ -10,8 +10,8 @@ function HowItWorks() {
   return (
     <section ref={howItWorksRef} className="w-full py-16 boundary rounded-lg text-center">
       <HomeSectionHeading
-        title="Three steps to your next backend"
-        subtitle="Simple, consistent, and lightning-fast experience"
+        title="Getting started is effortless"
+        subtitle="Simple, consistent, and lightning-fast"
         ref={howItWorksRef}
       />
 
