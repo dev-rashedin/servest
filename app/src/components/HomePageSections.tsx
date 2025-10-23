@@ -5,7 +5,7 @@ import Footer from './ui/Home/Footer';
 import LoadingSkeleton from './ui/Home/LoadingSkeleton';
 
 const DevFeedback = dynamic(() => import('@/components/ui/Home/DevFeedback'), {
-  loading: () => <div className="text-center py-10">Loading feedback...</div>,
+  loading: () => <LoadingSkeleton />,
   ssr: false,
 });
 
@@ -19,11 +19,11 @@ const WhyServest = dynamic(() => import('@/components/ui/Home/WhyServest'), {
   ssr: false,
 });
 const ContributeSection = dynamic(() => import('@/components/ui/Home/ContributeSection'), {
-  loading: () => <div className="text-center py-10">Loading features...</div>,
+  loading: () => <LoadingSkeleton />,
   ssr: false,
 });
 const FinalCTA = dynamic(() => import('@/components/ui/Home/FinalCTA'), {
-  loading: () => <div className="text-center py-10">Loading features...</div>,
+  loading: () => <LoadingSkeleton />,
   ssr: false,
 });
 

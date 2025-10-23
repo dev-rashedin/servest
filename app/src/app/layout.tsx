@@ -6,8 +6,8 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ThemeProvider } from '@/components/theme/theme-provider';
 
-const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '700'] });
-const inter = Inter({ subsets: ['latin'], weight: ['400', '700'] });
+const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '700'], display: 'swap' });
+const inter = Inter({ subsets: ['latin'], weight: ['400', '700'], display: 'swap' });
 
 export const metadata: Metadata = {
   title: 'Servest – The Ultimate Backend Starter & Addon Toolkit',

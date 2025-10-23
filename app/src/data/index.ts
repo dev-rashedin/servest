@@ -152,7 +152,7 @@ export const steps = [
     icon: FaPlug,
     title: 'Add',
     desc: 'Add tools like ESLint, Mongoose, or Prisma using a single command.',
-    code: 'npx add servest@latest mongoose',
+    code: 'npx servest@latest add mongoose',
   },
   {
     icon: FaLaptopCode,
