@@ -13,8 +13,6 @@ const LeftSidebar = ({ links, type, nestedLinks }: DrawerProps) => {
   const { sidebarOpen, setSidebarOpen } = useSidebar();
   const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({ Express: true });
 
-  console.log('openCategories', openCategories);
-
   return (
     <aside
       className={`h-screen pl-8 lg:pl-12 xl:pl-24 pt-6 lg:pt-0 fixed w-full lg:w-[25%] xl:w-[20%] overflow-y-auto ${sidebarOpen ? 'flex flex-col' : 'hidden lg:flex lg:flex-col'}`}
@@ -62,7 +60,7 @@ const LeftSidebar = ({ links, type, nestedLinks }: DrawerProps) => {
 
       {/* nested nav items */}
       {pathname.includes('/guide') && nestedLinks && (
-        <section className="ml-3">
+        <section className="ml-6 md:ml-9 lg:ml-3">
           {nestedLinks!.map((cat, idx) => (
             <div key={cat.label}>
               {/* Category label */}

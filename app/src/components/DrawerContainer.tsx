@@ -3,7 +3,7 @@ import React from 'react';
 import { useSidebar } from './SidebarToggleContext';
 import LeftSidebar from '@/components/LeftSidebar';
 
-function Drawers({ links, type }: DrawerProps) {
+function Drawers({ links, type, nestedLinks }: DrawerProps) {
   const { sidebarOpen, setSidebarOpen, rightSidebarOpen, setRightSidebarOpen } = useSidebar();
 
   return (
@@ -21,7 +21,7 @@ function Drawers({ links, type }: DrawerProps) {
           }`}
           onClick={(e) => e.stopPropagation()}
         >
-          <LeftSidebar links={links} type={type} />
+          <LeftSidebar links={links} type={type} nestedLinks={nestedLinks} />
         </div>
       </div>
 
@@ -51,12 +51,13 @@ function Drawers({ links, type }: DrawerProps) {
 export default function DrawerContainer({
   links,
   type,
+  nestedLinks,
   children,
 }: DrawerProps & { children: React.ReactNode }) {
   return (
     <>
       {children}
-      <Drawers links={links} type={type} />
+      <Drawers links={links} type={type} nestedLinks={nestedLinks} />
     </>
   );
 }

@@ -17,7 +17,7 @@ export default function GuideLayout({ children }: { children: ReactNode }) {
 
       {/* content area */}
       <div className="docs-content relative">
-        <DrawerContainer links={links} type="guide">
+        <DrawerContainer links={links} type="guide" nestedLinks={nestedLinks}>
           <MotionWrapper>{children}</MotionWrapper>
         </DrawerContainer>
       </div>
