@@ -21,7 +21,11 @@ const Hero = () => {
           <Link href="/guide">Get Started</Link>
         </Button>
         <Button variant="outline" size="lg">
-          <Link href="/https://github.com/dev-rashedin-servest" className="flex-center gap-2">
+          <Link
+            href="https://github.com/dev-rashedin/servest"
+            target="_blank"
+            className="flex-center gap-2"
+          >
             <FaGithub style={{ height: '1.2em', width: '1.2em' }} />
             GitHub
           </Link>
