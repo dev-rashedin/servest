@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { ThemeSwitcher } from '../theme/theme-switcher';
 import Socials from './SocialLinks';
-import NavLink from './NavLinks';
+import NavLink from './Navlinks';
 import { IoCloseCircleOutline, RiMenu3Fill } from '@/data';
 
 export default function MobileMenu() {
