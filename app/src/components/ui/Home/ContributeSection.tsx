@@ -1,7 +1,7 @@
 'use client';
 import { motion } from 'motion/react';
 import Link from 'next/link';
-import { Button } from '../Button';
+import { Button } from '../CustomButton';
 import { FaGithub } from '@/data';
 
 export default function ContributeSection() {

@@ -2,7 +2,7 @@
 import { motion } from 'motion/react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Button } from '../Button';
+import { Button } from '../CustomButton';
 
 export default function FinalCTA() {
   return (

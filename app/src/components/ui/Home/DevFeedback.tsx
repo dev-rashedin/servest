@@ -72,7 +72,7 @@ function DevFeedback() {
                 </p>
                 <div className="flex justify-between pt-5">
                   <div>
-                    <h2 className="font-semibold text-xl">Nina Tokuda</h2>
+                    <h6 className="font-semibold">Nina Tokuda</h6>
                     <p>Fullstack Developer at NodeCrew</p>
                   </div>
                   <Image
@@ -97,14 +97,14 @@ function DevFeedback() {
               className="flex flex-col justify-between relative bg-card hover:bg-cardSecondary overflow-hidden rounded-lg border-primary p-5"
             >
               <article className="mt-auto">
-                <p className="2xl:text-base text-sm">
+                <p>
                   Servest Addons feels just like shadcn but for backend tools. Added Mongoose and
                   ESLint in seconds — brilliant experience.
                 </p>
                 <div className="flex justify-between items-end pt-5">
                   <div>
-                    <h2 className="font-semibold lg:text-xl text-lg">Liam O’Connor</h2>
-                    <p className="lg:text-base text-sm">CTO at StackMotion</p>
+                    <h6 className="font-semibold">Liam O’Connor</h6>
+                    <p>CTO at StackMotion</p>
                   </div>
                   <Image
                     src="/devs/dev3.jpg"
@@ -125,14 +125,14 @@ function DevFeedback() {
               className="flex flex-col justify-between relative bg-card hover:bg-cardSecondary overflow-hidden rounded-lg border-primary p-5"
             >
               <article className="mt-auto">
-                <p className="2xl:text-base text-sm">
+                <p>
                   The CLI experience is smooth and developer-friendly. Servest feels like
                   create-vite, but perfectly tuned for backend devs.
                 </p>
                 <div className="flex justify-between items-end pt-5">
                   <div>
-                    <h2 className="font-semibold lg:text-xl text-lg">Elena Grayson</h2>
-                    <p className="lg:text-base text-sm">API Engineer at NovaTech</p>
+                    <h6 className="font-semibold">Elena Grayson</h6>
+                    <p>API Engineer at NovaTech</p>
                   </div>
                   <Image
                     src="/devs/dev4.jpg"
@@ -153,14 +153,14 @@ function DevFeedback() {
               className="flex flex-col justify-between relative bg-card hover:bg-cardSecondary overflow-hidden rounded-lg border-primary p-5"
             >
               <article className="mt-auto">
-                <p className="2xl:text-base text-sm">
+                <p>
                   Adding ESLint, Prettier, and Mongoose used to be tedious. Now, it’s literally one
                   command with Servest and — it even adds the right scripts to your package.json.
                 </p>
                 <div className="flex justify-between items-end pt-5">
                   <div>
-                    <h2 className="font-semibold lg:text-xl text-lg">William Smith</h2>
-                    <p className="lg:text-base text-sm">Backend Developer at APIGrid</p>
+                    <h6 className="font-semibold">William Smith</h6>
+                    <p>Backend Developer at APIGrid</p>
                   </div>
                   <Image
                     src="/devs/dev6.jpg"
@@ -190,7 +190,7 @@ function DevFeedback() {
                 </p>
                 <div className="flex justify-between pt-5">
                   <div>
-                    <h2 className="font-semibold text-xl">Sarah Lin</h2>
+                    <h6 className="font-semibold">Sarah Lin</h6>
                     <p>Software Engineer at Craftify</p>
                   </div>
                   <Image
@@ -223,7 +223,7 @@ function DevFeedback() {
                 </p>
                 <div className="flex justify-between pt-8">
                   <div>
-                    <h2 className="font-semibold lg:text-xl text-sm">Rocky Haque</h2>
+                    <h6 className="font-semibold">Rocky Haque</h6>
                     <p>CTO at Programming-Fighter</p>
                   </div>
                   <Image

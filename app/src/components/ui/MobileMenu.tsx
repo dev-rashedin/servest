@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { ThemeSwitcher } from '../theme/theme-switcher';
-import Socials from './socials';
-import NavLink from './Navlinks';
+import Socials from './SocialLinks';
+import NavLink from './NavLinks';
 import { IoCloseCircleOutline, RiMenu3Fill } from '@/data';
 
 export default function MobileMenu() {

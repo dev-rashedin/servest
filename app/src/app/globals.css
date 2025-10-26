@@ -27,22 +27,22 @@
   }
 
   h3 {
-    @apply text-3xl md:text-5xl font-semibold;
+    @apply text-4xl md:text-5xl font-semibold;
   }
 
   h4 {
-    @apply text-xl lg:text-3xl font-semibold text-muted-foreground mb-8 tracking-normal leading-normal;
+    @apply text-2xl md:text-3xl font-semibold text-muted-foreground mb-8 tracking-normal leading-normal;
   }
 
   h5 {
-    @apply md:text-[18px] lg:text-[22px] font-medium text-muted-foreground  leading-8 lg:leading-9;
+    @apply text-[18px] md:text-[20px] font-medium text-muted-foreground  leading-8 lg:leading-9;
   }
   h6 {
-    @apply md:text-[16px] lg:text-[19px] font-medium text-muted-foreground  leading-8;
+    @apply text-[16px] md:text-[18px] font-medium text-muted-foreground  leading-8;
   }
 
   p {
-    @apply text-[15px]  tracking-normal text-muted-foreground;
+    @apply text-[14px] md:text-[15px]  tracking-normal text-muted-foreground;
   }
 
   em {

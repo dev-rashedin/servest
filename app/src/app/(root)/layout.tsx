@@ -1,5 +1,5 @@
 import React from 'react';
-import { Spotlight } from '@/components/ui/spotlight-new';
+import { Spotlight } from '@/components/ui/SpotlightNew';
 import Navbar from '@/components/Navbar';
 
 export default function HomeLayout({
