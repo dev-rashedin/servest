@@ -67,17 +67,17 @@ function DevFeedback() {
             >
               <article className="mt-auto">
                 <p>
-                  We replaced our internal boilerplate generator with Servest. It’s faster, cleaner,
-                  and easier to maintain.
+                  It is a great project. This Open Source project would certainly help developers to
+                  get started with their projects smartly and quickly. Good work!
                 </p>
                 <div className="flex justify-between pt-5">
                   <div>
-                    <h6 className="font-semibold">Nina Tokuda</h6>
-                    <p>Fullstack Developer at NodeCrew</p>
+                    <h6 className="font-semibold">Tapas Adhikary</h6>
+                    <p>CEO, CreoWis | Teacher, tapaScript</p>
                   </div>
                   <Image
-                    src="/devs/dev1.jpg"
-                    alt="Nina Tokuda"
+                    src="/devs/Tapas.png"
+                    alt="Tapas Adhikary"
                     width={64}
                     height={64}
                     className="w-16 h-16 rounded-xl object-cover"
