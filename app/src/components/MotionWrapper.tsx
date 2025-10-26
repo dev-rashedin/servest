@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
 import { motion } from 'motion/react';
 import Navbar from './Navbar';
-import SecondaryNav from './ui/secondary-nav';
+import SecondaryNav from './ui/SecondaryNav';
 
 export default function MotionWrapper({ children }: { children: ReactNode }) {
   const pathname = usePathname();

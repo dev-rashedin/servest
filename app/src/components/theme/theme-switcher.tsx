@@ -3,7 +3,7 @@
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { FiMoon, IoSunnyOutline } from '@/data';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/CustomButton';
 
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();

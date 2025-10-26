@@ -2,8 +2,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import Logo from './ui/logo';
-import HeaderFrame from './ui/header-frame';
+import Logo from './ui/ServestLogo';
+import HeaderFrame from './ui/HeaderFrame';
 import { useSidebar } from './SidebarToggleContext';
 import AnimatedBorder from './ui/AnimatedBorder';
 import { RiArrowRightDoubleFill } from '@/data';

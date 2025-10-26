@@ -1,9 +1,9 @@
 import { ThemeSwitcher } from './theme/theme-switcher';
-import NavLink from './ui/Navlinks';
+import NavLink from './ui/NavLinks';
 import MobileMenu from './ui/MobileMenu';
-import Socials from './ui/socials';
-import Logo from './ui/logo';
-import HeaderFrame from './ui/header-frame';
+import Socials from './ui/SocialLinks';
+import Logo from './ui/ServestLogo';
+import HeaderFrame from './ui/HeaderFrame';
 
 const Navbar = ({ type = 'home' }: { type: string }) => {
   return (
