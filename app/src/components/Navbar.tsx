@@ -1,5 +1,5 @@
 import { ThemeSwitcher } from './theme/theme-switcher';
-import NavLink from './ui/NavLinks';
+import NavLink from './ui/Navlinks';
 import MobileMenu from './ui/MobileMenu';
 import Socials from './ui/SocialLinks';
 import Logo from './ui/ServestLogo';
