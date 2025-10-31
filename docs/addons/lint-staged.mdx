@@ -1,0 +1,110 @@
+# Lint-Staged Addon
+
+The `Lint-Staged` addon in **Servest** automates pre-commit checks to ensure only properly formatted and linted code is committed.  
+It integrates **lint-staged** and **simple-git-hooks**, adding an efficient Git hook setup that runs your linters and formatters only on changed files.
+
+---
+
+## How It Works
+
+When you run:
+
+```bash
+npx servest@latest add lint-staged
+```
+
+Servest will:
+
+1. **Check the framework**  
+   Ensures your project uses a supported Node.js framework. If not, the operation is canceled.
+
+2. Detect whether your project uses **JavaScript** or **TypeScript**, and automatically adjusts file configurations if required.
+
+3. **Install Required Packages** using your selected package manager (`npm`, `pnpm`, `yarn`, or `bun`).
+
+   Packages installed (with versions):
+   - `lint-staged`
+   - `simple-git-hooks`
+
+4. **Add `postinstall` Script**
+   - Adds a `postinstall` script to your `package.json` if not already present:
+     ```json
+     "scripts": {
+       "postinstall": "simple-git-hooks"
+     }
+     ```
+
+5. **Configure Git Hooks**
+   - Adds a `simple-git-hooks` configuration that triggers `lint-staged` before every commit:
+     ```json
+     "simple-git-hooks": {
+       "pre-commit": "npm exec lint-staged -- --concurrent false"
+     }
+     ```
+
+6. **Add Lint-Staged Rules**
+   - Adds a default configuration for Prettier to run automatically on all staged files:
+     ```json
+     "lint-staged": {
+       "*": ["prettier --write --cache --ignore-unknown"]
+     }
+     ```
+
+7. **Confirm Setup**  
+   Once complete, Servest logs:
+   - ✅ Added `postinstall` script
+   - ✅ Updated `package.json` with `simple-git-hooks` and `lint-staged` configs
+   - 🎉 Lint-Staged setup completed!
+
+---
+
+## Example
+
+After adding **Lint-Staged** to your backend project:
+
+```bash
+src/
+  app/
+  server/
+.eslintrc.js (if ESLint is added)
+.prettierrc (if Prettier is added)
+package.json (postinstall, lint-staged, and git hooks added)
+```
+
+Your `package.json` will include:
+
+```json
+{
+  "scripts": {
+    "postinstall": "simple-git-hooks"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npm exec lint-staged -- --concurrent false"
+  },
+  "lint-staged": {
+    "*": ["prettier --write --cache --ignore-unknown"]
+  }
+}
+```
+
+This ensures that every time you commit, Prettier automatically formats your changed files — keeping your code clean and consistent across the team.
+
+---
+
+## Notes
+
+- Automatically detects your package manager (`npm`, `pnpm`, `yarn`, or `bun`).
+- Safely re-runnable — won’t duplicate existing configs or scripts.
+- Ensures consistent, formatted commits by running Prettier and linters before each commit.
+- Integrates perfectly with **ESLint** and **Prettier** addons for a complete workflow.
+
+---
+
+## Why It Matters
+
+- **Automates code formatting** → No need to manually run Prettier before each commit.
+- **Prevents bad commits** → Stops unformatted or invalid code before entering your repo.
+- **Ensures team consistency** → Everyone commits code that follows the same formatting rules.
+- **Zero setup hassle** → Adds and configures everything automatically inside your `package.json`.
+
+---

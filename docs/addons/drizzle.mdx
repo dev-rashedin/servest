@@ -81,15 +81,20 @@ export const users = sqliteTable('users', {
 - Supports both JavaScript and TypeScript environments.
 - Easily extendable to PostgreSQL or MySQL by changing the client adapter.
 - Automatically adds Drizzle commands to your package scripts for smooth developer experience.
-
----
-
-## Next Steps
-
-After running the command, you can:
-
 - Modify `schema.ts` to define your actual tables.
 - Run `npm run drizzle:generate` to generate migrations.
 - Import and use `client` from anywhere in your app to query the database.
 
-That's it — your Drizzle ORM setup is ready!
+---
+
+## Why It Matters
+
+- Instant productivity → get a working database layer in seconds.
+
+- Type safety → full TypeScript support for schema and queries.
+
+- Flexibility → works with SQLite, PostgreSQL, or MySQL.
+
+- Clean separation → keeps database logic under src/db for better maintainability.
+
+- Low learning curve → ready-to-use setup for both beginners and experienced backend developers.

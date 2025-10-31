@@ -79,6 +79,7 @@ export const docsOrder: Record<string, string[]> = {
     'mongoose',
     'prisma',
     'drizzle',
+    'lint-staged',
   ],
 };
 

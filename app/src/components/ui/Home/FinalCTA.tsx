@@ -6,7 +6,7 @@ import { Button } from '../CustomButton';
 
 export default function FinalCTA() {
   return (
-    <section className="min-h-[80vh] flex-center text-center secondary-gradient">
+    <section className="min-h-[75vh]  flex-center text-center secondary-gradient">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

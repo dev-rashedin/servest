@@ -13,7 +13,7 @@ function DevFeedback() {
       ref={testimonialRef}
       className="min-h-screen flex-center bg-gradient-to-b from-background to-muted/30"
     >
-      <section className="relative boundary rounded-lg overflow-hidden">
+      <section className="relative boundary rounded-lg overflow-hidden py-16">
         <HomeSectionHeading
           title="Developers Love Servest"
           subtitle="Hear why Servest is becoming the go-to tool for backend projects"
