@@ -9,7 +9,7 @@ interface HomeSectionHeadingProps {
 
 const HomeSectionHeading = ({ title, subtitle, ref }: HomeSectionHeadingProps) => {
   return (
-    <article className="max-w-screen mx-auto text-center space-y-6 mb-16 lg:mb-24">
+    <article className="max-w-screen mx-auto text-center space-y-6 mb-16 lg:mb-20">
       <TimelineContent as="h3" animationNum={0} customVariants={revealVariants} timelineRef={ref}>
         {title}
       </TimelineContent>
