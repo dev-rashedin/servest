@@ -45,7 +45,7 @@ function DevFeedback() {
                 <div className="flex justify-between pt-8">
                   <div>
                     <h6 className="font-semibold">Adriano Raiano</h6>
-                    <p>Creator of i18next, locize & vaultrice</p>
+                    <p>Creator of i18next & locize</p>
                   </div>
                   <Image
                     src="/devs/Adriano.jpg"
