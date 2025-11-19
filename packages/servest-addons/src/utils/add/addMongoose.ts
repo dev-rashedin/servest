@@ -155,7 +155,8 @@ export async function addMongoose({
     console.log(yellow('👍 Could not find src/server or src/app to inject connectDB call.'));
   }
 
-  // console.log(green(`🎉 Mongoose setup completed!, please import the MONGO_URI inside ${configDir}/connectDB.${isTypeScript ? 'ts' : 'js'}`));
-
-  console.log('🎉 Mongoose setup completed!');
+  console.log(
+    yellow(`⚠️  Please setup the MONGO_URI in config/connectDB.${isTypeScript ? 'ts' : 'js'}`),
+  );
+  console.log(green('🎉 Mongoose setup completed!'));
 }
