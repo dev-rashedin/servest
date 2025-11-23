@@ -6,7 +6,7 @@
   "author": "Rashedin Islam <https://www.rashedin.dev>",
   "description": "Add optional backend files and features to any project — ESLint, Prettier, Mongoose, and more.",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "bin": {
     "servest": "index.js",
