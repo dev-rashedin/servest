@@ -5,19 +5,15 @@
   "author": "",
   "description": "",
   "scripts": {
-    "start": "nodemon ./src/server.js",
+    "start": "node --env-file=.env --watch src/server.js",
     "start:prod": "node ./src/server.js"
   },
   "keywords": [],
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "express-error-toolkit": "^1.2.1",
     "http-status-toolkit": "^2.0.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.10"
   }
 }
