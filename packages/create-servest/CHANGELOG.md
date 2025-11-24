@@ -2,6 +2,28 @@
 
 All notable changes to **create-servest** will be documented here.
 
+## [2.0.0] - 2025-11-24
+
+### Major Changes
+- **Dropped support for Node 18**  
+  - Minimum required Node version is now **20+**.  
+  - Enables use of native features like `--env-file` and `node --watch`.
+
+- **Removed `dotenv` from all Express templates**  
+  - Now relying entirely on Node’s native environment variable loader.  
+  - No more `dotenv.config()` needed.
+
+### Developer Experience Improvements
+- **`.env.example` is now automatically copied to `.env`** during project creation  
+  - Ensures templates start without errors on first run.  
+  - Keeps the standard `.env.example` convention intact.
+
+### Internal Updates
+- Updated package metadata and Node engine constraints  
+- General cleanup and consistency improvements across all Express templates
+
+
+
 ## [1.2.2] – 2025-10-19
 
 ### Fixed
