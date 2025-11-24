@@ -156,7 +156,7 @@ export async function addMongoose({
   }
 
   console.log(
-    yellow(`⚠️ Please setup the MONGO_URI in config/connectDB.${isTypeScript ? 'ts' : 'js'}`),
+    yellow(`⚠️  Please setup the MONGO_URI in config/connectDB.${isTypeScript ? 'ts' : 'js'}`),
   );
 
   console.log(green('🎉 Mongoose setup completed!'));
