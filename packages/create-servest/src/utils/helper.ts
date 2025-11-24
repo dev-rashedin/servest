@@ -41,8 +41,15 @@ export function copyDir(srcDir: string, destDir: string): void {
       // Skip .gitkeep files
       if (file === '.gitkeep') continue;
 
+      // Rename .env.example to .env
+
       const curSrc = path.join(srcDir, file);
-      const curDest = path.join(destDir, file === '_gitignore' ? '.gitignore' : file);
+      let curDest = path.join(destDir, file === '_gitignore' ? '.gitignore' : file);
+
+      // Rename .env.example to .env
+      if (file === '.env.example') {
+        curDest = path.join(destDir, '.env');
+      }
 
       copyDir(curSrc, curDest);
     }

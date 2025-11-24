@@ -6,7 +6,7 @@
   "author": "Rashedin Islam <https://www.rashedin.dev>",
   "description": "The fastest way to generate backend projects for multiple frameworks, with flexible architectures and modern tooling",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "bin": {
     "servest": "index.js",
