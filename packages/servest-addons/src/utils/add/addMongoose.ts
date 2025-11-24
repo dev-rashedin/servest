@@ -152,11 +152,12 @@ export async function addMongoose({
       fs.writeFileSync(targetFile, newContent, 'utf8');
     }
   } else {
-    console.log(yellow('👍 Could not find src/server or src/app to inject connectDB call.'));
+    console.log(yellow('⚠️ Could not find src/server or src/app to inject connectDB call.'));
   }
 
   console.log(
-    yellow(`⚠️  Please setup the MONGO_URI in config/connectDB.${isTypeScript ? 'ts' : 'js'}`),
+    yellow(`⚠️ Please setup the MONGO_URI in config/connectDB.${isTypeScript ? 'ts' : 'js'}`),
   );
+
   console.log(green('🎉 Mongoose setup completed!'));
 }

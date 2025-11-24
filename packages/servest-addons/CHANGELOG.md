@@ -1,3 +1,11 @@
+# 📦 Changelog
+
+All notable changes to **servest** will be documented here.
+
+## [0.1.1] – 2025-11-24
+### Fixed
+- Added a `console.log` message prompting users to update the `MONGO_URI` in `config/connectDB.<ts|js>` after installing Mongoose, improving developer experience.
+
 ## [0.1.0] – 2025-08-30
 ### Added
 - Initialized the `servest` project structure
