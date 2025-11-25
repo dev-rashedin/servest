@@ -1,71 +1,155 @@
-# Contributing to Servest CLI
+```
+# Contributing to Servest
 
-Thank you for your interest in contributing! We welcome contributions from everyone. By contributing, you agree to follow the guidelines below to keep the project consistent and maintainable.
+Thank you for your interest in contributing! This monorepo contains multiple parts of the Servest ecosystem. This guide will help you get set up and contribute effectively.
 
-## Project Overview
+---
 
-This repository contains two main packages:
+## Monorepo Structure
 
-1. **create-servest** – CLI for generating backend starter projects with templates.
-   - Supports Express, Django, and future variants like Laravel and Go.
-   - Example: `npm create servest@latest -- --template express-mvc-ts`
+root
+├── app/                   → Marketing website + UI
+├── docs/                  → MDX documentation site
+└── packages/
+    ├── create-servest/    → Project scaffolding CLI
+    └── servest-addons/    → Addons CLI (ESLint, Prettier, Mongoose, etc.)
 
-2. **servest** – Package to add backend utilities in one line, similar to Shadcn.
-   - Example: `npx add servest@latest eslint-prettier`
+---
 
-## How to Contribute
+## Requirements
 
-### 1. Reporting Issues
+Node: >= 20
+pnpm: >= 9
 
-- Open an issue in the [GitHub Issues](https://github.com/dev-rashedin/servest) tab.
-- Provide clear steps to reproduce, expected behavior, and actual behavior.
+---
 
-### 2. Submitting Pull Requests
+## Getting Started
 
-1. Fork the repository and create a branch for your feature or bug fix.
-   ```bash
-   git checkout -b feature/my-feature
-   ```
-2. Make your changes, keeping code style consistent.
-   - Use **2-space indentation** and LF line endings.
-   - Follow existing project patterns.
-3. Add tests if applicable.
-4. Commit your changes using clear, descriptive messages.
-   ```bash
-   git commit -m "feat(create-servest): add new express template"
-   ```
-5. Push your branch and open a pull request.
+1. Clone the repository
+   git clone https://github.com/dev-rashedin/servest.git
+   cd servest
 
-### 3. Code Style
+2. Install dependencies
+   pnpm install
 
-- This repo uses **ESLint** and **Prettier**.
-- Run linters before committing:
-  ```bash
-  npm run lint
-  npm run format
-  ```
+3. Run workspace-aware scripts
+   pnpm run build
+   pnpm run dev
+   pnpm run typecheck
+   pnpm run lint
+   pnpm run test
 
-### 4. Testing
+---
 
-- Test your CLI or templates locally before submitting a PR.
-- Ensure that new features do not break existing templates.
+## Working Within Packages
 
-### 5. Adding Templates
+Build individual packages:
+   pnpm --filter create-servest run build
+   pnpm --filter servest-addons run build
 
-- New templates go in `packages/create-servest/templates`.
-- Follow the naming convention: `framework-variant-language`.
-- Include a README explaining the template structure.
+Run UI:
+   pnpm --filter app run dev
 
-### 6. Communication
+Run documentation site:
+   pnpm --filter docs run dev
 
-- For major features, open an **issue or discussion first** to align on design.
-- Keep PRs small and focused whenever possible.
+---
 
-## Additional Guidelines
+## Branching & Pull Requests
 
-- Keep commits atomic and descriptive.
-- Ensure all tests pass before submitting a PR.
-- Follow the existing folder structure and naming conventions.
-- Respect the established code style and formatting.
+All PRs must target:
+   development
 
-Thank you for helping make Servest better!
+> Do NOT open PRs against:
+   main
+
+Branch naming convention:
+   feature/add-new-template
+   fix/env-copy-issue
+   docs/improve-readme
+   chore/refactor-cli-flow
+
+---
+
+## Before Submitting a PR
+
+Run linting:
+   pnpm run lint
+
+Run type checking:
+   pnpm run typecheck
+
+Run builds to ensure packages compile:
+   pnpm run build
+
+Optional: Run tests:
+   pnpm run test
+
+---
+
+## Testing CLI Locally
+
+Link packages globally:
+   pnpm run build
+   pnpm --filter create-servest link --global
+   pnpm --filter servest-addons link --global
+
+Use them as if installed from npm:
+   create-servest
+   servest add ...
+
+Remove links when done:
+   pnpm unlink --global create-servest
+   pnpm unlink --global servest-addons
+
+---
+
+## Commit Message Guidelines
+
+Preferred format:
+   feat: add new express template
+   fix: resolve esm import path
+   docs: improve contributing instructions
+   refactor: simplify directory copier
+   test: add env copy coverage
+   chore: update dependencies
+
+---
+
+## Contribution Areas
+
+You can contribute by:
+   ✅ Improving scaffolding templates
+   ✅ Adding new addons to servest-addons
+   ✅ Enhancing CLI UX and prompts
+   ✅ Expanding MDX documentation
+   ✅ Improving the marketing site
+   ✅ Fixing bugs or inconsistencies
+
+---
+
+## Issue Reporting Guidelines
+
+Include:
+   ✅ What happened
+   ✅ Expected behavior
+   ✅ Reproduction steps
+   ✅ Node & pnpm version
+   ✅ Operating system
+   ✅ Template used (if relevant)
+
+---
+
+## Communication
+
+If unsure where to contribute:
+   ✅ Open an issue
+   ✅ Ask for direction
+   ✅ Draft a PR and request feedback
+
+---
+
+## ❤️ Thank You!
+
+Your contributions help Servest grow into a better backend tooling ecosystem.
+```
