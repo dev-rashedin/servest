@@ -4,14 +4,14 @@ import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 // External dependencies
-import mri from 'mri';
 import { intro, isCancel, log, outro, select, text } from '@clack/prompts';
 import spawn from 'cross-spawn';
+import mri from 'mri';
 
 // Local utilities
+import { getIServestConfig } from '../../servest-addons/src/utils/createFile';
 import { green, red, yellow } from '../../utils/colors';
 import { cancelOperation, detectPkgManager } from '../../utils/sharedUtility';
-import { getIServestConfig } from '../../servest-addons/src/utils/createFile';
 import { ALL_TEMPLATES, FRAMEWORKS, helpMessage } from './utils';
 import {
   copyDir,
@@ -204,7 +204,7 @@ async function init() {
 
   copyDir(templateDir, root);
 
-  if (template.includes('express')) {
+  if (template.includes('express') || template.includes('fastify')) {
     updatePackageName(path.join(root, 'package.json'), packageName);
   }
 
@@ -284,7 +284,7 @@ async function init() {
 
   let finalMessage = `'🎉 Done. Now run:', ${cdCommand}`;
 
-  if (template.includes('express')) {
+  if (template.includes('express') || template.includes('fastify')) {
     finalMessage = ['Done. Now run:', cdCommand, ...installCommands]
       .filter(Boolean)
       .map((line) => `  ${line}`)
