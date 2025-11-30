@@ -1,4 +1,4 @@
-import { boldGreen, boldRed, boldYellow, cyan, green, red, yellow } from '../../../utils/colors';
+import { boldGreen, boldWhite, boldYellow, cyan, green, yellow } from '../../../utils/colors';
 
 export const FRAMEWORKS: IFramework[] = [
   {
@@ -50,27 +50,40 @@ export const FRAMEWORKS: IFramework[] = [
     ],
   },
   {
+    name: 'Fastify',
+    value: 'fastify',
+    color: boldWhite,
+    variants: [
+      {
+        name: 'Basic - JavaScript',
+        value: 'fastify-basic-js',
+        color: yellow,
+        framework: 'fastify',
+      },
+    ],
+  },
+  {
     name: 'Django',
     value: 'django',
     color: boldGreen,
     variants: [
       { name: 'Basic', value: 'django-basic', color: green },
-      { name: 'API Only', value: 'django-api', color: green },
-      { name: 'Channels (WebSocket)', value: 'django-channels', color: green },
-      { name: 'Celery (Background Tasks)', value: 'django-celery', color: green },
+      // { name: 'API Only', value: 'django-api', color: green },
+      // { name: 'Channels (WebSocket)', value: 'django-channels', color: green },
+      // { name: 'Celery (Background Tasks)', value: 'django-celery', color: green },
     ],
   },
-  {
-    value: 'laravel',
-    name: 'Laravel',
-    color: boldRed,
-    variants: [
-      { name: 'Basic', value: 'laravel-basic', color: red },
-      { name: 'API Only', value: 'laravel-api', color: red },
-      { name: 'Breeze (Simple Auth)', value: 'laravel-breeze', color: red },
-      { name: 'Jetstream (Advanced Auth)', value: 'laravel-jetstream', color: red },
-    ],
-  },
+  // {
+  //   value: 'laravel',
+  //   name: 'Laravel',
+  //   color: boldRed,
+  //   variants: [
+  //     { name: 'Basic', value: 'laravel-basic', color: red },
+  //     { name: 'API Only', value: 'laravel-api', color: red },
+  //     { name: 'Breeze (Simple Auth)', value: 'laravel-breeze', color: red },
+  //     { name: 'Jetstream (Advanced Auth)', value: 'laravel-jetstream', color: red },
+  //   ],
+  // },
 ];
 
 // Flattening all template names for quick lookup
@@ -91,6 +104,7 @@ Available templates:
 ${yellow('express-basic-js   express-basic-ts   express-modular-esm')}
 ${yellow('express-mvc-cjs    express-mvc-esm     express-mvc-ts')}
 ${yellow('express-modular-cjs    express-modular-esm   express-modular-ts')}
+${yellow('fastify-basic-js')}
 `;
 
 // ${green('django-basic        django-api        django-channels    django-celery')}
