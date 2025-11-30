@@ -1,5 +1,6 @@
 const fastify = require('fastify');
 const cors = require('@fastify/cors');
+const { StatusCodes } = require('http-status-toolkit');
 
 const app = fastify();
 
@@ -9,6 +10,7 @@ app.register(cors);
 // home route
 app.get('/', async (request, reply) => {
   return {
+    statusCode: StatusCodes.OK,
     success: true,
     message: 'Server is running',
   };
