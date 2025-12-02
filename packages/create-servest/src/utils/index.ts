@@ -72,6 +72,12 @@ export const FRAMEWORKS: IFramework[] = [
         color: yellow,
         framework: 'fastify',
       },
+      {
+        name: 'MVC - ESM',
+        value: 'fastify-mvc-esm',
+        color: yellow,
+        framework: 'fastify',
+      },
     ],
   },
   {
@@ -117,6 +123,7 @@ ${yellow('express-basic-js   express-basic-ts   express-modular-esm')}
 ${yellow('express-mvc-cjs    express-mvc-esm     express-mvc-ts')}
 ${yellow('express-modular-cjs    express-modular-esm   express-modular-ts')}
 ${yellow('fastify-basic-js   fastify-basic-ts   fastify-mvc-cjs')}
+${yellow('fastify-mvc-esm')}
 `;
 
 // ${green('django-basic        django-api        django-channels    django-celery')}
