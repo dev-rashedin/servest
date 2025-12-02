@@ -2,7 +2,7 @@ import app from './app';
 
 const port = Number(process.env.PORT) || 3000;
 
-app.listen({ port }, (err, address) => {
+app.listen({ port }, (err, _address) => {
   if (err) {
     console.error(err);
     process.exit(1);

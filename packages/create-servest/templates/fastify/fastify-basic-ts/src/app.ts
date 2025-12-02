@@ -8,7 +8,7 @@ const app = fastify();
 app.register(cors);
 
 // home route
-app.get('/', async (request, reply) => {
+app.get('/', async (_request, _reply) => {
   return {
     statusCode: StatusCodes.OK,
     success: true,
