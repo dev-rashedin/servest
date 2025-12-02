@@ -1,4 +1,4 @@
-import { boldGreen, boldWhite, boldYellow, cyan, green, yellow } from '../../../utils/colors';
+import { boldGreen, boldYellow, cyan, green, yellow } from '../../../utils/colors';
 
 export const FRAMEWORKS: IFramework[] = [
   {
@@ -52,12 +52,18 @@ export const FRAMEWORKS: IFramework[] = [
   {
     name: 'Fastify',
     value: 'fastify',
-    color: boldWhite,
+    color: boldYellow,
     variants: [
       {
         name: 'Basic - JavaScript',
         value: 'fastify-basic-js',
         color: yellow,
+        framework: 'fastify',
+      },
+      {
+        name: 'Basic - TypeScript',
+        value: 'fastify-basic-ts',
+        color: cyan,
         framework: 'fastify',
       },
     ],
@@ -104,7 +110,7 @@ Available templates:
 ${yellow('express-basic-js   express-basic-ts   express-modular-esm')}
 ${yellow('express-mvc-cjs    express-mvc-esm     express-mvc-ts')}
 ${yellow('express-modular-cjs    express-modular-esm   express-modular-ts')}
-${yellow('fastify-basic-js')}
+${yellow('fastify-basic-js   fastify-basic-ts')}
 `;
 
 // ${green('django-basic        django-api        django-channels    django-celery')}
