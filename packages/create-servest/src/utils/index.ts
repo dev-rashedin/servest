@@ -84,6 +84,12 @@ export const FRAMEWORKS: IFramework[] = [
         color: cyan,
         framework: 'fastify',
       },
+      {
+        name: 'Plugin - CommonJS',
+        value: 'fastify-plugin-cjs',
+        color: yellow,
+        framework: 'fastify',
+      },
     ],
   },
   {
@@ -129,7 +135,7 @@ ${yellow('express-basic-js   express-basic-ts   express-modular-esm')}
 ${yellow('express-mvc-cjs    express-mvc-esm     express-mvc-ts')}
 ${yellow('express-modular-cjs    express-modular-esm   express-modular-ts')}
 ${yellow('fastify-basic-js   fastify-basic-ts   fastify-mvc-cjs')}
-${yellow('fastify-mvc-esm    fastify-mvc-ts')}
+${yellow('fastify-mvc-esm    fastify-mvc-ts     fastify-plugin-cjs')}
 `;
 
 // ${green('django-basic        django-api        django-channels    django-celery')}
