@@ -1,0 +1,39 @@
+import AutoLoad, { AutoloadPluginOptions } from '@fastify/autoload';
+import cors from '@fastify/cors';
+import sensible from '@fastify/sensible';
+import { FastifyPluginAsync } from 'fastify';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export type AppOptions = {
+  // Place your custom options for app below here.
+} & Partial<AutoloadPluginOptions>;
+
+const app: FastifyPluginAsync<AppOptions> = async (fastify, opts): Promise<void> => {
+  // Place here your custom code!
+
+  // Register plugins
+  void fastify.register(cors);
+  void fastify.register(sensible);
+
+  // This loads all plugins defined in plugins
+  // those should be support plugins that are reused
+  // through your application
+  void fastify.register(AutoLoad, {
+    dir: path.join(__dirname, 'plugins'),
+    options: opts,
+  });
+
+  // This loads all plugins defined in routes
+  // define your routes in one of these
+  void fastify.register(AutoLoad, {
+    dir: path.join(__dirname, 'routes'),
+    options: opts,
+  });
+};
+
+export default app;
+export { app };
