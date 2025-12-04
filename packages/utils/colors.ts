@@ -8,6 +8,7 @@ const colors = {
   magenta: '\x1b[35m',
   cyan: '\x1b[36m',
   dimGray: '\x1b[2m',
+  white: '\x1b[37m',
 };
 
 export function boldRed(text: string): string {
@@ -52,4 +53,12 @@ export function cyan(text: string): string {
 
 export function dimGray(text: string): string {
   return `${colors.dimGray}${text}${colors.reset}`;
+}
+
+export function white(text: string): string {
+  return `${colors.white}${text}${colors.reset}`;
+}
+
+export function boldWhite(text: string): string {
+  return `${colors.bold}${colors.white}${text}${colors.reset}`;
 }
