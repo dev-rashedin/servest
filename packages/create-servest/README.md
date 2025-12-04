@@ -71,6 +71,17 @@ npm create servest@latest . -- --template express-basic-ts
 - `modular-esm` — Modular ESM
 - `modular-ts` — Modular TypeScript
 
+### Fastify
+
+- `basic-js` — Basic JavaScript
+- `basic-ts` — Basic TypeScript
+- `mvc-cjs` — MVC CommonJS
+- `mvc-esm` — MVC ESM
+- `mvc-ts` — MVC TypeScript
+- `plugin-cjs` — Plugin CommonJS
+- `plugin-esm` — Plugin ESM
+- `plugin-ts` — Plugin TypeScript
+
 ### Django
 
 - `django-basic` — Django Basic
