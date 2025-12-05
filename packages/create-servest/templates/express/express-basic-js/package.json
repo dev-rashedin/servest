@@ -5,7 +5,7 @@
   "author": "",
   "description": "",
   "scripts": {
-    "start": "node --env-file=.env --watch server.js",
+    "start": "node --env-file=.env.example --watch server.js",
     "start:prod": "node server.js"
   },
   "keywords": [],

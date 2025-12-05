@@ -5,7 +5,7 @@ import { FaGithub } from '@/data';
 const Hero = () => {
   return (
     <main className="min-h-[92vh] max-w-3xl  mx-auto flex-col-center text-center px-4">
-      <em>Inspired by vite and shadcn</em>
+      <em>Inspired by create-vite and shadcn</em>
       <h1 className="mb-5 hover:glow" style={{ lineHeight: '1.1' }}>
         The Ultimate Backend Builder
       </h1>
