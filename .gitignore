@@ -9,7 +9,6 @@ node_modules
 
 # Logs & profiling
 *.log
-*.local
 *.cpuprofile
 
 # Build outputs
