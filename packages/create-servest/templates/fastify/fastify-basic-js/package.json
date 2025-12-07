@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "node --env-file=.env.local --watch server.js",
+    "start": "node --env-file=.env --watch server.js",
     "start:prod": "node server.js"
   },
   "dependencies": {
