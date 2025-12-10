@@ -1,37 +1,51 @@
 # fastify-mvc-cjs
 
-A minimal Fastify backend starter using MVC architecture with CORS and built-in error handling.
+A production-ready Fastify backend starter using MVC architecture, featuring CORS support and built-in error handling.
 
 ## Features
 
-- Fastify setup with CORS
-- MVC folder structure (`controllers`, `models`, `routes`, `services`, `middlewares`, `config`)
-- Environment config via `.env` (see `.env.example`)
-- Clean status codes using `http-status-toolkit`
-- Uses CommonJS (`require`/`module.exports`) module system by default
+- **MVC Architecture**: Organized structure with `controllers`, `models`, `routes`, `services`, and `middlewares`.
+- **Fastify Core**: High-performance framework with built-in logging.
+- **CORS Enabled**: Pre-configured with `@fastify/cors`.
+- **Environment Configuration**: Native Node.js `.env` file loading.
+- **Clean Status Codes**: Utilizes `http-status-toolkit` for standardized HTTP responses.
+- **CommonJS**: Uses standard Node.js `require`/`module.exports`.
 
 ## Getting Started
 
-1. Clone the repo or use it as a template for your project.
-2. Rename `.env.example` to `.env` and adjust if needed:
+1. **Install dependencies:**
 
-```bash
-cp .env.example .env
-```
+   ```bash
+   npm install
+   # or
+   pnpm install
+   # or
+   yarn install
+   ```
 
-3. Install dependencies:
+2. **Start the development server:**
 
-```bash
-npm install
-```
+   ```bash
+   npm start
+   ```
 
-4. Start the development server:
+   The server will start in watch mode, automatically restarting on file changes.
 
-```bash
-npm start
-```
+## Usage
 
-## Scripts
+- **Port**: The app listens on the port defined in your `.env` file (default: `3000`).
+- **Health Check**: Access `http://localhost:3000/` to verify the server status.
 
-- `npm start`: Run in development mode with watch
-- `npm run start:prod`: Run in production mode
+## Project Structure
+
+The project follows the Model-View-Controller (MVC) pattern to keep your code modular and maintainable:
+
+- `src/controllers`: Handle incoming requests and send responses.
+- `src/models`: Define data structures and database schemas.
+- `src/routes`: Define API endpoints and map them to controllers.
+- `src/services`: Contain business logic and data processing.
+- `src/middlewares`: Handle request processing tasks like authentication.
+
+## License
+
+MIT
