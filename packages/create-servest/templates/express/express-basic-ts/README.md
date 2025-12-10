@@ -13,7 +13,7 @@ A minimal Express backend starter in TypeScript with CORS, dotenv, and built-in 
 ## Getting Started
 
 1. Clone the repo or use it as a template for your project.
-2. Rename `.env.example` to `.env` and adjust if needed:
+2. A `.env` file is automatically created when generating the template. Edit it to adjust environment variables as needed.
 
 ```bash
 cp .env.example .env
