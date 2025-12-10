@@ -98,16 +98,16 @@ function DevFeedback() {
             >
               <article className="mt-auto">
                 <p>
-                  Servest Addons feels just like shadcn but for backend tools. Added Mongoose and
-                  ESLint in seconds — brilliant experience.
+                  Servest solves that foundational bottleneck. It provides a clean, extensible and
+                  framework agnostic backend generator that gets teams operational within minutes
                 </p>
                 <div className="flex justify-between items-end pt-5">
                   <div>
-                    <h6 className="font-semibold">Liam O’Connor</h6>
-                    <p>CTO at StackMotion</p>
+                    <h6 className="font-semibold">Ali Farhat</h6>
+                    <p>Founder @Scalevise</p>
                   </div>
                   <Image
-                    src="/devs/dev3.jpg"
+                    src="/devs/Ali.jpg"
                     alt="Liam"
                     width={64}
                     height={64}
