@@ -6,7 +6,7 @@
   "author": "",
   "description": "",
   "scripts": {
-    "start": "node --env-file=.env.local --watch src/server.js",
+    "start": "node --env-file=.env --watch src/server.js",
     "start:prod": "node ./src/server.js"
   },
   "keywords": [],
