@@ -1,41 +1,50 @@
 # fastify-plugin-cjs
 
-A Fastify application using the standard plugin-based architecture (Application Factory pattern).
-
-## Structure
-
-- `src/app.js`: The main application plugin.
-- `src/plugins/`: Reusable plugins (loaded automatically).
-- `src/routes/`: Route definitions (loaded automatically).
-- `src/server.js`: Entry point to start the server.
+A production-ready Fastify backend starter using the Application Factory pattern and plugin-based architecture.
 
 ## Features
 
-- **Auto-loading**: Uses `@fastify/autoload` to load plugins and routes from the filesystem.
-- **Encapsulation**: Demonstrates Fastify's encapsulation model.
-- **Standard Plugins**: Includes `@fastify/cors` and `@fastify/sensible`.
+- **Application Factory**: Follows Fastify best practices for testability and encapsulation.
+- **Auto-loading**: Uses `@fastify/autoload` to automatically load plugins and routes from the filesystem.
+- **Plugin Encapsulation**: Demonstrates Fastify's powerful scope isolation model.
+- **CORS Enabled**: Pre-configured with `@fastify/cors`.
+- **Environment Configuration**: Native Node.js `.env` file loading.
+- **CommonJS**: Uses standard Node.js `require`/`module.exports`.
 
 ## Getting Started
 
-1. Install dependencies:
+1. **Install dependencies:**
 
    ```bash
    npm install
+   # or
+   pnpm install
+   # or
+   yarn install
    ```
 
-2. Create a `.env` file based on `.env.example`:
-
-   ```bash
-   cp .env.example .env
-   ```
-
-3. Start the development server:
+2. **Start the development server:**
 
    ```bash
    npm start
    ```
 
-## Scripts
+   The server will start in watch mode, automatically restarting on file changes.
 
-- `npm start`: Run in development mode with watch
-- `npm run start:prod`: Run in production mode
+## Usage
+
+- **Port**: The app listens on the port defined in your `.env` file (default: `3000`).
+- **Health Check**: Access `http://localhost:3000/` to verify the server status.
+
+## Project Structure
+
+This template uses the standard Fastify directory structure:
+
+- `src/app.js`: The main application factory. This is where you register the main plugins.
+- `src/plugins/`: Place for reusable plugins (e.g., database connections, shared utilities). These are loaded first.
+- `src/routes/`: Define your API routes here. The folder structure mirrors your URL path (filesystem-based routing).
+- `src/server.js`: The entry point that loads the app and starts the server.
+
+## License
+
+MIT
