@@ -13,8 +13,10 @@ const Hero = () => {
         The simplest way to bootstrap backend projects. Generate clean templates, add the tools you
         need, and evolve your stack without friction.
       </p>
-      <p className="text-sm md:text-base mt-5 text-muted-foreground opacity-85">
-        Express templates are available now, more frameworks coming soon!
+      <p className="text-sm md:text-base mt-5 ">
+        <span className="text-brand text-base md:text-lg">Express</span> and{' '}
+        <span className="text-brand text-base md:text-lg">Fastify</span> templates are available
+        now, more frameworks coming soon!
       </p>
       <div className="flex gap-4 mt-8">
         <Button variant="default" size="lg">
