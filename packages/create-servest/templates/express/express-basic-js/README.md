@@ -14,11 +14,7 @@ A minimal Express backend starter with CORS, dotenv, and built-in error handling
 1. Clone the repo or use it as a template for your project.
 2. A `.env` file is automatically created when generating the template. Edit it to adjust environment variables as needed.
 
-```bash
-cp .env.example .env
-```
-
-```bash
+```dotenv
 PORT=3000
 NODE_ENV=development
 

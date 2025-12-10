@@ -16,8 +16,23 @@ A minimal Express backend starter using MVC architecture with CORS, dotenv, and 
 1. Clone the repo or use it as a template for your project.
 2. A `.env` file is automatically created when generating the template. Edit it to adjust environment variables as needed.
 
-```bash
-cp .env.example .env
+```dotenv
+PORT=3000
+NODE_ENV=development
+
+# Database connection URL (optional)
+DB_URL=
+
+# Auth token for authentication (optional)
+AUTH_TOKEN=
+
+# JWT secret key for authentication (optional)
+JWT_SECRET=
+
+# Client URL (optional)
+CLIENT_URL=
+
+# Add other environment variables as needed
 ```
 
 Install dependencies:
