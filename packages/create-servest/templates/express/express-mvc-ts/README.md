@@ -36,6 +36,12 @@ yarn install
 npm run dev
 ```
 
+## Scripts
+
+- `npm run dev`: Start server with auto-reload using ts-node-dev
+- `npm start`: Run the compiled server from the dist folder for production
+- `npm run build`: Compile TypeScript to JavaScript in the dist folder
+
 5. Project Structure
 
 src/
