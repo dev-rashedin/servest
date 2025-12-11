@@ -1,4 +1,4 @@
 {
   "defaultOpenedFiles": ["src/app.ts"],
-  "startCommand": "mv .env.example .env && npm start"
+  "startCommand": "mv .env.example .env && npm run dev"
 }

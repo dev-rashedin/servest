@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "src/server.js",
   "scripts": {
-    "start": "node --env-file=.env --watch src/server.js",
-    "start:prod": "node src/server.js"
+    "dev": "node --env-file=.env --watch src/server.js",
+    "start": "node src/server.js"
   },
   "dependencies": {
     "fastify": "^5.0.0",

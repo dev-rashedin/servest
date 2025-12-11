@@ -47,16 +47,14 @@ yarn install
 4. Start the dev server:
 
 ```bash
-npm run start:dev
+npm run dev
 ```
 
 ## Scripts
 
-- npm run start:dev - Start server with auto-reload using ts-node-dev
-
-- npm run start:prod - Run the compiled server from the dist folder for production
-
-- npm run build - Compile TypeScript to JavaScript in the dist folder
+- `npm run dev`: Start server with auto-reload using ts-node-dev
+- `npm start`: Run the compiled server from the dist folder for production
+- `npm run build`: Compile TypeScript to JavaScript in the dist folder
 
 ### Usage
 

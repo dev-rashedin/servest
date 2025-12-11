@@ -51,6 +51,11 @@ yarn install
 npm run dev
 ```
 
+## Scripts
+
+- `npm run dev`: Run in development mode with watch
+- `npm start`: Run in production mode
+
 ## Project Structure
 
 src/

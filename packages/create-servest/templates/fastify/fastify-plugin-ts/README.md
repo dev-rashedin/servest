@@ -26,7 +26,7 @@ A production-ready Fastify TypeScript backend starter using the Application Fact
 2. **Start the development server:**
 
    ```bash
-   npm start
+   npm run dev
    ```
 
    The server will start in watch mode using `tsx`, automatically restarting on file changes.
@@ -47,9 +47,9 @@ This template uses the standard Fastify directory structure:
 
 ## Scripts
 
-- `npm start`: Run in development mode with watch.
+- `npm run dev`: Run in development mode with watch.
 - `npm run build`: Compile TypeScript to JavaScript.
-- `npm run start:prod`: Run the built project in production mode.
+- `npm start`: Run the built project in production mode.
 
 ## License
 

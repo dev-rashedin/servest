@@ -6,8 +6,8 @@
   "description": "",
   "scripts": {
     "build": "tsc",
-    "start": "tsx watch src/server.ts",
-    "start:prod": "node dist/server.js"
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js"
   },
   "keywords": [],
   "license": "ISC",
