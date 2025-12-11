@@ -1,3 +1,4 @@
+import DocsImage from './DocsImage';
 import CodeBlock from './ui/CodeBlock';
 
 const InlineHighlight = ({ children }: { children: React.ReactNode }) => (
@@ -13,6 +14,18 @@ export const MDXComponents = {
     const lang = className.replace('language-', '').trim() || 'text';
 
     return <CodeBlock code={children} language={lang || 'bash'} />;
+  },
+
+  // images
+  img: ({ src, alt }: { src?: string; alt?: string }) => {
+    return (
+      <DocsImage
+        src={src ?? ''}
+        alt={alt ?? ''}
+        width={1200} // required for next/image
+        height={800} // adjust if needed
+      />
+    );
   },
 
   // styling table in mdx

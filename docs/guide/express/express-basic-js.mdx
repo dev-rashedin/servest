@@ -29,7 +29,7 @@ For detailed installation instructions, see the [create-servest guide](/guide)
 
 ## Run Commands
 
-Start in development mode (auto-reloads on changes using `nodemon`)
+Start in development mode (auto-reloads using Node.js built-in --watch mode)
 
 ```bash
 npm run start
@@ -47,7 +47,7 @@ The server will run on the port specified in `.env` (default: `3000`).
 
 ## Folder Structure
 
-![express-basic-js](/images/express-basic-js.png)
+![express-basic-js](/images/express/express-basic-js.png)
 
 ### app.js
 
@@ -94,14 +94,12 @@ app.listen(port, () => {
 
 ## Pre-installed Packages
 
-| Package                                                                      | Purpose                                       |
-| ---------------------------------------------------------------------------- | --------------------------------------------- |
-| [express](https://expressjs.com)                                             | Core server framework                         |
-| [cors](https://www.npmjs.com/package/cors)                                   | Enable Cross-Origin Resource Sharing          |
-| [dotenv](https://www.npmjs.com/package/dotenv)                               | Load environment variables                    |
-| [express-error-toolkit](https://www.npmjs.com/package/express-error-toolkit) | Handles All Express Errors                    |
-| [http-status-toolkit](https://www.npmjs.com/package/http-status-toolkit)     | Standard HTTP status codes                    |
-| [ nodemon](https://www.npmjs.com/package/nodemon) (devDependency)            | Automatically restarts server on code changes |
+| Package                                                                      | Purpose                              |
+| ---------------------------------------------------------------------------- | ------------------------------------ |
+| [express](https://expressjs.com)                                             | Core server framework                |
+| [cors](https://www.npmjs.com/package/cors)                                   | Enable Cross-Origin Resource Sharing |
+| [express-error-toolkit](https://www.npmjs.com/package/express-error-toolkit) | Handles All Express Errors           |
+| [http-status-toolkit](https://www.npmjs.com/package/http-status-toolkit)     | Standard HTTP status codes           |
 
 ---
 

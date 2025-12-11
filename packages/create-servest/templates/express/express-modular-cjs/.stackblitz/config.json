@@ -1,4 +1,4 @@
 {
   "defaultOpenedFiles": ["src/app.js"],
-  "startCommand": "cp .env.example .env && rm .env.example && npm start"
+  "startCommand": "mv .env.example .env && npm start"
 }
