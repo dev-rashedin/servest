@@ -8,6 +8,8 @@ A production-ready Fastify backend starter using MVC architecture, featuring COR
 - **Fastify Core**: High-performance framework with built-in logging.
 - **CORS Enabled**: Pre-configured with `@fastify/cors`.
 - **Environment Configuration**: Native Node.js `.env` file loading.
+- **Logging**: Integrated `pino` logger with pretty-printing for development.
+- **Error Handling**: Centralized error handling and consistent API responses.
 - **Clean Status Codes**: Utilizes `http-status-toolkit` for standardized HTTP responses.
 - **ES Modules**: Uses modern JavaScript `import`/`export` syntax.
 
