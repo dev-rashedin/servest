@@ -10,6 +10,9 @@ A production-ready Fastify TypeScript backend starter using the Application Fact
 - **TypeScript**: Fully typed codebase for better developer experience.
 - **CORS Enabled**: Pre-configured with `@fastify/cors`.
 - **Environment Configuration**: Native Node.js `.env` file loading.
+- **Logging**: Integrated `pino` logger with pretty-printing for development.
+- **Error Handling**: Centralized error handling and consistent API responses.
+- **Clean Status Codes**: Utilizes `http-status-toolkit` for standardized HTTP responses.
 
 ## Getting Started
 
