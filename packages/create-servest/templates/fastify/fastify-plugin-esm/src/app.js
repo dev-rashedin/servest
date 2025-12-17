@@ -61,3 +61,5 @@ export default async function (fastify, opts) {
     options: Object.assign({}, opts),
   });
 }
+
+export default app;
