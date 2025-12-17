@@ -1,5 +1,5 @@
 import cors from '@fastify/cors';
-import fastify from 'fastify';
+import fastify, { FastifyReply, FastifyRequest } from 'fastify';
 import { StatusCodes } from 'http-status-toolkit';
 
 const app = fastify({ logger: true });
@@ -8,7 +8,7 @@ const app = fastify({ logger: true });
 app.register(cors);
 
 // home route
-app.get('/', async (_request, reply) => {
+app.get('/', async (_request: FastifyRequest, reply: FastifyReply) => {
   reply.code(StatusCodes.OK);
   return {
     success: true,
@@ -17,7 +17,7 @@ app.get('/', async (_request, reply) => {
 });
 
 // not found handler
-app.setNotFoundHandler((request, reply) => {
+app.setNotFoundHandler((request: FastifyRequest, reply: FastifyReply) => {
   reply.code(StatusCodes.NOT_FOUND);
   return {
     success: false,
@@ -32,7 +32,7 @@ app.setNotFoundHandler((request, reply) => {
 });
 
 // global error handler
-app.setErrorHandler((error, request, reply) => {
+app.setErrorHandler((error, request: FastifyRequest, reply: FastifyReply) => {
   const statusCode = error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
   reply.code(statusCode);
   return {
