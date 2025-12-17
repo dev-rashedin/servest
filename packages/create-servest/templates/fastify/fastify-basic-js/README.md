@@ -24,10 +24,15 @@ A minimal, production-ready Fastify backend starter featuring CORS support and o
 2. **Start the development server:**
 
    ```bash
-   npm start
+   npm run dev
    ```
 
    The server will start in watch mode, automatically restarting on file changes.
+
+## Scripts
+
+- `npm run dev`: Run in development mode with watch
+- `npm start`: Run in production mode
 
 ## Usage
 

@@ -49,6 +49,11 @@ yarn install
 npm run dev
 ```
 
+## Scripts
+
+- `npm run dev`: Run in development mode with watch
+- `npm start`: Run in production mode
+
 ### Usage
 
 The app listens on the port defined in .env (PORT), defaulting to 3000.
