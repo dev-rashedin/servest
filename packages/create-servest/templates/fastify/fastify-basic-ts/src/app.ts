@@ -2,17 +2,48 @@ import cors from '@fastify/cors';
 import fastify from 'fastify';
 import { StatusCodes } from 'http-status-toolkit';
 
-const app = fastify();
+const app = fastify({ logger: true });
 
 // cors
 app.register(cors);
 
 // home route
-app.get('/', async (_request, _reply) => {
+app.get('/', async (_request, reply) => {
+  reply.code(StatusCodes.OK);
   return {
-    statusCode: StatusCodes.OK,
     success: true,
     message: 'Server is running',
+  };
+});
+
+// not found handler
+app.setNotFoundHandler((request, reply) => {
+  reply.code(StatusCodes.NOT_FOUND);
+  return {
+    success: false,
+    message: 'Not Found',
+    errorMessages: [
+      {
+        path: request.url,
+        message: 'API Not Found',
+      },
+    ],
+  };
+});
+
+// global error handler
+app.setErrorHandler((error, request, reply) => {
+  const statusCode = error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
+  reply.code(statusCode);
+  return {
+    success: false,
+    message: error.message || 'Internal Server Error',
+    errorMessages: [
+      {
+        path: request.url,
+        message: error.message || 'Internal Server Error',
+      },
+    ],
   };
 });
 
