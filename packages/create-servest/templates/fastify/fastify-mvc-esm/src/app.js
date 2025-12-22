@@ -1,6 +1,7 @@
 import cors from '@fastify/cors';
 import fastify from 'fastify';
 import { StatusCodes } from 'http-status-toolkit';
+import { globalErrorHandler, notFoundHandler } from './handlers/errorHandler.js';
 
 const app = fastify({
   logger: true,
@@ -19,34 +20,9 @@ app.get('/', async (request, reply) => {
 });
 
 // not found handler
-app.setNotFoundHandler((request, reply) => {
-  reply.code(StatusCodes.NOT_FOUND);
-  return {
-    success: false,
-    message: 'Not Found',
-    errorMessages: [
-      {
-        path: request.url,
-        message: 'API Not Found',
-      },
-    ],
-  };
-});
+app.setNotFoundHandler(notFoundHandler);
 
 // global error handler
-app.setErrorHandler((error, request, reply) => {
-  const statusCode = error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
-  reply.code(statusCode);
-  return {
-    success: false,
-    message: error.message || 'Internal Server Error',
-    errorMessages: [
-      {
-        path: request.url,
-        message: error.message || 'Internal Server Error',
-      },
-    ],
-  };
-});
+app.setErrorHandler(globalErrorHandler);
 
 export default app;
