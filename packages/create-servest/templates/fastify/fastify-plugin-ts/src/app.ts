@@ -1,8 +1,7 @@
 import AutoLoad, { AutoloadPluginOptions } from '@fastify/autoload';
 import cors from '@fastify/cors';
 import sensible from '@fastify/sensible';
-import { FastifyPluginAsync, FastifyReply, FastifyRequest } from 'fastify';
-import { StatusCodes } from 'http-status-toolkit';
+import { FastifyPluginAsync } from 'fastify';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -19,37 +18,6 @@ const app: FastifyPluginAsync<AppOptions> = async (fastify, opts): Promise<void>
   // Register plugins
   void fastify.register(cors);
   void fastify.register(sensible);
-
-  // not found handler
-  fastify.setNotFoundHandler((request: FastifyRequest, reply: FastifyReply) => {
-    reply.code(StatusCodes.NOT_FOUND);
-    return {
-      success: false,
-      message: 'Not Found',
-      errorMessages: [
-        {
-          path: request.url,
-          message: 'API Not Found',
-        },
-      ],
-    };
-  });
-
-  // global error handler
-  fastify.setErrorHandler((error, request: FastifyRequest, reply: FastifyReply) => {
-    const statusCode = error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
-    reply.code(statusCode);
-    return {
-      success: false,
-      message: error.message || 'Internal Server Error',
-      errorMessages: [
-        {
-          path: request.url,
-          message: error.message || 'Internal Server Error',
-        },
-      ],
-    };
-  });
 
   // This loads all plugins defined in plugins
   // those should be support plugins that are reused
