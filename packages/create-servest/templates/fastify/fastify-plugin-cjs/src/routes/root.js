@@ -2,6 +2,7 @@ const { StatusCodes } = require('http-status-toolkit');
 
 module.exports = async function (fastify, opts) {
   fastify.get('/', async function (request, reply) {
+    reply.code(StatusCodes.OK);
     return {
       success: true,
       message: 'Server is running',

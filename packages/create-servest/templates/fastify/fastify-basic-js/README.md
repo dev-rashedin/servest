@@ -8,6 +8,7 @@ A minimal, production-ready Fastify backend starter featuring CORS support and o
 - **CORS Enabled**: Pre-configured with `@fastify/cors`.
 - **Environment Configuration**: Native Node.js `.env` file loading.
 - **Logging**: Integrated `pino` logger with pretty-printing for development.
+- **Error Handling**: Centralized error handling and consistent API responses.
 
 ## Getting Started
 

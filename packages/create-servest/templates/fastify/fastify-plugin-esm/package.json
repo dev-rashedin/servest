@@ -4,7 +4,7 @@
   "type": "module",
   "main": "src/server.js",
   "scripts": {
-    "dev": "node --env-file=.env --watch src/server.js",
+    "dev": "node --env-file=.env --watch src/server.js | pino-pretty",
     "start": "node src/server.js"
   },
   "dependencies": {
@@ -14,5 +14,8 @@
     "@fastify/cors": "^10.0.0",
     "@fastify/sensible": "^6.0.0",
     "http-status-toolkit": "^2.0.0"
+  },
+  "devDependencies": {
+    "pino-pretty": "^13.0.0"
   }
 }
