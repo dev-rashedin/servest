@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "dev": "node --env-file=.env --watch server.js",
+    "dev": "node --env-file=.env --watch server.js | pino-pretty",
     "start": "node server.js"
   },
   "dependencies": {
     "fastify": "^5.0.0",
     "@fastify/cors": "^10.0.0",
     "http-status-toolkit": "^2.0.0"
+  },
+  "devDependencies": {
+    "pino-pretty": "^13.0.0"
   }
 }

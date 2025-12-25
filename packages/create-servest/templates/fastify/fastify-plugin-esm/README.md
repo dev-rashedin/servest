@@ -9,6 +9,9 @@ A production-ready Fastify backend starter using the Application Factory pattern
 - **Plugin Encapsulation**: Demonstrates Fastify's powerful scope isolation model.
 - **CORS Enabled**: Pre-configured with `@fastify/cors`.
 - **Environment Configuration**: Native Node.js `.env` file loading.
+- **Logging**: Integrated `pino` logger with pretty-printing for development.
+- **Error Handling**: Centralized error handling and consistent API responses.
+- **Clean Status Codes**: Utilizes `http-status-toolkit` for standardized HTTP responses.
 - **ES Modules**: Uses modern JavaScript `import`/`export` syntax.
 
 ## Getting Started
