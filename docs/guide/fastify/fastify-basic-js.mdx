@@ -1,0 +1,118 @@
+# fastify-basic-js Template
+
+A minimal **Fastify** backend template in JavaScript with essential setup for quickly starting a server, error handling, and CORS support. Ideal for learning or small projects.
+
+---
+
+## When to Use
+
+- You want a **barebones Fastify server** in JavaScript.
+- No TypeScript or complex folder structures needed.
+- Perfect for quick prototypes or small backend services.
+
+---
+
+## Installation
+
+Scaffold the template using **Servest**:
+
+```bash
+npm create servest@latest servest-project -- --template fastify-basic-js
+```
+
+> This will create a new project in the `servest-project` folder
+> with all required files.
+
+For detailed installation instructions, see the [create-servest guide](/guide)
+
+---
+
+## Run Commands
+
+Start in development mode (auto-reloads using Node.js built-in --watch mode)
+
+```bash
+npm run dev
+```
+
+Start in production mode
+
+```bash
+npm run start
+```
+
+The server will run on the port specified in `.env` (default: `3000`).
+
+---
+
+## Folder Structure
+
+![fastify-basic-js](/images/fastify/fastify-basic-js.png)
+
+### app.js
+
+```js
+const fastify = require('fastify');
+const cors = require('@fastify/cors');
+const { StatusCodes } = require('http-status-toolkit');
+const { notFoundHandler, globalErrorHandler } = require('./handlers/errorHandler');
+
+const app = fastify({ logger: true });
+
+// cors
+app.register(cors);
+
+// home route
+app.get('/', async (request, reply) => {
+  reply.code(StatusCodes.OK);
+  return {
+    success: true,
+    message: 'Server is running',
+  };
+});
+
+// not found handler
+app.setNotFoundHandler(notFoundHandler);
+
+// global error handler
+app.setErrorHandler(globalErrorHandler);
+
+module.exports = app;
+```
+
+### server.js
+
+```js
+const app = require('./app');
+const port = process.env.PORT || 3000;
+
+const start = async () => {
+  try {
+    await app.listen({ port, host: '0.0.0.0' });
+  } catch (err) {
+    app.log.error(err);
+    process.exit(1);
+  }
+};
+
+start();
+```
+
+---
+
+## Pre-installed Packages
+
+| Package                                                                  | Purpose                              |
+| ------------------------------------------------------------------------ | ------------------------------------ |
+| [fastify](https://fastify.dev/)                                          | Core server framework                |
+| [@fastify/cors](https://github.com/fastify/fastify-cors)                 | Enable Cross-Origin Resource Sharing |
+| [http-status-toolkit](https://www.npmjs.com/package/http-status-toolkit) | HTTP status codes utility            |
+| [pino-pretty](https://github.com/pinojs/pino-pretty)                     | Pretty print logs (Dev only)         |
+
+---
+
+## Try It Online
+
+Click the link to open the template in **StackBlitz**, edit code, and run the server instantly in your browser:
+
+[Open fastify-basic-js on StackBlitz](https://stackblitz.com/github/dev-rashedin/servest/tree/main/packages/create-servest/templates/fastify/fastify-basic-js?file=app.js)
