@@ -1,3 +1,4 @@
+import { CgNpm } from 'react-icons/cg';
 import {
   FaBolt,
   FaCodeBranch,
@@ -11,17 +12,16 @@ import {
   FaServer,
   FaTerminal,
 } from 'react-icons/fa';
-import { IoCloseCircleOutline, IoSunnyOutline } from 'react-icons/io5';
 import { FiEdit, FiMoon } from 'react-icons/fi';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { IoCloseCircleOutline, IoSunnyOutline } from 'react-icons/io5';
 import {
   RiArrowRightDoubleFill,
   RiArrowRightSLine,
   RiMenu2Fill,
   RiMenu3Fill,
 } from 'react-icons/ri';
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { SiBun, SiDeno, SiPnpm, SiYarn } from 'react-icons/si';
-import { CgNpm } from 'react-icons/cg';
 
 export const navItems = [
   { label: 'Guide', to: '/guide' },
@@ -98,6 +98,10 @@ export const nestedDocsOrder: Record<string, { label: string; items: string[] }[
         'express-modular-ts',
       ],
     },
+    {
+      label: 'Fastify',
+      items: ['fastify-basic-js'],
+    },
     // {
     //   label: 'Django',
     //   items: ['django-basic-py', 'django-auth'],
@@ -164,21 +168,21 @@ export const steps = [
 ];
 
 export {
-  FaGithub,
-  IoSunnyOutline,
-  FiMoon,
+  CgNpm,
   FaDiscord,
+  FaGithub,
   FiEdit,
+  FiMoon,
   IoCloseCircleOutline,
-  RiMenu3Fill,
-  RiMenu2Fill,
-  RiArrowRightSLine,
   IoIosArrowDown,
   IoIosArrowUp,
-  SiYarn,
-  SiPnpm,
+  IoSunnyOutline,
+  RiArrowRightDoubleFill,
+  RiArrowRightSLine,
+  RiMenu2Fill,
+  RiMenu3Fill,
   SiBun,
   SiDeno,
-  CgNpm,
-  RiArrowRightDoubleFill,
+  SiPnpm,
+  SiYarn,
 };
