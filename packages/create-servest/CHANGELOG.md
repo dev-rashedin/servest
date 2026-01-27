@@ -2,6 +2,14 @@
 
 All notable changes to **create-servest** will be documented here.
 
+## [2.1.0] - 2026-01-27
+
+### Fixes
+- **Fixed README load failure for Express TypeScript templates**
+  - Resolved issue where TypeScript variant READMEs were not being read correctly during project creation.
+  - Ensures correct README is copied and displayed for all Express TS templates.
+
+
 ## [2.0.0] - 2025-11-24
 
 ### Major Changes
