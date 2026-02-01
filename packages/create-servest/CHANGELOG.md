@@ -2,7 +2,7 @@
 
 All notable changes to **create-servest** will be documented here.
 
-## [2.1.0] - 2026-01-27
+## [2.1.0] - 2026-02-01
 
 ### Fixes
 - **Fixed README load failure for Express TypeScript templates**
