@@ -83,6 +83,7 @@ module.exports = app;
 ### server.js
 
 ```js
+require('dotenv/config');
 const app = require('./app');
 const port = process.env.PORT || 3000;
 
@@ -107,7 +108,9 @@ start();
 | [fastify](https://fastify.dev/)                                          | Core server framework                |
 | [@fastify/cors](https://github.com/fastify/fastify-cors)                 | Enable Cross-Origin Resource Sharing |
 | [http-status-toolkit](https://www.npmjs.com/package/http-status-toolkit) | HTTP status codes utility            |
+| [dotenv](https://github.com/motdotla/dotenv)                             | Load environment variables           |
 | [pino-pretty](https://github.com/pinojs/pino-pretty)                     | Pretty print logs (Dev only)         |
+| [nodemon](https://nodemon.io/)                                           | Auto-restart server on file changes  |
 
 ---
 
