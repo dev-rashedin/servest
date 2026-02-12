@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "src/server.js",
   "scripts": {
-    "dev": "nodemon src/server.js | pino-pretty",
+    "dev": "nodemon src/server.js",
     "start": "node src/server.js"
   },
   "dependencies": {
@@ -16,7 +16,6 @@
     "http-status-toolkit": "^2.0.0"
   },
   "devDependencies": {
-    "pino-pretty": "^13.0.0",
     "nodemon": "^3.1.11"
   }
 }
