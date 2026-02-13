@@ -1,0 +1,170 @@
+# fastify-plugin-ts Template
+
+A **TypeScript** backend template using Fastify's **Application Factory** pattern and **plugin-based architecture** with ES Modules. Ideal for modular, scalable services with auto-loaded plugins and routes.
+
+---
+
+## When to Use
+
+- You want a **Fastify server in TypeScript**.
+- Prefer **plugin-based architecture** with encapsulation.
+- Use **ES Module syntax** (`import` / `export`) with type safety.
+- Suitable for medium to large projects with modular plugins and routes.
+- Ideal for maintainable and scalable backend development.
+
+---
+
+## Installation
+
+Scaffold the template using **Servest**:
+
+```bash
+npm create servest@latest servest-project -- --template fastify-plugin-ts
+```
+
+> This will create a new project in the `servest-project` folder
+> with all required files.
+
+For detailed installation instructions, see the [create-servest guide](/guide)
+
+---
+
+## Run Commands
+
+Start in development mode (auto-reloads using nodemon)
+
+```bash
+npm run dev
+```
+
+Start in production mode
+
+```bash
+npm run start
+```
+
+The server will run on the port specified in `.env` (default: `3000`).
+
+---
+
+## Folder Structure
+
+![express-mvc-esm](/images/express-mvc-esm.png)
+
+### src/app.ts
+
+```ts
+import AutoLoad, { AutoloadPluginOptions } from '@fastify/autoload';
+import cors from '@fastify/cors';
+import sensible from '@fastify/sensible';
+import { FastifyPluginAsync } from 'fastify';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export type AppOptions = {
+  // Place your custom options for app below here.
+} & Partial<AutoloadPluginOptions>;
+
+const app: FastifyPluginAsync<AppOptions> = async (fastify, opts): Promise<void> => {
+  // Place here your custom code!
+
+  // Register plugins
+  void fastify.register(cors);
+  void fastify.register(sensible);
+
+  // This loads all plugins defined in plugins
+  // those should be support plugins that are reused
+  // through your application
+  void fastify.register(AutoLoad, {
+    dir: path.join(__dirname, 'plugins'),
+    options: opts,
+  });
+
+  // This loads all plugins defined in routes
+  // define your routes in one of these
+  void fastify.register(AutoLoad, {
+    dir: path.join(__dirname, 'routes'),
+    options: opts,
+  });
+};
+
+export default app;
+```
+
+### src/server.ts
+
+```ts
+import Fastify from 'fastify';
+import app from './app';
+
+const server = Fastify({
+  logger: true,
+});
+
+server.register(app);
+
+const start = async () => {
+  try {
+    await server.listen({ port: Number(process.env.PORT) || 3000, host: '0.0.0.0' });
+  } catch (err) {
+    server.log.error(err);
+    process.exit(1);
+  }
+};
+
+start();
+```
+
+### src/plugins/support.ts
+
+```ts
+import fp from 'fastify-plugin';
+
+export interface SupportPluginOptions {
+  // Specify Support plugin options here
+}
+
+// The use of fastify-plugin is required to be able
+// to export the decorators to the outer scope
+export default fp<SupportPluginOptions>(async (fastify, _opts) => {
+  fastify.decorate('someSupport', function () {
+    return 'hugs';
+  });
+});
+
+// When using .decorate you have to specify added properties for Typescript
+declare module 'fastify' {
+  export interface FastifyInstance {
+    someSupport(): string;
+  }
+}
+```
+
+---
+
+## Pre-installed Packages
+
+| Package                                                                  | Purpose                              |
+| ------------------------------------------------------------------------ | ------------------------------------ |
+| [fastify](https://fastify.dev/)                                          | Core server framework                |
+| [fastify-plugin](https://github.com/fastify/fastify-plugin)              | Plugin encapsulation support         |
+| [@fastify/autoload](https://github.com/fastify/fastify-autoload)         | Auto-load plugins and routes         |
+| [@fastify/cors](https://github.com/fastify/fastify-cors)                 | Enable Cross-Origin Resource Sharing |
+| [@fastify/sensible](https://github.com/fastify/fastify-sensible)         | Common HTTP errors/utilities         |
+| [http-status-toolkit](https://www.npmjs.com/package/http-status-toolkit) | HTTP status codes utility            |
+| [dotenv](https://github.com/motdotla/dotenv)                             | Load environment variables           |
+| [tsx](https://github.com/privatenumber/tsx)                              | TypeScript execution and watch mode  |
+| [typescript](https://www.typescriptlang.org/)                            | TypeScript compiler                  |
+| [nodemon](https://nodemon.io/)                                           | Auto-restart server on file changes  |
+| [@types/node](https://www.npmjs.com/package/@types/node)                 | Type definitions for Node.js         |
+
+---
+
+## Try It Online
+
+Click the link to open the template in **StackBlitz**, edit code, and run the server instantly in your browser:
+
+[Open fastify-plugin-ts on StackBlitz](https://stackblitz.com/github/dev-rashedin/servest/tree/main/packages/create-servest/templates/fastify/fastify-plugin-ts?file=src/app.ts)

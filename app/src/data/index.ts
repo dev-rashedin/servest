@@ -108,6 +108,7 @@ export const nestedDocsOrder: Record<string, { label: string; items: string[] }[
         'fastify-mvc-ts',
         'fastify-plugin-cjs',
         'fastify-plugin-esm',
+        'fastify-plugin-ts',
       ],
     },
     // {
