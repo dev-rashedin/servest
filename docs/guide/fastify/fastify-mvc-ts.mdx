@@ -1,0 +1,134 @@
+# fastify-mvc-ts Template
+
+A **TypeScript** backend template following the **MVC (Model-View-Controller)** pattern with **Fastify**. Includes structured folders for models, controllers, routes, services, middlewares, and utilities — ideal for organized and scalable backend projects.
+
+---
+
+## When to Use
+
+- You want a **Fastify server with TypeScript**.
+- Prefer a **classic MVC architecture** for clear separation of concerns.
+- Suitable for medium to large projects with multiple routes, controllers, and models.
+- Ideal for maintainable, organized, and scalable backend development.
+
+---
+
+## Installation
+
+Scaffold the template using **Servest**:
+
+```bash
+npm create servest@latest servest-project -- --template fastify-mvc-ts
+```
+
+> This will create a new project in the `servest-project` folder
+> with all required files.
+
+For detailed installation instructions, see the [create-servest guide](/guide)
+
+---
+
+## Run Commands
+
+Start in development mode (auto-reloads using nodemon)
+
+```bash
+npm run dev
+```
+
+Start in production mode
+
+```bash
+npm run start
+```
+
+The server will run on the port specified in `.env` (default: `3000`).
+
+---
+
+## Folder Structure
+
+![express-mvc-ts](/images/express-mvc-ts.png)
+
+### src/app.ts
+
+```ts
+import cors from '@fastify/cors';
+import fastify, { FastifyReply, FastifyRequest } from 'fastify';
+import { StatusCodes } from 'http-status-toolkit';
+import { globalErrorHandler, notFoundHandler } from './handlers/errorHandler';
+
+const app = fastify({
+  logger: true,
+});
+
+// cors
+app.register(cors);
+
+// home route
+app.get('/', async (_request: FastifyRequest, reply: FastifyReply) => {
+  reply.code(StatusCodes.OK);
+  return {
+    success: true,
+    message: 'Server is running',
+  };
+});
+
+// not found handler
+app.setNotFoundHandler(notFoundHandler);
+
+// global error handler
+app.setErrorHandler(globalErrorHandler);
+
+export default app;
+```
+
+### src/server.ts
+
+```ts
+import app from './app';
+import config from './app/config';
+
+const start = async () => {
+  try {
+    await app.listen({ port: config.port, host: '0.0.0.0' });
+  } catch (err) {
+    app.log.error(err);
+    process.exit(1);
+  }
+};
+
+start();
+```
+
+### src/app/config/index.ts
+
+```ts
+export default {
+  port: Number(process.env.PORT) || 3000,
+  env: process.env.NODE_ENV || 'development',
+};
+```
+
+---
+
+## Pre-installed Packages
+
+| Package                                                                  | Purpose                              |
+| ------------------------------------------------------------------------ | ------------------------------------ |
+| [fastify](https://fastify.dev/)                                          | Core server framework                |
+| [@fastify/cors](https://github.com/fastify/fastify-cors)                 | Enable Cross-Origin Resource Sharing |
+| [http-status-toolkit](https://www.npmjs.com/package/http-status-toolkit) | HTTP status codes utility            |
+| [dotenv](https://github.com/motdotla/dotenv)                             | Load environment variables           |
+| [tsx](https://github.com/privatenumber/tsx)                              | TypeScript execution and watch mode  |
+| [typescript](https://www.typescriptlang.org/)                            | TypeScript compiler                  |
+| [nodemon](https://nodemon.io/)                                           | Auto-restart server on file changes  |
+| [@types/node](https://www.npmjs.com/package/@types/node)                 | Type definitions for Node.js         |
+
+---
+
+## Try It Online
+
+Click the link to open the template in **StackBlitz**, edit code, and run the server instantly in your browser:
+
+[Open fastify-mvc-ts on StackBlitz](https://stackblitz.com/github/dev-rashedin/servest/tree/main/packages/create-servest/templates/fastify/fastify-mvc-ts?file=src/app.ts)
