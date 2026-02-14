@@ -75,7 +75,7 @@ const DisplayContent = async ({ endpoint, slug }: Props) => {
               <span className="text-brand">
                 {prevSlug === 'index'
                   ? 'Overview'
-                  : prevSlug.includes('express')
+                  : prevSlug.includes('express') || prevSlug.includes('fastify')
                     ? prevSlug
                     : prevSlug
                         .split('-')
@@ -96,7 +96,7 @@ const DisplayContent = async ({ endpoint, slug }: Props) => {
               {' '}
               <span className="text-sm text-muted-highlight">Next Page</span>
               <span className="text-brand">
-                {nextSlug.includes('express')
+                {nextSlug.includes('express') || nextSlug.includes('fastify')
                   ? nextSlug
                   : nextSlug
                       .split('-')
