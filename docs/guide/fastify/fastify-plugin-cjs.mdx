@@ -1,0 +1,142 @@
+# fastify-plugin-cjs Template
+
+A **JavaScript** backend template using Fastify's **Application Factory** pattern and **plugin-based architecture** with CommonJS. Ideal for modular, scalable services with auto-loaded plugins and routes.
+
+---
+
+## When to Use
+
+- You want a **Fastify server in JavaScript**.
+- Prefer **plugin-based architecture** with encapsulation.
+- Use **CommonJS syntax** (`require` / `module.exports`).
+- Suitable for medium to large projects with modular plugins and routes.
+- Ideal for maintainable and scalable backend development.
+
+---
+
+## Installation
+
+Scaffold the template using **Servest**:
+
+```bash
+npm create servest@latest servest-project -- --template fastify-plugin-cjs
+```
+
+> This will create a new project in the `servest-project` folder
+> with all required files.
+
+For detailed installation instructions, see the [create-servest guide](/guide)
+
+---
+
+## Run Commands
+
+Start in development mode (auto-reloads using Nodemon)
+
+```bash
+npm run dev
+```
+
+Start in production mode
+
+```bash
+npm run start
+```
+
+The server will run on the port specified in `.env` (default: `3000`).
+
+---
+
+## Folder Structure
+
+![fastify-plugin-cjs](/images/fastify/fastify-plugin-cjs.png)
+
+### src/app.js
+
+```js
+const path = require('path');
+const AutoLoad = require('@fastify/autoload');
+const cors = require('@fastify/cors');
+const sensible = require('@fastify/sensible');
+
+module.exports = async function (fastify, opts) {
+  // Place here your custom code!
+
+  // Register plugins
+  fastify.register(cors);
+  fastify.register(sensible);
+
+  // This loads all plugins defined in plugins
+  // those should be support plugins that are reused
+  // through your application
+  fastify.register(AutoLoad, {
+    dir: path.join(__dirname, 'plugins'),
+    options: Object.assign({}, opts),
+  });
+
+  // This loads all plugins defined in routes
+  // define your routes in one of these
+  fastify.register(AutoLoad, {
+    dir: path.join(__dirname, 'routes'),
+    options: Object.assign({}, opts),
+  });
+};
+```
+
+### src/server.js
+
+```js
+require('dotenv/config');
+const fastify = require('fastify');
+const app = require('./app');
+
+const server = fastify({
+  logger: true,
+});
+
+server.register(app);
+
+const start = async () => {
+  try {
+    await server.listen({ port: process.env.PORT || 3000, host: '0.0.0.0' });
+  } catch (err) {
+    server.log.error(err);
+    process.exit(1);
+  }
+};
+
+start();
+```
+
+### src/plugins/support.js
+
+```js
+module.exports = async function (fastify) {
+  fastify.decorate('someSupport', function () {
+    return 'hugs';
+  });
+};
+```
+
+---
+
+## Pre-installed Packages
+
+| Package                                                                  | Purpose                              |
+| ------------------------------------------------------------------------ | ------------------------------------ |
+| [fastify](https://fastify.dev/)                                          | Core server framework                |
+| [fastify-plugin](https://github.com/fastify/fastify-plugin)              | Plugin encapsulation support         |
+| [@fastify/autoload](https://github.com/fastify/fastify-autoload)         | Auto-load plugins and routes         |
+| [@fastify/cors](https://github.com/fastify/fastify-cors)                 | Enable Cross-Origin Resource Sharing |
+| [@fastify/sensible](https://github.com/fastify/fastify-sensible)         | Common HTTP errors/utilities         |
+| [http-status-toolkit](https://www.npmjs.com/package/http-status-toolkit) | HTTP status codes utility            |
+| [dotenv](https://github.com/motdotla/dotenv)                             | Load environment variables           |
+| [nodemon](https://nodemon.io/)                                           | Auto-restart server on file changes  |
+
+---
+
+## Try It Online
+
+Click the link to open the template in **StackBlitz**, edit code, and run the server instantly in your browser:
+
+[Open fastify-plugin-cjs on StackBlitz](https://stackblitz.com/github/dev-rashedin/servest/tree/main/packages/create-servest/templates/fastify/fastify-plugin-cjs?file=src/app.js)

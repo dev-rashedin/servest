@@ -100,7 +100,16 @@ export const nestedDocsOrder: Record<string, { label: string; items: string[] }[
     },
     {
       label: 'Fastify',
-      items: ['fastify-basic-js'],
+      items: [
+        'fastify-basic-js',
+        'fastify-basic-ts',
+        'fastify-mvc-cjs',
+        'fastify-mvc-esm',
+        'fastify-mvc-ts',
+        'fastify-plugin-cjs',
+        'fastify-plugin-esm',
+        'fastify-plugin-ts',
+      ],
     },
     // {
     //   label: 'Django',

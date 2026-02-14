@@ -1,13 +1,13 @@
-# fastify-basic-js Template
+# fastify-basic-ts Template
 
-A minimal **Fastify** backend template in JavaScript with essential setup for quickly starting a server, error handling, and CORS support. Ideal for learning or small projects.
+A minimal **Fastify** backend template in TypeScript with essential setup for quickly starting a server, error handling, and CORS support. Ideal for learning or small projects.
 
 ---
 
 ## When to Use
 
-- You want a **barebones Fastify server** in JavaScript.
-- No TypeScript or complex folder structures needed.
+- You want a **barebones Fastify server** in TypeScript.
+- No complex folder structures needed.
 - Perfect for quick prototypes or small backend services.
 
 ---
@@ -17,7 +17,7 @@ A minimal **Fastify** backend template in JavaScript with essential setup for qu
 Scaffold the template using **Servest**:
 
 ```bash
-npm create servest@latest servest-project -- --template fastify-basic-js
+npm create servest@latest servest-project -- --template fastify-basic-ts
 ```
 
 > This will create a new project in the `servest-project` folder
@@ -47,15 +47,15 @@ The server will run on the port specified in `.env` (default: `3000`).
 
 ## Folder Structure
 
-![fastify-basic-js](/images/fastify/fastify-basic-js.png)
+![fastify-basic-ts](/images/fastify/fastify-basic-ts.png)
 
-### app.js
+### app.ts
 
-```js
-const fastify = require('fastify');
-const cors = require('@fastify/cors');
-const { StatusCodes } = require('http-status-toolkit');
-const { notFoundHandler, globalErrorHandler } = require('./handlers/errorHandler');
+```ts
+import cors from '@fastify/cors';
+import fastify, { FastifyReply, FastifyRequest } from 'fastify';
+import { StatusCodes } from 'http-status-toolkit';
+import { globalErrorHandler, notFoundHandler } from './handlers/errorHandler';
 
 const app = fastify({ logger: true });
 
@@ -63,7 +63,7 @@ const app = fastify({ logger: true });
 app.register(cors);
 
 // home route
-app.get('/', async (request, reply) => {
+app.get('/', async (_request: FastifyRequest, reply: FastifyReply) => {
   reply.code(StatusCodes.OK);
   return {
     success: true,
@@ -77,15 +77,16 @@ app.setNotFoundHandler(notFoundHandler);
 // global error handler
 app.setErrorHandler(globalErrorHandler);
 
-module.exports = app;
+export default app;
 ```
 
-### server.js
+### server.ts
 
-```js
-require('dotenv/config');
-const app = require('./app');
-const port = process.env.PORT || 3000;
+```ts
+import 'dotenv/config';
+import app from './app';
+
+const port = Number(process.env.PORT) || 3000;
 
 const start = async () => {
   try {
@@ -109,6 +110,8 @@ start();
 | [@fastify/cors](https://github.com/fastify/fastify-cors)                 | Enable Cross-Origin Resource Sharing |
 | [http-status-toolkit](https://www.npmjs.com/package/http-status-toolkit) | HTTP status codes utility            |
 | [dotenv](https://github.com/motdotla/dotenv)                             | Load environment variables           |
+| [tsx](https://github.com/privatenumber/tsx)                              | TypeScript execution and watch mode  |
+| [typescript](https://www.typescriptlang.org/)                            | TypeScript compiler                  |
 | [nodemon](https://nodemon.io/)                                           | Auto-restart server on file changes  |
 
 ---
@@ -117,4 +120,4 @@ start();
 
 Click the link to open the template in **StackBlitz**, edit code, and run the server instantly in your browser:
 
-[Open fastify-basic-js on StackBlitz](https://stackblitz.com/github/dev-rashedin/servest/tree/main/packages/create-servest/templates/fastify/fastify-basic-js?file=app.js)
+[Open fastify-basic-ts on StackBlitz](https://stackblitz.com/github/dev-rashedin/servest/tree/main/packages/create-servest/templates/fastify/fastify-basic-ts?file=app.ts)

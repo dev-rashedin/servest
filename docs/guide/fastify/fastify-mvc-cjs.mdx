@@ -1,14 +1,16 @@
-# fastify-basic-js Template
+# fastify-mvc-cjs Template
 
-A minimal **Fastify** backend template in JavaScript with essential setup for quickly starting a server, error handling, and CORS support. Ideal for learning or small projects.
+A **JavaScript** backend template following the **MVC (Model-View-Controller)** pattern with **Fastify** using CommonJS. Includes structured folders for controllers, models, routes, services, middlewares, and utilities — ideal for organized and scalable backend projects.
 
 ---
 
 ## When to Use
 
-- You want a **barebones Fastify server** in JavaScript.
-- No TypeScript or complex folder structures needed.
-- Perfect for quick prototypes or small backend services.
+- You want a **Fastify server in JavaScript**.
+- Prefer a **classic MVC architecture** for clear separation of concerns.
+- Use **CommonJS syntax** (`require` / `module.exports`).
+- Suitable for medium to large projects with multiple routes, controllers, and models.
+- Ideal for maintainable and organized backend development.
 
 ---
 
@@ -17,7 +19,7 @@ A minimal **Fastify** backend template in JavaScript with essential setup for qu
 Scaffold the template using **Servest**:
 
 ```bash
-npm create servest@latest servest-project -- --template fastify-basic-js
+npm create servest@latest servest-project -- --template fastify-mvc-cjs
 ```
 
 > This will create a new project in the `servest-project` folder
@@ -47,9 +49,9 @@ The server will run on the port specified in `.env` (default: `3000`).
 
 ## Folder Structure
 
-![fastify-basic-js](/images/fastify/fastify-basic-js.png)
+![fastify-mvc-cjs](/images/fastify/fastify-mvc-cjs.png)
 
-### app.js
+### src/app.js
 
 ```js
 const fastify = require('fastify');
@@ -57,7 +59,9 @@ const cors = require('@fastify/cors');
 const { StatusCodes } = require('http-status-toolkit');
 const { notFoundHandler, globalErrorHandler } = require('./handlers/errorHandler');
 
-const app = fastify({ logger: true });
+const app = fastify({
+  logger: true,
+});
 
 // cors
 app.register(cors);
@@ -80,16 +84,16 @@ app.setErrorHandler(globalErrorHandler);
 module.exports = app;
 ```
 
-### server.js
+### src/server.js
 
 ```js
 require('dotenv/config');
 const app = require('./app');
-const port = process.env.PORT || 3000;
+const config = require('./app/config');
 
 const start = async () => {
   try {
-    await app.listen({ port, host: '0.0.0.0' });
+    await app.listen({ port: config.port, host: '0.0.0.0' });
   } catch (err) {
     app.log.error(err);
     process.exit(1);
@@ -97,6 +101,15 @@ const start = async () => {
 };
 
 start();
+```
+
+### src/app/config/index.js
+
+```js
+module.exports = {
+  port: process.env.PORT || 3000,
+  env: process.env.NODE_ENV || 'development',
+};
 ```
 
 ---
@@ -117,4 +130,4 @@ start();
 
 Click the link to open the template in **StackBlitz**, edit code, and run the server instantly in your browser:
 
-[Open fastify-basic-js on StackBlitz](https://stackblitz.com/github/dev-rashedin/servest/tree/main/packages/create-servest/templates/fastify/fastify-basic-js?file=app.js)
+[Open fastify-mvc-cjs on StackBlitz](https://stackblitz.com/github/dev-rashedin/servest/tree/main/packages/create-servest/templates/fastify/fastify-mvc-cjs?file=src/app.js)
