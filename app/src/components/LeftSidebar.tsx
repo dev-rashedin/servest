@@ -83,7 +83,7 @@ const LeftSidebar = ({ links, type, nestedLinks }: DrawerProps) => {
 
               {/* Sub-items (express-basic-js, etc.) */}
               <div
-                className={`overflow-hidden transform transition-all duration-100 ease-in-out mt-2 ml-6 ${
+                className={`overflow-hidden transform transition-all duration-100 ease-in-out ml-6 ${
                   openCategories[cat.label]
                     ? 'opacity-100 translate-y-0'
                     : 'opacity-0 -translate-y-2'
