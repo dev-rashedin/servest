@@ -8,6 +8,18 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
         disallow: ['/api/', '/private/'],
       },
+      {
+        userAgent: [
+          'GPTBot',
+          'PerplexityBot',
+          'Anthropic-AI',
+          'Google-Extended',
+          'ClaudeBot',
+          'cohere-ai',
+        ],
+        allow: '/',
+        disallow: ['/api/', '/private/'],
+      },
     ],
     sitemap: 'https://servest.dev/sitemap.xml',
     host: 'https://servest.dev',
