@@ -1,4 +1,4 @@
-import { boldGreen, boldYellow, cyan, green, yellow } from '../../../utils/colors';
+import { boldGreen, boldYellow, cyan, green, magenta, yellow } from '../../../utils/colors';
 
 export const FRAMEWORKS: IFramework[] = [
   {
@@ -105,6 +105,31 @@ export const FRAMEWORKS: IFramework[] = [
     ],
   },
   {
+    name: 'ASP.NET Core',
+    value: 'aspnet',
+    color: magenta,
+    variants: [
+      {
+        name: 'Enterprise Architecture',
+        value: 'aspnet-enterprise-architecture',
+        color: cyan,
+        framework: 'aspnet',
+      },
+      {
+        name: 'MVC Layered Web API',
+        value: 'aspnet-mvc',
+        color: yellow,
+        framework: 'aspnet',
+      },
+      {
+        name: 'Minimal API',
+        value: 'aspnet-minimal-api',
+        color: green,
+        framework: 'aspnet',
+      },
+    ],
+  },
+  {
     name: 'Django',
     value: 'django',
     color: boldGreen,
@@ -138,9 +163,25 @@ Usage: create-servest [OPTION]... [DIRECTORY]
 Create a new Servest backend project.
 With no arguments, start the CLI in interactive mode.
 
-Options:
-  -t, --template NAME        use a specific template
+General Options:
+  -t, --template NAME        use a specific template (e.g. enterprise, mvc, minimal-api)
   -h, --help                 show this help message
+  -v, --version              show version number
+  --overwrite                overwrite target directory if not empty
+  --non-interactive          run without interactive prompts
+  --dry-run                  simulate project creation without writing files
+  -a, --addons NAME...       add addons to the project
+
+ASP.NET Core Composable Options:
+  --dotnet VERSION           target .NET SDK: auto, 10, 9, 8 (default: auto)
+  --database DB              database provider: sqlite, postgres, sqlserver, mysql, none (default: sqlite)
+  --orm ORM                  data access ORM: ef, none (default: ef)
+  --auth AUTH                authentication: none, jwt, identity (default: none)
+  --authorization AUTHZ      authorization model: none, rbac (default: none)
+  --docker, --no-docker      include Dockerfile & container setup (default: true)
+  --tests SUITE              testing suite: unit-integration, unit, none (default: unit-integration)
+  --git, --no-git            initialize git repository (default: true)
+  --example TYPE             example feature: sample, none (default: sample)
 
 Available templates:
 ${yellow('express-basic-js   express-basic-ts   express-modular-esm')}
@@ -149,6 +190,7 @@ ${yellow('express-modular-cjs    express-modular-esm   express-modular-ts')}
 ${yellow('fastify-basic-js   fastify-basic-ts   fastify-mvc-cjs')}
 ${yellow('fastify-mvc-esm    fastify-mvc-ts     fastify-plugin-cjs')}
 ${yellow('fastify-plugin-esm fastify-plugin-ts')}
+${magenta('aspnet-enterprise-architecture (enterprise)  aspnet-mvc (mvc)  aspnet-minimal-api (minimal-api)')}
 `;
 
 // ${green('django-basic        django-api        django-channels    django-celery')}

@@ -1,0 +1,134 @@
+---
+title: ASP.NET Core Templates & Configuration
+description: Learn about the ASP.NET Core templates and composable scaffolding features in Servest, from Clean Architecture to Minimal APIs.
+---
+
+# ASP.NET Core Templates & Scaffolding
+
+Servest offers production-ready, highly configurable **ASP.NET Core (.NET 8, 9 & 10)** templates. Instead of manually running 20+ `dotnet` commands to set up projects, dependencies, references, Docker setups, and test suites, Servest provides a complete, working backend tailored to your exact stack in seconds.
+
+---
+
+## 🏛️ Architectures
+
+Servest provides three foundation architectures:
+
+| Architecture                | Full Template Name               | Short Alias   | Ideal For                                                                    |
+| --------------------------- | -------------------------------- | ------------- | ---------------------------------------------------------------------------- |
+| **Enterprise Architecture** | `aspnet-enterprise-architecture` | `enterprise`  | Microservices, scalable enterprise APIs with Clean/Onion Architecture & CQRS |
+| **MVC Layered Web API**     | `aspnet-mvc`                     | `mvc`         | Single-project controller-based Web APIs with service layers                 |
+| **Minimal API**             | `aspnet-minimal-api`             | `minimal-api` | High-performance, lightweight micro-endpoints with Route Groups              |
+
+### 1. Enterprise Architecture (`enterprise`)
+
+```
+<ProjectRoot>/
+├── src/
+│   ├── <AppName>.Domain/           # Entities, ValueObjects, Domain Exceptions (Zero dependencies)
+│   ├── <AppName>.Application/      # CQRS (MediatR), FluentValidation, Interfaces, DTOs
+│   ├── <AppName>.Persistence/      # EF Core DbContext, Entity Configurations, Database Providers
+│   ├── <AppName>.Infrastructure/   # External services, JWT Identity, Date/Time providers
+│   └── <AppName>.API/              # REST Controllers, Middlewares, Swagger UI, DI Setup
+├── tests/
+│   ├── <AppName>.UnitTests/        # xUnit, Moq, FluentAssertions
+│   └── <AppName>.IntegrationTests/ # xUnit, CustomWebApplicationFactory (isolated in-memory EF)
+└── <AppName>.sln
+```
+
+### 2. MVC Layered Web API (`mvc`)
+
+- `Controllers/`: Inheriting from `BaseApiController`.
+- `Services/`: Business logic interfaces and implementations.
+- `Models/`: Database domain entities.
+- `DTOs/`: Request/Response data models.
+- `Data/`: `ApplicationDbContext` with EF Core.
+- `Middleware/`: Centralized Global Exception Handling.
+
+### 3. Minimal API (`minimal-api`)
+
+- `Endpoints/`: Route groups using `MapGroup("/api/...")`.
+- `Models/`: Entity models.
+- `DTOs/`: Request & response schemas.
+- `Data/`: EF Core `ApplicationDbContext`.
+- `Middleware/`: Global Exception Handling middleware.
+
+---
+
+## ⚙️ Composable Features & CLI Flags
+
+Every architecture can be customized interactively or via CLI flags:
+
+### Database & ORM
+
+- `--database <sqlite|postgres|sqlserver|mysql|none>`: Configures provider-specific packages, connection strings in `.env` and `appsettings.json`, and registers DI (`UseSqlite`, `UseNpgsql`, `UseSqlServer`, `UseMySql`).
+- `--orm <ef|none>`: Defaults to Entity Framework Core.
+
+### Authentication & Authorization
+
+- `--auth <jwt|none>`: Installs `JwtBearer` packages, generates `TokenService` and `JwtSettings`, and configures authentication middleware with Swagger Bearer security schemes.
+- `--authorization <rbac|none>`: Generates `Roles.cs` and `Policies.cs`, registering role-based authorization policies.
+
+### Docker & Infrastructure
+
+- `--docker` / `--no-docker`: Includes or skips `Dockerfile`, `.dockerignore`, and multi-container `docker-compose.yml` (e.g. API + PostgreSQL/MySQL).
+
+### Testing Suites
+
+- `--tests <unit-integration|unit|none>`:
+  - `unit-integration`: Includes both unit and integration test suites.
+  - `unit`: Unlinks and removes integration tests.
+  - `none`: Completely removes all test projects and unlinks them from `.sln`.
+
+### Example Endpoints
+
+- `--example <sample-crud|none>`:
+  - `sample-crud`: Includes sample entities, endpoints, CQRS handlers, and validation.
+  - `none`: Strips all sample controllers/endpoints/handlers for a clean production foundation.
+
+### Additional Automation
+
+- `--git` / `--no-git`: Initializes a Git repository and stages initial commit.
+- `--dry-run`: Previews the project generation plan without writing any files to disk.
+- `--non-interactive`: Runs in CI/scripting mode, using defaults or provided flags without prompting.
+
+---
+
+## 🚀 Quickstart Examples
+
+### 1. Interactive Mode
+
+Run without flags to trigger the interactive setup wizard:
+
+```bash
+npx create-servest my-backend
+```
+
+### 2. Full Enterprise Stack with PostgreSQL, JWT & Docker
+
+```bash
+npx create-servest enterprise-api \
+  --template enterprise \
+  --database postgres \
+  --auth jwt \
+  --authorization rbac \
+  --docker \
+  --non-interactive
+```
+
+### 3. Clean-Slate Minimal API with SQLite
+
+```bash
+npx create-servest microservice \
+  --template minimal-api \
+  --database sqlite \
+  --example none \
+  --non-interactive
+```
+
+### 4. Running Your New Project
+
+```bash
+cd enterprise-api
+dotnet restore
+dotnet watch --project src/EnterpriseApi.API
+```

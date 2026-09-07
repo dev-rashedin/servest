@@ -31,9 +31,10 @@
     "lint:packages": "eslint --cache packages",
     "lint:app": "eslint --cache app",
     "lint": "pnpm lint:packages && pnpm lint:app",
-    "typecheck": "tsc -p tsconfig.base.json && pnpm -r --parallel run typecheck",
+    "typecheck": "pnpm -r --parallel run typecheck",
     "test": "vitest run",
-    "build": "pnpm -r --filter='./packages/*' run build",
+    "dev": "pnpm --filter servest-frontend run dev",
+    "build": "pnpm -r --filter \"./packages/*\" run build",
     "publish:create-servest": "pnpm --filter create-servest publish --access public",
     "publish:servest": "pnpm --filter servest publish --access public"
   },

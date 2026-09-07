@@ -10,17 +10,32 @@ import mri from 'mri';
 
 // Local utilities
 import { getIServestConfig } from '../../servest-addons/src/utils/createFile';
-import { green, red, yellow } from '../../utils/colors';
+import { cyan, green, red, yellow } from '../../utils/colors';
 import { cancelOperation, detectPkgManager } from '../../utils/sharedUtility';
+import {
+  type ArchitectureType,
+  type AuthType,
+  type AuthorizationType,
+  type DatabaseType,
+  type DotnetVersion,
+  type ExampleType,
+  type IAspNetOptions,
+  type OrmType,
+  type TestingType,
+  generateAspNetProject,
+  promptAspNetOptions,
+} from './generators/aspnet';
 import { ALL_TEMPLATES, FRAMEWORKS, helpMessage } from './utils';
 import {
   copyDir,
   emptyDir,
   formatTargetDir,
+  getDotnetTargetFramework,
   getFullCustomCommand,
   isEmpty,
   isValidPackageName,
   pkgFromUserAgent,
+  toPascalCase,
   toValidPackageName,
   updatePackageName,
 } from './utils/helper';
@@ -30,32 +45,92 @@ const defaultTargetDir = 'servest-project';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// CLI args
-const argv = mri<IArgv>(process.argv.slice(2), {
-  alias: { h: 'help', t: 'template', a: 'addons' },
-  boolean: ['help', 'overwrite', 'h'],
-  string: ['template', 'addons'],
+// CLI raw args & parsed
+const rawArgs = process.argv.slice(2);
+const argv = mri<IArgv>(rawArgs, {
+  alias: { h: 'help', t: 'template', a: 'addons', v: 'version' },
+  boolean: [
+    'help',
+    'overwrite',
+    'h',
+    'version',
+    'v',
+    'dryRun',
+    'dry-run',
+    'nonInteractive',
+    'non-interactive',
+    'docker',
+    'git',
+  ],
+  string: [
+    'template',
+    'addons',
+    'framework',
+    'dotnet',
+    'database',
+    'orm',
+    'auth',
+    'authorization',
+    'tests',
+    'example',
+    'config',
+  ],
 });
 
+function normalizeTemplate(name?: string): string | undefined {
+  if (!name) return undefined;
+  const lower = name.trim().toLowerCase();
+  if (lower === 'enterprise' || lower === 'aspnet-enterprise')
+    return 'aspnet-enterprise-architecture';
+  if (lower === 'mvc' || lower === 'aspnet-mvc') return 'aspnet-mvc';
+  if (lower === 'minimal' || lower === 'minimal-api' || lower === 'aspnet-minimal')
+    return 'aspnet-minimal-api';
+  return name.trim();
+}
+
 async function init() {
-  intro('Create Servest project');
-
-  const argTargetDir = argv._[0] ? formatTargetDir(String(argv._[0])) : undefined;
-  const argTemplate = argv.template;
-  const argOverwrite = argv.overwrite;
-  const addonsArg = argv.a || argv.addons;
-
-  const help = argv.help || argv.h;
-  if (help) {
+  const isHelp = Boolean(argv.help || argv.h);
+  if (isHelp) {
     console.log(helpMessage);
     return;
   }
 
-  const pkgInfo = pkgFromUserAgent(process.env.npm_config_user_agent);
+  const isVersion = Boolean(argv.version || argv.v);
+  if (isVersion) {
+    try {
+      const pkgPath = path.resolve(__dirname, '../package.json');
+      const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
+      console.log(`v${pkg.version}`);
+    } catch {
+      console.log('v2.1.0');
+    }
+    return;
+  }
+
+  const argTargetDir = argv._[0] ? formatTargetDir(String(argv._[0])) : undefined;
+  let template = normalizeTemplate(argv.template);
+  const argOverwrite = argv.overwrite;
+  const addonsArg = argv.a || argv.addons;
+
+  const hasExplicitNonInteractive = Boolean(argv.nonInteractive || argv['non-interactive']);
+  const isNonInteractive = Boolean(
+    hasExplicitNonInteractive ||
+    (!process.stdin.isTTY && Boolean(template) && ALL_TEMPLATES.includes(template)),
+  );
+  const isDryRun = Boolean(argv.dryRun || argv['dry-run']);
+
+  if (!isNonInteractive) {
+    intro('Create Servest project');
+  }
 
   // 1️⃣ Targeting directory
   let targetDir = argTargetDir;
   if (!targetDir) {
+    if (isNonInteractive) {
+      return cancelOperation(
+        'ERROR: Project directory name is required in non-interactive mode. (e.g. npx create-servest my-api --non-interactive)',
+      );
+    }
     const projectName = await text({
       message: 'Project name:',
       defaultValue: defaultTargetDir,
@@ -74,62 +149,87 @@ async function init() {
 
   // 2️⃣ Handling existing directory
   if (fs.existsSync(root) && !isEmpty(root)) {
-    const overwrite = argOverwrite
-      ? 'yes'
-      : await select({
-          message: `${
-            targetDir === '.' ? 'Current directory' : `Target directory "${targetDir}"`
-          } is not empty. Choose how to proceed:`,
-          options: [
-            { value: 'no', label: red('Cancel operation') },
-            { value: 'yes', label: yellow('Remove existing files and continue') },
-            { value: 'ignore', label: green('Ignore files and continue') },
-          ],
-        });
-    if (isCancel(overwrite)) return cancelOperation();
-    switch (overwrite) {
-      case 'no':
-        return cancelOperation();
-      case 'yes':
-        emptyDir(root);
-        break;
-      case 'ignore':
-        break;
+    if (isNonInteractive) {
+      if (!argOverwrite) {
+        return cancelOperation(
+          `ERROR: Target directory "${targetDir}" already exists and is not empty. Use --overwrite to replace existing files.`,
+        );
+      }
+      emptyDir(root);
+    } else {
+      const overwrite = argOverwrite
+        ? 'yes'
+        : await select({
+            message: `${
+              targetDir === '.' ? 'Current directory' : `Target directory "${targetDir}"`
+            } is not empty. Choose how to proceed:`,
+            options: [
+              { value: 'no', label: red('Cancel operation') },
+              { value: 'yes', label: yellow('Remove existing files and continue') },
+              { value: 'ignore', label: green('Ignore files and continue') },
+            ],
+          });
+      if (isCancel(overwrite)) return cancelOperation();
+      switch (overwrite) {
+        case 'no':
+          return cancelOperation();
+        case 'yes':
+          emptyDir(root);
+          break;
+        case 'ignore':
+          break;
+      }
     }
   }
 
-  fs.mkdirSync(root, { recursive: true });
+  if (!isDryRun) {
+    fs.mkdirSync(root, { recursive: true });
+  }
 
-  // 3️⃣ validating package name
+  // 3️⃣ Validating package name
   let packageName = path.basename(path.resolve(root));
   if (!isValidPackageName(packageName)) {
     const suggestedName = toValidPackageName(packageName);
-    const packageNameResult = await text({
-      message: 'Package name:',
-      defaultValue: suggestedName,
-      placeholder: suggestedName,
-      validate(dir) {
-        if (!isValidPackageName(dir))
-          return 'Invalid package name: only lowercase letters, numbers, hyphens (-), and underscores (_) are allowed';
-      },
-    });
-    if (isCancel(packageNameResult)) return cancelOperation();
-    packageName = packageNameResult;
+    if (isNonInteractive) {
+      packageName = suggestedName;
+    } else {
+      const packageNameResult = await text({
+        message: 'Package name:',
+        defaultValue: suggestedName,
+        placeholder: suggestedName,
+        validate(dir) {
+          if (!isValidPackageName(dir))
+            return 'Invalid package name: only lowercase letters, numbers, hyphens (-), and underscores (_) are allowed';
+        },
+      });
+      if (isCancel(packageNameResult)) return cancelOperation();
+      packageName = packageNameResult;
+    }
   }
 
+  const pkgInfo = pkgFromUserAgent(process.env.npm_config_user_agent);
+
   // 4️⃣ Determine template
-  let template = argv.template?.trim();
   let hasInvalidArgTemplate = false;
   if (template && !ALL_TEMPLATES.includes(template)) {
+    if (hasExplicitNonInteractive) {
+      return cancelOperation(
+        `ERROR: "${argv.template}" is not a valid template. Valid templates: ${ALL_TEMPLATES.join(', ')}`,
+      );
+    }
     template = undefined;
     hasInvalidArgTemplate = true;
   }
 
   if (!template) {
+    if (hasExplicitNonInteractive) {
+      return cancelOperation('ERROR: --template is required when using --non-interactive mode.');
+    }
+
     // Selecting a framework
     const framework = await select({
       message: hasInvalidArgTemplate
-        ? `"${argTemplate}" isn't a valid template. Please choose from below: `
+        ? `"${argv.template}" isn't a valid template. Please choose from below: `
         : 'Select a framework:',
       options: FRAMEWORKS.map((f) => ({
         label: f.color(f.name),
@@ -159,11 +259,126 @@ async function init() {
     template = variant as string;
   }
 
-  // 5️⃣ Running custom command if exists
+  // 5️⃣ ASP.NET Core Composable Workflow
+  if (template.startsWith('aspnet')) {
+    const arch: ArchitectureType =
+      template === 'aspnet-mvc'
+        ? 'mvc'
+        : template === 'aspnet-minimal-api'
+          ? 'minimal-api'
+          : 'enterprise';
+
+    // Parse options from CLI flags or fallback
+    const cliOptions: Partial<IAspNetOptions> = {
+      architecture: arch,
+      dotnetVersion: (argv.dotnet as DotnetVersion) || undefined,
+      database: (argv.database as DatabaseType) || undefined,
+      orm: (argv.orm as OrmType) || undefined,
+      auth: (argv.auth as AuthType) || undefined,
+      authorization: (argv.authorization as AuthorizationType) || undefined,
+      docker: rawArgs.includes('--no-docker')
+        ? false
+        : rawArgs.includes('--docker')
+          ? true
+          : undefined,
+      testing: (argv.tests as TestingType) || undefined,
+      git: rawArgs.includes('--no-git') ? false : rawArgs.includes('--git') ? true : undefined,
+      example: (argv.example as ExampleType) || undefined,
+    };
+
+    let aspNetOptions: IAspNetOptions;
+
+    if (isNonInteractive) {
+      aspNetOptions = {
+        projectName: packageName,
+        targetDir,
+        root,
+        architecture: arch,
+        dotnetVersion: cliOptions.dotnetVersion || 'auto',
+        database: cliOptions.database || 'sqlite',
+        orm: cliOptions.orm || (cliOptions.database === 'none' ? 'none' : 'ef'),
+        auth: cliOptions.auth || 'none',
+        authorization: cliOptions.authorization || 'none',
+        docker: cliOptions.docker !== undefined ? cliOptions.docker : true,
+        testing: cliOptions.testing || 'unit-integration',
+        git: cliOptions.git !== undefined ? cliOptions.git : true,
+        example: cliOptions.example || 'sample',
+        dryRun: isDryRun,
+        nonInteractive: true,
+      };
+    } else {
+      aspNetOptions = await promptAspNetOptions(packageName, targetDir, root, cliOptions);
+      aspNetOptions.dryRun = isDryRun;
+    }
+
+    if (isDryRun) {
+      log.step(cyan('ℹ️ Dry Run - Proposed Project Configuration:'));
+      console.log(`
+  Project:        ${toPascalCase(packageName)}
+  Framework:      ASP.NET Core
+  Architecture:   ${aspNetOptions.architecture}
+  .NET Version:   ${aspNetOptions.dotnetVersion}
+  Database:       ${aspNetOptions.database}
+  ORM:            ${aspNetOptions.orm}
+  Authentication: ${aspNetOptions.auth}
+  Authorization:  ${aspNetOptions.authorization}
+  Docker:         ${aspNetOptions.docker ? 'Enabled' : 'Disabled'}
+  Tests:          ${aspNetOptions.testing}
+  Git:            ${aspNetOptions.git ? 'Initialized' : 'Skipped'}
+  Example:        ${aspNetOptions.example}
+`);
+      outro(green('✨ Dry run complete. No files were written.'));
+      return;
+    }
+
+    log.step(green(`ℹ️ Scaffolding project in ${root}...`));
+
+    try {
+      generateAspNetProject(aspNetOptions);
+    } catch (err: any) {
+      return cancelOperation(err.message || String(err));
+    }
+
+    const appName = toPascalCase(packageName);
+    const targetFw = getDotnetTargetFramework();
+    const cdProjectName = path.relative(cwd, root);
+    const cdCommand =
+      root !== cwd
+        ? `cd ${cdProjectName.includes(' ') ? `"${cdProjectName}"` : cdProjectName}`
+        : '';
+    const runCmd =
+      aspNetOptions.architecture === 'enterprise'
+        ? `dotnet watch --project src/${appName}.API`
+        : 'dotnet watch';
+
+    console.log(`
+  ╭─────────────────────────────────────────────╮
+  │        🎉 Servest Project Created           │
+  ╰─────────────────────────────────────────────╯
+
+  Project:        ${appName}
+  Framework:      ASP.NET Core
+  Architecture:   ${aspNetOptions.architecture}
+  .NET Version:   ${targetFw}
+  Database:       ${aspNetOptions.database}
+  ORM:            ${aspNetOptions.orm}
+  Authentication: ${aspNetOptions.auth}
+  Authorization:  ${aspNetOptions.authorization}
+  Docker:         ${aspNetOptions.docker ? 'Enabled' : 'Disabled'}
+  Tests:          ${aspNetOptions.testing}
+  Git:            ${aspNetOptions.git ? 'Initialized' : 'Skipped'}
+
+  Next steps:
+    ${cdCommand}
+    dotnet restore
+    ${runCmd}
+`);
+    outro(green('Done. Happy coding!'));
+    return;
+  }
+
+  // 6️⃣ Running custom command if exists (for external frameworks)
   const pkgManager = detectPkgManager();
-
-  console.log(pkgManager);
-
   const { customCommand } =
     FRAMEWORKS.flatMap((f) => f.variants).find((v) => v.value === template) ?? {};
 
@@ -185,7 +400,7 @@ async function init() {
 
   log.step(green(`ℹ️ Scaffolding project in ${root}...`));
 
-  // 6️⃣ Copy template files
+  // 7️⃣ Copy template files (for Express, Fastify, Django)
   const variantEntry = FRAMEWORKS.flatMap((f) =>
     f.variants.map((v) => ({ ...v, framework: f.value })),
   ).find((v) => v.value === template);
@@ -202,23 +417,21 @@ async function init() {
     );
   }
 
-  copyDir(templateDir, root);
+  if (!isDryRun) {
+    copyDir(templateDir, root);
 
-  if (template.includes('express') || template.includes('fastify')) {
-    updatePackageName(path.join(root, 'package.json'), packageName);
+    if (template.includes('express') || template.includes('fastify')) {
+      updatePackageName(path.join(root, 'package.json'), packageName);
+    }
   }
 
-  // 7️⃣ Running addons if specified
-  // Start with the -a/-addons value (if any)
+  // 8️⃣ Running addons if specified
   let addons: string[] = addonsArg ? addonsArg.split(/\s+/).filter(Boolean) : [];
-
-  // Include any extra positional arguments after the project name
   addons = addons.concat(argv._.slice(1));
 
   let inStallCommand = false;
 
-  if (addons.length > 0) {
-    // Installing dependencies
+  if (addons.length > 0 && !isDryRun) {
     const installResult = spawn.sync(pkgManager, ['install'], { cwd: root, stdio: 'inherit' });
     if (installResult.status !== 0) {
       log.warn(red(`🚨 'npm install' failed. Please run '${pkgManager} install' manually.`));
@@ -228,7 +441,6 @@ async function init() {
       log.success(green(`✅ Dependencies installed successfully!`));
     }
 
-    // Initializing servest
     const initResult = spawn.sync('npx', ['servest@latest', 'init'], {
       cwd: root,
       stdio: 'inherit',
@@ -242,11 +454,8 @@ async function init() {
       process.exit(initResult.status ?? 1);
     }
 
-    //  Checking if config exists
     const servestConfig = getIServestConfig(root);
-
     if (servestConfig) {
-      // Running all addons in a single command
       const { status } = spawn.sync('npx', ['servest@latest', 'add', ...addons], {
         cwd: root,
         stdio: 'inherit',
@@ -264,7 +473,7 @@ async function init() {
     }
   }
 
-  // 8️⃣ Displaying outro message
+  // 9️⃣ Outro for other templates
   const cdProjectName = path.relative(cwd, root);
   const cdCommand =
     root !== cwd ? `cd ${cdProjectName.includes(' ') ? `"${cdProjectName}"` : cdProjectName}` : '';
@@ -282,14 +491,11 @@ async function init() {
           ? ['npm run start']
           : ['npm install', 'npm run start'];
 
-  let finalMessage = `'🎉 Done. Now run:', ${cdCommand}`;
+  const finalMessage = ['Done. Now run:', cdCommand, ...installCommands]
+    .filter(Boolean)
+    .map((line) => `  ${line}`)
+    .join('\n');
 
-  if (template.includes('express') || template.includes('fastify')) {
-    finalMessage = ['Done. Now run:', cdCommand, ...installCommands]
-      .filter(Boolean)
-      .map((line) => `  ${line}`)
-      .join('\n');
-  }
   outro(green(finalMessage));
 }
 

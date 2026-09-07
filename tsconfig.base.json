@@ -9,8 +9,11 @@
     "forceConsistentCasingInFileNames": true,
     "types": ["node"],
     "allowImportingTsExtensions": true,
+    "noEmit": true,
     "noUnusedLocals": true,
     "sourceMap": true,
     "resolveJsonModule": true
-  }
+  },
+  "files": [],
+  "exclude": ["node_modules", "dist", "**/templates/**", "**/.next/**"]
 }
