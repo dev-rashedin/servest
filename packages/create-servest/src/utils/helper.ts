@@ -1,8 +1,27 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import spawn from 'cross-spawn';
 
 export function formatTargetDir(targetDir: string): string {
   return targetDir.trim().replace(/[/\\]+$/g, '');
+}
+
+export function getDotnetTargetFramework(): string {
+  try {
+    const result = spawn.sync('dotnet', ['--version'], { encoding: 'utf-8' });
+    if (result.status === 0 && result.stdout) {
+      const match = /^(\d+)\./.exec(result.stdout.trim());
+      if (match && match[1]) {
+        const major = parseInt(match[1], 10);
+        if (major >= 8) {
+          return `net${major}.0`;
+        }
+      }
+    }
+  } catch {
+    // fallback
+  }
+  return 'net9.0';
 }
 
 export function copy(src: string, dest: string): void {
@@ -144,4 +163,110 @@ export function getFullCustomCommand(customCommand: string, pkgInfo?: IPkgInfo):
         return 'npm exec';
       })
   );
+}
+
+export function toPascalCase(str: string): string {
+  return str
+    .replace(/[^a-z0-9]+(.)/gi, (_, chr) => chr.toUpperCase())
+    .replace(/^[a-z]/, (chr) => chr.toUpperCase())
+    .replace(/[^a-z0-9]/gi, '');
+}
+
+export function updateDotnetProject(root: string, projectName: string): void {
+  const appName = toPascalCase(projectName);
+  const targetFramework = getDotnetTargetFramework();
+
+  // 1. Replace placeholder 'Template' and TargetFramework inside all text files
+  const replaceContent = (dir: string) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        replaceContent(fullPath);
+      } else if (entry.isFile()) {
+        const ext = path.extname(entry.name);
+        if (
+          ['.cs', '.csproj', '.sln', '.json', '.md', '.env'].includes(ext) ||
+          entry.name === 'Dockerfile' ||
+          entry.name === '.dockerignore' ||
+          entry.name === '.env'
+        ) {
+          let content = fs.readFileSync(fullPath, 'utf-8');
+          content = content.replaceAll('Template', appName);
+          if (ext === '.csproj' && targetFramework !== 'net9.0') {
+            content = content.replaceAll(
+              '<TargetFramework>net9.0</TargetFramework>',
+              `<TargetFramework>${targetFramework}</TargetFramework>`,
+            );
+          }
+          fs.writeFileSync(fullPath, content, 'utf-8');
+        }
+      }
+    }
+  };
+
+  replaceContent(root);
+
+  // 2. Rename files and folders bottom-up safely
+  const collectRenames = (dir: string): { files: string[]; dirs: string[] } => {
+    const files: string[] = [];
+    const dirs: string[] = [];
+
+    const walk = (current: string) => {
+      const entries = fs.readdirSync(current, { withFileTypes: true });
+      for (const entry of entries) {
+        const fullPath = path.join(current, entry.name);
+        if (entry.isDirectory()) {
+          walk(fullPath);
+          if (entry.name.includes('Template')) {
+            dirs.push(fullPath);
+          }
+        } else if (entry.isFile()) {
+          if (entry.name.includes('Template')) {
+            files.push(fullPath);
+          }
+        }
+      }
+    };
+
+    walk(dir);
+    return { files, dirs };
+  };
+
+  const safeRename = (oldPath: string, newPath: string) => {
+    for (let i = 0; i < 10; i++) {
+      try {
+        fs.renameSync(oldPath, newPath);
+        return;
+      } catch (err: any) {
+        if ((err.code === 'EPERM' || err.code === 'EBUSY' || err.code === 'EACCES') && i < 9) {
+          const waitTill = Date.now() + 50;
+          while (Date.now() < waitTill) {
+            // spin-wait for Windows file unlock
+          }
+        } else {
+          throw err;
+        }
+      }
+    }
+  };
+
+  const { files, dirs } = collectRenames(root);
+
+  for (const filePath of files) {
+    const parent = path.dirname(filePath);
+    const base = path.basename(filePath);
+    const newPath = path.join(parent, base.replaceAll('Template', appName));
+    if (filePath !== newPath && fs.existsSync(filePath)) {
+      safeRename(filePath, newPath);
+    }
+  }
+
+  for (const dirPath of dirs) {
+    const parent = path.dirname(dirPath);
+    const base = path.basename(dirPath);
+    const newPath = path.join(parent, base.replaceAll('Template', appName));
+    if (dirPath !== newPath && fs.existsSync(dirPath)) {
+      safeRename(dirPath, newPath);
+    }
+  }
 }

@@ -1,0 +1,22 @@
+## Build and IDE outputs
+[Bb]in/
+[Oo]bj/
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Database & Local Storage
+*.db
+*.db-shm
+*.db-wal
+
+## Logs & Environment Secrets
+*.log
+appsettings.Production.json
+appsettings.local.json
+.env
+.env.*
+!.env.example

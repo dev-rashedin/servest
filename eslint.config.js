@@ -147,4 +147,13 @@ export default tseslint.config(
       },
     },
   },
+  {
+    name: 'app-frontend',
+    files: ['app/**/*.{js,jsx,ts,tsx}'],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+      },
+    },
+  },
 );
